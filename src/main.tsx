@@ -40,6 +40,13 @@ type Manifest = {
   gallery?: Array<{ id: string; title: string; src: string; caption?: string }>;
 };
 
+type ShowcaseItem = {
+  id: string;
+  title: string;
+  subtitle: string;
+  src: string;
+};
+
 const fallbackManifest: Manifest = {
   schema_version: 1,
   paper: {
@@ -103,6 +110,8 @@ function App() {
 
   const selectedRun = taskRuns.find((run) => run.case_id === caseId && run.model === model && run.spec === spec && run.format === format);
   const selectedCase = manifest.cases.find((item) => item.id === caseId);
+  const showcaseItems = useMemo(() => buildShowcaseItems(manifest), [manifest]);
+  const visibleTasks = useMemo(() => manifest.tasks.filter((item) => item.status === "interactive"), [manifest]);
 
   useEffect(() => {
     const path = selectedRun?.assets.generated;
@@ -132,7 +141,10 @@ function App() {
       <section id="top" className="hero">
         <div className="hero-copy">
           <p className="eyebrow">Parametric 3D CAD Benchmark</p>
-          <h1>{paper.title}</h1>
+          <h1 className="hero-title">
+            <span>P3D-Bench</span>
+            <small>Benchmarking MLLMs for <em>Parametric 3D</em> Generation and <em>Structural Reasoning</em></small>
+          </h1>
           <div className="authors">
             {paper.authors.map((author) => <span className="author-name" key={author}>{renderAuthor(author)}</span>)}
           </div>
@@ -156,11 +168,11 @@ function App() {
       </section>
 
       <section className="task-strip">
-        {manifest.tasks.map((item) => (
+        {visibleTasks.map((item) => (
           <button key={item.id} className={task === item.id ? "task-card active" : "task-card"} onClick={() => setTask(item.id)}>
             <span>{item.label}</span>
             <strong>{item.formats.join(" / ")}</strong>
-            <em>{item.status === "interactive" ? "interactive" : "slot reserved"}</em>
+            <em>interactive demo bundle</em>
           </button>
         ))}
       </section>
@@ -218,17 +230,10 @@ function App() {
 
       <section id="gallery" className="section">
         <div className="section-heading">
-          <p className="eyebrow">Pre-rendered Cases</p>
-          <h2>Small gallery of mesh/render results for fast visual inspection.</h2>
+          <p className="eyebrow">Text-to-3D Render Showcase</p>
+          <h2>Executable CAD programs rendered into a curated result wall.</h2>
         </div>
-        <div className="gallery">
-          {(manifest.gallery || []).length ? manifest.gallery!.map((item) => (
-            <figure key={item.id} className="gallery-card">
-              <img src={asset(item.src)} alt={item.title} />
-              <figcaption><strong>{item.title}</strong><span>{item.caption}</span></figcaption>
-            </figure>
-          )) : <Placeholder title="Gallery assets reserved" text="The gallery builder is included; add curated local mesh renders to publish this section." />}
-        </div>
+        <RenderShowcase items={showcaseItems} />
       </section>
 
       <section id="citation" className="section citation">
@@ -245,6 +250,83 @@ function App() {
     </main>
   );
 }
+
+function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
+  const modelCycle = ["gemini-reason", "claude-reason", "qwen-reason", "gpt55-reason"];
+  const formatCycle = ["json", "openscad", "json", "openscad"];
+  const modelLabel = new Map(manifest.models.map((model) => [model.id, model.label]));
+  const runsByCase = new Map<string, Run[]>();
+  manifest.runs
+    .filter((run) => run.task === "text2cad" && run.assets.pred_render && run.valid !== false)
+    .forEach((run) => {
+      const runs = runsByCase.get(run.case_id) || [];
+      runs.push(run);
+      runsByCase.set(run.case_id, runs);
+    });
+
+  return manifest.cases
+    .filter((item) => item.task === "text2cad")
+    .map((item, index) => {
+      const targetModel = modelCycle[index % modelCycle.length];
+      const targetFormat = formatCycle[index % formatCycle.length];
+      const run = [...(runsByCase.get(item.id) || [])].sort((a, b) => {
+        const modelDelta = Number(a.model !== targetModel) - Number(b.model !== targetModel);
+        if (modelDelta) return modelDelta;
+        const formatDelta = Number(a.format !== targetFormat) - Number(b.format !== targetFormat);
+        if (formatDelta) return formatDelta;
+        return a.id.localeCompare(b.id);
+      })[0];
+      return run;
+    })
+    .filter((run): run is Run => Boolean(run))
+    .map((run) => ({
+      id: run.id,
+      title: `Case ${run.case_id.split("/").pop() || run.case_id}`,
+      subtitle: `${modelLabel.get(run.model) || run.model} / ${run.format.toUpperCase()}`,
+      src: run.assets.pred_render || "",
+    }));
+}
+
+function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
+  if (!items.length) {
+    return <Placeholder title="Render showcase reserved" text="Curated demo renders will appear here when bundled." />;
+  }
+  const featured = items.slice(0, 3);
+  const grid = items.slice(3, 10);
+  return (
+    <div className="render-showcase">
+      <div className="showcase-stage">
+        <div className="stage-ring" />
+        <div className="stage-label">
+          <span>Text-to-3D</span>
+          <strong>{items.length} bundled cases</strong>
+        </div>
+        {featured.map((item, index) => (
+          <figure className={`turntable-card turntable-card-${index + 1}`} key={item.id}>
+            <img src={asset(item.src)} alt={item.title} />
+            <figcaption>
+              <strong>{item.title}</strong>
+              <span>{item.subtitle}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <div className="render-grid">
+        {grid.map((item, index) => (
+          <figure className="render-tile" style={{ "--tile-accent": tileColors[index % tileColors.length] } as React.CSSProperties} key={item.id}>
+            <img src={asset(item.src)} alt={item.title} />
+            <figcaption>
+              <strong>{item.title}</strong>
+              <span>{item.subtitle}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const tileColors = ["#16a47a", "#2d69c4", "#d8733f", "#7668d8", "#0e9daa", "#d19b2d"];
 
 function Select({ label, value, options, onChange }: { label: string; value: string; options: string[][]; onChange: (value: string) => void }) {
   return (
@@ -349,9 +431,9 @@ function getMetricEntries(run?: Run) {
   if (!run) return [];
   const metrics = run.metrics || {};
   const keys = [
-    ...metricOrder.filter((key) => hasMetricValue(metrics[key])),
+    ...metricOrder.filter((key) => isVisibleMetric(key, metrics[key], run)),
     ...Object.keys(metrics)
-      .filter((key) => !metricOrder.includes(key) && hasMetricValue(metrics[key]))
+      .filter((key) => !metricOrder.includes(key) && isVisibleMetric(key, metrics[key], run))
       .sort(),
   ];
   const entries = keys.map((key) => ({
@@ -363,6 +445,13 @@ function getMetricEntries(run?: Run) {
     entries.unshift({ key: "valid", label: "Valid", value: run.valid ? "yes" : "no" });
   }
   return entries;
+}
+
+function isVisibleMetric(key: string, value: unknown, run: Run) {
+  if (!hasMetricValue(value)) return false;
+  if (key === "qa_parametric" && run.spec !== "parametric") return false;
+  if (key === "qa_parametric" && typeof value === "number" && value <= 0) return false;
+  return true;
 }
 
 function hasMetricValue(value: unknown) {

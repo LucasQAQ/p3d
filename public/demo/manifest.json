@@ -129,9 +129,8 @@
         "mesh": "runs/text2cad_0001_00017063_descriptive_json_gpt55-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_geometry": 2,
         "judge_semantic": 2,
         "judge_aesthetics": 3
@@ -153,9 +152,8 @@
         "mesh": "runs/text2cad_0092_00923543_descriptive_json_gpt55-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -175,9 +173,8 @@
         "mesh": "runs/text2cad_0013_00132038_descriptive_json_gpt55-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 6
       }
     },
@@ -199,7 +196,6 @@
       "metrics": {
         "qa_overall": 0.75,
         "qa_semantic": 0.75,
-        "qa_parametric": 0.0,
         "judge_semantic": 3
       }
     },
@@ -219,9 +215,8 @@
         "mesh": "runs/text2cad_0046_00460772_descriptive_json_gpt55-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -243,7 +238,6 @@
       "metrics": {
         "qa_overall": 0.75,
         "qa_semantic": 0.75,
-        "qa_parametric": 0.0,
         "judge_semantic": 8
       }
     },
@@ -263,9 +257,8 @@
         "mesh": "runs/text2cad_0001_00017063_descriptive_json_gemini-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_geometry": 3,
         "judge_semantic": 5,
         "judge_aesthetics": 4
@@ -287,9 +280,8 @@
         "mesh": "runs/text2cad_0092_00923543_descriptive_json_gemini-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 8
       }
     },
@@ -309,9 +301,8 @@
         "mesh": "runs/text2cad_0013_00132038_descriptive_json_gemini-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -331,9 +322,8 @@
         "mesh": "runs/text2cad_0062_00621494_descriptive_json_gemini-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 6
       }
     },
@@ -353,9 +343,8 @@
         "mesh": "runs/text2cad_0046_00460772_descriptive_json_gemini-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -377,7 +366,6 @@
       "metrics": {
         "qa_overall": 0.75,
         "qa_semantic": 0.75,
-        "qa_parametric": 0.0,
         "judge_semantic": 7
       }
     },
@@ -399,7 +387,6 @@
       "metrics": {
         "qa_overall": 0.75,
         "qa_semantic": 0.75,
-        "qa_parametric": 0.0,
         "judge_geometry": 2,
         "judge_semantic": 4,
         "judge_aesthetics": 3
@@ -421,9 +408,8 @@
         "mesh": "runs/text2cad_0092_00923543_descriptive_json_claude-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -443,9 +429,8 @@
         "mesh": "runs/text2cad_0013_00132038_descriptive_json_claude-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -467,7 +452,6 @@
       "metrics": {
         "qa_overall": 0.75,
         "qa_semantic": 0.75,
-        "qa_parametric": 0.0,
         "judge_semantic": 3
       }
     },
@@ -487,9 +471,8 @@
         "mesh": "runs/text2cad_0046_00460772_descriptive_json_claude-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -509,9 +492,8 @@
         "mesh": "runs/text2cad_0093_00934405_descriptive_json_claude-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 6
       }
     },
@@ -533,7 +515,6 @@
       "metrics": {
         "qa_overall": 0.25,
         "qa_semantic": 0.25,
-        "qa_parametric": 0.0,
         "judge_geometry": 1,
         "judge_semantic": 1,
         "judge_aesthetics": 2
@@ -555,9 +536,8 @@
         "mesh": "runs/text2cad_0092_00923543_descriptive_json_qwen-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 0.0,
-        "qa_semantic": 0.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 0,
+        "qa_semantic": 0,
         "judge_semantic": 4
       }
     },
@@ -579,7 +559,6 @@
       "metrics": {
         "qa_overall": 0.25,
         "qa_semantic": 0.25,
-        "qa_parametric": 0.0,
         "judge_semantic": 3
       }
     },
@@ -616,7 +595,6 @@
       "metrics": {
         "qa_overall": 0.75,
         "qa_semantic": 0.75,
-        "qa_parametric": 0.0,
         "judge_semantic": 8
       }
     },
@@ -636,9 +614,8 @@
         "mesh": "runs/text2cad_0093_00934405_descriptive_json_qwen-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 0.0,
-        "qa_semantic": 0.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 0,
+        "qa_semantic": 0,
         "judge_semantic": 1
       }
     },
@@ -662,9 +639,9 @@
         "normal_consistency": 0.5764,
         "iou_voxel": 0.4707,
         "iou_csg": 0.4373,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.25,
-        "qa_semantic": 0.0,
+        "qa_semantic": 0,
         "qa_parametric": 0.375
       }
     },
@@ -688,7 +665,7 @@
         "normal_consistency": 0.6982,
         "iou_voxel": 0.5698,
         "iou_csg": 0.5235,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -711,7 +688,7 @@
         "normal_consistency": 0.5827,
         "iou_voxel": 0.5513,
         "iou_csg": 0.5386,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -734,10 +711,10 @@
         "normal_consistency": 0.8952,
         "iou_voxel": 0.7019,
         "iou_csg": 0.6589,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.75,
         "qa_semantic": 0.25,
-        "qa_parametric": 1.0
+        "qa_parametric": 1
       }
     },
     {
@@ -760,7 +737,7 @@
         "normal_consistency": 0.8964,
         "iou_voxel": 0.9152,
         "iou_csg": 0.9176,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -804,7 +781,7 @@
         "normal_consistency": 0.5457,
         "iou_voxel": 0.4421,
         "iou_csg": 0.418,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -827,7 +804,7 @@
         "normal_consistency": 0.681,
         "iou_voxel": 0.4543,
         "iou_csg": 0.4985,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -850,7 +827,7 @@
         "normal_consistency": 0.5931,
         "iou_voxel": 0.3824,
         "iou_csg": 0.3881,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -873,10 +850,10 @@
         "normal_consistency": 0.5724,
         "iou_voxel": 0.1163,
         "iou_csg": 0.0973,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.6667,
-        "qa_semantic": 0.0,
-        "qa_parametric": 1.0
+        "qa_semantic": 0,
+        "qa_parametric": 1
       }
     },
     {
@@ -899,7 +876,7 @@
         "normal_consistency": 0.4664,
         "iou_voxel": 0.2107,
         "iou_csg": 0.1807,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -946,7 +923,7 @@
         "normal_consistency": 0.5928,
         "iou_voxel": 0.4658,
         "iou_csg": 0.4388,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -969,7 +946,7 @@
         "normal_consistency": 0.5445,
         "iou_voxel": 0.2868,
         "iou_csg": 0.1765,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -995,7 +972,7 @@
         "normal_consistency": 0.5987,
         "iou_voxel": 0.5428,
         "iou_csg": 0.5414,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -1018,7 +995,7 @@
         "normal_consistency": 0.8751,
         "iou_voxel": 0.544,
         "iou_csg": 0.5217,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -1041,7 +1018,7 @@
         "normal_consistency": 0.4342,
         "iou_voxel": 0.1555,
         "iou_csg": 0.1274,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -1088,7 +1065,7 @@
         "normal_consistency": 0.539,
         "iou_voxel": 0.4561,
         "iou_csg": 0.4211,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -1111,7 +1088,7 @@
         "normal_consistency": 0.6817,
         "iou_voxel": 0.4543,
         "iou_csg": 0.4967,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -1134,7 +1111,7 @@
         "normal_consistency": 0.6162,
         "iou_voxel": 0.2653,
         "iou_csg": 0.255,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -1178,7 +1155,7 @@
         "normal_consistency": 0.5193,
         "iou_voxel": 0.3256,
         "iou_csg": 0.307,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -1199,7 +1176,7 @@
         "f_score_005": 0.7046,
         "f_score_001": 0.1041,
         "normal_consistency": 0.5855,
-        "pred_open_edge_ratio": 0.0
+        "pred_open_edge_ratio": 0
       }
     },
     {
@@ -1218,9 +1195,8 @@
         "mesh": "runs/text2cad_0001_00017063_descriptive_openscad_gpt55-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 9
       }
     },
@@ -1240,9 +1216,8 @@
         "mesh": "runs/text2cad_0092_00923543_descriptive_openscad_gpt55-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -1262,9 +1237,8 @@
         "mesh": "runs/text2cad_0013_00132038_descriptive_openscad_gpt55-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 8
       }
     },
@@ -1286,7 +1260,6 @@
       "metrics": {
         "qa_overall": 0.75,
         "qa_semantic": 0.75,
-        "qa_parametric": 0.0,
         "judge_semantic": 4
       }
     },
@@ -1306,9 +1279,8 @@
         "mesh": "runs/text2cad_0046_00460772_descriptive_openscad_gpt55-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -1328,9 +1300,8 @@
         "mesh": "runs/text2cad_0093_00934405_descriptive_openscad_gpt55-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -1350,9 +1321,8 @@
         "mesh": "runs/text2cad_0001_00017063_descriptive_openscad_gemini-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 8
       }
     },
@@ -1372,9 +1342,8 @@
         "mesh": "runs/text2cad_0092_00923543_descriptive_openscad_gemini-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -1394,9 +1363,8 @@
         "mesh": "runs/text2cad_0013_00132038_descriptive_openscad_gemini-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 8
       }
     },
@@ -1416,9 +1384,8 @@
         "mesh": "runs/text2cad_0062_00621494_descriptive_openscad_gemini-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 4
       }
     },
@@ -1438,9 +1405,8 @@
         "mesh": "runs/text2cad_0046_00460772_descriptive_openscad_gemini-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -1460,9 +1426,8 @@
         "mesh": "runs/text2cad_0093_00934405_descriptive_openscad_gemini-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -1484,7 +1449,6 @@
       "metrics": {
         "qa_overall": 0.75,
         "qa_semantic": 0.75,
-        "qa_parametric": 0.0,
         "judge_semantic": 10
       }
     },
@@ -1504,9 +1468,8 @@
         "mesh": "runs/text2cad_0092_00923543_descriptive_openscad_claude-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 8
       }
     },
@@ -1526,9 +1489,8 @@
         "mesh": "runs/text2cad_0013_00132038_descriptive_openscad_claude-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -1564,9 +1526,8 @@
         "mesh": "runs/text2cad_0046_00460772_descriptive_openscad_claude-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -1586,9 +1547,8 @@
         "mesh": "runs/text2cad_0093_00934405_descriptive_openscad_claude-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 10
       }
     },
@@ -1608,9 +1568,8 @@
         "mesh": "runs/text2cad_0001_00017063_descriptive_openscad_qwen-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 0.0,
-        "qa_semantic": 0.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 0,
+        "qa_semantic": 0,
         "judge_semantic": 5
       }
     },
@@ -1632,7 +1591,6 @@
       "metrics": {
         "qa_overall": 0.5,
         "qa_semantic": 0.5,
-        "qa_parametric": 0.0,
         "judge_semantic": 3
       }
     },
@@ -1652,9 +1610,8 @@
         "mesh": "runs/text2cad_0013_00132038_descriptive_openscad_qwen-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 8
       }
     },
@@ -1674,9 +1631,8 @@
         "mesh": "runs/text2cad_0062_00621494_descriptive_openscad_qwen-reason/model.stl"
       },
       "metrics": {
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 0.0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
         "judge_semantic": 3
       }
     },
@@ -1698,7 +1654,6 @@
       "metrics": {
         "qa_overall": 0.5,
         "qa_semantic": 0.5,
-        "qa_parametric": 0.0,
         "judge_semantic": 6
       }
     },
@@ -1720,7 +1675,6 @@
       "metrics": {
         "qa_overall": 0.75,
         "qa_semantic": 0.75,
-        "qa_parametric": 0.0,
         "judge_semantic": 8
       }
     },
@@ -1747,7 +1701,7 @@
         "normal_consistency": 0.5461,
         "iou_voxel": 0.4365,
         "iou_csg": 0.4217,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.25,
         "qa_semantic": 0.5,
         "qa_parametric": 0.125
@@ -1776,10 +1730,10 @@
         "normal_consistency": 0.6716,
         "iou_voxel": 0.4851,
         "iou_csg": 0.4901,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.9167,
         "qa_semantic": 0.75,
-        "qa_parametric": 1.0
+        "qa_parametric": 1
       }
     },
     {
@@ -1805,9 +1759,9 @@
         "normal_consistency": 0.5905,
         "iou_voxel": 0.5398,
         "iou_csg": 0.525,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.8333,
-        "qa_semantic": 1.0,
+        "qa_semantic": 1,
         "qa_parametric": 0.75
       }
     },
@@ -1834,10 +1788,10 @@
         "normal_consistency": 0.8665,
         "iou_voxel": 0.6067,
         "iou_csg": 0.5711,
-        "pred_open_edge_ratio": 0.0,
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 1.0
+        "pred_open_edge_ratio": 0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
+        "qa_parametric": 1
       }
     },
     {
@@ -1856,17 +1810,17 @@
         "mesh": "runs/text2cad_0046_00460772_parametric_openscad_gpt55-reason/model.stl"
       },
       "metrics": {
-        "chamfer_distance": 4.7e-05,
+        "chamfer_distance": 0.000047,
         "hausdorff_distance": 0.041216,
         "f_score_005": 0.9996,
         "f_score_001": 0.804,
         "normal_consistency": 0.9141,
         "iou_voxel": 0.9862,
         "iou_csg": 0.9775,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.75,
         "qa_semantic": 0.25,
-        "qa_parametric": 1.0
+        "qa_parametric": 1
       }
     },
     {
@@ -1890,10 +1844,10 @@
         "f_score_005": 0.7256,
         "f_score_001": 0.1493,
         "normal_consistency": 0.5746,
-        "pred_open_edge_ratio": 0.0,
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0,
-        "qa_parametric": 1.0
+        "pred_open_edge_ratio": 0,
+        "qa_overall": 1,
+        "qa_semantic": 1,
+        "qa_parametric": 1
       }
     },
     {
@@ -1919,10 +1873,9 @@
         "normal_consistency": 0.55,
         "iou_voxel": 0.4561,
         "iou_csg": 0.424,
-        "pred_open_edge_ratio": 0.0,
-        "qa_overall": 0.0,
-        "qa_semantic": 0.0,
-        "qa_parametric": 0.0
+        "pred_open_edge_ratio": 0,
+        "qa_overall": 0,
+        "qa_semantic": 0
       }
     },
     {
@@ -1948,10 +1901,10 @@
         "normal_consistency": 0.6626,
         "iou_voxel": 0.527,
         "iou_csg": 0.5179,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.9167,
         "qa_semantic": 0.75,
-        "qa_parametric": 1.0
+        "qa_parametric": 1
       }
     },
     {
@@ -1977,10 +1930,10 @@
         "normal_consistency": 0.5456,
         "iou_voxel": 0.544,
         "iou_csg": 0.5353,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.9167,
         "qa_semantic": 0.75,
-        "qa_parametric": 1.0
+        "qa_parametric": 1
       }
     },
     {
@@ -2006,10 +1959,10 @@
         "normal_consistency": 0.851,
         "iou_voxel": 0.5471,
         "iou_csg": 0.5095,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.9167,
         "qa_semantic": 0.75,
-        "qa_parametric": 1.0
+        "qa_parametric": 1
       }
     },
     {
@@ -2035,9 +1988,9 @@
         "normal_consistency": 0.5676,
         "iou_voxel": 0.3064,
         "iou_csg": 0.2812,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.5833,
-        "qa_semantic": 0.0,
+        "qa_semantic": 0,
         "qa_parametric": 0.875
       }
     },
@@ -2062,7 +2015,7 @@
         "f_score_005": 0.7346,
         "f_score_001": 0.1428,
         "normal_consistency": 0.602,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.75,
         "qa_semantic": 0.75,
         "qa_parametric": 0.75
@@ -2091,7 +2044,7 @@
         "normal_consistency": 0.5672,
         "iou_voxel": 0.4629,
         "iou_csg": 0.4381,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.25,
         "qa_semantic": 0.5,
         "qa_parametric": 0.125
@@ -2120,7 +2073,7 @@
         "normal_consistency": 0.5335,
         "iou_voxel": 0.2664,
         "iou_csg": 0.1833,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.5,
         "qa_semantic": 0.5,
         "qa_parametric": 0.5
@@ -2149,10 +2102,9 @@
         "normal_consistency": 0.6024,
         "iou_voxel": 0.4964,
         "iou_csg": 0.4985,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.1667,
-        "qa_semantic": 0.5,
-        "qa_parametric": 0.0
+        "qa_semantic": 0.5
       }
     },
     {
@@ -2178,10 +2130,10 @@
         "normal_consistency": 0.4512,
         "iou_voxel": 0.1461,
         "iou_csg": 0.1192,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.9167,
         "qa_semantic": 0.75,
-        "qa_parametric": 1.0
+        "qa_parametric": 1
       }
     },
     {
@@ -2207,7 +2159,7 @@
         "normal_consistency": 0.6411,
         "iou_voxel": 0.2893,
         "iou_csg": 0.2402,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.6667,
         "qa_semantic": 0.25,
         "qa_parametric": 0.875
@@ -2234,7 +2186,7 @@
         "f_score_005": 0.6243,
         "f_score_001": 0.139,
         "normal_consistency": 0.491,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.5,
         "qa_semantic": 0.25,
         "qa_parametric": 0.625
@@ -2263,10 +2215,9 @@
         "normal_consistency": 0.55,
         "iou_voxel": 0.4561,
         "iou_csg": 0.4241,
-        "pred_open_edge_ratio": 0.0,
-        "qa_overall": 0.0,
-        "qa_semantic": 0.0,
-        "qa_parametric": 0.0
+        "pred_open_edge_ratio": 0,
+        "qa_overall": 0,
+        "qa_semantic": 0
       }
     },
     {
@@ -2292,10 +2243,10 @@
         "normal_consistency": 0.68,
         "iou_voxel": 0.5635,
         "iou_csg": 0.5271,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.9167,
         "qa_semantic": 0.75,
-        "qa_parametric": 1.0
+        "qa_parametric": 1
       }
     },
     {
@@ -2321,10 +2272,9 @@
         "normal_consistency": 0.6448,
         "iou_voxel": 0.5715,
         "iou_csg": 0.5827,
-        "pred_open_edge_ratio": 0.0,
-        "qa_overall": 0.0,
-        "qa_semantic": 0.0,
-        "qa_parametric": 0.0
+        "pred_open_edge_ratio": 0,
+        "qa_overall": 0,
+        "qa_semantic": 0
       }
     },
     {
@@ -2350,10 +2300,10 @@
         "normal_consistency": 0.403,
         "iou_voxel": 0.0663,
         "iou_csg": 0.0489,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.9167,
         "qa_semantic": 0.75,
-        "qa_parametric": 1.0
+        "qa_parametric": 1
       }
     },
     {
@@ -2379,7 +2329,7 @@
         "normal_consistency": 0.4583,
         "iou_voxel": 0.2469,
         "iou_csg": 0.2208,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.8333,
         "qa_semantic": 0.75,
         "qa_parametric": 0.875
@@ -2406,7 +2356,7 @@
         "f_score_005": 0.3249,
         "f_score_001": 0.029,
         "normal_consistency": 0.5224,
-        "pred_open_edge_ratio": 0.0,
+        "pred_open_edge_ratio": 0,
         "qa_overall": 0.5833,
         "qa_semantic": 0.5,
         "qa_parametric": 0.625
@@ -2416,8 +2366,8 @@
   "figures": [
     {
       "id": "teaser",
-      "title": "Qualitative OpenSCAD outputs across P3D-Bench tasks",
-      "src": "figures/web_teaser_qualitative.png"
+      "title": "Text-to-3D executable CAD render wall",
+      "src": "figures/web_teaser_text2cad_wall.png"
     },
     {
       "id": "pipeline",
@@ -2430,24 +2380,5 @@
       "src": "figures/fig1_teaser.png"
     }
   ],
-  "gallery": [
-    {
-      "id": "qual_text2cad",
-      "title": "Text-to-3D qualitative cases",
-      "src": "gallery/qualitative_text2cad_6x6_with_scores_openscad.png",
-      "caption": "OpenSCAD outputs with per-case scores"
-    },
-    {
-      "id": "qual_image2cad",
-      "title": "Image-to-3D qualitative cases",
-      "src": "gallery/qualitative_image2cad_6x6_with_scores_openscad.png",
-      "caption": "OpenSCAD outputs with per-case scores"
-    },
-    {
-      "id": "qual_textimage2cad",
-      "title": "Assembly-3D qualitative cases",
-      "src": "gallery/qualitative_textimage2cad_6x6_with_scores_openscad.png",
-      "caption": "OpenSCAD outputs with per-case scores"
-    }
-  ]
+  "gallery": []
 }
