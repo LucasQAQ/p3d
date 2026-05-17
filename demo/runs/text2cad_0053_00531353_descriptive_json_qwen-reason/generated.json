@@ -1,0 +1,173 @@
+{
+  "parts": {
+    "part_1": {
+      "coordinate_system": {
+        "Euler Angles": [0.0, 0.0, 0.0],
+        "Translation Vector": [0.0, 0.0, 0.0]
+      },
+      "sketch": {
+        "face_1": {
+          "loop_1": {
+            "line_1": {
+              "Start Point": [-0.5, -0.25],
+              "End Point": [0.5, -0.25]
+            },
+            "arc_1": {
+              "Start Point": [0.5, -0.25],
+              "Mid Point": [0.75, 0.0],
+              "End Point": [0.5, 0.25]
+            },
+            "line_2": {
+              "Start Point": [0.5, 0.25],
+              "End Point": [-0.5, 0.25]
+            },
+            "arc_2": {
+              "Start Point": [-0.5, 0.25],
+              "Mid Point": [-0.75, 0.0],
+              "End Point": [-0.5, -0.25]
+            }
+          },
+          "loop_2": {
+            "circle_1": {
+              "Center": [-0.6, 0.0],
+              "Radius": 0.1
+            }
+          },
+          "loop_3": {
+            "circle_2": {
+              "Center": [0.6, 0.0],
+              "Radius": 0.1
+            }
+          }
+        },
+        "face_2": {
+          "loop_4": {
+            "line_3": {
+              "Start Point": [-0.2, -0.15],
+              "End Point": [0.2, -0.15]
+            },
+            "line_4": {
+              "Start Point": [0.2, -0.15],
+              "End Point": [0.2, 0.15]
+            },
+            "line_5": {
+              "Start Point": [0.2, 0.15],
+              "End Point": [-0.2, 0.15]
+            },
+            "line_6": {
+              "Start Point": [-0.2, 0.15],
+              "End Point": [-0.2, -0.15]
+            }
+          },
+          "loop_5": {
+            "circle_3": {
+              "Center": [0.0, 0.05],
+              "Radius": 0.05
+            }
+          },
+          "loop_6": {
+            "arc_3": {
+              "Start Point": [-0.15, 0.12],
+              "Mid Point": [0.0, 0.18],
+              "End Point": [0.15, 0.12]
+            },
+            "line_7": {
+              "Start Point": [0.15, 0.12],
+              "End Point": [-0.15, 0.12]
+            }
+          }
+        }
+      },
+      "extrusion": {
+        "extrude_depth_towards_normal": 0.1,
+        "extrude_depth_opposite_normal": 0.0,
+        "sketch_scale": 1.0,
+        "operation": "NewBodyFeatureOperation"
+      },
+      "part_2": {
+        "coordinate_system": {
+          "Euler Angles": [0.0, 0.0, 0.0],
+          "Translation Vector": [0.0, 0.0, 0.1]
+        },
+        "sketch": {
+          "face_1": {
+            "loop_7": {
+              "line_8": {
+                "Start Point": [-0.2, -0.15],
+                "End Point": [0.2, -0.15]
+              },
+              "line_9": {
+                "Start Point": [0.2, -0.15],
+                "End Point": [0.2, 0.15]
+              },
+              "line_10": {
+                "Start Point": [0.2, 0.15],
+                "End Point": [-0.2, 0.15]
+              },
+              "line_11": {
+                "Start Point": [-0.2, 0.15],
+                "End Point": [-0.2, -0.15]
+              }
+            },
+            "loop_8": {
+              "circle_4": {
+                "Center": [0.0, 0.05],
+                "Radius": 0.05
+              }
+            },
+            "loop_9": {
+              "arc_4": {
+                "Start Point": [-0.15, 0.12],
+                "Mid Point": [0.0, 0.18],
+                "End Point": [0.15, 0.12]
+              },
+              "line_12": {
+                "Start Point": [0.15, 0.12],
+                "End Point": [-0.15, 0.12]
+              }
+            }
+          }
+        },
+        "extrusion": {
+          "extrude_depth_towards_normal": 0.15,
+          "extrude_depth_opposite_normal": 0.0,
+          "sketch_scale": 1.0,
+          "operation": "JoinFeatureOperation"
+        }
+      },
+      "part_3": {
+        "coordinate_system": {
+          "Euler Angles": [0.0, 0.0, 0.0],
+          "Translation Vector": [0.0, 0.0, 0.1]
+        },
+        "sketch": {
+          "face_1": {
+            "loop_10": {
+              "circle_5": {
+                "Center": [0.0, 0.05],
+                "Radius": 0.05
+              }
+            },
+            "loop_11": {
+              "arc_5": {
+                "Start Point": [-0.15, 0.12],
+                "Mid Point": [0.0, 0.18],
+                "End Point": [0.15, 0.12]
+              },
+              "line_13": {
+                "Start Point": [0.15, 0.12],
+                "End Point": [-0.15, 0.12]
+              }
+            }
+          }
+        },
+        "extrusion": {
+          "extrude_depth_towards_normal": 0.1,
+          "extrude_depth_opposite_normal": 0.0,
+          "sketch_scale": 1.0,
+          "operation": "CutFeatureOperation"
+        }
+      }
+    }
+  }
+}
