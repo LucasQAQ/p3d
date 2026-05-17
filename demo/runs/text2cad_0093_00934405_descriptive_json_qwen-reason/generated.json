@@ -1,0 +1,56 @@
+{
+  "parts": {
+    "part_1": {
+      "coordinate_system": {
+        "Euler Angles": [0.0, 0.0, 0.0],
+        "Translation Vector": [0.0, 0.0, 0.0]
+      },
+      "sketch": {
+        "face_1": {
+          "loop_1": {
+            "line_1": {"Start Point": [0.0, 0.0], "End Point": [100.0, 0.0]},
+            "line_2": {"Start Point": [100.0, 0.0], "End Point": [100.0, 60.0]},
+            "line_3": {"Start Point": [100.0, 60.0], "End Point": [0.0, 60.0]},
+            "line_4": {"Start Point": [0.0, 60.0], "End Point": [0.0, 0.0]}
+          },
+          "loop_2": {
+            "circle_1": {"Center": [50.0, 30.0], "Radius": 20.0}
+          },
+          "loop_3": {
+            "line_1": {"Start Point": [20.0, 28.0], "End Point": [40.0, 28.0]},
+            "line_2": {"Start Point": [40.0, 28.0], "End Point": [40.0, 32.0]},
+            "line_3": {"Start Point": [40.0, 32.0], "End Point": [20.0, 32.0]},
+            "line_4": {"Start Point": [20.0, 32.0], "End Point": [20.0, 28.0]}
+          },
+          "loop_4": {
+            "line_1": {"Start Point": [60.0, 28.0], "End Point": [80.0, 28.0]},
+            "line_2": {"Start Point": [80.0, 28.0], "End Point": [80.0, 32.0]},
+            "line_3": {"Start Point": [80.0, 32.0], "End Point": [60.0, 32.0]},
+            "line_4": {"Start Point": [60.0, 32.0], "End Point": [60.0, 28.0]}
+          },
+          "loop_5": {
+            "circle_1": {"Center": [50.0, 30.0], "Radius": 28.0}
+          },
+          "loop_6": {
+            "line_1": {"Start Point": [30.0, 29.0], "End Point": [70.0, 29.0]},
+            "line_2": {"Start Point": [70.0, 29.0], "End Point": [70.0, 31.0]},
+            "line_3": {"Start Point": [70.0, 31.0], "End Point": [30.0, 31.0]},
+            "line_4": {"Start Point": [30.0, 31.0], "End Point": [30.0, 29.0]}
+          },
+          "loop_7": {
+            "circle_1": {"Center": [50.0, 48.0], "Radius": 12.0}
+          },
+          "loop_8": {
+            "circle_1": {"Center": [50.0, 48.0], "Radius": 6.0}
+          }
+        }
+      },
+      "extrusion": {
+        "extrude_depth_towards_normal": 8.0,
+        "extrude_depth_opposite_normal": 4.0,
+        "sketch_scale": 1.0,
+        "operation": "NewBodyFeatureOperation"
+      }
+    }
+  }
+}
