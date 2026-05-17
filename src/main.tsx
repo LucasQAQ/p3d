@@ -43,17 +43,17 @@ type Manifest = {
 const fallbackManifest: Manifest = {
   schema_version: 1,
   paper: {
-    title: "P3D-Bench: Evaluating Large Models for Parametric 3D CAD Generation",
-    authors: ["Yikang Yang", "Zhanpeng Hu", "Youtian Lin", "Mengqi Zhou", "Feihu Zhang", "Jiaheng Liu", "Yao Yao"],
-    affiliations: ["Nanjing University", "DreamTech"],
+    title: "P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning",
+    authors: ["Yikang Yang¹,²,*", "Zhanpeng Hu¹,*", "Youtian Lin¹,²", "Mengqi Zhou¹,²", "Feihu Zhang²", "Jiaheng Liu¹", "Yao Yao¹"],
+    affiliations: ["¹Nanjing University", "²DreamTech", "*Equal contribution."],
     abstract:
-      "P3D-Bench evaluates large models across parametric CAD tasks, executable output formats, and render-grounded quality metrics. The public demo highlights precomputed Text-to-3D results and provides local code for running small benchmark cases.",
+      "Multimodal large language models can write code and interpret rendered images of 3D designs, but it remains unclear whether they can produce executable parametric 3D programs that are geometrically precise, semantically aligned and assembly-consistent. We introduce P3D-Bench, a benchmark that evaluates this ability under a unified protocol across three task families: text-conditioned part synthesis, image-conditioned multi-part reconstruction and image-plus-annotation assembly composition, with metrics that jointly probe executability, geometric fidelity, topology, text-grounded constraints, multiview semantic alignment and part-level assembly structure.",
     links: { code: "https://github.com/LucasQAQ/p3d" }
   },
   tasks: [
     { id: "text2cad", label: "Text-to-3D", formats: ["JSON", "OpenSCAD"], status: "interactive" },
     { id: "image2cad", label: "Image-to-3D", formats: ["CadQuery", "OpenSCAD", "Three.js"], status: "reserved" },
-    { id: "text_image2cad", label: "Text+Image-to-3D", formats: ["CadQuery", "OpenSCAD"], status: "reserved" }
+    { id: "text_image2cad", label: "Assembly-3D", formats: ["CadQuery", "OpenSCAD"], status: "reserved" }
   ],
   models: [],
   cases: [],
@@ -134,9 +134,12 @@ function App() {
         <div className="hero-copy">
           <p className="eyebrow">Parametric 3D CAD Benchmark</p>
           <h1>{paper.title}</h1>
-          <p className="authors">{paper.authors.join(" · ")}</p>
-          <p className="affiliations">{paper.affiliations?.join(" · ")}</p>
-          <p className="abstract">{paper.abstract}</p>
+          <div className="authors">
+            {paper.authors.map((author) => <span className="author-name" key={author}>{renderAuthor(author)}</span>)}
+          </div>
+          <div className="affiliations">
+            {paper.affiliations?.map((affiliation) => <span className="affiliation-item" key={affiliation}>{renderAffiliation(affiliation)}</span>)}
+          </div>
           <div className="actions">
             <a href={paper.links?.paper || "#pipeline"}><BookOpen size={17} /> Paper</a>
             <a href={paper.links?.code || "https://github.com/LucasQAQ/p3d"}><Github size={17} /> Page Repo</a>
@@ -146,6 +149,10 @@ function App() {
         </div>
         <div className="hero-visual">
           <img src={asset(manifest.figures?.find((fig) => fig.id === "teaser")?.src || "figures/fig1_teaser.png")} alt="P3D-Bench teaser" />
+        </div>
+        <div className="abstract-panel">
+          <p className="eyebrow">Abstract</p>
+          <p className="abstract">{paper.abstract}</p>
         </div>
       </section>
 
@@ -241,7 +248,7 @@ function App() {
           <h2>BibTeX</h2>
         </div>
         <pre><code>{`@article{p3dbench2026,
-  title={P3D-Bench: Evaluating Large Models for Parametric 3D CAD Generation},
+  title={P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning},
   author={Yang, Yikang and Hu, Zhanpeng and Lin, Youtian and Zhou, Mengqi and Zhang, Feihu and Liu, Jiaheng and Yao, Yao},
   year={2026}
 }`}</code></pre>
@@ -261,6 +268,35 @@ function Select({ label, value, options, onChange }: { label: string; value: str
   );
 }
 
+const superscriptDigits: Record<string, string> = {
+  "⁰": "0",
+  "¹": "1",
+  "²": "2",
+  "³": "3",
+  "⁴": "4",
+  "⁵": "5",
+  "⁶": "6",
+  "⁷": "7",
+  "⁸": "8",
+  "⁹": "9",
+};
+
+function normalizeSuperscript(text: string) {
+  return text.replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, (char) => superscriptDigits[char] || char);
+}
+
+function renderAuthor(author: string) {
+  const match = author.match(/^(.+?)([⁰¹²³⁴⁵⁶⁷⁸⁹,\*]+)$/);
+  if (!match) return author;
+  return <>{match[1]}<sup>{normalizeSuperscript(match[2])}</sup></>;
+}
+
+function renderAffiliation(affiliation: string) {
+  const match = affiliation.match(/^([⁰¹²³⁴⁵⁶⁷⁸⁹]+)(.+)$/);
+  if (!match) return affiliation;
+  return <><sup>{normalizeSuperscript(match[1])}</sup>{match[2]}</>;
+}
+
 function Figure({ title, src }: { title: string; src?: string }) {
   return (
     <figure className="render-card">
@@ -271,24 +307,88 @@ function Figure({ title, src }: { title: string; src?: string }) {
 }
 
 function MetricStrip({ run }: { run?: Run }) {
-  const metrics = run?.metrics || {};
-  const entries = [
-    ["Valid", run?.valid === true ? "yes" : run?.valid === false ? "no" : "n/a"],
-    ["Chamfer", metrics.chamfer_distance],
-    ["F@.05", metrics.f_score_005],
-    ["IoU", metrics.iou_csg ?? metrics.iou_voxel],
-    ["QA", metrics.qa_overall ?? metrics.qa_overall_accuracy],
-  ];
+  const entries = getMetricEntries(run);
   return (
     <div className="metrics">
-      {entries.map(([key, value]) => (
-        <div className="metric" key={key as string}>
-          <span>{key}</span>
-          <strong>{typeof value === "number" ? value.toFixed(value < 1 ? 3 : 2) : value ?? "n/a"}</strong>
+      {entries.length ? entries.map((entry) => (
+        <div className="metric" key={entry.key}>
+          <span>{entry.label}</span>
+          <strong>{entry.value}</strong>
         </div>
-      ))}
+      )) : <div className="metric metric-empty">No metrics bundled for this run.</div>}
     </div>
   );
+}
+
+const metricOrder = [
+  "chamfer_distance",
+  "hausdorff_distance",
+  "f_score_005",
+  "f_score_001",
+  "normal_consistency",
+  "iou_csg",
+  "iou_voxel",
+  "pred_open_edge_ratio",
+  "qa_overall",
+  "qa_overall_accuracy",
+  "qa_semantic",
+  "qa_parametric",
+  "judge_geometry",
+  "judge_semantic",
+  "judge_aesthetics",
+];
+
+const metricLabels: Record<string, string> = {
+  chamfer_distance: "Chamfer",
+  hausdorff_distance: "Hausdorff",
+  f_score_005: "F@0.05",
+  f_score_001: "F@0.01",
+  normal_consistency: "Normal",
+  iou_csg: "IoU CSG",
+  iou_voxel: "IoU voxel",
+  pred_open_edge_ratio: "Open edge",
+  qa_overall: "QA overall",
+  qa_overall_accuracy: "QA overall",
+  qa_semantic: "QA semantic",
+  qa_parametric: "QA parametric",
+  judge_geometry: "Judge geom",
+  judge_semantic: "Judge sem",
+  judge_aesthetics: "Judge aesthetic",
+};
+
+function getMetricEntries(run?: Run) {
+  if (!run) return [];
+  const metrics = run.metrics || {};
+  const keys = [
+    ...metricOrder.filter((key) => hasMetricValue(metrics[key])),
+    ...Object.keys(metrics)
+      .filter((key) => !metricOrder.includes(key) && hasMetricValue(metrics[key]))
+      .sort(),
+  ];
+  const entries = keys.map((key) => ({
+    key,
+    label: metricLabels[key] || key.replace(/_/g, " "),
+    value: formatMetricValue(key, metrics[key]),
+  }));
+  if (run.valid !== null && run.valid !== undefined) {
+    entries.unshift({ key: "valid", label: "Valid", value: run.valid ? "yes" : "no" });
+  }
+  return entries;
+}
+
+function hasMetricValue(value: unknown) {
+  return value !== null && value !== undefined && value !== "" && !(typeof value === "number" && Number.isNaN(value));
+}
+
+function formatMetricValue(key: string, value: number | string | null) {
+  if (typeof value !== "number") return String(value);
+  if (key.startsWith("judge_") && Number.isInteger(value)) return String(value);
+  if (key === "pred_open_edge_ratio") return value.toFixed(3);
+  if (key.includes("chamfer") || key.includes("hausdorff")) {
+    if (value === 0) return "0";
+    return value < 0.01 ? value.toFixed(4) : value.toFixed(3);
+  }
+  return value < 1 ? value.toFixed(3) : value.toFixed(2);
 }
 
 function Placeholder({ title, text }: { title: string; text: string }) {
