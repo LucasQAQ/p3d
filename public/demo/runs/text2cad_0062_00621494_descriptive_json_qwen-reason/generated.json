@@ -1,0 +1,76 @@
+{
+  "parts": {
+    "part_1": {
+      "coordinate_system": {
+        "Euler Angles": [0.0, 0.0, 0.0],
+        "Translation Vector": [0.0, 0.0, 0.0]
+      },
+      "sketch": {
+        "face_1": {
+          "loop_1": {
+            "line_1": {
+              "Start Point": [0.0, 0.0],
+              "End Point": [2.0, 0.0]
+            },
+            "line_2": {
+              "Start Point": [2.0, 0.0],
+              "End Point": [2.0, 1.5]
+            },
+            "arc_1": {
+              "Start Point": [2.0, 1.5],
+              "Mid Point": [2.5, 2.0],
+              "End Point": [1.0, 2.0]
+            },
+            "line_3": {
+              "Start Point": [1.0, 2.0],
+              "End Point": [-1.0, 2.0]
+            },
+            "arc_2": {
+              "Start Point": [-1.0, 2.0],
+              "Mid Point": [-1.5, 1.5],
+              "End Point": [-2.0, 1.0]
+            },
+            "line_4": {
+              "Start Point": [-2.0, 1.0],
+              "End Point": [-2.0, 0.0]
+            },
+            "line_5": {
+              "Start Point": [-2.0, 0.0],
+              "End Point": [0.0, 0.0]
+            }
+          },
+          "loop_2": {
+            "circle_1": {
+              "Center": [0.0, 0.75],
+              "Radius": 0.6
+            }
+          },
+          "loop_3": {
+            "line_6": {
+              "Start Point": [-0.5, 0.5],
+              "End Point": [0.5, 0.5]
+            },
+            "line_7": {
+              "Start Point": [0.5, 0.5],
+              "End Point": [0.5, 0.2]
+            },
+            "line_8": {
+              "Start Point": [0.5, 0.2],
+              "End Point": [-0.5, 0.2]
+            },
+            "line_9": {
+              "Start Point": [-0.5, 0.2],
+              "End Point": [-0.5, 0.5]
+            }
+          }
+        }
+      },
+      "extrusion": {
+        "extrude_depth_towards_normal": 1.2,
+        "extrude_depth_opposite_normal": 0.0,
+        "sketch_scale": 1.0,
+        "operation": "NewBodyFeatureOperation"
+      }
+    }
+  }
+}
