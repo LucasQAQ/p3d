@@ -1,6 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { BookOpen, Braces, Code2, Github, Image as ImageIcon, Layers3, Play } from "lucide-react";
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 import "./styles.css";
 
 type AssetMap = {
@@ -45,6 +48,7 @@ type ShowcaseItem = {
   title: string;
   subtitle: string;
   src: string;
+  mesh: string;
 };
 
 const fallbackManifest: Manifest = {
@@ -97,15 +101,18 @@ function App() {
 
   const taskRuns = useMemo(() => manifest.runs.filter((run) => run.task === task), [manifest, task]);
   const cases = useMemo(() => manifest.cases.filter((item) => item.task === task || taskRuns.some((run) => run.case_id === item.id)), [manifest, task, taskRuns]);
-  const models = useMemo(() => manifest.models.filter((item) => taskRuns.some((run) => run.model === item.id)), [manifest, taskRuns]);
-  const specs = useMemo(() => Array.from(new Set(taskRuns.map((run) => run.spec))).sort(), [taskRuns]);
-  const formats = useMemo(() => Array.from(new Set(taskRuns.map((run) => run.format))).sort(), [taskRuns]);
+  const caseRuns = useMemo(() => taskRuns.filter((run) => !caseId || run.case_id === caseId), [caseId, taskRuns]);
+  const models = useMemo(() => manifest.models.filter((item) => caseRuns.some((run) => run.model === item.id)), [caseRuns, manifest.models]);
+  const modelRuns = useMemo(() => caseRuns.filter((run) => !model || run.model === model), [caseRuns, model]);
+  const specs = useMemo(() => Array.from(new Set(modelRuns.map((run) => run.spec))).sort(), [modelRuns]);
+  const specRuns = useMemo(() => modelRuns.filter((run) => !spec || run.spec === spec), [modelRuns, spec]);
+  const formats = useMemo(() => Array.from(new Set(specRuns.map((run) => run.format))).sort(), [specRuns]);
 
   useEffect(() => {
-    if (!caseId && cases[0]) setCaseId(cases[0].id);
-    if (!model && models[0]) setModel(models[0].id);
-    if (!spec && specs[0]) setSpec(specs[0]);
-    if (!format && formats[0]) setFormat(formats[0]);
+    if ((!caseId || !cases.some((item) => item.id === caseId)) && cases[0]) setCaseId(cases[0].id);
+    if ((!model || !models.some((item) => item.id === model)) && models[0]) setModel(models[0].id);
+    if ((!spec || !specs.includes(spec)) && specs[0]) setSpec(specs[0]);
+    if ((!format || !formats.includes(format)) && formats[0]) setFormat(formats[0]);
   }, [caseId, cases, format, formats, model, models, spec, specs]);
 
   const selectedRun = taskRuns.find((run) => run.case_id === caseId && run.model === model && run.spec === spec && run.format === format);
@@ -134,7 +141,7 @@ function App() {
         <div>
           <a href="#results">Results</a>
           <a href="#pipeline">Pipeline</a>
-          <a href="#gallery">Gallery</a>
+          <a href="#gallery">Viewer</a>
         </div>
       </nav>
 
@@ -172,7 +179,7 @@ function App() {
           <button key={item.id} className={task === item.id ? "task-card active" : "task-card"} onClick={() => setTask(item.id)}>
             <span>{item.label}</span>
             <strong>{item.formats.join(" / ")}</strong>
-            <em>interactive demo bundle</em>
+            <em>public demo</em>
           </button>
         ))}
       </section>
@@ -231,15 +238,15 @@ function App() {
       <section id="gallery" className="section">
         <div className="section-heading">
           <p className="eyebrow">Text-to-3D Render Showcase</p>
-          <h2>Executable CAD programs rendered into a curated result wall.</h2>
+          <h2>Executable CAD programs as live geometry.</h2>
         </div>
         <RenderShowcase items={showcaseItems} />
       </section>
 
       <section id="citation" className="section citation">
-        <div className="section-heading">
-          <p className="eyebrow">Citation</p>
-          <h2>BibTeX</h2>
+        <div className="citation-heading">
+          <h2>Citation</h2>
+          <p className="citation-format">BibTeX</p>
         </div>
         <pre><code>{`@article{p3dbench2026,
   title={P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning},
@@ -255,9 +262,10 @@ function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
   const modelCycle = ["gemini-reason", "claude-reason", "qwen-reason", "gpt55-reason"];
   const formatCycle = ["json", "openscad", "json", "openscad"];
   const modelLabel = new Map(manifest.models.map((model) => [model.id, model.label]));
+  const caseTitle = new Map(manifest.cases.map((item) => [item.id, item.title]));
   const runsByCase = new Map<string, Run[]>();
   manifest.runs
-    .filter((run) => run.task === "text2cad" && run.assets.pred_render && run.valid !== false)
+    .filter((run) => run.task === "text2cad" && run.assets.pred_render && run.assets.mesh && run.valid !== false)
     .forEach((run) => {
       const runs = runsByCase.get(run.case_id) || [];
       runs.push(run);
@@ -281,52 +289,209 @@ function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
     .filter((run): run is Run => Boolean(run))
     .map((run) => ({
       id: run.id,
-      title: `Case ${run.case_id.split("/").pop() || run.case_id}`,
+      title: caseTitle.get(run.case_id) || `Case ${run.case_id.split("/").pop() || run.case_id}`,
       subtitle: `${modelLabel.get(run.model) || run.model} / ${run.format.toUpperCase()}`,
       src: run.assets.pred_render || "",
+      mesh: run.assets.mesh || "",
     }));
 }
 
 function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
+  const [selectedId, setSelectedId] = useState("");
+  const selected = items.find((item) => item.id === selectedId) || items[0];
+
+  useEffect(() => {
+    if (!selectedId && items[0]) setSelectedId(items[0].id);
+  }, [items, selectedId]);
+
   if (!items.length) {
     return <Placeholder title="Render showcase reserved" text="Curated demo renders will appear here when bundled." />;
   }
-  const featured = items.slice(0, 3);
-  const grid = items.slice(3, 10);
+
   return (
     <div className="render-showcase">
-      <div className="showcase-stage">
-        <div className="stage-ring" />
-        <div className="stage-label">
-          <span>Text-to-3D</span>
-          <strong>{items.length} bundled cases</strong>
+      <div className="viewer-shell">
+        <div className="viewer-stage">
+          <CadViewer item={selected} />
+          <div className="viewer-meta">
+            <span>Text-to-3D CAD</span>
+            <strong>{selected.title}</strong>
+            <em>{selected.subtitle}</em>
+          </div>
         </div>
-        {featured.map((item, index) => (
-          <figure className={`turntable-card turntable-card-${index + 1}`} key={item.id}>
-            <img src={asset(item.src)} alt={item.title} />
-            <figcaption>
-              <strong>{item.title}</strong>
-              <span>{item.subtitle}</span>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-      <div className="render-grid">
-        {grid.map((item, index) => (
-          <figure className="render-tile" style={{ "--tile-accent": tileColors[index % tileColors.length] } as React.CSSProperties} key={item.id}>
-            <img src={asset(item.src)} alt={item.title} />
-            <figcaption>
-              <strong>{item.title}</strong>
-              <span>{item.subtitle}</span>
-            </figcaption>
-          </figure>
-        ))}
+        <div className="viewer-rail">
+          <div className="viewer-rail-header">
+            <span>{items.length} cases</span>
+            <strong>Bundled STL demo set</strong>
+          </div>
+          {items.map((item, index) => (
+            <button
+              className={item.id === selected.id ? "viewer-case active" : "viewer-case"}
+              key={item.id}
+              onClick={() => setSelectedId(item.id)}
+              style={{ "--case-accent": tileColors[index % tileColors.length] } as React.CSSProperties}
+            >
+              <img src={asset(item.src)} alt={item.title} />
+              <span>{item.title}</span>
+              <strong>{item.subtitle}</strong>
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
 const tileColors = ["#16a47a", "#2d69c4", "#d8733f", "#7668d8", "#0e9daa", "#d19b2d"];
+
+function CadViewer({ item }: { item: ShowcaseItem }) {
+  const mountRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const mount = mountRef.current;
+    if (!mount || !item.mesh) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xf7fbf4);
+    scene.fog = new THREE.Fog(0xf7fbf4, 5.2, 9.5);
+    const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 100);
+    camera.position.set(3.7, 2.45, 4.7);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0xf7fbf4, 1);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    mount.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 1.2;
+    controls.enablePan = false;
+    controls.minDistance = 2.2;
+    controls.maxDistance = 7.5;
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0xaeb8b3, 2.1));
+
+    const key = new THREE.DirectionalLight(0xffffff, 3.0);
+    key.position.set(3.5, 4.5, 3.2);
+    key.castShadow = true;
+    key.shadow.mapSize.set(1024, 1024);
+    scene.add(key);
+
+    const fill = new THREE.DirectionalLight(0x9bdccc, 1.2);
+    fill.position.set(-3.0, 2.0, -2.5);
+    scene.add(fill);
+
+    const floor = new THREE.Mesh(
+      new THREE.CircleGeometry(2.5, 96),
+      new THREE.MeshStandardMaterial({ color: 0xddebe6, roughness: 0.86, metalness: 0.02, transparent: true, opacity: 0.82 })
+    );
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.y = -0.02;
+    floor.receiveShadow = true;
+    scene.add(floor);
+
+    const ring = new THREE.LineLoop(
+      new THREE.BufferGeometry().setFromPoints(
+        Array.from({ length: 160 }, (_, index) => {
+          const theta = (index / 160) * Math.PI * 2;
+          return new THREE.Vector3(Math.cos(theta) * 2.7, 0.012, Math.sin(theta) * 1.0);
+        })
+      ),
+      new THREE.LineBasicMaterial({ color: 0x0fa678, transparent: true, opacity: 0.55 })
+    );
+    scene.add(ring);
+
+    const group = new THREE.Group();
+    group.rotation.x = -Math.PI / 2;
+    scene.add(group);
+
+    let disposed = false;
+    let frame = 0;
+    let loadedGeometry: THREE.BufferGeometry | null = null;
+    let loadedMaterial: THREE.Material | null = null;
+    let edgeGeometry: THREE.BufferGeometry | null = null;
+    let edgeMaterial: THREE.Material | null = null;
+
+    const loader = new STLLoader();
+    loader.load(asset(item.mesh), (geometry) => {
+      if (disposed) {
+        geometry.dispose();
+        return;
+      }
+      geometry.computeVertexNormals();
+      geometry.computeBoundingBox();
+      geometry.center();
+      const box = geometry.boundingBox;
+      const size = new THREE.Vector3();
+      box?.getSize(size);
+      const maxAxis = Math.max(size.x, size.y, size.z) || 1;
+      geometry.scale(2.24 / maxAxis, 2.24 / maxAxis, 2.24 / maxAxis);
+      geometry.computeBoundingBox();
+      loadedGeometry = geometry;
+
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xf5eddc,
+        roughness: 0.62,
+        metalness: 0.05,
+        emissive: 0x2a2115,
+        emissiveIntensity: 0.02,
+      });
+      loadedMaterial = material;
+
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      group.add(mesh);
+
+      edgeGeometry = new THREE.EdgesGeometry(geometry, 28);
+      edgeMaterial = new THREE.LineBasicMaterial({ color: 0x7e776b, transparent: true, opacity: 0.26 });
+      group.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
+    });
+
+    const resize = () => {
+      const { clientWidth, clientHeight } = mount;
+      const width = Math.max(320, clientWidth);
+      const height = Math.max(360, clientHeight);
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    };
+
+    const observer = new ResizeObserver(resize);
+    observer.observe(mount);
+    resize();
+
+    const animate = () => {
+      frame = requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    return () => {
+      disposed = true;
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      controls.dispose();
+      loadedGeometry?.dispose();
+      loadedMaterial?.dispose();
+      edgeGeometry?.dispose();
+      edgeMaterial?.dispose();
+      floor.geometry.dispose();
+      (floor.material as THREE.Material).dispose();
+      ring.geometry.dispose();
+      (ring.material as THREE.Material).dispose();
+      renderer.dispose();
+      renderer.domElement.remove();
+    };
+  }, [item.id, item.mesh]);
+
+  return <div className="cad-viewer" ref={mountRef} />;
+}
 
 function Select({ label, value, options, onChange }: { label: string; value: string; options: string[][]; onChange: (value: string) => void }) {
   return (
@@ -418,13 +583,13 @@ const metricLabels: Record<string, string> = {
   iou_csg: "IoU CSG",
   iou_voxel: "IoU voxel",
   pred_open_edge_ratio: "Open edge",
-  qa_overall: "QA overall",
-  qa_overall_accuracy: "QA overall",
-  qa_semantic: "QA semantic",
-  qa_parametric: "QA parametric",
-  judge_geometry: "Judge geom",
-  judge_semantic: "Judge sem",
-  judge_aesthetics: "Judge aesthetic",
+  qa_overall: "Overall QA",
+  qa_overall_accuracy: "Overall QA",
+  qa_semantic: "Semantic QA",
+  qa_parametric: "Parametric QA",
+  judge_geometry: "Geometry score",
+  judge_semantic: "Semantic score",
+  judge_aesthetics: "Aesthetic score",
 };
 
 function getMetricEntries(run?: Run) {
@@ -442,7 +607,7 @@ function getMetricEntries(run?: Run) {
     value: formatMetricValue(key, metrics[key]),
   }));
   if (run.valid !== null && run.valid !== undefined) {
-    entries.unshift({ key: "valid", label: "Valid", value: run.valid ? "yes" : "no" });
+    entries.unshift({ key: "valid", label: "Executable", value: run.valid ? "yes" : "no" });
   }
   return entries;
 }

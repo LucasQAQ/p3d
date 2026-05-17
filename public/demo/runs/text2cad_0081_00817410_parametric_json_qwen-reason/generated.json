@@ -1,0 +1,428 @@
+{
+  "parts": {
+    "part_1": {
+      "coordinate_system": {
+        "Euler Angles": [0.0, 0.0, 0.0],
+        "Translation Vector": [0.0, 0.0, 0.0]
+      },
+      "sketch": {
+        "face_1": {
+          "loop_1": {
+            "circle_1": {
+              "Center": [0.375, 0.375],
+              "Radius": 0.375
+            }
+          }
+        },
+        "face_2": {
+          "loop_1": {
+            "circle_1": {
+              "Center": [0.375, 0.375],
+              "Radius": 0.3485
+            }
+          }
+        },
+        "face_3": {
+          "loop_1": {
+            "arc_1": {
+              "Start Point": [0.4906, 0.1156],
+              "Mid Point": [0.4906, 0.1000],
+              "End Point": [0.5094, 0.1156]
+            },
+            "arc_2": {
+              "Start Point": [0.5094, 0.1156],
+              "Mid Point": [0.5240, 0.1156],
+              "End Point": [0.5094, 0.1312]
+            },
+            "arc_3": {
+              "Start Point": [0.5094, 0.1312],
+              "Mid Point": [0.5094, 0.1468],
+              "End Point": [0.4906, 0.1312]
+            },
+            "arc_4": {
+              "Start Point": [0.4906, 0.1312],
+              "Mid Point": [0.4760, 0.1312],
+              "End Point": [0.4906, 0.1156]
+            }
+          },
+          "loop_2": {
+            "arc_1": {
+              "Start Point": [0.8844, 0.1156],
+              "Mid Point": [0.8844, 0.1000],
+              "End Point": [0.9032, 0.1156]
+            },
+            "arc_2": {
+              "Start Point": [0.9032, 0.1156],
+              "Mid Point": [0.9178, 0.1156],
+              "End Point": [0.9032, 0.1312]
+            },
+            "arc_3": {
+              "Start Point": [0.9032, 0.1312],
+              "Mid Point": [0.9032, 0.1468],
+              "End Point": [0.8844, 0.1312]
+            },
+            "arc_4": {
+              "Start Point": [0.8844, 0.1312],
+              "Mid Point": [0.8700, 0.1312],
+              "End Point": [0.8844, 0.1156]
+            }
+          },
+          "loop_3": {
+            "arc_1": {
+              "Start Point": [0.8844, 0.6344],
+              "Mid Point": [0.8844, 0.6500],
+              "End Point": [0.8700, 0.6344]
+            },
+            "arc_2": {
+              "Start Point": [0.8700, 0.6344],
+              "Mid Point": [0.8554, 0.6344],
+              "End Point": [0.8700, 0.6188]
+            },
+            "arc_3": {
+              "Start Point": [0.8700, 0.6188],
+              "Mid Point": [0.8700, 0.6032],
+              "End Point": [0.8844, 0.6188]
+            },
+            "arc_4": {
+              "Start Point": [0.8844, 0.6188],
+              "Mid Point": [0.8844, 0.6032],
+              "End Point": [0.8700, 0.6188]
+            }
+          },
+          "loop_4": {
+            "arc_1": {
+              "Start Point": [0.1156, 0.6344],
+              "Mid Point": [0.1156, 0.6500],
+              "End Point": [0.1010, 0.6344]
+            },
+            "arc_2": {
+              "Start Point": [0.1010, 0.6344],
+              "Mid Point": [0.0864, 0.6344],
+              "End Point": [0.1010, 0.6188]
+            },
+            "arc_3": {
+              "Start Point": [0.1010, 0.6188],
+              "Mid Point": [0.1010, 0.6032],
+              "End Point": [0.1156, 0.6188]
+            },
+            "arc_4": {
+              "Start Point": [0.1156, 0.6188],
+              "Mid Point": [0.1156, 0.6032],
+              "End Point": [0.1010, 0.6188]
+            }
+          },
+          "loop_5": {
+            "arc_1": {
+              "Start Point": [0.1156, 0.1156],
+              "Mid Point": [0.1156, 0.1000],
+              "End Point": [0.1010, 0.1156]
+            },
+            "arc_2": {
+              "Start Point": [0.1010, 0.1156],
+              "Mid Point": [0.0864, 0.1156],
+              "End Point": [0.1010, 0.1312]
+            },
+            "arc_3": {
+              "Start Point": [0.1010, 0.1312],
+              "Mid Point": [0.1010, 0.1468],
+              "End Point": [0.1156, 0.1312]
+            },
+            "arc_4": {
+              "Start Point": [0.1156, 0.1312],
+              "Mid Point": [0.1156, 0.1468],
+              "End Point": [0.1010, 0.1312]
+            }
+          }
+        },
+        "face_4": {
+          "loop_1": {
+            "circle_1": {
+              "Center": [0.375, 0.375],
+              "Radius": 0.0441
+            }
+          }
+        }
+      },
+      "extrusion": {
+        "extrude_depth_towards_normal": 0.0221,
+        "extrude_depth_opposite_normal": 0.0,
+        "sketch_scale": 1.0,
+        "operation": "NewBodyFeatureOperation"
+      }
+    },
+    "part_2": {
+      "coordinate_system": {
+        "Euler Angles": [0.0, 0.0, 0.0],
+        "Translation Vector": [0.0, 0.0, 0.0221]
+      },
+      "sketch": {
+        "face_1": {
+          "loop_1": {
+            "circle_1": {
+              "Center": [0.375, 0.375],
+              "Radius": 0.3485
+            }
+          }
+        },
+        "face_2": {
+          "loop_1": {
+            "arc_1": {
+              "Start Point": [0.4906, 0.1156],
+              "Mid Point": [0.4906, 0.1000],
+              "End Point": [0.5094, 0.1156]
+            },
+            "arc_2": {
+              "Start Point": [0.5094, 0.1156],
+              "Mid Point": [0.5240, 0.1156],
+              "End Point": [0.5094, 0.1312]
+            },
+            "arc_3": {
+              "Start Point": [0.5094, 0.1312],
+              "Mid Point": [0.5094, 0.1468],
+              "End Point": [0.4906, 0.1312]
+            },
+            "arc_4": {
+              "Start Point": [0.4906, 0.1312],
+              "Mid Point": [0.4760, 0.1312],
+              "End Point": [0.4906, 0.1156]
+            }
+          },
+          "loop_2": {
+            "arc_1": {
+              "Start Point": [0.8844, 0.1156],
+              "Mid Point": [0.8844, 0.1000],
+              "End Point": [0.9032, 0.1156]
+            },
+            "arc_2": {
+              "Start Point": [0.9032, 0.1156],
+              "Mid Point": [0.9178, 0.1156],
+              "End Point": [0.9032, 0.1312]
+            },
+            "arc_3": {
+              "Start Point": [0.9032, 0.1312],
+              "Mid Point": [0.9032, 0.1468],
+              "End Point": [0.8844, 0.1312]
+            },
+            "arc_4": {
+              "Start Point": [0.8844, 0.1312],
+              "Mid Point": [0.8700, 0.1312],
+              "End Point": [0.8844, 0.1156]
+            }
+          },
+          "loop_3": {
+            "arc_1": {
+              "Start Point": [0.8844, 0.6344],
+              "Mid Point": [0.8844, 0.6500],
+              "End Point": [0.8700, 0.6344]
+            },
+            "arc_2": {
+              "Start Point": [0.8700, 0.6344],
+              "Mid Point": [0.8554, 0.6344],
+              "End Point": [0.8700, 0.6188]
+            },
+            "arc_3": {
+              "Start Point": [0.8700, 0.6188],
+              "Mid Point": [0.8700, 0.6032],
+              "End Point": [0.8844, 0.6188]
+            },
+            "arc_4": {
+              "Start Point": [0.8844, 0.6188],
+              "Mid Point": [0.8844, 0.6032],
+              "End Point": [0.8700, 0.6188]
+            }
+          },
+          "loop_4": {
+            "arc_1": {
+              "Start Point": [0.1156, 0.6344],
+              "Mid Point": [0.1156, 0.6500],
+              "End Point": [0.1010, 0.6344]
+            },
+            "arc_2": {
+              "Start Point": [0.1010, 0.6344],
+              "Mid Point": [0.0864, 0.6344],
+              "End Point": [0.1010, 0.6188]
+            },
+            "arc_3": {
+              "Start Point": [0.1010, 0.6188],
+              "Mid Point": [0.1010, 0.6032],
+              "End Point": [0.1156, 0.6188]
+            },
+            "arc_4": {
+              "Start Point": [0.1156, 0.6188],
+              "Mid Point": [0.1156, 0.6032],
+              "End Point": [0.1010, 0.6188]
+            }
+          },
+          "loop_5": {
+            "arc_1": {
+              "Start Point": [0.1156, 0.1156],
+              "Mid Point": [0.1156, 0.1000],
+              "End Point": [0.1010, 0.1156]
+            },
+            "arc_2": {
+              "Start Point": [0.1010, 0.1156],
+              "Mid Point": [0.0864, 0.1156],
+              "End Point": [0.1010, 0.1312]
+            },
+            "arc_3": {
+              "Start Point": [0.1010, 0.1312],
+              "Mid Point": [0.1010, 0.1468],
+              "End Point": [0.1156, 0.1312]
+            },
+            "arc_4": {
+              "Start Point": [0.1156, 0.1312],
+              "Mid Point": [0.1156, 0.1468],
+              "End Point": [0.1010, 0.1312]
+            }
+          }
+        },
+        "face_3": {
+          "loop_1": {
+            "circle_1": {
+              "Center": [0.375, 0.375],
+              "Radius": 0.0441
+            }
+          }
+        }
+      },
+      "extrusion": {
+        "extrude_depth_towards_normal": 0.0882,
+        "extrude_depth_opposite_normal": 0.0,
+        "sketch_scale": 1.0,
+        "operation": "JoinFeatureOperation"
+      }
+    },
+    "part_3": {
+      "coordinate_system": {
+        "Euler Angles": [0.0, 0.0, 0.0],
+        "Translation Vector": [0.0, 0.0, 0.0]
+      },
+      "sketch": {
+        "face_1": {
+          "loop_1": {
+            "arc_1": {
+              "Start Point": [0.4906, 0.1156],
+              "Mid Point": [0.4906, 0.1000],
+              "End Point": [0.5094, 0.1156]
+            },
+            "arc_2": {
+              "Start Point": [0.5094, 0.1156],
+              "Mid Point": [0.5240, 0.1156],
+              "End Point": [0.5094, 0.1312]
+            },
+            "arc_3": {
+              "Start Point": [0.5094, 0.1312],
+              "Mid Point": [0.5094, 0.1468],
+              "End Point": [0.4906, 0.1312]
+            },
+            "arc_4": {
+              "Start Point": [0.4906, 0.1312],
+              "Mid Point": [0.4760, 0.1312],
+              "End Point": [0.4906, 0.1156]
+            }
+          },
+          "loop_2": {
+            "arc_1": {
+              "Start Point": [0.8844, 0.1156],
+              "Mid Point": [0.8844, 0.1000],
+              "End Point": [0.9032, 0.1156]
+            },
+            "arc_2": {
+              "Start Point": [0.9032, 0.1156],
+              "Mid Point": [0.9178, 0.1156],
+              "End Point": [0.9032, 0.1312]
+            },
+            "arc_3": {
+              "Start Point": [0.9032, 0.1312],
+              "Mid Point": [0.9032, 0.1468],
+              "End Point": [0.8844, 0.1312]
+            },
+            "arc_4": {
+              "Start Point": [0.8844, 0.1312],
+              "Mid Point": [0.8700, 0.1312],
+              "End Point": [0.8844, 0.1156]
+            }
+          },
+          "loop_3": {
+            "arc_1": {
+              "Start Point": [0.8844, 0.6344],
+              "Mid Point": [0.8844, 0.6500],
+              "End Point": [0.8700, 0.6344]
+            },
+            "arc_2": {
+              "Start Point": [0.8700, 0.6344],
+              "Mid Point": [0.8554, 0.6344],
+              "End Point": [0.8700, 0.6188]
+            },
+            "arc_3": {
+              "Start Point": [0.8700, 0.6188],
+              "Mid Point": [0.8700, 0.6032],
+              "End Point": [0.8844, 0.6188]
+            },
+            "arc_4": {
+              "Start Point": [0.8844, 0.6188],
+              "Mid Point": [0.8844, 0.6032],
+              "End Point": [0.8700, 0.6188]
+            }
+          },
+          "loop_4": {
+            "arc_1": {
+              "Start Point": [0.1156, 0.6344],
+              "Mid Point": [0.1156, 0.6500],
+              "End Point": [0.1010, 0.6344]
+            },
+            "arc_2": {
+              "Start Point": [0.1010, 0.6344],
+              "Mid Point": [0.0864, 0.6344],
+              "End Point": [0.1010, 0.6188]
+            },
+            "arc_3": {
+              "Start Point": [0.1010, 0.6188],
+              "Mid Point": [0.1010, 0.6032],
+              "End Point": [0.1156, 0.6188]
+            },
+            "arc_4": {
+              "Start Point": [0.1156, 0.6188],
+              "Mid Point": [0.1156, 0.6032],
+              "End Point": [0.1010, 0.6188]
+            }
+          },
+          "loop_5": {
+            "arc_1": {
+              "Start Point": [0.1156, 0.1156],
+              "Mid Point": [0.1156, 0.1000],
+              "End Point": [0.1010, 0.1156]
+            },
+            "arc_2": {
+              "Start Point": [0.1010, 0.1156],
+              "Mid Point": [0.0864, 0.1156],
+              "End Point": [0.1010, 0.1312]
+            },
+            "arc_3": {
+              "Start Point": [0.1010, 0.1312],
+              "Mid Point": [0.1010, 0.1468],
+              "End Point": [0.1156, 0.1312]
+            },
+            "arc_4": {
+              "Start Point": [0.1156, 0.1312],
+              "Mid Point": [0.1156, 0.1468],
+              "End Point": [0.1010, 0.1312]
+            }
+          },
+          "loop_6": {
+            "circle_1": {
+              "Center": [0.375, 0.375],
+              "Radius": 0.0441
+            }
+          }
+        }
+      },
+      "extrusion": {
+        "extrude_depth_towards_normal": 0.0882,
+        "extrude_depth_opposite_normal": -0.0221,
+        "sketch_scale": 1.0,
+        "operation": "CutFeatureOperation"
+      }
+    }
+  }
+}
