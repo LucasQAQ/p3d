@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { BookOpen, Braces, ChevronRight, Code2, Database, Github, Image as ImageIcon, Layers3, Play } from "lucide-react";
+import { BookOpen, Braces, Code2, Github, Image as ImageIcon, Layers3, Play } from "lucide-react";
 import "./styles.css";
 
 type AssetMap = {
@@ -126,7 +126,6 @@ function App() {
           <a href="#results">Results</a>
           <a href="#pipeline">Pipeline</a>
           <a href="#gallery">Gallery</a>
-          <a href="#code">Code</a>
         </div>
       </nav>
 
@@ -230,16 +229,6 @@ function App() {
             </figure>
           )) : <Placeholder title="Gallery assets reserved" text="The gallery builder is included; add curated local mesh renders to publish this section." />}
         </div>
-      </section>
-
-      <section id="code" className="section code-callout">
-        <Database size={28} />
-        <div>
-          <h2>Benchmark code release</h2>
-          <p>The public benchmark runner is being cleaned separately. This repository publishes only the project page and sanitized static demo assets.</p>
-          <code>github.com/LucasQAQ/p3d</code>
-        </div>
-        <ChevronRight />
       </section>
 
       <section id="citation" className="section citation">

@@ -110,13 +110,13 @@ main {
 h1, h2, h3, p { letter-spacing: 0; }
 
 h1 {
-  max-width: 1040px;
+  max-width: 980px;
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(50px, 6.2vw, 84px);
+  font-size: clamp(44px, 5.4vw, 72px);
   font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -0.025em;
+  line-height: 0.99;
+  letter-spacing: -0.02em;
 }
 
 h2 {
@@ -310,6 +310,21 @@ h2 {
   margin-bottom: 32px;
 }
 
+#results .section-heading {
+  grid-template-columns: minmax(210px, 0.32fr) minmax(0, 1fr);
+  margin-bottom: 38px;
+}
+
+#results .section-heading .eyebrow {
+  color: var(--teal);
+  font-size: 18px;
+  letter-spacing: 0.08em;
+}
+
+#results .section-heading h2 {
+  font-size: clamp(40px, 5.2vw, 66px);
+}
+
 #results {
   max-width: 1340px;
 }
@@ -495,9 +510,10 @@ select {
   background: transparent;
 }
 
-.paper-figure:nth-child(1) { width: 100%; }
-.paper-figure:nth-child(2) { width: 94%; margin-left: auto; }
-.paper-figure:nth-child(3) { width: 88%; }
+.paper-figure:nth-child(1),
+.paper-figure:nth-child(2) {
+  width: 100%;
+}
 
 .paper-figure img {
   display: block;
@@ -584,33 +600,6 @@ select {
   font-size: 13px;
 }
 
-.code-callout {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 20px;
-  align-items: center;
-  max-width: 1260px;
-  background: rgba(255, 255, 251, 0.92);
-  box-shadow: var(--shadow-soft);
-}
-
-.code-callout h2 {
-  font-size: clamp(30px, 3.4vw, 42px);
-}
-
-.code-callout p {
-  color: var(--muted);
-  line-height: 1.55;
-}
-
-.code-callout code {
-  display: block;
-  padding: 12px;
-  overflow-x: auto;
-  border-radius: 5px;
-  background: var(--paper-2);
-}
-
 .citation {
   background: transparent;
   border: 0;
@@ -627,7 +616,7 @@ select {
   }
 
   h1 {
-    font-size: clamp(42px, 11.5vw, 62px);
+    font-size: clamp(38px, 10.4vw, 56px);
     line-height: 0.96;
   }
 
@@ -647,9 +636,20 @@ select {
   .task-strip,
   .section-heading,
   .workbench,
-  .render-pair,
-  .code-callout {
+  .render-pair {
     grid-template-columns: 1fr;
+  }
+
+  #results .section-heading {
+    grid-template-columns: 1fr;
+  }
+
+  #results .section-heading .eyebrow {
+    font-size: 15px;
+  }
+
+  #results .section-heading h2 {
+    font-size: clamp(32px, 9vw, 44px);
   }
 
   .task-strip {
