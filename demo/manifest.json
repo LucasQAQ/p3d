@@ -2416,8 +2416,8 @@
   "figures": [
     {
       "id": "teaser",
-      "title": "P3D-Bench overview teaser",
-      "src": "figures/fig1_teaser.png"
+      "title": "Qualitative OpenSCAD outputs across P3D-Bench tasks",
+      "src": "figures/web_teaser_qualitative.png"
     },
     {
       "id": "pipeline",
@@ -2425,14 +2425,9 @@
       "src": "figures/fig2_dataset_pipeline.png"
     },
     {
-      "id": "format_effect",
-      "title": "Output format comparison",
-      "src": "figures/task_format_dim_effects.png"
-    },
-    {
-      "id": "judge_details",
-      "title": "Judge metric details",
-      "src": "figures/task_judge_details.png"
+      "id": "leaderboard",
+      "title": "Per-task headline leaderboard",
+      "src": "figures/fig1_teaser.png"
     }
   ],
   "gallery": [
