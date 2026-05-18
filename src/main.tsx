@@ -57,6 +57,8 @@ type ShowcaseItem = {
 
 type CadViewItem = Pick<ShowcaseItem, "id" | "title" | "subtitle" | "src" | "mesh">;
 type InputModalItem = Pick<ShowcaseItem, "title" | "taskLabel" | "specLabel" | "input" | "subtitle">;
+type LeaderboardRow = { model: string; family: string; score: number };
+type LeaderboardTask = { title: string; accent: string; note: string; rows: LeaderboardRow[] };
 
 const fallbackManifest: Manifest = {
   schema_version: 1,
@@ -263,19 +265,10 @@ function App() {
 
       <section id="pipeline" className="section">
         <div className="section-heading">
-          <p className="eyebrow">Pipeline and Main Figures</p>
-          <h2>Task protocol, format coverage, and leaderboard figures.</h2>
+          <p className="eyebrow">Pipeline and Leaderboard</p>
+          <h2>Pipeline placeholder and current per-task model rankings.</h2>
         </div>
-        <div className="figure-grid">
-          {(manifest.figures || []).filter((fig) => fig.id !== "teaser").map((fig) =>
-            fig.placeholder ? <Placeholder key={fig.id} title={fig.title} text="Figure placeholder. Replace with the final paper asset when ready." /> : (
-              <figure className="paper-figure" key={fig.id}>
-                <img src={asset(fig.src)} alt={fig.title} />
-                <figcaption>{fig.title}</figcaption>
-              </figure>
-            )
-          )}
-        </div>
+        <MainFigures />
       </section>
 
       <section id="gallery" className="section">
@@ -364,6 +357,160 @@ function pickDefaultRun(runs: Run[]) {
 
 function inputSpecLabel(spec: string) {
   return spec === "parametric" ? "Parametric input" : "Descriptive input";
+}
+
+const modelFamilyColors: Record<string, string> = {
+  openai: "#9DB0CE",
+  gemini: "#8FC3A4",
+  claude: "#F0A684",
+  kimi: "#BD9BD0",
+  zai: "#B5C5DC",
+  doubao: "#B0D5BE",
+  deepseek: "#F5BFA3",
+  qwen: "#D6BCDF",
+  mimo: "#CFD9EB",
+};
+
+const leaderboardTasks: LeaderboardTask[] = [
+  {
+    title: "Text-to-3D",
+    accent: "#9DB0CE",
+    note: "Across-bucket mean",
+    rows: [
+      { model: "GPT-5.5", family: "openai", score: 0.848 },
+      { model: "Gemini 3.1 Pro", family: "gemini", score: 0.835 },
+      { model: "Claude Opus 4.6", family: "claude", score: 0.831 },
+      { model: "Kimi K2.6", family: "kimi", score: 0.796 },
+      { model: "GLM-5.1", family: "zai", score: 0.782 },
+      { model: "Doubao Seed 2.0 Pro", family: "doubao", score: 0.762 },
+      { model: "DeepSeek V4 Pro", family: "deepseek", score: 0.762 },
+      { model: "Qwen3.6-Plus", family: "qwen", score: 0.748 },
+      { model: "MiMo v2.5 Pro", family: "mimo", score: 0.744 },
+      { model: "MiMo v2 Pro", family: "mimo", score: 0.741 },
+    ],
+  },
+  {
+    title: "Image-to-3D",
+    accent: "#F0A684",
+    note: "Across-bucket mean",
+    rows: [
+      { model: "GPT-5.5", family: "openai", score: 0.675 },
+      { model: "Gemini 3.1 Pro", family: "gemini", score: 0.667 },
+      { model: "Claude Opus 4.6", family: "claude", score: 0.620 },
+      { model: "Kimi K2.6", family: "kimi", score: 0.592 },
+      { model: "GLM 5V Turbo", family: "zai", score: 0.491 },
+      { model: "Qwen3.6-Plus", family: "qwen", score: 0.475 },
+      { model: "MiMo v2 Omni", family: "mimo", score: 0.452 },
+      { model: "Doubao Seed 2.0 Pro", family: "doubao", score: 0.437 },
+    ],
+  },
+  {
+    title: "Assembly-3D",
+    accent: "#8FC3A4",
+    note: "Across-bucket mean",
+    rows: [
+      { model: "Gemini 3.1 Pro", family: "gemini", score: 0.659 },
+      { model: "GPT-5.5", family: "openai", score: 0.657 },
+      { model: "Claude Opus 4.6", family: "claude", score: 0.594 },
+      { model: "Kimi K2.6", family: "kimi", score: 0.538 },
+      { model: "MiMo v2 Omni", family: "mimo", score: 0.359 },
+      { model: "Qwen3.6-Plus", family: "qwen", score: 0.353 },
+      { model: "GLM 5V Turbo", family: "zai", score: 0.330 },
+      { model: "Doubao Seed 2.0 Pro", family: "doubao", score: 0.316 },
+    ],
+  },
+];
+
+function MainFigures() {
+  return (
+    <div className="main-figures">
+      <PipelinePlaceholder />
+      <LeaderboardFigure />
+    </div>
+  );
+}
+
+function PipelinePlaceholder() {
+  return (
+    <article className="pipeline-placeholder">
+      <div className="pipeline-copy">
+        <span>Pipeline figure</span>
+        <h3>Final paper pipeline placeholder.</h3>
+        <p>The updated pipeline figure will be integrated here after the paper asset is finalized.</p>
+      </div>
+      <div className="pipeline-skeleton" aria-hidden="true">
+        <div className="skeleton-node wide" />
+        <div className="skeleton-arrow" />
+        <div className="skeleton-node" />
+        <div className="skeleton-arrow" />
+        <div className="skeleton-node accent" />
+      </div>
+    </article>
+  );
+}
+
+function LeaderboardFigure() {
+  return (
+    <article className="leaderboard-card">
+      <div className="leaderboard-head">
+        <div>
+          <span>Current paper figure</span>
+          <h3>Per-task model leaderboard</h3>
+        </div>
+        <p>Across-bucket mean scores from Fig. 7, grouped by task.</p>
+      </div>
+      <div className="leaderboard-axis" aria-hidden="true">
+        <span>0.0</span>
+        <span>0.3</span>
+        <span>0.6</span>
+        <span>0.9</span>
+      </div>
+      <div className="leaderboard-panels">
+        {leaderboardTasks.map((task) => <LeaderboardPanel task={task} key={task.title} />)}
+      </div>
+    </article>
+  );
+}
+
+function LeaderboardPanel({ task }: { task: LeaderboardTask }) {
+  return (
+    <section className="leaderboard-panel" style={{ "--task-accent": task.accent } as React.CSSProperties}>
+      <div className="leaderboard-task">
+        <h4>{task.title}</h4>
+        <span>{task.note}</span>
+      </div>
+      <div className="leaderboard-rows">
+        {task.rows.map((row, index) => {
+          const color = modelFamilyColors[row.family] || task.accent;
+          const width = `${Math.max(2, (row.score / 0.9) * 100)}%`;
+          return (
+            <div className="leaderboard-row" key={`${task.title}-${row.model}`}>
+              <div className="model-label">
+                <span className="model-rank">{index + 1}</span>
+                <span className="model-mark" style={{ "--model-color": color } as React.CSSProperties}>{modelShortName(row.model)}</span>
+                <strong>{row.model}</strong>
+              </div>
+              <div className="bar-track">
+                <span className="bar-fill" style={{ "--bar-color": color, "--bar-width": width } as React.CSSProperties} />
+              </div>
+              <em>{row.score.toFixed(3)}</em>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function modelShortName(model: string) {
+  if (model.startsWith("Claude")) return "Cl";
+  if (model.startsWith("Gemini")) return "Ge";
+  if (model.startsWith("Doubao")) return "Db";
+  if (model.startsWith("DeepSeek")) return "Ds";
+  if (model.startsWith("Qwen")) return "Qw";
+  if (model.startsWith("MiMo")) return "Mi";
+  if (model.startsWith("GLM")) return "Z";
+  return model.split(/[\s.-]/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("");
 }
 
 function runQuality(run: Run) {
