@@ -210,7 +210,8 @@
         "generated": "runs/text2cad_0001_00017063_descriptive_json_claude-reason/generated.json",
         "pred_render": "runs/text2cad_0001_00017063_descriptive_json_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0001_00017063_descriptive_json_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0001_00017063_descriptive_json_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0001_00017063_descriptive_json_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "qa_overall": 0.75,
@@ -233,7 +234,8 @@
         "generated": "runs/text2cad_0001_00017063_descriptive_json_gemini-reason/generated.json",
         "pred_render": "runs/text2cad_0001_00017063_descriptive_json_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0001_00017063_descriptive_json_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0001_00017063_descriptive_json_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0001_00017063_descriptive_json_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -256,7 +258,8 @@
         "generated": "runs/text2cad_0001_00017063_descriptive_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0001_00017063_descriptive_json_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0001_00017063_descriptive_json_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0001_00017063_descriptive_json_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0001_00017063_descriptive_json_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -279,7 +282,8 @@
         "generated": "runs/text2cad_0001_00017063_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0001_00017063_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0001_00017063_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0001_00017063_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0001_00017063_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "qa_overall": 0.25,
@@ -302,7 +306,8 @@
         "generated": "runs/text2cad_0001_00017063_descriptive_openscad_claude-reason/generated.scad",
         "pred_render": "runs/text2cad_0001_00017063_descriptive_openscad_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0001_00017063_descriptive_openscad_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0001_00017063_descriptive_openscad_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0001_00017063_descriptive_openscad_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "qa_overall": 0.75,
@@ -323,7 +328,8 @@
         "generated": "runs/text2cad_0001_00017063_descriptive_openscad_gemini-reason/generated.scad",
         "pred_render": "runs/text2cad_0001_00017063_descriptive_openscad_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0001_00017063_descriptive_openscad_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0001_00017063_descriptive_openscad_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0001_00017063_descriptive_openscad_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -344,7 +350,8 @@
         "generated": "runs/text2cad_0001_00017063_descriptive_openscad_gpt55-reason/generated.scad",
         "pred_render": "runs/text2cad_0001_00017063_descriptive_openscad_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0001_00017063_descriptive_openscad_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0001_00017063_descriptive_openscad_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0001_00017063_descriptive_openscad_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -365,7 +372,8 @@
         "generated": "runs/text2cad_0001_00017063_descriptive_openscad_qwen-reason/generated.scad",
         "pred_render": "runs/text2cad_0001_00017063_descriptive_openscad_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0001_00017063_descriptive_openscad_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0001_00017063_descriptive_openscad_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0001_00017063_descriptive_openscad_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "qa_overall": 0,
@@ -386,7 +394,8 @@
         "generated": "runs/text2cad_0001_00017063_parametric_json_claude-reason/generated.json",
         "pred_render": "runs/text2cad_0001_00017063_parametric_json_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0001_00017063_parametric_json_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0001_00017063_parametric_json_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0001_00017063_parametric_json_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001598,
@@ -409,7 +418,8 @@
       "valid": true,
       "condition": "Use a main base declared size of length 0.75, width 0.21875, and height 0.28125, with main extrusion depth 0.2812. Form the base as one solid upper-side extrusion from the base datum, filling the footprint to the left, right, front, and back edges with offsets of 0, and keep the side outline arched rather than reducing it to a rectangular notch. Add one remove-material feature made only from 2 separate circular profiles, not a connected slot or rectangular pocket. Place one circular axis 0.0717 from the left edge and 0.0625 from the front edge, and place the other circular axis 0.6692 from the left edge and 0.0625 from the front edge; each circular profile has radius 0.0312. Cut from the upper side with the removed band running from 0.1081 to 0.1705 above the base underside, using cut depth 0.0625. Treat the 0.6599 by 0.0625 span only as the envelope of the circular pattern, leaving the surrounding and intervening material solid.",
       "assets": {
-        "generated": "runs/text2cad_0001_00017063_parametric_json_gemini-reason/generated.json"
+        "generated": "runs/text2cad_0001_00017063_parametric_json_gemini-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001818,
@@ -432,7 +442,8 @@
       "valid": true,
       "condition": "Use a main base declared size of length 0.75, width 0.21875, and height 0.28125, with main extrusion depth 0.2812. Form the base as one solid upper-side extrusion from the base datum, filling the footprint to the left, right, front, and back edges with offsets of 0, and keep the side outline arched rather than reducing it to a rectangular notch. Add one remove-material feature made only from 2 separate circular profiles, not a connected slot or rectangular pocket. Place one circular axis 0.0717 from the left edge and 0.0625 from the front edge, and place the other circular axis 0.6692 from the left edge and 0.0625 from the front edge; each circular profile has radius 0.0312. Cut from the upper side with the removed band running from 0.1081 to 0.1705 above the base underside, using cut depth 0.0625. Treat the 0.6599 by 0.0625 span only as the envelope of the circular pattern, leaving the surrounding and intervening material solid.",
       "assets": {
-        "generated": "runs/text2cad_0001_00017063_parametric_json_gpt55-reason/generated.json"
+        "generated": "runs/text2cad_0001_00017063_parametric_json_gpt55-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001556,
@@ -461,7 +472,8 @@
         "generated": "runs/text2cad_0001_00017063_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0001_00017063_parametric_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0001_00017063_parametric_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0001_00017063_parametric_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0001_00017063_parametric_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "chamfer_distance": 0.002107,
@@ -487,7 +499,8 @@
         "generated": "runs/text2cad_0001_00017063_parametric_openscad_claude-reason/generated.scad",
         "pred_render": "runs/text2cad_0001_00017063_parametric_openscad_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0001_00017063_parametric_openscad_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0001_00017063_parametric_openscad_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0001_00017063_parametric_openscad_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001446,
@@ -516,7 +529,8 @@
         "generated": "runs/text2cad_0001_00017063_parametric_openscad_gemini-reason/generated.scad",
         "pred_render": "runs/text2cad_0001_00017063_parametric_openscad_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0001_00017063_parametric_openscad_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0001_00017063_parametric_openscad_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0001_00017063_parametric_openscad_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001839,
@@ -544,7 +558,8 @@
         "generated": "runs/text2cad_0001_00017063_parametric_openscad_gpt55-reason/generated.scad",
         "pred_render": "runs/text2cad_0001_00017063_parametric_openscad_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0001_00017063_parametric_openscad_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0001_00017063_parametric_openscad_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0001_00017063_parametric_openscad_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001497,
@@ -573,7 +588,8 @@
         "generated": "runs/text2cad_0001_00017063_parametric_openscad_qwen-reason/generated.scad",
         "pred_render": "runs/text2cad_0001_00017063_parametric_openscad_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0001_00017063_parametric_openscad_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0001_00017063_parametric_openscad_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0001_00017063_parametric_openscad_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0001__00017063.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001838,
@@ -601,7 +617,8 @@
         "generated": "runs/text2cad_0004_00040376_parametric_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0004_00040376_parametric_json_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0004_00040376_parametric_json_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0004_00040376_parametric_json_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0004_00040376_parametric_json_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0004__00040376.stl"
       },
       "metrics": {}
     },
@@ -618,7 +635,8 @@
         "generated": "runs/text2cad_0005_00051572_parametric_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0005_00051572_parametric_json_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0005_00051572_parametric_json_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0005_00051572_parametric_json_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0005_00051572_parametric_json_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0005__00051572.stl"
       },
       "metrics": {}
     },
@@ -635,7 +653,8 @@
         "generated": "runs/text2cad_0005_00057589_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0005_00057589_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0005_00057589_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0005_00057589_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0005_00057589_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0005__00057589.stl"
       },
       "metrics": {}
     },
@@ -652,7 +671,8 @@
         "generated": "runs/text2cad_0005_00057589_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0005_00057589_parametric_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0005_00057589_parametric_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0005_00057589_parametric_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0005_00057589_parametric_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0005__00057589.stl"
       },
       "metrics": {}
     },
@@ -669,7 +689,8 @@
         "generated": "runs/text2cad_0009_00099014_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0009_00099014_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0009_00099014_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0009_00099014_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0009_00099014_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0009__00099014.stl"
       },
       "metrics": {}
     },
@@ -686,7 +707,8 @@
         "generated": "runs/text2cad_0009_00099014_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0009_00099014_parametric_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0009_00099014_parametric_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0009_00099014_parametric_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0009_00099014_parametric_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0009__00099014.stl"
       },
       "metrics": {}
     },
@@ -703,7 +725,8 @@
         "generated": "runs/text2cad_0013_00132038_descriptive_json_claude-reason/generated.json",
         "pred_render": "runs/text2cad_0013_00132038_descriptive_json_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00132038_descriptive_json_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00132038_descriptive_json_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00132038_descriptive_json_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -724,7 +747,8 @@
         "generated": "runs/text2cad_0013_00132038_descriptive_json_gemini-reason/generated.json",
         "pred_render": "runs/text2cad_0013_00132038_descriptive_json_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00132038_descriptive_json_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00132038_descriptive_json_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00132038_descriptive_json_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -745,7 +769,8 @@
         "generated": "runs/text2cad_0013_00132038_descriptive_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0013_00132038_descriptive_json_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00132038_descriptive_json_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00132038_descriptive_json_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00132038_descriptive_json_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -766,7 +791,8 @@
         "generated": "runs/text2cad_0013_00132038_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0013_00132038_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00132038_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00132038_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00132038_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "qa_overall": 0.25,
@@ -787,7 +813,8 @@
         "generated": "runs/text2cad_0013_00132038_descriptive_openscad_claude-reason/generated.scad",
         "pred_render": "runs/text2cad_0013_00132038_descriptive_openscad_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00132038_descriptive_openscad_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00132038_descriptive_openscad_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00132038_descriptive_openscad_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -808,7 +835,8 @@
         "generated": "runs/text2cad_0013_00132038_descriptive_openscad_gemini-reason/generated.scad",
         "pred_render": "runs/text2cad_0013_00132038_descriptive_openscad_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00132038_descriptive_openscad_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00132038_descriptive_openscad_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00132038_descriptive_openscad_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -829,7 +857,8 @@
         "generated": "runs/text2cad_0013_00132038_descriptive_openscad_gpt55-reason/generated.scad",
         "pred_render": "runs/text2cad_0013_00132038_descriptive_openscad_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00132038_descriptive_openscad_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00132038_descriptive_openscad_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00132038_descriptive_openscad_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -850,7 +879,8 @@
         "generated": "runs/text2cad_0013_00132038_descriptive_openscad_qwen-reason/generated.scad",
         "pred_render": "runs/text2cad_0013_00132038_descriptive_openscad_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00132038_descriptive_openscad_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00132038_descriptive_openscad_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00132038_descriptive_openscad_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -871,7 +901,8 @@
         "generated": "runs/text2cad_0013_00132038_parametric_json_claude-reason/generated.json",
         "pred_render": "runs/text2cad_0013_00132038_parametric_json_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00132038_parametric_json_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00132038_parametric_json_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00132038_parametric_json_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001855,
@@ -894,7 +925,8 @@
       "valid": true,
       "condition": "Start with the main base reference: length 0.285175, width 0.72717, and height 0.044569. Make one solid base from a curved outline that fills the full reference span, with left, right, front, and back offsets all 0, and give it an extrusion depth of 0.0446 from the base datum. On the upper side, add a solid circular body with its vertical axis 0.1419 from the left edge and 0.3522 from the front edge; use radius 0.259, giving a circular footprint span of 0.518 by 0.518, with bounding offsets left -0.1171, right -0.1157, front 0.0932, and back 0.116. This circular body has own depth 0.0891 and is the contained deeper continuation for the broader shallow curved pad above it. Add that broader curved pad on the upper side with footprint span 0.546349 by 0.631906, offsets left -0.1313, right -0.1298, front 0.0953, and back 0, and own depth 0.0337. Model the depth hierarchy as nested stepped reaches from shared shoulders: the 0.0891 circular continuation pairs with the 0.0337 shallow pad and reaches between the 0.1337 and 0.0446 underside levels; the 0.0337 continuation also pairs below the upper 0.098 tier and reaches between the 0.1674 and 0.1337 underside levels, so these are not additive segment heights. For the top circular-profile group, use only the separate circular profiles within its 0.4791 by 0.5 envelope, with bounding offsets left -0.0977, right -0.0962, front 0.1022, and back 0.125; do not fill that envelope as a rectangular pad. Place the circular profiles along the common left offset 0.1419: a central profile at front offset 0.3522 with radius 0.0714, a coincident central circular profile at the same offset and radius 0.0714, a forward small profile at front offset 0.1648 with radius 0.0388, and a rear small profile at front offset 0.5396 with radius 0.0389. Treat the inner circular and slot-like loops as real voids through their respective added solid thicknesses, while the remaining circular material is solid and raised above the base.",
       "assets": {
-        "generated": "runs/text2cad_0013_00132038_parametric_json_gemini-reason/generated.json"
+        "generated": "runs/text2cad_0013_00132038_parametric_json_gemini-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001663,
@@ -917,7 +949,8 @@
       "valid": true,
       "condition": "Start with the main base reference: length 0.285175, width 0.72717, and height 0.044569. Make one solid base from a curved outline that fills the full reference span, with left, right, front, and back offsets all 0, and give it an extrusion depth of 0.0446 from the base datum. On the upper side, add a solid circular body with its vertical axis 0.1419 from the left edge and 0.3522 from the front edge; use radius 0.259, giving a circular footprint span of 0.518 by 0.518, with bounding offsets left -0.1171, right -0.1157, front 0.0932, and back 0.116. This circular body has own depth 0.0891 and is the contained deeper continuation for the broader shallow curved pad above it. Add that broader curved pad on the upper side with footprint span 0.546349 by 0.631906, offsets left -0.1313, right -0.1298, front 0.0953, and back 0, and own depth 0.0337. Model the depth hierarchy as nested stepped reaches from shared shoulders: the 0.0891 circular continuation pairs with the 0.0337 shallow pad and reaches between the 0.1337 and 0.0446 underside levels; the 0.0337 continuation also pairs below the upper 0.098 tier and reaches between the 0.1674 and 0.1337 underside levels, so these are not additive segment heights. For the top circular-profile group, use only the separate circular profiles within its 0.4791 by 0.5 envelope, with bounding offsets left -0.0977, right -0.0962, front 0.1022, and back 0.125; do not fill that envelope as a rectangular pad. Place the circular profiles along the common left offset 0.1419: a central profile at front offset 0.3522 with radius 0.0714, a coincident central circular profile at the same offset and radius 0.0714, a forward small profile at front offset 0.1648 with radius 0.0388, and a rear small profile at front offset 0.5396 with radius 0.0389. Treat the inner circular and slot-like loops as real voids through their respective added solid thicknesses, while the remaining circular material is solid and raised above the base.",
       "assets": {
-        "generated": "runs/text2cad_0013_00132038_parametric_json_gpt55-reason/generated.json"
+        "generated": "runs/text2cad_0013_00132038_parametric_json_gpt55-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "chamfer_distance": 0.00169,
@@ -940,7 +973,8 @@
       "valid": true,
       "condition": "Start with the main base reference: length 0.285175, width 0.72717, and height 0.044569. Make one solid base from a curved outline that fills the full reference span, with left, right, front, and back offsets all 0, and give it an extrusion depth of 0.0446 from the base datum. On the upper side, add a solid circular body with its vertical axis 0.1419 from the left edge and 0.3522 from the front edge; use radius 0.259, giving a circular footprint span of 0.518 by 0.518, with bounding offsets left -0.1171, right -0.1157, front 0.0932, and back 0.116. This circular body has own depth 0.0891 and is the contained deeper continuation for the broader shallow curved pad above it. Add that broader curved pad on the upper side with footprint span 0.546349 by 0.631906, offsets left -0.1313, right -0.1298, front 0.0953, and back 0, and own depth 0.0337. Model the depth hierarchy as nested stepped reaches from shared shoulders: the 0.0891 circular continuation pairs with the 0.0337 shallow pad and reaches between the 0.1337 and 0.0446 underside levels; the 0.0337 continuation also pairs below the upper 0.098 tier and reaches between the 0.1674 and 0.1337 underside levels, so these are not additive segment heights. For the top circular-profile group, use only the separate circular profiles within its 0.4791 by 0.5 envelope, with bounding offsets left -0.0977, right -0.0962, front 0.1022, and back 0.125; do not fill that envelope as a rectangular pad. Place the circular profiles along the common left offset 0.1419: a central profile at front offset 0.3522 with radius 0.0714, a coincident central circular profile at the same offset and radius 0.0714, a forward small profile at front offset 0.1648 with radius 0.0388, and a rear small profile at front offset 0.5396 with radius 0.0389. Treat the inner circular and slot-like loops as real voids through their respective added solid thicknesses, while the remaining circular material is solid and raised above the base.",
       "assets": {
-        "generated": "runs/text2cad_0013_00132038_parametric_json_qwen-reason/generated.json"
+        "generated": "runs/text2cad_0013_00132038_parametric_json_qwen-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "chamfer_distance": 0.002629,
@@ -966,7 +1000,8 @@
         "generated": "runs/text2cad_0013_00132038_parametric_openscad_claude-reason/generated.scad",
         "pred_render": "runs/text2cad_0013_00132038_parametric_openscad_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00132038_parametric_openscad_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00132038_parametric_openscad_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00132038_parametric_openscad_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001975,
@@ -994,7 +1029,8 @@
         "generated": "runs/text2cad_0013_00132038_parametric_openscad_gemini-reason/generated.scad",
         "pred_render": "runs/text2cad_0013_00132038_parametric_openscad_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00132038_parametric_openscad_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00132038_parametric_openscad_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00132038_parametric_openscad_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001593,
@@ -1023,7 +1059,8 @@
         "generated": "runs/text2cad_0013_00132038_parametric_openscad_gpt55-reason/generated.scad",
         "pred_render": "runs/text2cad_0013_00132038_parametric_openscad_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00132038_parametric_openscad_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00132038_parametric_openscad_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00132038_parametric_openscad_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001476,
@@ -1052,7 +1089,8 @@
         "generated": "runs/text2cad_0013_00132038_parametric_openscad_qwen-reason/generated.scad",
         "pred_render": "runs/text2cad_0013_00132038_parametric_openscad_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00132038_parametric_openscad_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00132038_parametric_openscad_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00132038_parametric_openscad_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00132038.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001585,
@@ -1080,7 +1118,8 @@
         "generated": "runs/text2cad_0013_00134405_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0013_00134405_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00134405_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00134405_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00134405_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00134405.stl"
       },
       "metrics": {}
     },
@@ -1097,7 +1136,8 @@
         "generated": "runs/text2cad_0013_00134405_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0013_00134405_parametric_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00134405_parametric_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00134405_parametric_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00134405_parametric_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00134405.stl"
       },
       "metrics": {}
     },
@@ -1114,7 +1154,8 @@
         "generated": "runs/text2cad_0013_00135378_parametric_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0013_00135378_parametric_json_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0013_00135378_parametric_json_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0013_00135378_parametric_json_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0013_00135378_parametric_json_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0013__00135378.stl"
       },
       "metrics": {}
     },
@@ -1131,7 +1172,8 @@
         "generated": "runs/text2cad_0015_00155951_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0015_00155951_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0015_00155951_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0015_00155951_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0015_00155951_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0015__00155951.stl"
       },
       "metrics": {}
     },
@@ -1148,7 +1190,8 @@
         "generated": "runs/text2cad_0015_00155951_parametric_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0015_00155951_parametric_json_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0015_00155951_parametric_json_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0015_00155951_parametric_json_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0015_00155951_parametric_json_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0015__00155951.stl"
       },
       "metrics": {}
     },
@@ -1165,7 +1208,8 @@
         "generated": "runs/text2cad_0015_00155951_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0015_00155951_parametric_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0015_00155951_parametric_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0015_00155951_parametric_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0015_00155951_parametric_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0015__00155951.stl"
       },
       "metrics": {}
     },
@@ -1182,7 +1226,8 @@
         "generated": "runs/text2cad_0024_00249966_parametric_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0024_00249966_parametric_json_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0024_00249966_parametric_json_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0024_00249966_parametric_json_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0024_00249966_parametric_json_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0024__00249966.stl"
       },
       "metrics": {}
     },
@@ -1199,7 +1244,8 @@
         "generated": "runs/text2cad_0045_00457640_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0045_00457640_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0045_00457640_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0045_00457640_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0045_00457640_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0045__00457640.stl"
       },
       "metrics": {}
     },
@@ -1216,7 +1262,8 @@
         "generated": "runs/text2cad_0045_00457640_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0045_00457640_parametric_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0045_00457640_parametric_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0045_00457640_parametric_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0045_00457640_parametric_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0045__00457640.stl"
       },
       "metrics": {}
     },
@@ -1233,7 +1280,8 @@
         "generated": "runs/text2cad_0046_00460772_descriptive_json_claude-reason/generated.json",
         "pred_render": "runs/text2cad_0046_00460772_descriptive_json_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0046_00460772_descriptive_json_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0046_00460772_descriptive_json_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0046_00460772_descriptive_json_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -1254,7 +1302,8 @@
         "generated": "runs/text2cad_0046_00460772_descriptive_json_gemini-reason/generated.json",
         "pred_render": "runs/text2cad_0046_00460772_descriptive_json_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0046_00460772_descriptive_json_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0046_00460772_descriptive_json_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0046_00460772_descriptive_json_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -1275,7 +1324,8 @@
         "generated": "runs/text2cad_0046_00460772_descriptive_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0046_00460772_descriptive_json_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0046_00460772_descriptive_json_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0046_00460772_descriptive_json_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0046_00460772_descriptive_json_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -1296,7 +1346,8 @@
         "generated": "runs/text2cad_0046_00460772_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0046_00460772_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0046_00460772_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0046_00460772_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0046_00460772_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "qa_overall": 0.75,
@@ -1317,7 +1368,8 @@
         "generated": "runs/text2cad_0046_00460772_descriptive_openscad_claude-reason/generated.scad",
         "pred_render": "runs/text2cad_0046_00460772_descriptive_openscad_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0046_00460772_descriptive_openscad_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0046_00460772_descriptive_openscad_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0046_00460772_descriptive_openscad_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -1338,7 +1390,8 @@
         "generated": "runs/text2cad_0046_00460772_descriptive_openscad_gemini-reason/generated.scad",
         "pred_render": "runs/text2cad_0046_00460772_descriptive_openscad_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0046_00460772_descriptive_openscad_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0046_00460772_descriptive_openscad_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0046_00460772_descriptive_openscad_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -1359,7 +1412,8 @@
         "generated": "runs/text2cad_0046_00460772_descriptive_openscad_gpt55-reason/generated.scad",
         "pred_render": "runs/text2cad_0046_00460772_descriptive_openscad_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0046_00460772_descriptive_openscad_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0046_00460772_descriptive_openscad_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0046_00460772_descriptive_openscad_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -1380,7 +1434,8 @@
         "generated": "runs/text2cad_0046_00460772_descriptive_openscad_qwen-reason/generated.scad",
         "pred_render": "runs/text2cad_0046_00460772_descriptive_openscad_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0046_00460772_descriptive_openscad_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0046_00460772_descriptive_openscad_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0046_00460772_descriptive_openscad_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "qa_overall": 0.5,
@@ -1398,7 +1453,8 @@
       "valid": true,
       "condition": "Use the main base as the first reference with length 0.341352, width 0.199422, height 0.065029, and main extrusion depth 0.065. Form this low rounded annular section on the upper side from concentric circular profiles centered 0.2416 from the left edge and 0.0997 from the front edge, with outer radius 0.0997 and inner radius 0.0434; keep the inner profile open through the 0.065 thickness. Add the taller hollow sleeve as a concentric annular cylinder with a 0.2602 by 0.2602 circular span, edge offsets left -0.2135, right 0.2946, front -0.0303, and back -0.0305; its center is offset -0.0834 from the left reference and 0.0998 from the front reference, with outer radius 0.1301, inner radius 0.0867, and upward reach 0.2601 from the base datum. Add the projecting straight-sided arm section with length 0.325145, width 0.260116, height 0.130058, edge offsets left -0.4086, right 0.4248, front -0.0303, and back -0.0304, extending upward 0.1301 from the base datum. In that same arm footprint, cut away the lower band from the underside over the vertical range 0 to 0.065 relative to the base underside, leaving the arm as a raised stepped tier rather than a full-depth solid. Add the narrow triangular web on the upper side with a plan run of 0.108382 and material thickness 0.0217, placed between left offsets 0.0466 and 0.1863 and front/back offsets 0.0781 and 0.0996; its side profile rises across a 0.195087 span and reaches toward the 0.2601 upper sleeve tier.",
       "assets": {
-        "generated": "runs/text2cad_0046_00460772_parametric_json_claude-reason/generated.json"
+        "generated": "runs/text2cad_0046_00460772_parametric_json_claude-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "chamfer_distance": 0.002001,
@@ -1421,7 +1477,8 @@
       "valid": true,
       "condition": "Use the main base as the first reference with length 0.341352, width 0.199422, height 0.065029, and main extrusion depth 0.065. Form this low rounded annular section on the upper side from concentric circular profiles centered 0.2416 from the left edge and 0.0997 from the front edge, with outer radius 0.0997 and inner radius 0.0434; keep the inner profile open through the 0.065 thickness. Add the taller hollow sleeve as a concentric annular cylinder with a 0.2602 by 0.2602 circular span, edge offsets left -0.2135, right 0.2946, front -0.0303, and back -0.0305; its center is offset -0.0834 from the left reference and 0.0998 from the front reference, with outer radius 0.1301, inner radius 0.0867, and upward reach 0.2601 from the base datum. Add the projecting straight-sided arm section with length 0.325145, width 0.260116, height 0.130058, edge offsets left -0.4086, right 0.4248, front -0.0303, and back -0.0304, extending upward 0.1301 from the base datum. In that same arm footprint, cut away the lower band from the underside over the vertical range 0 to 0.065 relative to the base underside, leaving the arm as a raised stepped tier rather than a full-depth solid. Add the narrow triangular web on the upper side with a plan run of 0.108382 and material thickness 0.0217, placed between left offsets 0.0466 and 0.1863 and front/back offsets 0.0781 and 0.0996; its side profile rises across a 0.195087 span and reaches toward the 0.2601 upper sleeve tier.",
       "assets": {
-        "generated": "runs/text2cad_0046_00460772_parametric_json_gemini-reason/generated.json"
+        "generated": "runs/text2cad_0046_00460772_parametric_json_gemini-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001442,
@@ -1444,7 +1501,8 @@
       "valid": true,
       "condition": "Use the main base as the first reference with length 0.341352, width 0.199422, height 0.065029, and main extrusion depth 0.065. Form this low rounded annular section on the upper side from concentric circular profiles centered 0.2416 from the left edge and 0.0997 from the front edge, with outer radius 0.0997 and inner radius 0.0434; keep the inner profile open through the 0.065 thickness. Add the taller hollow sleeve as a concentric annular cylinder with a 0.2602 by 0.2602 circular span, edge offsets left -0.2135, right 0.2946, front -0.0303, and back -0.0305; its center is offset -0.0834 from the left reference and 0.0998 from the front reference, with outer radius 0.1301, inner radius 0.0867, and upward reach 0.2601 from the base datum. Add the projecting straight-sided arm section with length 0.325145, width 0.260116, height 0.130058, edge offsets left -0.4086, right 0.4248, front -0.0303, and back -0.0304, extending upward 0.1301 from the base datum. In that same arm footprint, cut away the lower band from the underside over the vertical range 0 to 0.065 relative to the base underside, leaving the arm as a raised stepped tier rather than a full-depth solid. Add the narrow triangular web on the upper side with a plan run of 0.108382 and material thickness 0.0217, placed between left offsets 0.0466 and 0.1863 and front/back offsets 0.0781 and 0.0996; its side profile rises across a 0.195087 span and reaches toward the 0.2601 upper sleeve tier.",
       "assets": {
-        "generated": "runs/text2cad_0046_00460772_parametric_json_gpt55-reason/generated.json"
+        "generated": "runs/text2cad_0046_00460772_parametric_json_gpt55-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "chamfer_distance": 0.000157,
@@ -1467,7 +1525,8 @@
       "valid": true,
       "condition": "Use the main base as the first reference with length 0.341352, width 0.199422, height 0.065029, and main extrusion depth 0.065. Form this low rounded annular section on the upper side from concentric circular profiles centered 0.2416 from the left edge and 0.0997 from the front edge, with outer radius 0.0997 and inner radius 0.0434; keep the inner profile open through the 0.065 thickness. Add the taller hollow sleeve as a concentric annular cylinder with a 0.2602 by 0.2602 circular span, edge offsets left -0.2135, right 0.2946, front -0.0303, and back -0.0305; its center is offset -0.0834 from the left reference and 0.0998 from the front reference, with outer radius 0.1301, inner radius 0.0867, and upward reach 0.2601 from the base datum. Add the projecting straight-sided arm section with length 0.325145, width 0.260116, height 0.130058, edge offsets left -0.4086, right 0.4248, front -0.0303, and back -0.0304, extending upward 0.1301 from the base datum. In that same arm footprint, cut away the lower band from the underside over the vertical range 0 to 0.065 relative to the base underside, leaving the arm as a raised stepped tier rather than a full-depth solid. Add the narrow triangular web on the upper side with a plan run of 0.108382 and material thickness 0.0217, placed between left offsets 0.0466 and 0.1863 and front/back offsets 0.0781 and 0.0996; its side profile rises across a 0.195087 span and reaches toward the 0.2601 upper sleeve tier.",
       "assets": {
-        "generated": "runs/text2cad_0046_00460772_parametric_json_qwen-reason/generated.json"
+        "generated": "runs/text2cad_0046_00460772_parametric_json_qwen-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001337,
@@ -1493,7 +1552,8 @@
         "generated": "runs/text2cad_0046_00460772_parametric_openscad_claude-reason/generated.scad",
         "pred_render": "runs/text2cad_0046_00460772_parametric_openscad_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0046_00460772_parametric_openscad_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0046_00460772_parametric_openscad_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0046_00460772_parametric_openscad_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "chamfer_distance": 0.000872,
@@ -1522,7 +1582,8 @@
         "generated": "runs/text2cad_0046_00460772_parametric_openscad_gemini-reason/generated.scad",
         "pred_render": "runs/text2cad_0046_00460772_parametric_openscad_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0046_00460772_parametric_openscad_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0046_00460772_parametric_openscad_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0046_00460772_parametric_openscad_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "chamfer_distance": 0.00135,
@@ -1551,7 +1612,8 @@
         "generated": "runs/text2cad_0046_00460772_parametric_openscad_gpt55-reason/generated.scad",
         "pred_render": "runs/text2cad_0046_00460772_parametric_openscad_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0046_00460772_parametric_openscad_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0046_00460772_parametric_openscad_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0046_00460772_parametric_openscad_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "chamfer_distance": 0.000047,
@@ -1580,7 +1642,8 @@
         "generated": "runs/text2cad_0046_00460772_parametric_openscad_qwen-reason/generated.scad",
         "pred_render": "runs/text2cad_0046_00460772_parametric_openscad_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0046_00460772_parametric_openscad_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0046_00460772_parametric_openscad_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0046_00460772_parametric_openscad_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0046__00460772.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001719,
@@ -1609,7 +1672,8 @@
         "generated": "runs/text2cad_0053_00531353_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0053_00531353_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0053_00531353_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0053_00531353_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0053_00531353_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0053__00531353.stl"
       },
       "metrics": {}
     },
@@ -1626,7 +1690,8 @@
         "generated": "runs/text2cad_0053_00531353_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0053_00531353_parametric_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0053_00531353_parametric_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0053_00531353_parametric_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0053_00531353_parametric_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0053__00531353.stl"
       },
       "metrics": {}
     },
@@ -1643,7 +1708,8 @@
         "generated": "runs/text2cad_0062_00621494_descriptive_json_claude-reason/generated.json",
         "pred_render": "runs/text2cad_0062_00621494_descriptive_json_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0062_00621494_descriptive_json_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0062_00621494_descriptive_json_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0062_00621494_descriptive_json_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {
         "qa_overall": 0.75,
@@ -1664,7 +1730,8 @@
         "generated": "runs/text2cad_0062_00621494_descriptive_json_gemini-reason/generated.json",
         "pred_render": "runs/text2cad_0062_00621494_descriptive_json_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0062_00621494_descriptive_json_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0062_00621494_descriptive_json_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0062_00621494_descriptive_json_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -1685,7 +1752,8 @@
         "generated": "runs/text2cad_0062_00621494_descriptive_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0062_00621494_descriptive_json_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0062_00621494_descriptive_json_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0062_00621494_descriptive_json_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0062_00621494_descriptive_json_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {
         "qa_overall": 0.75,
@@ -1704,7 +1772,8 @@
       "condition": "The part combines rounded upright wall geometry with lower and upper annular circular features, so the visible circular areas should be treated as hollow sleeves or collars rather than solid disks. The taller rear portion is an arc-based open wall with rounded ends and a slot-like interior, not a sharp rectangular tube. The model includes removed circular material from the underside, creating stepped bottom depths that are not obvious from the top view. The internal bores continue through the related circular stepped features, while the larger rounded side surfaces remain added solid material.",
       "assets": {
         "generated": "runs/text2cad_0062_00621494_descriptive_json_qwen-reason/generated.json",
-        "gt_render": "runs/text2cad_0062_00621494_descriptive_json_qwen-reason/gt_render.png"
+        "gt_render": "runs/text2cad_0062_00621494_descriptive_json_qwen-reason/gt_render.png",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {}
     },
@@ -1720,7 +1789,8 @@
       "assets": {
         "generated": "runs/text2cad_0062_00621494_descriptive_openscad_claude-reason/generated.scad",
         "pred_render": "runs/text2cad_0062_00621494_descriptive_openscad_claude-reason/pred_render.png",
-        "gt_render": "runs/text2cad_0062_00621494_descriptive_openscad_claude-reason/gt_render.png"
+        "gt_render": "runs/text2cad_0062_00621494_descriptive_openscad_claude-reason/gt_render.png",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {}
     },
@@ -1737,7 +1807,8 @@
         "generated": "runs/text2cad_0062_00621494_descriptive_openscad_gemini-reason/generated.scad",
         "pred_render": "runs/text2cad_0062_00621494_descriptive_openscad_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0062_00621494_descriptive_openscad_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0062_00621494_descriptive_openscad_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0062_00621494_descriptive_openscad_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -1758,7 +1829,8 @@
         "generated": "runs/text2cad_0062_00621494_descriptive_openscad_gpt55-reason/generated.scad",
         "pred_render": "runs/text2cad_0062_00621494_descriptive_openscad_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0062_00621494_descriptive_openscad_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0062_00621494_descriptive_openscad_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0062_00621494_descriptive_openscad_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {
         "qa_overall": 0.75,
@@ -1779,7 +1851,8 @@
         "generated": "runs/text2cad_0062_00621494_descriptive_openscad_qwen-reason/generated.scad",
         "pred_render": "runs/text2cad_0062_00621494_descriptive_openscad_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0062_00621494_descriptive_openscad_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0062_00621494_descriptive_openscad_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0062_00621494_descriptive_openscad_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -1797,7 +1870,8 @@
       "valid": true,
       "condition": "Use an overall reference envelope with length 0.303436, width 0.502485, and height 0.468362; the main upright solid reaches 0.4684 from the base datum. Form the main upper body from rounded and arc-based profiles within this envelope, flush to the left, right, front, and back reference extents, with an open curved interior rather than a filled rectangular block. On the base plane place a small coaxial circular sleeve axis 0.1542 from the left edge and 0.4232 from the front edge; use radius 0.0714 for the sleeve wall outline, with the same radius repeated for the stepped circular face, and keep a central bore of radius 0.025 as a real opening. Add the larger lower annular circular solid on the upward side of the base plane, reaching 0.203 from that plane, with its axis 0.5416 from the left edge and 0.2448 from the front edge; use outer radius 0.2084, repeated annular boundary radius 0.1756, and central opening radius 0.0546, treating the 0.4168 by 0.4168 span only as the circular profile envelope. From the underside, cut the larger circular recess over the vertical band 0 to 0.128 relative to the base underside, centered on the same large axis, using radius 0.1756 and radius 0.0546 circular boundaries; its circular span is 0.3512 by 0.3512 with offsets left 0.366, right -0.4138, front 0.0692, and back 0.0821 from the reference edges. Also from the underside, cut the smaller coaxial circular recess over the vertical band 0 to 0.1764 relative to the base underside, centered 0.1541 from the left edge and 0.4232 from the front edge, using radius 0.0714 and central bore radius 0.025; its circular span is 0.1428 by 0.1428 with offsets left 0.0827, right 0.0779, front 0.3518, and back 0.0079. Keep these underside cuts as stepped recess/opening features rather than full-height removals, while the listed central bores remain true voids through their corresponding circular tiers.",
       "assets": {
-        "generated": "runs/text2cad_0062_00621494_parametric_json_claude-reason/generated.json"
+        "generated": "runs/text2cad_0062_00621494_parametric_json_claude-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {
         "chamfer_distance": 0.000575,
@@ -1820,7 +1894,8 @@
       "valid": true,
       "condition": "Use an overall reference envelope with length 0.303436, width 0.502485, and height 0.468362; the main upright solid reaches 0.4684 from the base datum. Form the main upper body from rounded and arc-based profiles within this envelope, flush to the left, right, front, and back reference extents, with an open curved interior rather than a filled rectangular block. On the base plane place a small coaxial circular sleeve axis 0.1542 from the left edge and 0.4232 from the front edge; use radius 0.0714 for the sleeve wall outline, with the same radius repeated for the stepped circular face, and keep a central bore of radius 0.025 as a real opening. Add the larger lower annular circular solid on the upward side of the base plane, reaching 0.203 from that plane, with its axis 0.5416 from the left edge and 0.2448 from the front edge; use outer radius 0.2084, repeated annular boundary radius 0.1756, and central opening radius 0.0546, treating the 0.4168 by 0.4168 span only as the circular profile envelope. From the underside, cut the larger circular recess over the vertical band 0 to 0.128 relative to the base underside, centered on the same large axis, using radius 0.1756 and radius 0.0546 circular boundaries; its circular span is 0.3512 by 0.3512 with offsets left 0.366, right -0.4138, front 0.0692, and back 0.0821 from the reference edges. Also from the underside, cut the smaller coaxial circular recess over the vertical band 0 to 0.1764 relative to the base underside, centered 0.1541 from the left edge and 0.4232 from the front edge, using radius 0.0714 and central bore radius 0.025; its circular span is 0.1428 by 0.1428 with offsets left 0.0827, right 0.0779, front 0.3518, and back 0.0079. Keep these underside cuts as stepped recess/opening features rather than full-height removals, while the listed central bores remain true voids through their corresponding circular tiers.",
       "assets": {
-        "generated": "runs/text2cad_0062_00621494_parametric_json_gemini-reason/generated.json"
+        "generated": "runs/text2cad_0062_00621494_parametric_json_gemini-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {
         "chamfer_distance": 0.005056,
@@ -1846,7 +1921,8 @@
       "valid": true,
       "condition": "Use an overall reference envelope with length 0.303436, width 0.502485, and height 0.468362; the main upright solid reaches 0.4684 from the base datum. Form the main upper body from rounded and arc-based profiles within this envelope, flush to the left, right, front, and back reference extents, with an open curved interior rather than a filled rectangular block. On the base plane place a small coaxial circular sleeve axis 0.1542 from the left edge and 0.4232 from the front edge; use radius 0.0714 for the sleeve wall outline, with the same radius repeated for the stepped circular face, and keep a central bore of radius 0.025 as a real opening. Add the larger lower annular circular solid on the upward side of the base plane, reaching 0.203 from that plane, with its axis 0.5416 from the left edge and 0.2448 from the front edge; use outer radius 0.2084, repeated annular boundary radius 0.1756, and central opening radius 0.0546, treating the 0.4168 by 0.4168 span only as the circular profile envelope. From the underside, cut the larger circular recess over the vertical band 0 to 0.128 relative to the base underside, centered on the same large axis, using radius 0.1756 and radius 0.0546 circular boundaries; its circular span is 0.3512 by 0.3512 with offsets left 0.366, right -0.4138, front 0.0692, and back 0.0821 from the reference edges. Also from the underside, cut the smaller coaxial circular recess over the vertical band 0 to 0.1764 relative to the base underside, centered 0.1541 from the left edge and 0.4232 from the front edge, using radius 0.0714 and central bore radius 0.025; its circular span is 0.1428 by 0.1428 with offsets left 0.0827, right 0.0779, front 0.3518, and back 0.0079. Keep these underside cuts as stepped recess/opening features rather than full-height removals, while the listed central bores remain true voids through their corresponding circular tiers.",
       "assets": {
-        "generated": "runs/text2cad_0062_00621494_parametric_json_gpt55-reason/generated.json"
+        "generated": "runs/text2cad_0062_00621494_parametric_json_gpt55-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {
         "chamfer_distance": 0.000416,
@@ -1872,7 +1948,8 @@
       "valid": true,
       "condition": "Use an overall reference envelope with length 0.303436, width 0.502485, and height 0.468362; the main upright solid reaches 0.4684 from the base datum. Form the main upper body from rounded and arc-based profiles within this envelope, flush to the left, right, front, and back reference extents, with an open curved interior rather than a filled rectangular block. On the base plane place a small coaxial circular sleeve axis 0.1542 from the left edge and 0.4232 from the front edge; use radius 0.0714 for the sleeve wall outline, with the same radius repeated for the stepped circular face, and keep a central bore of radius 0.025 as a real opening. Add the larger lower annular circular solid on the upward side of the base plane, reaching 0.203 from that plane, with its axis 0.5416 from the left edge and 0.2448 from the front edge; use outer radius 0.2084, repeated annular boundary radius 0.1756, and central opening radius 0.0546, treating the 0.4168 by 0.4168 span only as the circular profile envelope. From the underside, cut the larger circular recess over the vertical band 0 to 0.128 relative to the base underside, centered on the same large axis, using radius 0.1756 and radius 0.0546 circular boundaries; its circular span is 0.3512 by 0.3512 with offsets left 0.366, right -0.4138, front 0.0692, and back 0.0821 from the reference edges. Also from the underside, cut the smaller coaxial circular recess over the vertical band 0 to 0.1764 relative to the base underside, centered 0.1541 from the left edge and 0.4232 from the front edge, using radius 0.0714 and central bore radius 0.025; its circular span is 0.1428 by 0.1428 with offsets left 0.0827, right 0.0779, front 0.3518, and back 0.0079. Keep these underside cuts as stepped recess/opening features rather than full-height removals, while the listed central bores remain true voids through their corresponding circular tiers.",
       "assets": {
-        "generated": "runs/text2cad_0062_00621494_parametric_json_qwen-reason/generated.json"
+        "generated": "runs/text2cad_0062_00621494_parametric_json_qwen-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {
         "chamfer_distance": 0.00085,
@@ -1896,7 +1973,8 @@
         "generated": "runs/text2cad_0062_00621494_parametric_openscad_claude-reason/generated.scad",
         "pred_render": "runs/text2cad_0062_00621494_parametric_openscad_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0062_00621494_parametric_openscad_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0062_00621494_parametric_openscad_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0062_00621494_parametric_openscad_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {
         "chamfer_distance": 0.004116,
@@ -1925,7 +2003,8 @@
         "generated": "runs/text2cad_0062_00621494_parametric_openscad_gemini-reason/generated.scad",
         "pred_render": "runs/text2cad_0062_00621494_parametric_openscad_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0062_00621494_parametric_openscad_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0062_00621494_parametric_openscad_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0062_00621494_parametric_openscad_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {
         "chamfer_distance": 0.000529,
@@ -1954,7 +2033,8 @@
         "generated": "runs/text2cad_0062_00621494_parametric_openscad_gpt55-reason/generated.scad",
         "pred_render": "runs/text2cad_0062_00621494_parametric_openscad_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0062_00621494_parametric_openscad_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0062_00621494_parametric_openscad_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0062_00621494_parametric_openscad_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {
         "chamfer_distance": 0.000494,
@@ -1983,7 +2063,8 @@
         "generated": "runs/text2cad_0062_00621494_parametric_openscad_qwen-reason/generated.scad",
         "pred_render": "runs/text2cad_0062_00621494_parametric_openscad_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0062_00621494_parametric_openscad_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0062_00621494_parametric_openscad_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0062_00621494_parametric_openscad_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0062__00621494.stl"
       },
       "metrics": {
         "chamfer_distance": 0.014198,
@@ -2012,7 +2093,8 @@
         "generated": "runs/text2cad_0071_00710826_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0071_00710826_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0071_00710826_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0071_00710826_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0071_00710826_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0071__00710826.stl"
       },
       "metrics": {}
     },
@@ -2029,7 +2111,8 @@
         "generated": "runs/text2cad_0071_00710826_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0071_00710826_parametric_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0071_00710826_parametric_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0071_00710826_parametric_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0071_00710826_parametric_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0071__00710826.stl"
       },
       "metrics": {}
     },
@@ -2046,7 +2129,8 @@
         "generated": "runs/text2cad_0081_00817410_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0081_00817410_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0081_00817410_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0081_00817410_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0081_00817410_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0081__00817410.stl"
       },
       "metrics": {}
     },
@@ -2063,7 +2147,8 @@
         "generated": "runs/text2cad_0081_00817410_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0081_00817410_parametric_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0081_00817410_parametric_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0081_00817410_parametric_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0081_00817410_parametric_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0081__00817410.stl"
       },
       "metrics": {}
     },
@@ -2080,7 +2165,8 @@
         "generated": "runs/text2cad_0085_00852511_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0085_00852511_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0085_00852511_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0085_00852511_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0085_00852511_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0085__00852511.stl"
       },
       "metrics": {}
     },
@@ -2097,7 +2183,8 @@
         "generated": "runs/text2cad_0085_00852511_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0085_00852511_parametric_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0085_00852511_parametric_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0085_00852511_parametric_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0085_00852511_parametric_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0085__00852511.stl"
       },
       "metrics": {}
     },
@@ -2114,7 +2201,8 @@
         "generated": "runs/text2cad_0092_00923543_descriptive_json_claude-reason/generated.json",
         "pred_render": "runs/text2cad_0092_00923543_descriptive_json_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0092_00923543_descriptive_json_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0092_00923543_descriptive_json_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0092_00923543_descriptive_json_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -2135,7 +2223,8 @@
         "generated": "runs/text2cad_0092_00923543_descriptive_json_gemini-reason/generated.json",
         "pred_render": "runs/text2cad_0092_00923543_descriptive_json_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0092_00923543_descriptive_json_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0092_00923543_descriptive_json_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0092_00923543_descriptive_json_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -2156,7 +2245,8 @@
         "generated": "runs/text2cad_0092_00923543_descriptive_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0092_00923543_descriptive_json_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0092_00923543_descriptive_json_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0092_00923543_descriptive_json_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0092_00923543_descriptive_json_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -2177,7 +2267,8 @@
         "generated": "runs/text2cad_0092_00923543_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0092_00923543_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0092_00923543_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0092_00923543_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0092_00923543_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "qa_overall": 0,
@@ -2198,7 +2289,8 @@
         "generated": "runs/text2cad_0092_00923543_descriptive_openscad_claude-reason/generated.scad",
         "pred_render": "runs/text2cad_0092_00923543_descriptive_openscad_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0092_00923543_descriptive_openscad_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0092_00923543_descriptive_openscad_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0092_00923543_descriptive_openscad_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -2219,7 +2311,8 @@
         "generated": "runs/text2cad_0092_00923543_descriptive_openscad_gemini-reason/generated.scad",
         "pred_render": "runs/text2cad_0092_00923543_descriptive_openscad_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0092_00923543_descriptive_openscad_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0092_00923543_descriptive_openscad_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0092_00923543_descriptive_openscad_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -2240,7 +2333,8 @@
         "generated": "runs/text2cad_0092_00923543_descriptive_openscad_gpt55-reason/generated.scad",
         "pred_render": "runs/text2cad_0092_00923543_descriptive_openscad_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0092_00923543_descriptive_openscad_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0092_00923543_descriptive_openscad_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0092_00923543_descriptive_openscad_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -2261,7 +2355,8 @@
         "generated": "runs/text2cad_0092_00923543_descriptive_openscad_qwen-reason/generated.scad",
         "pred_render": "runs/text2cad_0092_00923543_descriptive_openscad_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0092_00923543_descriptive_openscad_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0092_00923543_descriptive_openscad_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0092_00923543_descriptive_openscad_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "qa_overall": 0.5,
@@ -2279,7 +2374,8 @@
       "valid": true,
       "condition": "Start with the main rectangular reference size: length 0.747059, width 0.705882, height 0.022059. Form the upper-side base web within a 0.7471 by 0.7059 footprint with left, right, front, and back offsets all 0, extruded 0.0221 away from the base datum. This base is an open solid web, not a filled plate: keep the outer rectangular boundary and internal rib layout visible in the image, with six inner void outlines passing through the 0.0221 base thickness. Include two circular through openings on the base plane, each with radius 0.0294; place one center 0.1802 from the left edge and 0.5897 from the front edge, and place the other center 0.5537 from the left edge at the same 0.5897 front offset. Add a solid full-length rectangular wall along the front side with length 0.747059, width 0.022059, height 0.073529, footprint 0.7471 by 0.0221, left and right offsets 0, front offset -0.0221, and back offset 0.7059. Add the matching solid full-length rectangular wall along the back side with length 0.747059, width 0.022059, height 0.073529, footprint 0.7471 by 0.0221, left and right offsets 0, front offset 0.7058, and back offset -0.022. Both side walls are upper-side solid additions with total reach 0.0735 from the base datum, while the lower web reaches only 0.0221, so the wall height is a stepped total height rather than a depth to add on top of the base thickness.",
       "assets": {
-        "generated": "runs/text2cad_0092_00923543_parametric_json_claude-reason/generated.json"
+        "generated": "runs/text2cad_0092_00923543_parametric_json_claude-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001151,
@@ -2302,7 +2398,8 @@
       "valid": true,
       "condition": "Start with the main rectangular reference size: length 0.747059, width 0.705882, height 0.022059. Form the upper-side base web within a 0.7471 by 0.7059 footprint with left, right, front, and back offsets all 0, extruded 0.0221 away from the base datum. This base is an open solid web, not a filled plate: keep the outer rectangular boundary and internal rib layout visible in the image, with six inner void outlines passing through the 0.0221 base thickness. Include two circular through openings on the base plane, each with radius 0.0294; place one center 0.1802 from the left edge and 0.5897 from the front edge, and place the other center 0.5537 from the left edge at the same 0.5897 front offset. Add a solid full-length rectangular wall along the front side with length 0.747059, width 0.022059, height 0.073529, footprint 0.7471 by 0.0221, left and right offsets 0, front offset -0.0221, and back offset 0.7059. Add the matching solid full-length rectangular wall along the back side with length 0.747059, width 0.022059, height 0.073529, footprint 0.7471 by 0.0221, left and right offsets 0, front offset 0.7058, and back offset -0.022. Both side walls are upper-side solid additions with total reach 0.0735 from the base datum, while the lower web reaches only 0.0221, so the wall height is a stepped total height rather than a depth to add on top of the base thickness.",
       "assets": {
-        "generated": "runs/text2cad_0092_00923543_parametric_json_gemini-reason/generated.json"
+        "generated": "runs/text2cad_0092_00923543_parametric_json_gemini-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "chamfer_distance": 0.00062,
@@ -2325,7 +2422,8 @@
       "valid": true,
       "condition": "Start with the main rectangular reference size: length 0.747059, width 0.705882, height 0.022059. Form the upper-side base web within a 0.7471 by 0.7059 footprint with left, right, front, and back offsets all 0, extruded 0.0221 away from the base datum. This base is an open solid web, not a filled plate: keep the outer rectangular boundary and internal rib layout visible in the image, with six inner void outlines passing through the 0.0221 base thickness. Include two circular through openings on the base plane, each with radius 0.0294; place one center 0.1802 from the left edge and 0.5897 from the front edge, and place the other center 0.5537 from the left edge at the same 0.5897 front offset. Add a solid full-length rectangular wall along the front side with length 0.747059, width 0.022059, height 0.073529, footprint 0.7471 by 0.0221, left and right offsets 0, front offset -0.0221, and back offset 0.7059. Add the matching solid full-length rectangular wall along the back side with length 0.747059, width 0.022059, height 0.073529, footprint 0.7471 by 0.0221, left and right offsets 0, front offset 0.7058, and back offset -0.022. Both side walls are upper-side solid additions with total reach 0.0735 from the base datum, while the lower web reaches only 0.0221, so the wall height is a stepped total height rather than a depth to add on top of the base thickness.",
       "assets": {
-        "generated": "runs/text2cad_0092_00923543_parametric_json_gpt55-reason/generated.json"
+        "generated": "runs/text2cad_0092_00923543_parametric_json_gpt55-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "chamfer_distance": 0.000472,
@@ -2348,7 +2446,8 @@
       "valid": true,
       "condition": "Start with the main rectangular reference size: length 0.747059, width 0.705882, height 0.022059. Form the upper-side base web within a 0.7471 by 0.7059 footprint with left, right, front, and back offsets all 0, extruded 0.0221 away from the base datum. This base is an open solid web, not a filled plate: keep the outer rectangular boundary and internal rib layout visible in the image, with six inner void outlines passing through the 0.0221 base thickness. Include two circular through openings on the base plane, each with radius 0.0294; place one center 0.1802 from the left edge and 0.5897 from the front edge, and place the other center 0.5537 from the left edge at the same 0.5897 front offset. Add a solid full-length rectangular wall along the front side with length 0.747059, width 0.022059, height 0.073529, footprint 0.7471 by 0.0221, left and right offsets 0, front offset -0.0221, and back offset 0.7059. Add the matching solid full-length rectangular wall along the back side with length 0.747059, width 0.022059, height 0.073529, footprint 0.7471 by 0.0221, left and right offsets 0, front offset 0.7058, and back offset -0.022. Both side walls are upper-side solid additions with total reach 0.0735 from the base datum, while the lower web reaches only 0.0221, so the wall height is a stepped total height rather than a depth to add on top of the base thickness.",
       "assets": {
-        "generated": "runs/text2cad_0092_00923543_parametric_json_qwen-reason/generated.json"
+        "generated": "runs/text2cad_0092_00923543_parametric_json_qwen-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "chamfer_distance": 0.000622,
@@ -2374,7 +2473,8 @@
         "generated": "runs/text2cad_0092_00923543_parametric_openscad_claude-reason/generated.scad",
         "pred_render": "runs/text2cad_0092_00923543_parametric_openscad_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0092_00923543_parametric_openscad_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0092_00923543_parametric_openscad_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0092_00923543_parametric_openscad_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "chamfer_distance": 0.000845,
@@ -2403,7 +2503,8 @@
         "generated": "runs/text2cad_0092_00923543_parametric_openscad_gemini-reason/generated.scad",
         "pred_render": "runs/text2cad_0092_00923543_parametric_openscad_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0092_00923543_parametric_openscad_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0092_00923543_parametric_openscad_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0092_00923543_parametric_openscad_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "chamfer_distance": 0.000568,
@@ -2432,7 +2533,8 @@
         "generated": "runs/text2cad_0092_00923543_parametric_openscad_gpt55-reason/generated.scad",
         "pred_render": "runs/text2cad_0092_00923543_parametric_openscad_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0092_00923543_parametric_openscad_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0092_00923543_parametric_openscad_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0092_00923543_parametric_openscad_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "chamfer_distance": 0.00056,
@@ -2461,7 +2563,8 @@
         "generated": "runs/text2cad_0092_00923543_parametric_openscad_qwen-reason/generated.scad",
         "pred_render": "runs/text2cad_0092_00923543_parametric_openscad_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0092_00923543_parametric_openscad_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0092_00923543_parametric_openscad_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0092_00923543_parametric_openscad_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0092__00923543.stl"
       },
       "metrics": {
         "chamfer_distance": 0.00058,
@@ -2490,7 +2593,8 @@
         "generated": "runs/text2cad_0093_00934405_descriptive_json_claude-reason/generated.json",
         "pred_render": "runs/text2cad_0093_00934405_descriptive_json_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0093_00934405_descriptive_json_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0093_00934405_descriptive_json_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0093_00934405_descriptive_json_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -2511,7 +2615,8 @@
         "generated": "runs/text2cad_0093_00934405_descriptive_json_gemini-reason/generated.json",
         "pred_render": "runs/text2cad_0093_00934405_descriptive_json_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0093_00934405_descriptive_json_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0093_00934405_descriptive_json_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0093_00934405_descriptive_json_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "qa_overall": 0.75,
@@ -2532,7 +2637,8 @@
         "generated": "runs/text2cad_0093_00934405_descriptive_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0093_00934405_descriptive_json_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0093_00934405_descriptive_json_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0093_00934405_descriptive_json_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0093_00934405_descriptive_json_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "qa_overall": 0.75,
@@ -2553,7 +2659,8 @@
         "generated": "runs/text2cad_0093_00934405_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0093_00934405_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0093_00934405_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0093_00934405_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0093_00934405_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "qa_overall": 0,
@@ -2574,7 +2681,8 @@
         "generated": "runs/text2cad_0093_00934405_descriptive_openscad_claude-reason/generated.scad",
         "pred_render": "runs/text2cad_0093_00934405_descriptive_openscad_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0093_00934405_descriptive_openscad_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0093_00934405_descriptive_openscad_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0093_00934405_descriptive_openscad_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -2595,7 +2703,8 @@
         "generated": "runs/text2cad_0093_00934405_descriptive_openscad_gemini-reason/generated.scad",
         "pred_render": "runs/text2cad_0093_00934405_descriptive_openscad_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0093_00934405_descriptive_openscad_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0093_00934405_descriptive_openscad_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0093_00934405_descriptive_openscad_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -2616,7 +2725,8 @@
         "generated": "runs/text2cad_0093_00934405_descriptive_openscad_gpt55-reason/generated.scad",
         "pred_render": "runs/text2cad_0093_00934405_descriptive_openscad_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0093_00934405_descriptive_openscad_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0093_00934405_descriptive_openscad_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0093_00934405_descriptive_openscad_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "qa_overall": 1,
@@ -2637,7 +2747,8 @@
         "generated": "runs/text2cad_0093_00934405_descriptive_openscad_qwen-reason/generated.scad",
         "pred_render": "runs/text2cad_0093_00934405_descriptive_openscad_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0093_00934405_descriptive_openscad_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0093_00934405_descriptive_openscad_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0093_00934405_descriptive_openscad_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "qa_overall": 0.75,
@@ -2655,7 +2766,8 @@
       "valid": true,
       "condition": "Start with the main rounded wedge base as the first reference: overall length 0.740822, width 0.672842, height 0.171797, with a main extrusion depth of 0.1718. Its base footprint spans 0.7408 by 0.6728 with left, right, front, and back offsets of 0, and it is an upper-side solid extending 0.1718 from the base plane. Include the rounded outer perimeter shown, a central circular through opening on the base plane with its axis 0.3687 from the left edge and 0.4283 from the front edge and radius 0.2165, and the visible slot-like through openings near the rounded outer lobes. Add the shallow circular upper feature associated with the central opening as solid material where present while preserving its inner void: its circular axis is 0.3688 from the left edge and 0.4282 from the front edge, radius 0.2165, length 0.432928, width 0.432928, height 0.020616, main extrusion depth 0.0206, with offsets left 0.1523, right 0.1555, front 0.2117, and back 0.0281. Add the narrow straight solid web crossing the central opening with length 0.025368, width 0.432873, height 0.171797, main extrusion depth 0.1718, and offsets left 0.3434, right 0.372, front 0.2119, and back 0.028. Add the smaller round solid feature centered 0.4796 from the left edge and 0.4282 from the front edge with radius 0.0754; its bounding span is 0.2 by 0.1984, its offsets are left 0.3927, right 0.1481, front 0.3476, and back 0.1268, and it extends 0.1718 as solid material. At the nearly same axis, make the circular removed recess/opening centered 0.4796 from the left edge and 0.4283 from the front edge with radius 0.0754; its footprint is 0.150716 by 0.150716 with offsets left 0.4042, right 0.1858, front 0.3529, and back 0.1691, and its removed vertical band runs from -0.1512 to 0.0206 relative to the base underside for a total depth of 0.1718. Keep the underside stepped: the broader upper pad depth is 0.1512, one contained continuation has own depth 0.0206 starting 0.0206 below the base underside and reaching 0, and the deeper circular removed continuation has own depth 0.1718 starting 0.0206 below the base underside and reaching 0.1512 below the base underside.",
       "assets": {
-        "generated": "runs/text2cad_0093_00934405_parametric_json_claude-reason/generated.json"
+        "generated": "runs/text2cad_0093_00934405_parametric_json_claude-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001823,
@@ -2676,7 +2788,8 @@
       "valid": true,
       "condition": "Start with the main rounded wedge base as the first reference: overall length 0.740822, width 0.672842, height 0.171797, with a main extrusion depth of 0.1718. Its base footprint spans 0.7408 by 0.6728 with left, right, front, and back offsets of 0, and it is an upper-side solid extending 0.1718 from the base plane. Include the rounded outer perimeter shown, a central circular through opening on the base plane with its axis 0.3687 from the left edge and 0.4283 from the front edge and radius 0.2165, and the visible slot-like through openings near the rounded outer lobes. Add the shallow circular upper feature associated with the central opening as solid material where present while preserving its inner void: its circular axis is 0.3688 from the left edge and 0.4282 from the front edge, radius 0.2165, length 0.432928, width 0.432928, height 0.020616, main extrusion depth 0.0206, with offsets left 0.1523, right 0.1555, front 0.2117, and back 0.0281. Add the narrow straight solid web crossing the central opening with length 0.025368, width 0.432873, height 0.171797, main extrusion depth 0.1718, and offsets left 0.3434, right 0.372, front 0.2119, and back 0.028. Add the smaller round solid feature centered 0.4796 from the left edge and 0.4282 from the front edge with radius 0.0754; its bounding span is 0.2 by 0.1984, its offsets are left 0.3927, right 0.1481, front 0.3476, and back 0.1268, and it extends 0.1718 as solid material. At the nearly same axis, make the circular removed recess/opening centered 0.4796 from the left edge and 0.4283 from the front edge with radius 0.0754; its footprint is 0.150716 by 0.150716 with offsets left 0.4042, right 0.1858, front 0.3529, and back 0.1691, and its removed vertical band runs from -0.1512 to 0.0206 relative to the base underside for a total depth of 0.1718. Keep the underside stepped: the broader upper pad depth is 0.1512, one contained continuation has own depth 0.0206 starting 0.0206 below the base underside and reaching 0, and the deeper circular removed continuation has own depth 0.1718 starting 0.0206 below the base underside and reaching 0.1512 below the base underside.",
       "assets": {
-        "generated": "runs/text2cad_0093_00934405_parametric_json_gemini-reason/generated.json"
+        "generated": "runs/text2cad_0093_00934405_parametric_json_gemini-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001808,
@@ -2697,7 +2810,8 @@
       "valid": true,
       "condition": "Start with the main rounded wedge base as the first reference: overall length 0.740822, width 0.672842, height 0.171797, with a main extrusion depth of 0.1718. Its base footprint spans 0.7408 by 0.6728 with left, right, front, and back offsets of 0, and it is an upper-side solid extending 0.1718 from the base plane. Include the rounded outer perimeter shown, a central circular through opening on the base plane with its axis 0.3687 from the left edge and 0.4283 from the front edge and radius 0.2165, and the visible slot-like through openings near the rounded outer lobes. Add the shallow circular upper feature associated with the central opening as solid material where present while preserving its inner void: its circular axis is 0.3688 from the left edge and 0.4282 from the front edge, radius 0.2165, length 0.432928, width 0.432928, height 0.020616, main extrusion depth 0.0206, with offsets left 0.1523, right 0.1555, front 0.2117, and back 0.0281. Add the narrow straight solid web crossing the central opening with length 0.025368, width 0.432873, height 0.171797, main extrusion depth 0.1718, and offsets left 0.3434, right 0.372, front 0.2119, and back 0.028. Add the smaller round solid feature centered 0.4796 from the left edge and 0.4282 from the front edge with radius 0.0754; its bounding span is 0.2 by 0.1984, its offsets are left 0.3927, right 0.1481, front 0.3476, and back 0.1268, and it extends 0.1718 as solid material. At the nearly same axis, make the circular removed recess/opening centered 0.4796 from the left edge and 0.4283 from the front edge with radius 0.0754; its footprint is 0.150716 by 0.150716 with offsets left 0.4042, right 0.1858, front 0.3529, and back 0.1691, and its removed vertical band runs from -0.1512 to 0.0206 relative to the base underside for a total depth of 0.1718. Keep the underside stepped: the broader upper pad depth is 0.1512, one contained continuation has own depth 0.0206 starting 0.0206 below the base underside and reaching 0, and the deeper circular removed continuation has own depth 0.1718 starting 0.0206 below the base underside and reaching 0.1512 below the base underside.",
       "assets": {
-        "generated": "runs/text2cad_0093_00934405_parametric_json_gpt55-reason/generated.json"
+        "generated": "runs/text2cad_0093_00934405_parametric_json_gpt55-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001493,
@@ -2718,7 +2832,8 @@
       "valid": true,
       "condition": "Start with the main rounded wedge base as the first reference: overall length 0.740822, width 0.672842, height 0.171797, with a main extrusion depth of 0.1718. Its base footprint spans 0.7408 by 0.6728 with left, right, front, and back offsets of 0, and it is an upper-side solid extending 0.1718 from the base plane. Include the rounded outer perimeter shown, a central circular through opening on the base plane with its axis 0.3687 from the left edge and 0.4283 from the front edge and radius 0.2165, and the visible slot-like through openings near the rounded outer lobes. Add the shallow circular upper feature associated with the central opening as solid material where present while preserving its inner void: its circular axis is 0.3688 from the left edge and 0.4282 from the front edge, radius 0.2165, length 0.432928, width 0.432928, height 0.020616, main extrusion depth 0.0206, with offsets left 0.1523, right 0.1555, front 0.2117, and back 0.0281. Add the narrow straight solid web crossing the central opening with length 0.025368, width 0.432873, height 0.171797, main extrusion depth 0.1718, and offsets left 0.3434, right 0.372, front 0.2119, and back 0.028. Add the smaller round solid feature centered 0.4796 from the left edge and 0.4282 from the front edge with radius 0.0754; its bounding span is 0.2 by 0.1984, its offsets are left 0.3927, right 0.1481, front 0.3476, and back 0.1268, and it extends 0.1718 as solid material. At the nearly same axis, make the circular removed recess/opening centered 0.4796 from the left edge and 0.4283 from the front edge with radius 0.0754; its footprint is 0.150716 by 0.150716 with offsets left 0.4042, right 0.1858, front 0.3529, and back 0.1691, and its removed vertical band runs from -0.1512 to 0.0206 relative to the base underside for a total depth of 0.1718. Keep the underside stepped: the broader upper pad depth is 0.1512, one contained continuation has own depth 0.0206 starting 0.0206 below the base underside and reaching 0, and the deeper circular removed continuation has own depth 0.1718 starting 0.0206 below the base underside and reaching 0.1512 below the base underside.",
       "assets": {
-        "generated": "runs/text2cad_0093_00934405_parametric_json_qwen-reason/generated.json"
+        "generated": "runs/text2cad_0093_00934405_parametric_json_qwen-reason/generated.json",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001862,
@@ -2742,7 +2857,8 @@
         "generated": "runs/text2cad_0093_00934405_parametric_openscad_claude-reason/generated.scad",
         "pred_render": "runs/text2cad_0093_00934405_parametric_openscad_claude-reason/pred_render.png",
         "gt_render": "runs/text2cad_0093_00934405_parametric_openscad_claude-reason/gt_render.png",
-        "mesh": "runs/text2cad_0093_00934405_parametric_openscad_claude-reason/model.stl"
+        "mesh": "runs/text2cad_0093_00934405_parametric_openscad_claude-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "chamfer_distance": 0.002816,
@@ -2769,7 +2885,8 @@
         "generated": "runs/text2cad_0093_00934405_parametric_openscad_gemini-reason/generated.scad",
         "pred_render": "runs/text2cad_0093_00934405_parametric_openscad_gemini-reason/pred_render.png",
         "gt_render": "runs/text2cad_0093_00934405_parametric_openscad_gemini-reason/gt_render.png",
-        "mesh": "runs/text2cad_0093_00934405_parametric_openscad_gemini-reason/model.stl"
+        "mesh": "runs/text2cad_0093_00934405_parametric_openscad_gemini-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001685,
@@ -2796,7 +2913,8 @@
         "generated": "runs/text2cad_0093_00934405_parametric_openscad_gpt55-reason/generated.scad",
         "pred_render": "runs/text2cad_0093_00934405_parametric_openscad_gpt55-reason/pred_render.png",
         "gt_render": "runs/text2cad_0093_00934405_parametric_openscad_gpt55-reason/gt_render.png",
-        "mesh": "runs/text2cad_0093_00934405_parametric_openscad_gpt55-reason/model.stl"
+        "mesh": "runs/text2cad_0093_00934405_parametric_openscad_gpt55-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "chamfer_distance": 0.001332,
@@ -2823,7 +2941,8 @@
         "generated": "runs/text2cad_0093_00934405_parametric_openscad_qwen-reason/generated.scad",
         "pred_render": "runs/text2cad_0093_00934405_parametric_openscad_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0093_00934405_parametric_openscad_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0093_00934405_parametric_openscad_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0093_00934405_parametric_openscad_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0093__00934405.stl"
       },
       "metrics": {
         "chamfer_distance": 0.004217,
@@ -2850,7 +2969,8 @@
         "generated": "runs/text2cad_0094_00941813_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0094_00941813_descriptive_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0094_00941813_descriptive_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0094_00941813_descriptive_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0094_00941813_descriptive_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0094__00941813.stl"
       },
       "metrics": {}
     },
@@ -2867,7 +2987,8 @@
         "generated": "runs/text2cad_0094_00941813_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0094_00941813_parametric_json_qwen-reason/pred_render.png",
         "gt_render": "runs/text2cad_0094_00941813_parametric_json_qwen-reason/gt_render.png",
-        "mesh": "runs/text2cad_0094_00941813_parametric_json_qwen-reason/model.stl"
+        "mesh": "runs/text2cad_0094_00941813_parametric_json_qwen-reason/model.stl",
+        "gt_mesh": "gt_meshes/text2cad_0094__00941813.stl"
       },
       "metrics": {}
     }
