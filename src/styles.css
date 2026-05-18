@@ -122,16 +122,17 @@ h1, h2, h3, p { letter-spacing: 0; }
 }
 
 .hero-title span {
-  display: block;
+  display: inline-block;
   width: fit-content;
-  margin: 0 auto;
+  margin: -0.04em auto -0.02em;
+  padding: 0.08em 0 0.06em;
   background: linear-gradient(100deg, #141d22 9%, #285c8f 48%, #337665 86%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   font-size: clamp(58px, 7vw, 96px);
   font-weight: 800;
-  line-height: 0.96;
+  line-height: 1.08;
   letter-spacing: 0;
 }
 
