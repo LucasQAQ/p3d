@@ -8,6 +8,7 @@ import "./styles.css";
 
 type AssetMap = {
   gt_render?: string;
+  gt_mesh?: string;
   pred_render?: string;
   generated?: string;
   mesh?: string;
@@ -47,6 +48,9 @@ type ShowcaseItem = {
   id: string;
   title: string;
   subtitle: string;
+  taskLabel: string;
+  specLabel: string;
+  input: string;
   src: string;
   mesh: string;
 };
@@ -205,7 +209,11 @@ function App() {
             </aside>
             <div className="result-stage">
               <div className="render-pair">
-                <Figure title="Ground Truth" src={selectedRun?.assets.gt_render} />
+                <GroundTruthFigure
+                  run={selectedRun}
+                  title={selectedCase?.title || "Ground Truth"}
+                  subtitle="Reference geometry"
+                />
                 <PredictionFigure
                   run={selectedRun}
                   title={selectedCase?.title || "Prediction"}
@@ -268,6 +276,7 @@ function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
   const modelCycle = ["gemini-reason", "claude-reason", "qwen-reason", "gpt55-reason"];
   const formatCycle = ["json", "openscad", "json", "openscad"];
   const modelLabel = new Map(manifest.models.map((model) => [model.id, model.label]));
+  const taskLabel = new Map(manifest.tasks.map((task) => [task.id, task.label]));
   const caseTitle = new Map(manifest.cases.map((item) => [item.id, item.title]));
   const runsByCase = new Map<string, Run[]>();
   manifest.runs
@@ -284,6 +293,8 @@ function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
       const targetModel = modelCycle[index % modelCycle.length];
       const targetFormat = formatCycle[index % formatCycle.length];
       const run = [...(runsByCase.get(item.id) || [])].sort((a, b) => {
+        const qualityDelta = runQuality(b) - runQuality(a);
+        if (qualityDelta) return qualityDelta;
         const modelDelta = Number(a.model !== targetModel) - Number(b.model !== targetModel);
         if (modelDelta) return modelDelta;
         const formatDelta = Number(a.format !== targetFormat) - Number(b.format !== targetFormat);
@@ -297,9 +308,32 @@ function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
       id: run.id,
       title: caseTitle.get(run.case_id) || `Case ${run.case_id.split("/").pop() || run.case_id}`,
       subtitle: `${modelLabel.get(run.model) || run.model} / ${run.format.toUpperCase()}`,
+      taskLabel: taskLabel.get(run.task) || run.task,
+      specLabel: run.spec === "parametric" ? "Parametric input" : "Descriptive input",
+      input: run.condition || caseTitle.get(run.case_id) || `Case ${run.case_id}`,
       src: run.assets.pred_render || "",
       mesh: run.assets.mesh || "",
     }));
+}
+
+function runQuality(run: Run) {
+  const metrics = run.metrics || {};
+  let score = run.valid === false ? -200 : 20;
+  score += numberMetric(metrics.qa_overall ?? metrics.qa_overall_accuracy) * 120;
+  score += numberMetric(metrics.qa_semantic) * 28;
+  score += numberMetric(metrics.qa_parametric) * 16;
+  score += numberMetric(metrics.judge_geometry) * 3;
+  score += numberMetric(metrics.judge_semantic) * 3;
+  score += numberMetric(metrics.judge_aesthetics) * 3;
+  if (run.spec === "parametric") score += 8;
+  if (typeof metrics.chamfer_distance === "number" && metrics.chamfer_distance > 0) {
+    score += Math.max(0, 18 - Math.log10(metrics.chamfer_distance * 10000 + 1) * 5);
+  }
+  return score;
+}
+
+function numberMetric(value: number | string | null | undefined) {
+  return typeof value === "number" && Number.isFinite(value) ? value : 0;
 }
 
 function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
@@ -320,8 +354,9 @@ function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
         <div className="viewer-stage">
           <CadViewer item={selected} />
           <div className="viewer-meta">
-            <span>Text-to-3D CAD</span>
+            <span>{selected.taskLabel} · {selected.specLabel}</span>
             <strong>{selected.title}</strong>
+            <p>{selected.input}</p>
             <em>{selected.subtitle}</em>
           </div>
         </div>
@@ -335,10 +370,12 @@ function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
               className={item.id === selected.id ? "viewer-case active" : "viewer-case"}
               key={item.id}
               onClick={() => setSelectedId(item.id)}
+              title={item.input}
               style={{ "--case-accent": tileColors[index % tileColors.length] } as React.CSSProperties}
             >
               <img src={asset(item.src)} alt={item.title} />
-              <span>{item.title}</span>
+              <em className="case-task">{item.taskLabel} · {item.specLabel}</em>
+              <span>{item.input}</span>
               <strong>{item.subtitle}</strong>
             </button>
           ))}
@@ -502,6 +539,30 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
     <div className="hero-visual hero-cad-scene">
       <div className="hero-cad-canvas" ref={mountRef} />
     </div>
+  );
+}
+
+function GroundTruthFigure({ run, title, subtitle }: { run?: Run; title: string; subtitle: string }) {
+  if (!run?.assets.gt_mesh) {
+    return <Figure title="Ground Truth" src={run?.assets.gt_render} />;
+  }
+
+  return (
+    <figure className="render-card result-viewer-card">
+      <span>Ground Truth</span>
+      <div className="result-viewer">
+        <CadViewer
+          item={{
+            id: `${run.case_id}-${run.spec}-ground-truth`,
+            title,
+            subtitle,
+            src: run.assets.gt_render || "",
+            mesh: run.assets.gt_mesh,
+          }}
+          variant="result"
+        />
+      </div>
+    </figure>
   );
 }
 
