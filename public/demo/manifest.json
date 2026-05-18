@@ -2874,19 +2874,14 @@
   ],
   "figures": [
     {
-      "id": "teaser",
-      "title": "Text-to-3D executable CAD render wall",
-      "src": "figures/web_teaser_text2cad_wall.png"
-    },
-    {
       "id": "pipeline",
       "title": "Evaluation pipeline",
       "src": "figures/fig2_dataset_pipeline.png"
     },
     {
       "id": "leaderboard",
-      "title": "Leaderboard and ablation figures",
-      "placeholder": true
+      "title": "Per-task leaderboard",
+      "src": "figures/fig7_leaderboard.png"
     }
   ],
   "gallery": []

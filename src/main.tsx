@@ -51,6 +51,8 @@ type ShowcaseItem = {
   mesh: string;
 };
 
+type CadViewItem = Pick<ShowcaseItem, "id" | "title" | "subtitle" | "src" | "mesh">;
+
 const fallbackManifest: Manifest = {
   schema_version: 1,
   paper: {
@@ -117,7 +119,9 @@ function App() {
 
   const selectedRun = taskRuns.find((run) => run.case_id === caseId && run.model === model && run.spec === spec && run.format === format);
   const selectedCase = manifest.cases.find((item) => item.id === caseId);
+  const selectedModel = manifest.models.find((item) => item.id === model);
   const showcaseItems = useMemo(() => buildShowcaseItems(manifest), [manifest]);
+  const heroItems = useMemo(() => showcaseItems.slice(0, 16), [showcaseItems]);
   const visibleTasks = useMemo(() => manifest.tasks.filter((item) => item.status === "interactive"), [manifest]);
 
   useEffect(() => {
@@ -165,9 +169,7 @@ function App() {
             <a href="#citation"><Braces size={17} /> BibTeX</a>
           </div>
         </div>
-        <div className="hero-visual">
-          <img src={asset(manifest.figures?.find((fig) => fig.id === "teaser")?.src || "figures/fig1_teaser.png")} alt="P3D-Bench teaser" />
-        </div>
+        <HeroCadScene items={heroItems} />
         <div className="abstract-panel">
           <p className="eyebrow">Abstract</p>
           <p className="abstract">{paper.abstract}</p>
@@ -204,7 +206,11 @@ function App() {
             <div className="result-stage">
               <div className="render-pair">
                 <Figure title="Ground Truth" src={selectedRun?.assets.gt_render} />
-                <Figure title="Prediction" src={selectedRun?.assets.pred_render} />
+                <PredictionFigure
+                  run={selectedRun}
+                  title={selectedCase?.title || "Prediction"}
+                  subtitle={`${selectedModel?.label || selectedRun?.model || ""}${selectedRun ? ` / ${selectedRun.format.toUpperCase()}` : ""}`}
+                />
               </div>
               <MetricStrip run={selectedRun} />
               <div className="code-panel">
@@ -344,7 +350,186 @@ function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
 
 const tileColors = ["#16a47a", "#2d69c4", "#d8733f", "#7668d8", "#0e9daa", "#d19b2d"];
 
-function CadViewer({ item }: { item: ShowcaseItem }) {
+function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
+  const mountRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const mount = mountRef.current;
+    if (!mount || !items.length) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xf7f8f4);
+    scene.fog = new THREE.Fog(0xf7f8f4, 8.8, 14.5);
+
+    const camera = new THREE.PerspectiveCamera(30, 1, 0.01, 100);
+    camera.position.set(0, 3.05, 5.9);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0xf7f8f4, 1);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    mount.appendChild(renderer.domElement);
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0xd9e1dc, 2.4));
+
+    const key = new THREE.DirectionalLight(0xffffff, 3.4);
+    key.position.set(4.5, 6.5, 5.2);
+    key.castShadow = true;
+    key.shadow.mapSize.set(2048, 2048);
+    key.shadow.camera.near = 0.1;
+    key.shadow.camera.far = 16;
+    scene.add(key);
+
+    const fill = new THREE.DirectionalLight(0x8dc6bb, 1.25);
+    fill.position.set(-5.0, 3.0, -3.0);
+    scene.add(fill);
+
+    const stage = new THREE.Group();
+    stage.position.set(0, 0.16, -0.05);
+    scene.add(stage);
+
+    const shadowPlane = new THREE.Mesh(
+      new THREE.PlaneGeometry(7.6, 3.6),
+      new THREE.ShadowMaterial({ color: 0x50665f, opacity: 0.08 })
+    );
+    shadowPlane.rotation.x = -Math.PI / 2;
+    shadowPlane.position.y = -0.84;
+    shadowPlane.receiveShadow = true;
+    stage.add(shadowPlane);
+
+    const displayItems = items.slice(0, 16);
+    const palette = [0xf3ead7, 0xdfece6, 0xe8edf5, 0xf0ddd5, 0xe3e2f0, 0xdce9ef];
+    const loader = new STLLoader();
+    const geometries: THREE.BufferGeometry[] = [shadowPlane.geometry];
+    const materials: THREE.Material[] = [shadowPlane.material as THREE.Material];
+    const objectGroups: THREE.Group[] = [];
+    const baseY: number[] = [];
+    let disposed = false;
+
+    displayItems.forEach((item, index) => {
+      const column = index % 8;
+      const row = Math.floor(index / 8);
+      const y = row === 0 ? 0.18 : -0.12;
+      const shell = new THREE.Group();
+      shell.position.set((column - 3.5) * 0.76, y, (row - 0.5) * 0.95);
+      shell.rotation.y = (column - 3.5) * 0.04;
+      stage.add(shell);
+      objectGroups.push(shell);
+      baseY.push(y);
+
+      loader.load(asset(item.mesh), (geometry) => {
+        if (disposed) {
+          geometry.dispose();
+          return;
+        }
+
+        geometry.computeVertexNormals();
+        geometry.computeBoundingBox();
+        geometry.center();
+        const box = geometry.boundingBox;
+        const size = new THREE.Vector3();
+        box?.getSize(size);
+        const maxAxis = Math.max(size.x, size.y, size.z) || 1;
+        geometry.scale(1.08 / maxAxis, 1.08 / maxAxis, 1.08 / maxAxis);
+        geometries.push(geometry);
+
+        const material = new THREE.MeshStandardMaterial({
+          color: palette[index % palette.length],
+          roughness: 0.58,
+          metalness: 0.04,
+        });
+        materials.push(material);
+
+        const modelGroup = new THREE.Group();
+        modelGroup.rotation.x = -Math.PI / 2;
+        modelGroup.rotation.z = (index % 2 ? -1 : 1) * 0.18;
+
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        modelGroup.add(mesh);
+
+        const edgeGeometry = new THREE.EdgesGeometry(geometry, 30);
+        const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x66716b, transparent: true, opacity: 0.22 });
+        geometries.push(edgeGeometry);
+        materials.push(edgeMaterial);
+        modelGroup.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
+        shell.add(modelGroup);
+      });
+    });
+
+    const resize = () => {
+      const { clientWidth, clientHeight } = mount;
+      const width = Math.max(320, clientWidth);
+      const height = Math.max(360, clientHeight);
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    };
+
+    const observer = new ResizeObserver(resize);
+    observer.observe(mount);
+    resize();
+
+    let frame = 0;
+    const clock = new THREE.Clock();
+    const animate = () => {
+      const t = clock.getElapsedTime();
+      frame = requestAnimationFrame(animate);
+      stage.rotation.y = Math.sin(t * 0.34) * 0.085;
+      objectGroups.forEach((group, index) => {
+        group.position.y = baseY[index] + Math.sin(t * 0.9 + index * 0.57) * 0.045;
+      });
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    return () => {
+      disposed = true;
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      geometries.forEach((geometry) => geometry.dispose());
+      materials.forEach((material) => material.dispose());
+      renderer.dispose();
+      renderer.domElement.remove();
+    };
+  }, [items]);
+
+  return (
+    <div className="hero-visual hero-cad-scene">
+      <div className="hero-cad-canvas" ref={mountRef} />
+    </div>
+  );
+}
+
+function PredictionFigure({ run, title, subtitle }: { run?: Run; title: string; subtitle: string }) {
+  if (!run?.assets.mesh) {
+    return <Figure title="Prediction" src={run?.assets.pred_render} />;
+  }
+
+  return (
+    <figure className="render-card result-viewer-card">
+      <span>Prediction</span>
+      <div className="result-viewer">
+        <CadViewer
+          item={{
+            id: run.id,
+            title,
+            subtitle,
+            src: run.assets.pred_render || "",
+            mesh: run.assets.mesh,
+          }}
+          variant="result"
+        />
+      </div>
+    </figure>
+  );
+}
+
+function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?: "showcase" | "result" }) {
   const mountRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -353,9 +538,9 @@ function CadViewer({ item }: { item: ShowcaseItem }) {
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf7fbf4);
-    scene.fog = new THREE.Fog(0xf7fbf4, 5.2, 9.5);
+    scene.fog = new THREE.Fog(0xf7fbf4, 6.5, 11.5);
     const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 100);
-    camera.position.set(3.7, 2.45, 4.7);
+    camera.position.set(3.6, 2.35, variant === "result" ? 4.35 : 4.7);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -385,25 +570,14 @@ function CadViewer({ item }: { item: ShowcaseItem }) {
     fill.position.set(-3.0, 2.0, -2.5);
     scene.add(fill);
 
-    const floor = new THREE.Mesh(
-      new THREE.CircleGeometry(2.5, 96),
-      new THREE.MeshStandardMaterial({ color: 0xddebe6, roughness: 0.86, metalness: 0.02, transparent: true, opacity: 0.82 })
+    const shadowPlane = new THREE.Mesh(
+      new THREE.PlaneGeometry(6, 4),
+      new THREE.ShadowMaterial({ color: 0x53665f, opacity: 0.09 })
     );
-    floor.rotation.x = -Math.PI / 2;
-    floor.position.y = -0.02;
-    floor.receiveShadow = true;
-    scene.add(floor);
-
-    const ring = new THREE.LineLoop(
-      new THREE.BufferGeometry().setFromPoints(
-        Array.from({ length: 160 }, (_, index) => {
-          const theta = (index / 160) * Math.PI * 2;
-          return new THREE.Vector3(Math.cos(theta) * 2.7, 0.012, Math.sin(theta) * 1.0);
-        })
-      ),
-      new THREE.LineBasicMaterial({ color: 0x0fa678, transparent: true, opacity: 0.55 })
-    );
-    scene.add(ring);
+    shadowPlane.rotation.x = -Math.PI / 2;
+    shadowPlane.position.y = -1.06;
+    shadowPlane.receiveShadow = true;
+    scene.add(shadowPlane);
 
     const group = new THREE.Group();
     group.rotation.x = -Math.PI / 2;
@@ -429,7 +603,8 @@ function CadViewer({ item }: { item: ShowcaseItem }) {
       const size = new THREE.Vector3();
       box?.getSize(size);
       const maxAxis = Math.max(size.x, size.y, size.z) || 1;
-      geometry.scale(2.24 / maxAxis, 2.24 / maxAxis, 2.24 / maxAxis);
+      const targetScale = variant === "result" ? 2.32 : 2.08;
+      geometry.scale(targetScale / maxAxis, targetScale / maxAxis, targetScale / maxAxis);
       geometry.computeBoundingBox();
       loadedGeometry = geometry;
 
@@ -448,7 +623,7 @@ function CadViewer({ item }: { item: ShowcaseItem }) {
       group.add(mesh);
 
       edgeGeometry = new THREE.EdgesGeometry(geometry, 28);
-      edgeMaterial = new THREE.LineBasicMaterial({ color: 0x7e776b, transparent: true, opacity: 0.26 });
+      edgeMaterial = new THREE.LineBasicMaterial({ color: 0x7e776b, transparent: true, opacity: variant === "result" ? 0.22 : 0.26 });
       group.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
     });
 
@@ -481,14 +656,12 @@ function CadViewer({ item }: { item: ShowcaseItem }) {
       loadedMaterial?.dispose();
       edgeGeometry?.dispose();
       edgeMaterial?.dispose();
-      floor.geometry.dispose();
-      (floor.material as THREE.Material).dispose();
-      ring.geometry.dispose();
-      (ring.material as THREE.Material).dispose();
+      shadowPlane.geometry.dispose();
+      (shadowPlane.material as THREE.Material).dispose();
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, [item.id, item.mesh]);
+  }, [item.id, item.mesh, variant]);
 
   return <div className="cad-viewer" ref={mountRef} />;
 }
