@@ -56,6 +56,7 @@ type ShowcaseItem = {
 };
 
 type CadViewItem = Pick<ShowcaseItem, "id" | "title" | "subtitle" | "src" | "mesh">;
+type InputModalItem = Pick<ShowcaseItem, "title" | "taskLabel" | "specLabel" | "input" | "subtitle">;
 
 const fallbackManifest: Manifest = {
   schema_version: 1,
@@ -97,6 +98,7 @@ function App() {
   const [spec, setSpec] = useState("descriptive");
   const [format, setFormat] = useState("openscad");
   const [code, setCode] = useState("");
+  const [expandedInput, setExpandedInput] = useState<InputModalItem | null>(null);
 
   useEffect(() => {
     fetch(asset("manifest.json"))
@@ -105,28 +107,54 @@ function App() {
       .catch(() => setManifest(fallbackManifest));
   }, []);
 
-  const taskRuns = useMemo(() => manifest.runs.filter((run) => run.task === task), [manifest, task]);
+  const taskRuns = useMemo(() => manifest.runs.filter((run) => run.task === task && isCompleteDemoRun(run)), [manifest, task]);
   const cases = useMemo(() => manifest.cases.filter((item) => item.task === task || taskRuns.some((run) => run.case_id === item.id)), [manifest, task, taskRuns]);
-  const caseRuns = useMemo(() => taskRuns.filter((run) => !caseId || run.case_id === caseId), [caseId, taskRuns]);
+  const exactRun = useMemo(
+    () => taskRuns.find((run) => run.case_id === caseId && run.model === model && run.spec === spec && run.format === format),
+    [caseId, format, model, spec, taskRuns]
+  );
+  const selectedRun = useMemo(() => exactRun || pickDefaultRun(taskRuns.filter((run) => run.case_id === caseId)) || pickDefaultRun(taskRuns), [caseId, exactRun, taskRuns]);
+  const activeCaseId = selectedRun?.case_id || caseId;
+  const activeModel = selectedRun?.model || model;
+  const activeSpec = selectedRun?.spec || spec;
+  const activeFormat = selectedRun?.format || format;
+  const caseRuns = useMemo(() => taskRuns.filter((run) => run.case_id === activeCaseId), [activeCaseId, taskRuns]);
   const models = useMemo(() => manifest.models.filter((item) => caseRuns.some((run) => run.model === item.id)), [caseRuns, manifest.models]);
-  const modelRuns = useMemo(() => caseRuns.filter((run) => !model || run.model === model), [caseRuns, model]);
+  const modelRuns = useMemo(() => caseRuns.filter((run) => run.model === activeModel), [activeModel, caseRuns]);
   const specs = useMemo(() => Array.from(new Set(modelRuns.map((run) => run.spec))).sort(), [modelRuns]);
-  const specRuns = useMemo(() => modelRuns.filter((run) => !spec || run.spec === spec), [modelRuns, spec]);
+  const specRuns = useMemo(() => modelRuns.filter((run) => run.spec === activeSpec), [activeSpec, modelRuns]);
   const formats = useMemo(() => Array.from(new Set(specRuns.map((run) => run.format))).sort(), [specRuns]);
 
   useEffect(() => {
-    if ((!caseId || !cases.some((item) => item.id === caseId)) && cases[0]) setCaseId(cases[0].id);
-    if ((!model || !models.some((item) => item.id === model)) && models[0]) setModel(models[0].id);
-    if ((!spec || !specs.includes(spec)) && specs[0]) setSpec(specs[0]);
-    if ((!format || !formats.includes(format)) && formats[0]) setFormat(formats[0]);
-  }, [caseId, cases, format, formats, model, models, spec, specs]);
+    if (!selectedRun) return;
+    if (caseId !== selectedRun.case_id) setCaseId(selectedRun.case_id);
+    if (model !== selectedRun.model) setModel(selectedRun.model);
+    if (spec !== selectedRun.spec) setSpec(selectedRun.spec);
+    if (format !== selectedRun.format) setFormat(selectedRun.format);
+  }, [caseId, format, model, selectedRun, spec]);
 
-  const selectedRun = taskRuns.find((run) => run.case_id === caseId && run.model === model && run.spec === spec && run.format === format);
-  const selectedCase = manifest.cases.find((item) => item.id === caseId);
-  const selectedModel = manifest.models.find((item) => item.id === model);
+  const selectedCase = manifest.cases.find((item) => item.id === activeCaseId);
+  const selectedModel = manifest.models.find((item) => item.id === activeModel);
+  const selectedTask = manifest.tasks.find((item) => item.id === selectedRun?.task);
   const showcaseItems = useMemo(() => buildShowcaseItems(manifest), [manifest]);
   const heroItems = useMemo(() => showcaseItems.slice(0, 16), [showcaseItems]);
   const visibleTasks = useMemo(() => manifest.tasks.filter((item) => item.status === "interactive"), [manifest]);
+  const selectedInput = selectedRun?.condition || selectedCase?.title || "No result is available for this combination yet.";
+  const selectedInputItem = selectedRun ? {
+    title: selectedCase?.title || `Case ${selectedRun.case_id}`,
+    taskLabel: selectedTask?.label || selectedRun.task,
+    specLabel: inputSpecLabel(selectedRun.spec),
+    input: selectedInput,
+    subtitle: `${selectedModel?.label || selectedRun.model} / ${selectedRun.format.toUpperCase()}`
+  } : null;
+
+  const applyRunSelection = (run?: Run) => {
+    if (!run) return;
+    setCaseId(run.case_id);
+    setModel(run.model);
+    setSpec(run.spec);
+    setFormat(run.format);
+  };
 
   useEffect(() => {
     const path = selectedRun?.assets.generated;
@@ -198,13 +226,14 @@ function App() {
         {taskRuns.length ? (
           <div className="workbench">
             <aside className="controls">
-              <Select label="Case" value={caseId} options={cases.map((item) => [item.id, item.title])} onChange={setCaseId} />
-              <Select label="Model" value={model} options={models.map((item) => [item.id, item.label])} onChange={setModel} />
-              <Select label="Spec" value={spec} options={specs.map((item) => [item, item])} onChange={setSpec} />
-              <Select label="Format" value={format} options={formats.map((item) => [item, item.toUpperCase()])} onChange={setFormat} />
+              <Select label="Case" value={activeCaseId} options={cases.map((item) => [item.id, item.title])} onChange={(nextCase) => applyRunSelection(pickDefaultRun(taskRuns.filter((run) => run.case_id === nextCase)))} />
+              <Select label="Model" value={activeModel} options={models.map((item) => [item.id, item.label])} onChange={(nextModel) => applyRunSelection(pickDefaultRun(caseRuns.filter((run) => run.model === nextModel)))} />
+              <Select label="Spec" value={activeSpec} options={specs.map((item) => [item, item])} onChange={(nextSpec) => applyRunSelection(pickDefaultRun(modelRuns.filter((run) => run.spec === nextSpec)))} />
+              <Select label="Format" value={activeFormat} options={formats.map((item) => [item, item.toUpperCase()])} onChange={(nextFormat) => applyRunSelection(pickDefaultRun(specRuns.filter((run) => run.format === nextFormat)))} />
               <div className="condition">
                 <span>Input</span>
-                <p>{selectedRun?.condition || selectedCase?.title || "No result is available for this combination yet."}</p>
+                <p>{selectedInput}</p>
+                {selectedInputItem ? <button className="condition-full-input" type="button" onClick={() => setExpandedInput(selectedInputItem)}>View full input</button> : null}
               </div>
             </aside>
             <div className="result-stage">
@@ -268,6 +297,7 @@ function App() {
   year={2026}
 }`}</code></pre>
       </section>
+      {expandedInput ? <InputModal item={expandedInput} onClose={() => setExpandedInput(null)} /> : null}
     </main>
   );
 }
@@ -280,7 +310,7 @@ function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
   const caseTitle = new Map(manifest.cases.map((item) => [item.id, item.title]));
   const runsByCase = new Map<string, Run[]>();
   manifest.runs
-    .filter((run) => run.task === "text2cad" && run.assets.pred_render && run.assets.mesh && run.valid !== false)
+    .filter((run) => run.task === "text2cad" && isCompleteDemoRun(run) && run.valid !== false)
     .forEach((run) => {
       const runs = runsByCase.get(run.case_id) || [];
       runs.push(run);
@@ -309,16 +339,39 @@ function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
       title: caseTitle.get(run.case_id) || `Case ${run.case_id.split("/").pop() || run.case_id}`,
       subtitle: `${modelLabel.get(run.model) || run.model} / ${run.format.toUpperCase()}`,
       taskLabel: taskLabel.get(run.task) || run.task,
-      specLabel: run.spec === "parametric" ? "Parametric input" : "Descriptive input",
+      specLabel: inputSpecLabel(run.spec),
       input: run.condition || caseTitle.get(run.case_id) || `Case ${run.case_id}`,
       src: run.assets.pred_render || "",
       mesh: run.assets.mesh || "",
     }));
 }
 
+function isCompleteDemoRun(run: Run) {
+  return Boolean((run.condition || "").trim() && run.assets.generated && run.assets.gt_mesh && run.assets.gt_render && run.assets.mesh && run.assets.pred_render);
+}
+
+function pickDefaultRun(runs: Run[]) {
+  return [...runs].sort((a, b) => {
+    const qualityDelta = runQuality(b) - runQuality(a);
+    if (qualityDelta) return qualityDelta;
+    const specDelta = Number(a.spec !== "descriptive") - Number(b.spec !== "descriptive");
+    if (specDelta) return specDelta;
+    const formatDelta = Number(a.format !== "openscad") - Number(b.format !== "openscad");
+    if (formatDelta) return formatDelta;
+    return a.id.localeCompare(b.id);
+  })[0];
+}
+
+function inputSpecLabel(spec: string) {
+  return spec === "parametric" ? "Parametric input" : "Descriptive input";
+}
+
 function runQuality(run: Run) {
   const metrics = run.metrics || {};
   let score = run.valid === false ? -200 : 20;
+  const visibleMetricCount = countVisibleMetricValues(run);
+  score += visibleMetricCount * 35;
+  if (!visibleMetricCount) score -= 90;
   score += numberMetric(metrics.qa_overall ?? metrics.qa_overall_accuracy) * 120;
   score += numberMetric(metrics.qa_semantic) * 28;
   score += numberMetric(metrics.qa_parametric) * 16;
@@ -336,9 +389,13 @@ function numberMetric(value: number | string | null | undefined) {
   return typeof value === "number" && Number.isFinite(value) ? value : 0;
 }
 
+function countVisibleMetricValues(run: Run) {
+  return Object.entries(run.metrics || {}).filter(([key, value]) => isVisibleMetric(key, value, run)).length;
+}
+
 function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
   const [selectedId, setSelectedId] = useState("");
-  const [expandedItem, setExpandedItem] = useState<ShowcaseItem | null>(null);
+  const [expandedItem, setExpandedItem] = useState<InputModalItem | null>(null);
   const selected = items.find((item) => item.id === selectedId) || items[0];
 
   useEffect(() => {
@@ -383,19 +440,23 @@ function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
           ))}
         </div>
       </div>
-      {expandedItem ? (
-        <div className="input-modal" role="dialog" aria-modal="true" aria-labelledby="input-modal-title" onClick={() => setExpandedItem(null)}>
-          <div className="input-modal-panel" onClick={(event) => event.stopPropagation()}>
-            <div className="input-modal-head">
-              <span>{expandedItem.taskLabel} · {expandedItem.specLabel}</span>
-              <button type="button" onClick={() => setExpandedItem(null)}>Close</button>
-            </div>
-            <h3 id="input-modal-title">{expandedItem.title}</h3>
-            <p>{expandedItem.input}</p>
-            <em>{expandedItem.subtitle}</em>
-          </div>
+      {expandedItem ? <InputModal item={expandedItem} onClose={() => setExpandedItem(null)} /> : null}
+    </div>
+  );
+}
+
+function InputModal({ item, onClose }: { item: InputModalItem; onClose: () => void }) {
+  return (
+    <div className="input-modal" role="dialog" aria-modal="true" aria-labelledby="input-modal-title" onClick={onClose}>
+      <div className="input-modal-panel" onClick={(event) => event.stopPropagation()}>
+        <div className="input-modal-head">
+          <span>{item.taskLabel} · {item.specLabel}</span>
+          <button type="button" onClick={onClose}>Close</button>
         </div>
-      ) : null}
+        <h3 id="input-modal-title">{item.title}</h3>
+        <p>{item.input}</p>
+        <em>{item.subtitle}</em>
+      </div>
     </div>
   );
 }
@@ -417,7 +478,7 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
     camera.position.set(0, 3.05, 5.9);
     camera.lookAt(0, 0, 0);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0xf7f8f4, 1);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -618,7 +679,7 @@ function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?
     const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 100);
     camera.position.set(3.6, 2.35, variant === "result" ? 4.35 : 4.7);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0xf7fbf4, 1);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -793,6 +854,7 @@ function Figure({ title, src }: { title: string; src?: string }) {
 
 function MetricStrip({ run }: { run?: Run }) {
   const entries = getMetricEntries(run);
+  if (!entries.length) return null;
   return (
     <div className="metrics">
       {entries.length ? entries.map((entry) => (
@@ -800,7 +862,7 @@ function MetricStrip({ run }: { run?: Run }) {
           <span>{entry.label}</span>
           <strong>{entry.value}</strong>
         </div>
-      )) : <div className="metric metric-empty">No metrics bundled for this run.</div>}
+      )) : null}
     </div>
   );
 }
@@ -855,7 +917,7 @@ function getMetricEntries(run?: Run) {
     label: metricLabels[key] || key.replace(/_/g, " "),
     value: formatMetricValue(key, metrics[key]),
   }));
-  if (run.valid !== null && run.valid !== undefined) {
+  if (entries.length && run.valid !== null && run.valid !== undefined) {
     entries.unshift({ key: "valid", label: "Executable", value: run.valid ? "yes" : "no" });
   }
   return entries;

@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700;8..60,800&display=swap");
-
 :root {
   --paper: #f7f7f1;
   --paper-2: #edf1ed;
@@ -16,9 +14,9 @@
   --black: #101619;
   --shadow-soft: 0 18px 48px rgba(22, 30, 26, 0.07);
   --shadow-strong: 0 34px 90px rgba(18, 27, 24, 0.13);
-  --font-body: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --font-code: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  --font-body: Aptos, "Segoe UI", "Helvetica Neue", "Noto Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: Georgia, "Times New Roman", "Noto Serif", serif;
+  --font-code: "SFMono-Regular", Consolas, "Noto Sans Mono", monospace;
   font-family: var(--font-body);
 }
 
@@ -485,10 +483,32 @@ select {
 }
 
 .condition p {
+  display: -webkit-box;
   margin: 0;
+  overflow: hidden;
   color: #30393b;
   font-size: 14.5px;
   line-height: 1.62;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8;
+}
+
+.condition-full-input,
+.viewer-full-input {
+  width: fit-content;
+  margin: 10px 0 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: var(--blue);
+  font: 700 12.5px/1.2 var(--font-body);
+  cursor: pointer;
+}
+
+.condition-full-input:hover,
+.viewer-full-input:hover {
+  color: var(--teal);
 }
 
 .result-stage {
@@ -763,21 +783,7 @@ select {
   -webkit-line-clamp: 3;
 }
 
-.viewer-full-input {
-  width: fit-content;
-  margin: 2px 0 0;
-  padding: 0;
-  border: 0;
-  border-bottom: 1px solid currentColor;
-  background: transparent;
-  color: var(--blue);
-  font: 700 12.5px/1.2 var(--font-body);
-  cursor: pointer;
-}
-
-.viewer-full-input:hover {
-  color: var(--teal);
-}
+.viewer-full-input { margin-top: 2px; }
 
 .viewer-meta em {
   color: var(--muted);
