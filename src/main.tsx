@@ -110,8 +110,10 @@ function App() {
       .catch(() => setManifest(fallbackManifest));
   }, []);
 
-  const taskRuns = useMemo(() => manifest.runs.filter((run) => run.task === task && isCompleteDemoRun(run)), [manifest, task]);
-  const cases = useMemo(() => manifest.cases.filter((item) => item.task === task || taskRuns.some((run) => run.case_id === item.id)), [manifest, task, taskRuns]);
+  const completeTaskRuns = useMemo(() => manifest.runs.filter((run) => run.task === task && isCompleteDemoRun(run)), [manifest, task]);
+  const interactiveCaseIds = useMemo(() => getInteractiveCaseIds(completeTaskRuns, manifest.models.map((item) => item.id)), [completeTaskRuns, manifest.models]);
+  const taskRuns = useMemo(() => completeTaskRuns.filter((run) => interactiveCaseIds.has(run.case_id)), [completeTaskRuns, interactiveCaseIds]);
+  const cases = useMemo(() => manifest.cases.filter((item) => item.task === task && interactiveCaseIds.has(item.id)), [interactiveCaseIds, manifest, task]);
   const exactRun = useMemo(
     () => taskRuns.find((run) => run.case_id === caseId && run.model === model && run.spec === spec && run.format === format),
     [caseId, format, model, spec, taskRuns]
@@ -342,6 +344,31 @@ function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
 
 function isCompleteDemoRun(run: Run) {
   return Boolean((run.condition || "").trim() && run.assets.generated && run.assets.gt_mesh && run.assets.gt_render && run.assets.mesh && run.assets.pred_render);
+}
+
+const requiredInteractiveSpecs = ["descriptive", "parametric"];
+const requiredInteractiveFormats = ["json", "openscad"];
+
+function getInteractiveCaseIds(runs: Run[], modelIds: string[]) {
+  const requiredModels = modelIds.length ? modelIds : Array.from(new Set(runs.map((run) => run.model))).sort();
+  const grouped = new Map<string, Run[]>();
+  runs.forEach((run) => {
+    const caseRuns = grouped.get(run.case_id) || [];
+    caseRuns.push(run);
+    grouped.set(run.case_id, caseRuns);
+  });
+
+  return new Set(
+    Array.from(grouped.entries())
+      .filter(([, caseRuns]) => {
+        const hasEveryModelForEverySpec = requiredInteractiveSpecs.every((specName) =>
+          requiredModels.every((modelId) => caseRuns.some((run) => run.spec === specName && run.model === modelId))
+        );
+        const hasEveryOutputFormat = requiredInteractiveFormats.every((formatName) => caseRuns.some((run) => run.format === formatName));
+        return requiredModels.length > 0 && hasEveryModelForEverySpec && hasEveryOutputFormat;
+      })
+      .map(([caseId]) => caseId)
+  );
 }
 
 function pickDefaultRun(runs: Run[]) {

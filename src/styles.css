@@ -945,6 +945,7 @@ select {
   position: relative;
   min-height: 640px;
   overflow: hidden;
+  isolation: isolate;
   background: var(--paper);
 }
 
@@ -965,14 +966,19 @@ select {
   height: 100% !important;
 }
 
+.viewer-stage > .cad-viewer {
+  left: clamp(260px, 39%, 430px);
+}
+
 .viewer-meta {
   position: absolute;
   left: 24px;
-  bottom: 24px;
+  top: 50%;
   z-index: 3;
   display: grid;
   gap: 6px;
-  max-width: min(62%, 600px);
+  width: min(34%, 360px);
+  max-width: 360px;
   padding: 14px 16px;
   border: 1px solid rgba(17, 22, 25, 0.1);
   border-left: 4px solid var(--teal);
@@ -981,6 +987,7 @@ select {
   color: var(--ink);
   box-shadow: 0 18px 44px rgba(15, 30, 24, 0.12);
   backdrop-filter: blur(14px);
+  transform: translateY(-50%);
   pointer-events: auto;
 }
 
@@ -1384,6 +1391,10 @@ select {
     min-height: 560px;
   }
 
+  .viewer-stage > .cad-viewer {
+    left: clamp(250px, 37%, 390px);
+  }
+
   .viewer-rail {
     display: grid;
     grid-auto-flow: column;
@@ -1506,15 +1517,23 @@ select {
   }
 
   .viewer-stage {
-    min-height: 430px;
+    min-height: 660px;
+  }
+
+  .viewer-stage > .cad-viewer {
+    top: 252px;
+    left: 0;
   }
 
   .viewer-meta {
+    top: 16px;
     right: 18px;
-    bottom: 18px;
+    bottom: auto;
     left: 18px;
+    width: auto;
     max-width: none;
     padding: 12px 13px;
+    transform: none;
   }
 
   .input-modal {
