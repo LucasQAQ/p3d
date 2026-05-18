@@ -59,6 +59,7 @@ type CadViewItem = Pick<ShowcaseItem, "id" | "title" | "subtitle" | "src" | "mes
 type InputModalItem = Pick<ShowcaseItem, "title" | "taskLabel" | "specLabel" | "input" | "subtitle">;
 type LeaderboardRow = { model: string; family: string; score: number };
 type LeaderboardTask = { title: string; accent: string; note: string; rows: LeaderboardRow[] };
+type ModelFamilyStyle = { color: string; icon: string; tile?: string; filter?: string };
 
 const fallbackManifest: Manifest = {
   schema_version: 1,
@@ -359,22 +360,22 @@ function inputSpecLabel(spec: string) {
   return spec === "parametric" ? "Parametric input" : "Descriptive input";
 }
 
-const modelFamilyColors: Record<string, string> = {
-  openai: "#9DB0CE",
-  gemini: "#8FC3A4",
-  claude: "#F0A684",
-  kimi: "#BD9BD0",
-  zai: "#B5C5DC",
-  doubao: "#B0D5BE",
-  deepseek: "#F5BFA3",
-  qwen: "#D6BCDF",
-  mimo: "#CFD9EB",
+const modelFamilies: Record<string, ModelFamilyStyle> = {
+  openai: { color: "#202123", icon: "icons/src/openai.svg" },
+  gemini: { color: "#14B86A", icon: "icons/src/gemini-color.svg" },
+  claude: { color: "#D97757", icon: "icons/src/claude-color.svg" },
+  kimi: { color: "#1783FF", icon: "icons/src/kimi-color.svg", tile: "#111619" },
+  zai: { color: "#8E5CFB", icon: "icons/src/zai.svg" },
+  doubao: { color: "#00A6B8", icon: "icons/src/bytedance-color.svg" },
+  deepseek: { color: "#4D6BFE", icon: "icons/src/deepseek-color.svg" },
+  qwen: { color: "#FF6003", icon: "icons/src/qwen-color.svg" },
+  mimo: { color: "#FF6900", icon: "icons/src/xiaomimimo.svg", tile: "#111619", filter: "invert(1)" },
 };
 
 const leaderboardTasks: LeaderboardTask[] = [
   {
     title: "Text-to-3D",
-    accent: "#9DB0CE",
+    accent: "#285c8f",
     note: "Across-bucket mean",
     rows: [
       { model: "GPT-5.5", family: "openai", score: 0.848 },
@@ -391,7 +392,7 @@ const leaderboardTasks: LeaderboardTask[] = [
   },
   {
     title: "Image-to-3D",
-    accent: "#F0A684",
+    accent: "#b46e4c",
     note: "Across-bucket mean",
     rows: [
       { model: "GPT-5.5", family: "openai", score: 0.675 },
@@ -406,7 +407,7 @@ const leaderboardTasks: LeaderboardTask[] = [
   },
   {
     title: "Assembly-3D",
-    accent: "#8FC3A4",
+    accent: "#337665",
     note: "Across-bucket mean",
     rows: [
       { model: "Gemini 3.1 Pro", family: "gemini", score: 0.659 },
@@ -481,17 +482,25 @@ function LeaderboardPanel({ task }: { task: LeaderboardTask }) {
       </div>
       <div className="leaderboard-rows">
         {task.rows.map((row, index) => {
-          const color = modelFamilyColors[row.family] || task.accent;
+          const family = modelFamilies[row.family] || { color: task.accent, icon: "icons/src/openai.svg" };
           const width = `${Math.max(2, (row.score / 0.9) * 100)}%`;
           return (
             <div className="leaderboard-row" key={`${task.title}-${row.model}`}>
               <div className="model-label">
                 <span className="model-rank">{index + 1}</span>
-                <span className="model-mark" style={{ "--model-color": color } as React.CSSProperties}>{modelShortName(row.model)}</span>
+                <span
+                  className="model-mark"
+                  style={{
+                    "--model-tile": family.tile || "#fffdfa",
+                    "--icon-filter": family.filter || "none",
+                  } as React.CSSProperties}
+                >
+                  <img src={asset(family.icon)} alt="" aria-hidden="true" />
+                </span>
                 <strong>{row.model}</strong>
               </div>
               <div className="bar-track">
-                <span className="bar-fill" style={{ "--bar-color": color, "--bar-width": width } as React.CSSProperties} />
+                <span className="bar-fill" style={{ "--bar-color": family.color, "--bar-width": width } as React.CSSProperties} />
               </div>
               <em>{row.score.toFixed(3)}</em>
             </div>
@@ -500,17 +509,6 @@ function LeaderboardPanel({ task }: { task: LeaderboardTask }) {
       </div>
     </section>
   );
-}
-
-function modelShortName(model: string) {
-  if (model.startsWith("Claude")) return "Cl";
-  if (model.startsWith("Gemini")) return "Ge";
-  if (model.startsWith("Doubao")) return "Db";
-  if (model.startsWith("DeepSeek")) return "Ds";
-  if (model.startsWith("Qwen")) return "Qw";
-  if (model.startsWith("MiMo")) return "Mi";
-  if (model.startsWith("GLM")) return "Z";
-  return model.split(/[\s.-]/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("");
 }
 
 function runQuality(run: Run) {
