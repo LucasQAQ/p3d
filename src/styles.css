@@ -502,7 +502,7 @@ select {
   gap: 16px;
 }
 
-.render-card, .placeholder, .code-panel, .code-callout, .citation {
+.render-card, .placeholder, .code-panel, .code-callout {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(247, 248, 244, 0.92);
@@ -685,7 +685,7 @@ select {
 
 .viewer-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 330px);
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 390px);
   min-height: 640px;
   overflow: hidden;
   border: 1px solid rgba(17, 22, 25, 0.12);
@@ -725,7 +725,7 @@ select {
   z-index: 3;
   display: grid;
   gap: 6px;
-  max-width: min(54%, 520px);
+  max-width: min(62%, 600px);
   padding: 14px 16px;
   border: 1px solid rgba(17, 22, 25, 0.1);
   border-left: 4px solid var(--teal);
@@ -734,7 +734,7 @@ select {
   color: var(--ink);
   box-shadow: 0 18px 44px rgba(15, 30, 24, 0.12);
   backdrop-filter: blur(14px);
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .viewer-meta span {
@@ -761,6 +761,22 @@ select {
   line-height: 1.42;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+
+.viewer-full-input {
+  width: fit-content;
+  margin: 2px 0 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: var(--blue);
+  font: 700 12.5px/1.2 var(--font-body);
+  cursor: pointer;
+}
+
+.viewer-full-input:hover {
+  color: var(--teal);
 }
 
 .viewer-meta em {
@@ -845,16 +861,16 @@ select {
 
 .viewer-case .case-task {
   display: block;
-  overflow: hidden;
+  overflow: visible;
   color: var(--blue);
   font-family: var(--font-code);
-  font-size: 10px;
+  font-size: 9.8px;
   font-style: normal;
   font-weight: 600;
-  line-height: 1.08;
-  text-overflow: ellipsis;
+  line-height: 1.18;
+  text-overflow: clip;
   text-transform: uppercase;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .viewer-case span {
@@ -864,7 +880,7 @@ select {
   font-weight: 700;
   line-height: 1.22;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
 }
 
 .viewer-case strong {
@@ -875,11 +891,11 @@ select {
 }
 
 .citation {
-  max-width: 980px;
-  padding: clamp(42px, 5vw, 66px) clamp(28px, 5vw, 54px);
-  background:
-    linear-gradient(180deg, rgba(255, 253, 250, 0.94), rgba(250, 251, 247, 0.9));
-  box-shadow: var(--shadow-soft);
+  max-width: 1260px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .citation-heading {
@@ -887,7 +903,10 @@ select {
   align-items: baseline;
   justify-content: space-between;
   gap: 18px;
+  width: min(100%, 980px);
+  margin-right: auto;
   margin-bottom: 18px;
+  margin-left: auto;
   padding-bottom: 14px;
   border-bottom: 1px solid rgba(24, 33, 38, 0.1);
 }
@@ -923,6 +942,9 @@ select {
 }
 
 .citation pre {
+  width: min(100%, 980px);
+  margin-right: auto;
+  margin-left: auto;
   border-radius: 8px;
   max-height: none;
   padding: 20px 22px;
@@ -930,11 +952,82 @@ select {
   color: #eef5ef;
   font-size: 13px;
   line-height: 1.6;
+  box-shadow: 0 18px 44px rgba(16, 24, 27, 0.12);
 }
 
 .citation code {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+}
+
+.input-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(16, 22, 25, 0.38);
+  backdrop-filter: blur(8px);
+}
+
+.input-modal-panel {
+  width: min(760px, 100%);
+  max-height: min(76vh, 720px);
+  overflow: auto;
+  padding: clamp(22px, 3.4vw, 34px);
+  border: 1px solid rgba(24, 33, 38, 0.16);
+  border-radius: 10px;
+  background: rgba(255, 253, 250, 0.98);
+  color: var(--ink);
+  box-shadow: 0 30px 90px rgba(16, 24, 27, 0.24);
+}
+
+.input-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(24, 33, 38, 0.1);
+}
+
+.input-modal-head span {
+  color: var(--blue);
+  font: 600 11px/1.2 var(--font-code);
+  text-transform: uppercase;
+}
+
+.input-modal-head button {
+  padding: 6px 10px;
+  border: 1px solid rgba(24, 33, 38, 0.18);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink);
+  font: 700 13px/1 var(--font-body);
+  cursor: pointer;
+}
+
+.input-modal h3 {
+  margin: 0 0 12px;
+  font: 700 clamp(22px, 2.4vw, 30px)/1.12 var(--font-body);
+}
+
+.input-modal p {
+  margin: 0;
+  color: #35403d;
+  font-size: 16px;
+  line-height: 1.62;
+}
+
+.input-modal em {
+  display: block;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
 }
 
 @media (max-width: 980px) {
@@ -1034,7 +1127,7 @@ select {
   .viewer-rail {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: minmax(230px, 260px);
+    grid-auto-columns: minmax(300px, 330px);
     max-height: none;
     overflow-x: auto;
     border-left: 0;
@@ -1137,10 +1230,6 @@ select {
     font-size: 12.5px;
   }
 
-  .citation {
-    padding: 34px 18px;
-  }
-
   .citation-heading {
     align-items: flex-start;
   }
@@ -1155,6 +1244,14 @@ select {
     left: 18px;
     max-width: none;
     padding: 12px 13px;
+  }
+
+  .input-modal {
+    padding: 14px;
+  }
+
+  .input-modal-panel {
+    max-height: 82vh;
   }
 
   .viewer-meta strong {

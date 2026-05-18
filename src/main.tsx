@@ -338,6 +338,7 @@ function numberMetric(value: number | string | null | undefined) {
 
 function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
   const [selectedId, setSelectedId] = useState("");
+  const [expandedItem, setExpandedItem] = useState<ShowcaseItem | null>(null);
   const selected = items.find((item) => item.id === selectedId) || items[0];
 
   useEffect(() => {
@@ -357,6 +358,7 @@ function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
             <span>{selected.taskLabel} · {selected.specLabel}</span>
             <strong>{selected.title}</strong>
             <p>{selected.input}</p>
+            <button className="viewer-full-input" type="button" onClick={() => setExpandedItem(selected)}>View full input</button>
             <em>{selected.subtitle}</em>
           </div>
         </div>
@@ -381,6 +383,19 @@ function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
           ))}
         </div>
       </div>
+      {expandedItem ? (
+        <div className="input-modal" role="dialog" aria-modal="true" aria-labelledby="input-modal-title" onClick={() => setExpandedItem(null)}>
+          <div className="input-modal-panel" onClick={(event) => event.stopPropagation()}>
+            <div className="input-modal-head">
+              <span>{expandedItem.taskLabel} · {expandedItem.specLabel}</span>
+              <button type="button" onClick={() => setExpandedItem(null)}>Close</button>
+            </div>
+            <h3 id="input-modal-title">{expandedItem.title}</h3>
+            <p>{expandedItem.input}</p>
+            <em>{expandedItem.subtitle}</em>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

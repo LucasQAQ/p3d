@@ -612,7 +612,7 @@
       "format": "json",
       "model": "gpt55-reason",
       "valid": true,
-      "condition": "Parametric specification for 0004/00040376.",
+      "condition": "Use a main base reference span of length 0.75, width 0.421875, and height 0.191921, with the lower base extrusion extending 0.1919 upward from the base datum. Form this lower base from separate rounded profiles within the full 0.75 by 0.4218 span rather than as a filled rectangular plate: place one circular profile with its axis 0.2109 from the left edge and 0.2109 from the front edge, radius 0.2109, and place a second concentric circular group with its axis 0.6094 from the left edge and 0.2109 from the front edge, using radius 0.1406 with an inner radius of 0.1055 for the opening. Preserve the additional curved and slot-like profile portions in the lower sketch as rounded cut or boundary shapes, so the openings remain true voids rather than surface markings. Add the taller circular solid section over the left-side circular axis within a 0.4218 by 0.4218 footprint, offset 0 from the left edge, 0.3282 from the right edge, and 0 from both front and back edges; this upper-side material reaches 0.4424 from the same base datum, making it a taller continuation above the shallow base rather than an added segment stacked on top of the base height. Keep the upper circular section hollow/annular where the inner loop is present, including the rounded slot-like interruptions in the opening. Add a separate solid rectangular upright tab with length 0.041188, width 0.070313, and height 0.441346; position it with left offset 0.0703, right offset 0.6385, front offset 0.1758, and back offset 0.1757, and extrude it upward 0.4413 from the base datum.",
       "assets": {
         "generated": "runs/text2cad_0004_00040376_parametric_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0004_00040376_parametric_json_gpt55-reason/pred_render.png",
@@ -648,7 +648,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Descriptive specification for 0005/00057589.",
+      "condition": "The part is a rectangular, open-topped hollow shell with straight outer walls and an inset inner cavity, leaving a thin bottom floor and a raised rim. The main interior is a removed top cut, not an added tray, so the outside remains a solid rectangular body below the cavity floor. Four small circular cuts are repeated near the rim corners and occupy only the upper wall band rather than passing through the entire height. Inside the cavity, the rounded protrusions are solid added material, and any slot-like or arc-shaped reliefs should remain rounded rather than being squared off.",
       "assets": {
         "generated": "runs/text2cad_0005_00057589_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0005_00057589_descriptive_json_qwen-reason/pred_render.png",
@@ -666,7 +666,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Parametric specification for 0005/00057589.",
+      "condition": "Begin with a rectangular solid base length 0.75, width 0.357143, and height 0.223214, with the main extrusion depth 0.2232 upward from the underside reference. Cut an open rectangular interior recess from the top with footprint 0.7232 by 0.3304, inset 0.0134 from the left edge, 0.0134 from the right edge, 0.0134 from the front edge, and 0.0133 from the back edge; the removed band runs from height 0.0178 to 0.2232 above the underside, leaving a bottom floor and continuous side walls. Add a centered group of solid rounded protrusions inside the cavity within a footprint 0.2886 by 0.1457, inset 0.2307 from both left and right edges and 0.1057 from both front and back edges; this added solid feature has length 0.288583, width 0.145726, height 0.044643, and main extrusion depth 0.0446, rising from the inner floor tier to a total reach of 0.0625 from the underside reference. Cut four separate circular upper-rim holes of radius 0.0089, with their axes set 0.0223 in from the adjacent outside edges at each corner; these cuts occupy the vertical band from 0.1786 to 0.2232 above the underside and have depth 0.0446, so they are upper-band cuts rather than full-height through holes. Preserve the rounded and slot-like cut outlines as curved openings or reliefs, and do not convert the four-hole pattern envelope into a rectangular pad or plate.",
       "assets": {
         "generated": "runs/text2cad_0005_00057589_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0005_00057589_parametric_json_qwen-reason/pred_render.png",
@@ -1113,7 +1113,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Descriptive specification for 0013/00134405.",
+      "condition": "The object is a flat circular annular rim with an open center area, not a filled circular plate. A concentric hollow collar is added at the middle and shares the same axis as the outer ring, with its center left open. Solid radial ribs run from the collar toward the outer rim, leaving rounded slot-like window spaces between them rather than surface markings. The added collar and rib web use shallower depth tiers than the main outer ring, so the part has stepped faces and underside relief instead of one uniform thickness.",
       "assets": {
         "generated": "runs/text2cad_0013_00134405_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0013_00134405_descriptive_json_qwen-reason/pred_render.png",
@@ -1131,7 +1131,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Parametric specification for 0013/00134405.",
+      "condition": "Use the main base declared size as the first reference: length 0.75, width 0.75, height 0.05625; main extrusion depth 0.0281. Build the main base as a concentric circular annulus, not as a rectangular plate: the outer circular profile has radius 0.375 and the inner circular opening has radius 0.3375, with the shared axis 0.375 from the left edge and 0.375 from the front edge; this base spans from -0.0281 to 0.0281 relative to the base underside reference. Add a centered solid annular collar within a 0.15 by 0.15 footprint, offset 0.3 from the left, right, front, and back edges, keeping its inner profile open as a real through void; this collar spans from -0.0234 to 0.0234 from the same underside reference. Add the rounded radial rib web as solid attached material inside the rim, using arc-based outlines and leaving the intervening elongated slot-like openings open; its bounding footprint is 0.6184 by 0.521 with edge offsets left 0.0658, right 0.0658, front 0.0387, and back 0.1903, and its modeled length, width, and height are 0.618448, 0.521035, and 0.028125. The rib web spans from -0.0141 to 0.0141 from the same underside reference, so these vertical values are shared-reach tiers rather than stacked segment heights. Keep all circular profiles coaxial and concentric with the main annulus and central collar.",
       "assets": {
         "generated": "runs/text2cad_0013_00134405_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0013_00134405_parametric_json_qwen-reason/pred_render.png",
@@ -1149,7 +1149,7 @@
       "format": "json",
       "model": "gpt55-reason",
       "valid": true,
-      "condition": "Parametric specification for 0013/00135378.",
+      "condition": "Start with a rounded, slot-like rectangular base footprint measuring length 0.75 and width 0.45, with base height 0.05625 and main depth 0.0562. Use a single central vertical axis located 0.375 from the left edge and 0.225 from the front edge for every circular feature. On that axis, include the base-level concentric circular profile set with radii 0.225, 0.1875, 0.1875, 0.0937, 0.0937, 0.0562, and 0.0562, using the paired inner loops as real openings or hollow boundaries rather than filled disks. Add a coaxial outer annular collar centered on the same axis, with outer radius 0.225 and inner radius 0.1875; it occupies the central 0.45 by 0.45 circular span of the base and reaches 0.1687 upward from the common shoulder datum. Add the smaller coaxial annular section with outer radius 0.0937 and inner radius 0.0562, positioned with offsets left 0.2812, right 0.2814, front 0.1312, and back 0.1314 to its circular span, and have it reach 0.0937 from the same shoulder datum. Add the innermost solid circular section with radius 0.0562, centered on the same axis, with circular span offsets left 0.3188, right 0.3188, front 0.1688, and back 0.1688; this solid round section has length 0.1125, width 0.1125, height 0.075, and reaches 0.075 from the same shoulder datum. Treat the coaxial reach depths 0.0562, 0.075, 0.0937, and 0.1687 as absolute distances from the shared shoulder face, not as stacked segment heights.",
       "assets": {
         "generated": "runs/text2cad_0013_00135378_parametric_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0013_00135378_parametric_json_gpt55-reason/pred_render.png",
@@ -1167,7 +1167,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Descriptive specification for 0015/00155951.",
+      "condition": "The main body is a solid, shallow plate with an arc-based outline and a real through opening at its center. A shallow annular collar is added on the underside around that central opening, so it should be treated as a hollow ring rather than a filled disk or rectangular pad. Tall solid rounded tabs rise from the upper side at the two ends of the plate, and each tab has a through opening passing through its thickness. The added end sections are much taller than the base, while the underside collar is only a shallow lower tier, creating a clear stepped-depth relationship.",
       "assets": {
         "generated": "runs/text2cad_0015_00155951_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0015_00155951_descriptive_json_qwen-reason/pred_render.png",
@@ -1185,7 +1185,7 @@
       "format": "json",
       "model": "gpt55-reason",
       "valid": true,
-      "condition": "Parametric specification for 0015/00155951.",
+      "condition": "Use a main base reference size of length 0.75, width 0.5, and height 0.125. Create the base as a solid upper-side arc-edged plate occupying the full 0.75 by 0.5 footprint with extrusion depth 0.125 from the base datum, and include a central circular through void with axis 0.375 from the left edge and 0.25 from the front edge, radius 0.125. Add a concentric underside annular collar starting at the base underside and reaching 0.0375 below it; the collar is centered on the same axis, has outer radius 0.2125 and inner radius 0.125, and must remain a hollow circular ring rather than a rectangular pad. Add a right-end upper solid rounded tab with plan footprint 0.125 by 0.375, offset 0.625 from the left edge, 0 from the right edge, and 0.0625 from both front and back edges; it rises from the top side to a total reach of 0.5875 from the base datum and contains a through circular opening of radius 0.0937 centered on the tab width axis at left-offset 0.75 and front-offset 0.25. Add the matching left-end upper solid rounded tab with plan footprint 0.125 by 0.375, offset 0 from the left edge, 0.625 from the right edge, and 0.0625 from both front and back edges; it also rises to a total reach of 0.5875 from the base datum and has a through circular opening of radius 0.0937 centered at left-offset 0 and front-offset 0.25. Keep the upright tab outlines rounded or slot-like in elevation, with the openings cut through the tab thickness, and keep the base opening continuous through the base and underside collar.",
       "assets": {
         "generated": "runs/text2cad_0015_00155951_parametric_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0015_00155951_parametric_json_gpt55-reason/pred_render.png",
@@ -1203,7 +1203,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Parametric specification for 0015/00155951.",
+      "condition": "Use a main base reference size of length 0.75, width 0.5, and height 0.125. Create the base as a solid upper-side arc-edged plate occupying the full 0.75 by 0.5 footprint with extrusion depth 0.125 from the base datum, and include a central circular through void with axis 0.375 from the left edge and 0.25 from the front edge, radius 0.125. Add a concentric underside annular collar starting at the base underside and reaching 0.0375 below it; the collar is centered on the same axis, has outer radius 0.2125 and inner radius 0.125, and must remain a hollow circular ring rather than a rectangular pad. Add a right-end upper solid rounded tab with plan footprint 0.125 by 0.375, offset 0.625 from the left edge, 0 from the right edge, and 0.0625 from both front and back edges; it rises from the top side to a total reach of 0.5875 from the base datum and contains a through circular opening of radius 0.0937 centered on the tab width axis at left-offset 0.75 and front-offset 0.25. Add the matching left-end upper solid rounded tab with plan footprint 0.125 by 0.375, offset 0 from the left edge, 0.625 from the right edge, and 0.0625 from both front and back edges; it also rises to a total reach of 0.5875 from the base datum and has a through circular opening of radius 0.0937 centered at left-offset 0 and front-offset 0.25. Keep the upright tab outlines rounded or slot-like in elevation, with the openings cut through the tab thickness, and keep the base opening continuous through the base and underside collar.",
       "assets": {
         "generated": "runs/text2cad_0015_00155951_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0015_00155951_parametric_json_qwen-reason/pred_render.png",
@@ -1221,7 +1221,7 @@
       "format": "json",
       "model": "gpt55-reason",
       "valid": true,
-      "condition": "Parametric specification for 0024/00249966.",
+      "condition": "Start with the main base as the reference body: overall bounding length 0.75, width 0.364251, and height 0.080711, with the main extrusion depth 0.0807. Use an upper-side solid base footprint spanning 0.75 by 0.3643 with zero left, right, front, and back edge offsets; keep the arc-based rounded outline and include the inner slot-like opening as a through void in the base rather than filling it. Add the base circular through opening on the base plane with its axis 0.4987 from the left edge and 0.1821 from the front edge, radius 0.0396. Create the coaxial round stepped stack as solid added material. The lower circular collar has radius 0.1104, centered 0.1865 from the left edge and 0.1821 from the front edge, with a 0.220812 by 0.220812 footprint located 0.0761 from the left edge, 0.4531 from the right edge, 0.0717 from the front edge, and 0.0718 from the back edge; its own height above the base top is 0.0914. On the same axis, add the smaller solid cylinder with radius 0.0563 and footprint 0.1126 by 0.1126, offset 0.1302 from the left edge, 0.5072 from the right edge, 0.1258 from the front edge, and 0.1259 from the back edge; this upper post has its own height 0.2893 above the collar shoulder. Treat both circular profiles as individual solid cylinders, not as rectangular pads, and do not make the upper post hollow. Add the raised rounded solid region on the right side of the base with a bounding footprint of 0.4584 by 0.3356, offset 0.2916 from the left edge, 0 from the right edge, 0.0144 from the front edge, and 0.0143 from the back edge. This rounded region is a solid upper-side continuation above the main base, with its own stepped height 0.0411 above the base top, and it includes the circular profile on its plane centered 0.4987 from the left edge and 0.1822 from the front edge with radius 0.0396. Add the rectangular solid rib or tab within that rounded footprint, sharing the right edge, with footprint 0.182741 by 0.094416, offsets 0.5673 from the left edge, 0 from the right edge, 0.1349 from the front edge, and 0.135 from the back edge. This rectangular raised feature has its own height 0.0305 above the rounded shoulder, so it is a shallow added tier rather than a through cut.",
       "assets": {
         "generated": "runs/text2cad_0024_00249966_parametric_json_gpt55-reason/generated.json",
         "pred_render": "runs/text2cad_0024_00249966_parametric_json_gpt55-reason/pred_render.png",
@@ -1239,7 +1239,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Descriptive specification for 0045/00457640.",
+      "condition": "The model is a rectangular tray-like solid with a thin bottom, taller perimeter walls, and an open interior rather than a filled block. Four separate solid cylindrical posts rise from the upper side in a rectangular pattern; they are added material, not holes or sleeves. The perimeter wall is formed as a raised rectangular frame with an inner void, so the top remains open down into the tray. A shallow rectangular cut is present along the lower front side, set above the underside and recessed into the wall rather than passing through the whole body.",
       "assets": {
         "generated": "runs/text2cad_0045_00457640_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0045_00457640_descriptive_json_qwen-reason/pred_render.png",
@@ -1257,7 +1257,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Parametric specification for 0045/00457640.",
+      "condition": "Start with the main rectangular base as the reference: length 0.75, width 0.72337, and height 0.021739, using a main base extrusion depth of 0.0217. Add an upper rectangular perimeter frame over the same 0.75 by 0.7234 footprint, with an inner rectangular opening so the center remains hollow and open; this raised wall section reaches 0.2391 from the base datum, giving a wall rise of 0.2174 above the base thickness. Add four separate solid cylindrical posts on the upper side, each with radius 0.0258 and no inner bore. Place their axes at left offsets 0.0897 and 0.6604, repeated at front offsets 0.2935 and 0.6332, forming a rectangular four-post pattern; the cylinders run from 0.0217 to 0.1576 relative to the base reference plane, for an extrusion depth of 0.1359. Do not fill the rectangular envelope between these circular posts with any pad or plate. Cut a shallow rectangular recess from the front side: its plan footprint is 0.532609 long by 0.0462 deep into the part, with left and right edge offsets of 0.1087, starting at the front edge and leaving 0.6772 to the back. This front recess occupies the vertical band from 0.0543 to 0.163 measured from the base underside and has a recess height of 0.046196; it is a localized side recess, not a through opening across the full body.",
       "assets": {
         "generated": "runs/text2cad_0045_00457640_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0045_00457640_parametric_json_qwen-reason/pred_render.png",
@@ -1667,7 +1667,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Descriptive specification for 0053/00531353.",
+      "condition": "The base is an elongated rounded slab with through circular openings near its rounded ends. A solid upright body is inset on the base, with flat lower sides and a curved crown rather than a sharp rectangular top. The upright material is added as solid mass; the circular passage through it and the rounded relief in the upper body are removed material, not raised collars or pads. The base holes pass through the slab, while the upper cuts use different reach depths, giving the part stepped cut-depth behavior.",
       "assets": {
         "generated": "runs/text2cad_0053_00531353_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0053_00531353_descriptive_json_qwen-reason/pred_render.png",
@@ -1685,7 +1685,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Parametric specification for 0053/00531353.",
+      "condition": "Start with the main base as a 0.75 long, 0.25 wide, 0.1 thick solid obround slab with straight long sides and rounded ends. Put two vertical through openings through the base thickness, each with radius 0.05; their centers are 0.125 from the front edge and are positioned 0.125 and 0.625 from the left edge. On the upper face add a solid rectangular lower upright with a 0.35 by 0.2 footprint, offset 0.2 from both length ends and 0.025 from both front and back edges, rising 0.2 above the base top so its top is 0.3 above the base underside. Add a solid rounded cap directly over the same footprint, sharing the same left, right, front, and back edges; use a semicircular profile spanning the 0.2 width with 0.1 rise, extruded along the 0.35 length, bringing the crown to 0.4 above the base underside. Cut the horizontal circular through-passage in the upright along the length direction with radius 0.05, centered 0.125 from the base front edge and in the vertical band from 0.25 to 0.35 above the base underside; start the cut at the upright left face 0.2 from the base left edge and give it a 0.444 reach so it exits past the far side, leaving 0.106 to the base right edge. Also make the rounded upper relief as removed material starting from the front side of the upright: its lengthwise span is 0.24 with 0.255 clearance to both base ends, its transverse reach is 0.299 from the front position 0.025 from the base front and over-runs the back by 0.074, and its vertical band is 0.18 to 0.45 above the base underside.",
       "assets": {
         "generated": "runs/text2cad_0053_00531353_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0053_00531353_parametric_json_qwen-reason/pred_render.png",
@@ -2088,7 +2088,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Descriptive specification for 0071/00710826.",
+      "condition": "The lower shape is a shallow rounded rectangular plate with four circular through-openings near the corners. A solid vertical rectangular wall rises from the plate and runs nearly to one long edge, rather than being a pair of separate supports. The upper round sleeve is added solid material around the top of the wall and contains a circular bore cut through it. The sleeve is not balanced equally about the wall; it projects farther to one side, and the bore is a real removed opening rather than a surface mark.",
       "assets": {
         "generated": "runs/text2cad_0071_00710826_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0071_00710826_descriptive_json_qwen-reason/pred_render.png",
@@ -2106,7 +2106,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Parametric specification for 0071/00710826.",
+      "condition": "Use the main base as the reference: make a rounded rectangular base plate length 0.523256, width 0.619186, and height 0.052326, with the main solid depth 0.0523 upward from the base underside. Cut four through circular holes in the base, each radius 0.0349, with hole centers in two columns at left offsets 0.0698 and 0.4535 and two rows at front offsets 0.0698 and 0.5494. Add a solid vertical rectangular web on the upper face, length-direction thickness 0.061047, width-direction run 0.549419, left offset 0.2311, right offset 0.2312, front offset 0.0698, and back offset 0; this wall rises by 0.5494 above the plate to the upper cylindrical feature region. At the top, create a horizontal round sleeve using the same circular profile plane, with the profile located over the wall and an outside circular span of 0.2355; extrude that added solid asymmetrically from the shared shoulder, 0.1134 to one side and 0.1744 to the opposite side, for a combined sleeve span of 0.2878. Cut the sleeve with a circular through-bore of radius 0.0654 running through the full 0.2878 sleeve span; the removed cut occupies the vertical band from 0.5363 to 0.6671 relative to the base underside and is centered within the round sleeve opening rather than forming a raised circular part.",
       "assets": {
         "generated": "runs/text2cad_0071_00710826_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0071_00710826_parametric_json_qwen-reason/pred_render.png",
@@ -2124,7 +2124,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Descriptive specification for 0081/00817410.",
+      "condition": "The model is a two-tier circular disk, with a thin full-diameter lower disk and a smaller concentric solid disk raised on top to leave a narrow outside step. The upper tier is cut by five rounded, curved slot openings arranged radially around the center; these are voids, not raised blades. The curved slots remove only the raised tier and stop at the lower disk level, leaving the lower base intact beneath them. A small central circular hole cuts fully through both tiers, and the underside is otherwise solid.",
       "assets": {
         "generated": "runs/text2cad_0081_00817410_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0081_00817410_descriptive_json_qwen-reason/pred_render.png",
@@ -2142,7 +2142,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Parametric specification for 0081/00817410.",
+      "condition": "Start with a circular base disk referenced by a 0.75 length by 0.75 width envelope and 0.022059 height; use a circle centered 0.375 from the left edge and 0.375 from the front edge with radius 0.375, extruded as an upper-side solid to depth 0.0221. Add a concentric solid circular tier on the upper side with radius 0.3485, bounded by a 0.697059 by 0.697059 footprint inset 0.0265 from each base edge; give this tier its own height 0.088235 and extrusion depth 0.0882, reaching 0.1103 from the base underside. Cut five equally spaced curved, slot-like openings through the raised tier only; keep them rounded and arc-sided, arranged around the center, with the whole slot group fitting within 0.51883 by 0.527697 and set in from the base envelope by 0.1156 left, 0.1156 right, 0.1103 front, and 0.112 back. The slot cuts occupy the vertical band from 0.0221 to 0.1103 from the base underside, so they remove the upper tier depth of 0.0882 while leaving the lower circular base uncut beneath those openings. Cut a central circular through-hole on the common axis, centered 0.375 from the left and front edges, radius 0.0441, within a 0.088235 by 0.088235 footprint offset 0.3309 from every base edge; run this cut over the vertical band from -0.0221 to 0.1103 with total depth 0.1324 so it clears the full stack.",
       "assets": {
         "generated": "runs/text2cad_0081_00817410_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0081_00817410_parametric_json_qwen-reason/pred_render.png",
@@ -2160,7 +2160,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Descriptive specification for 0085/00852511.",
+      "condition": "The part is entirely round and coaxial, with a hollow sleeve rising above a broad annular collar. Below the collar the underside is stepped through several smaller concentric tubular sections, with the internal opening reducing through multiple tiers. The larger collar and the lower shoulders are added solid annular material rather than cuts or plates, and only the lowest narrow round end is solid. Treat the lower depths as features reaching different distances from one shared shoulder face, not as separate segment heights added end to end.",
       "assets": {
         "generated": "runs/text2cad_0085_00852511_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0085_00852511_descriptive_json_qwen-reason/pred_render.png",
@@ -2178,7 +2178,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Parametric specification for 0085/00852511.",
+      "condition": "Construct a single-axis coaxial circular stack from a shared shoulder face. On the positive side of the shoulder, make the upper hollow tube as an annulus with outer radius 0.1042, inner opening radius 0.0833, and positive-side reach 0.1667. On the negative side, add the broad annular collar with outer radius 0.1667, inner opening radius 0.1042, and reach 0.0833 from the shoulder. Also on the negative side, include a concentric annular tier reaching 0.1667 from the shoulder, made from two adjacent annular bands: outer radius 0.0833 with inner opening radius 0.0625, and outer radius 0.1042 with inner opening radius 0.0833. Add the next lower annular tier reaching 0.25 from the shoulder, again as two adjacent annular bands: outer radius 0.0625 with inner opening radius 0.0417, and outer radius 0.0833 with inner opening radius 0.0625. Continue the stepped bore with an annulus of outer radius 0.0625 and inner opening radius 0.0417 reaching 0.3333, an annulus of outer radius 0.0417 and inner opening radius 0.0208 reaching 0.4167, and an annulus of outer radius 0.0208 and inner opening radius 0.0104 reaching 0.5. Finish with the deepest central solid round pin of radius 0.0104 reaching 0.5833 below the same shoulder. Keep all circular sections concentric on the same axis, and interpret every negative-side reach as an absolute distance from the shared shoulder face rather than a serial added height.",
       "assets": {
         "generated": "runs/text2cad_0085_00852511_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0085_00852511_parametric_json_qwen-reason/pred_render.png",
@@ -2964,7 +2964,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Descriptive specification for 0094/00941813.",
+      "condition": "The part is a rounded-corner rectangular box-like body with an open recessed center and a stepped inner rim, leaving a floor below the cavity. The exterior walls include several rectangular removed features: shallow side recesses and slot-like openings at different heights, plus a long horizontal opening low on one side. These side features are cuts into the walls rather than raised panels, and some are only shallow while another reaches much deeper through the wall. One bottom-side rectangular pocket is also removed upward from the lower face. On the underside there is a pair of separate solid circular pads or posts attached below the base, not a rectangular plate.",
       "assets": {
         "generated": "runs/text2cad_0094_00941813_descriptive_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0094_00941813_descriptive_json_qwen-reason/pred_render.png",
@@ -2982,7 +2982,7 @@
       "format": "json",
       "model": "qwen-reason",
       "valid": true,
-      "condition": "Parametric specification for 0094/00941813.",
+      "condition": "Start with the main rounded rectangular body as the reference: length 0.638298, width 0.75, height 0.347872, using a curved-corner outer outline extruded to a main depth of 0.3479. From the top rim face, cut a large non-through rectangular central cavity 0.558511 by 0.638298, offset 0.0399 from the left and right edges, 0.0559 from the front edge, and 0.0558 from the back edge; this cut reaches 0.2282 down from the rim and leaves a bottom floor. Add the shallow stepped rim cut as a separate rectangular recess 0.590426 by 0.670213, offset 0.0239 from the left edge, 0.024 from the right edge, and 0.0399 from both front and back edges, with recess depth 0.0239 from the rim face. Cut a front-side shallow rectangular slot or recess with length 0.175532, positioned 0.1436 from the left edge and 0.3192 from the right edge; it starts at the front face, penetrates 0.0638 inward, and occupies the vertical band from 0.0877 to 0.2074 below the rim. Cut a right-side shallow rectangular recess 0.138032 long by 0.061436 high, located with left offset 0.5904, right offset 0, front offset 0.1117, and back offset 0.5003; its inward depth from the right side is 0.0479 and its vertical band is 0.0479 to 0.1093 below the rim. From the lower face, remove a non-through rectangular bottom pocket 0.069415 by 0.239362, offset 0.0718 from the left edge, 0.4971 from the right edge, 0.0638 from the front edge, and 0.4468 from the back edge; this pocket cuts upward 0.1277 and spans from 0.2201 to 0.3478 below the rim. Add two separate solid cylindrical pads on the underside, each radius 0.0957 and thickness 0.0479; both axes are 0.3191 from the left edge, with one axis 0.1995 from the front edge and the other 0.5506 from the front edge, and their far faces reach 0.3957 below the top reference. Finally, cut the long low rectangular through-slot with opening length 0.558511 and height 0.043085, placed in the vertical band from 0.2808 to 0.3239 below the rim; use a cutting reach of 0.6543, with plan offsets left 0, right -0.016, front 0.0958, and back 0.0957 so it breaks through the side rather than forming a surface groove.",
       "assets": {
         "generated": "runs/text2cad_0094_00941813_parametric_json_qwen-reason/generated.json",
         "pred_render": "runs/text2cad_0094_00941813_parametric_json_qwen-reason/pred_render.png",
