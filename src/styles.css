@@ -904,9 +904,7 @@ select {
   justify-content: space-between;
   gap: 18px;
   width: min(100%, 980px);
-  margin-right: auto;
   margin-bottom: 18px;
-  margin-left: auto;
   padding-bottom: 14px;
   border-bottom: 1px solid rgba(24, 33, 38, 0.1);
 }
@@ -943,8 +941,6 @@ select {
 
 .citation pre {
   width: min(100%, 980px);
-  margin-right: auto;
-  margin-left: auto;
   border-radius: 8px;
   max-height: none;
   padding: 20px 22px;
