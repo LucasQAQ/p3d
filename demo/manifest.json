@@ -2996,13 +2996,8 @@
   "figures": [
     {
       "id": "pipeline",
-      "title": "Evaluation pipeline",
-      "src": "figures/fig2_dataset_pipeline.png"
-    },
-    {
-      "id": "leaderboard",
-      "title": "Per-task leaderboard",
-      "src": "figures/fig7_leaderboard.png"
+      "title": "Pipeline figure placeholder",
+      "placeholder": true
     }
   ],
   "gallery": []
