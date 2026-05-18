@@ -376,7 +376,7 @@ const leaderboardTasks: LeaderboardTask[] = [
   {
     title: "Text-to-3D",
     accent: "#285c8f",
-    note: "Across-bucket mean",
+    note: "Average score",
     rows: [
       { model: "GPT-5.5", family: "openai", score: 0.848 },
       { model: "Gemini 3.1 Pro", family: "gemini", score: 0.835 },
@@ -393,7 +393,7 @@ const leaderboardTasks: LeaderboardTask[] = [
   {
     title: "Image-to-3D",
     accent: "#b46e4c",
-    note: "Across-bucket mean",
+    note: "Average score",
     rows: [
       { model: "GPT-5.5", family: "openai", score: 0.675 },
       { model: "Gemini 3.1 Pro", family: "gemini", score: 0.667 },
@@ -408,7 +408,7 @@ const leaderboardTasks: LeaderboardTask[] = [
   {
     title: "Assembly-3D",
     accent: "#337665",
-    note: "Across-bucket mean",
+    note: "Average score",
     rows: [
       { model: "Gemini 3.1 Pro", family: "gemini", score: 0.659 },
       { model: "GPT-5.5", family: "openai", score: 0.657 },
@@ -458,7 +458,7 @@ function LeaderboardFigure() {
           <span>Current paper figure</span>
           <h3>Per-task model leaderboard</h3>
         </div>
-        <p>Across-bucket mean scores from Fig. 7, grouped by task.</p>
+        <p>Higher scores indicate stronger executable CAD generation under each task setting.</p>
       </div>
       <div className="leaderboard-axis" aria-hidden="true">
         <span>0.0</span>
