@@ -1,24 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700;8..60,800&display=swap");
 
 :root {
-  --paper: #f7f8f4;
-  --paper-2: #edf3ef;
-  --ink: #121719;
-  --muted: #5d6864;
-  --faint: #8b9692;
-  --line: #d5ded9;
-  --panel: #fffffb;
-  --panel-blue: #edf4fb;
-  --blue: #1f5fae;
-  --teal: #0d9b73;
-  --coral: #c96c3a;
-  --violet: #6f66c8;
-  --black: #111315;
-  --shadow-soft: 0 18px 48px rgba(15, 30, 24, 0.075);
-  --shadow-strong: 0 34px 90px rgba(16, 28, 23, 0.15);
+  --paper: #f7f7f1;
+  --paper-2: #edf1ed;
+  --ink: #182126;
+  --muted: #66726f;
+  --faint: #89928f;
+  --line: #d8ded8;
+  --panel: #fffdfa;
+  --panel-blue: #eef4f7;
+  --blue: #285c8f;
+  --teal: #337665;
+  --coral: #b46e4c;
+  --violet: #6b6b9a;
+  --black: #101619;
+  --shadow-soft: 0 18px 48px rgba(22, 30, 26, 0.07);
+  --shadow-strong: 0 34px 90px rgba(18, 27, 24, 0.13);
   --font-body: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: "Sora", "Source Sans 3", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-code: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-code: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
   font-family: var(--font-body);
 }
 
@@ -33,8 +33,8 @@ body {
   font-size: 16px;
   line-height: 1.55;
   background:
-    linear-gradient(rgba(36, 95, 168, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(36, 95, 168, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(40, 92, 143, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(40, 92, 143, 0.026) 1px, transparent 1px),
     var(--paper);
   background-size: 48px 48px;
   text-rendering: optimizeLegibility;
@@ -65,7 +65,7 @@ main {
 
 .brand {
   color: var(--ink);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 17px;
   font-weight: 700;
   letter-spacing: 0;
@@ -76,9 +76,9 @@ main {
   display: flex;
   gap: 24px;
   color: #1f272a;
-  font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 600;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .nav a {
@@ -117,7 +117,7 @@ h1, h2, h3, p { letter-spacing: 0; }
 
 .hero-title {
   display: grid;
-  gap: 18px;
+  gap: 16px;
   max-width: 1020px;
   margin: 0;
   font-family: var(--font-display);
@@ -127,13 +127,13 @@ h1, h2, h3, p { letter-spacing: 0; }
   display: block;
   width: fit-content;
   margin: 0 auto;
-  background: linear-gradient(100deg, #101619 10%, #245fa8 42%, #0fa678 78%);
+  background: linear-gradient(100deg, #141d22 9%, #285c8f 48%, #337665 86%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  font-size: clamp(60px, 7.5vw, 104px);
+  font-size: clamp(58px, 7vw, 96px);
   font-weight: 800;
-  line-height: 0.92;
+  line-height: 0.96;
   letter-spacing: 0;
 }
 
@@ -142,14 +142,14 @@ h1, h2, h3, p { letter-spacing: 0; }
   max-width: 980px;
   color: #1f272a;
   font-family: var(--font-display);
-  font-size: clamp(25px, 2.65vw, 36px);
+  font-size: clamp(25px, 2.75vw, 37px);
   font-weight: 600;
-  line-height: 1.14;
+  line-height: 1.13;
   letter-spacing: 0;
 }
 
 .hero-title em {
-  background: linear-gradient(100deg, var(--blue), var(--teal));
+  background: linear-gradient(100deg, #2b5f91, #337665);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -160,7 +160,7 @@ h2 {
   margin: 0;
   font-family: var(--font-display);
   font-size: clamp(27px, 2.7vw, 36px);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.15;
   letter-spacing: 0;
 }
@@ -247,9 +247,9 @@ h2 {
   border-radius: 6px;
   background: var(--black);
   color: white;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   box-shadow: 0 12px 24px rgba(17, 19, 21, 0.11);
   transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
@@ -342,19 +342,19 @@ h2 {
 
 .task-card:hover { transform: translateY(-2px); }
 .task-card.active {
-  border-color: rgba(15, 166, 120, 0.62);
+  border-color: rgba(51, 118, 101, 0.5);
   background: var(--panel);
   box-shadow: inset 5px 0 0 var(--teal), 0 16px 36px rgba(15, 30, 24, 0.08);
 }
 .task-card span, .task-card strong, .task-card em { display: block; }
-.task-card span { font: 700 20px/1.18 var(--font-display); }
+.task-card span { font: 700 21px/1.15 var(--font-body); }
 .task-card strong { grid-column: 1; color: var(--blue); font-size: 14px; font-weight: 700; }
 .task-card em {
   grid-row: 1 / span 2;
   grid-column: 2;
   padding: 7px 11px;
   border-radius: 999px;
-  background: rgba(15, 166, 120, 0.1);
+  background: rgba(51, 118, 101, 0.11);
   color: var(--teal);
   font: 600 11px/1 var(--font-code);
   font-style: normal;
@@ -369,29 +369,42 @@ h2 {
 
 .section-heading {
   display: grid;
-  grid-template-columns: minmax(230px, 0.34fr) minmax(0, 1fr);
+  grid-template-columns: minmax(250px, 0.36fr) minmax(0, 1fr);
   gap: clamp(26px, 4vw, 58px);
   align-items: start;
   margin-bottom: 36px;
 }
 
 .section-heading .eyebrow {
+  position: relative;
   margin: 0;
-  color: var(--blue);
+  padding-left: 16px;
+  color: var(--ink);
   font-family: var(--font-display);
-  font-size: clamp(25px, 2.35vw, 34px);
+  font-size: clamp(30px, 2.75vw, 40px);
   font-weight: 700;
-  line-height: 1.08;
+  line-height: 1.03;
   text-transform: none;
 }
 
+.section-heading .eyebrow::before {
+  content: "";
+  position: absolute;
+  top: 0.17em;
+  bottom: 0.16em;
+  left: 0;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--blue);
+}
+
 .section-heading h2 {
-  max-width: 700px;
-  padding-top: 5px;
-  color: #3d4744;
+  max-width: 680px;
+  padding-top: 6px;
+  color: #58635f;
   font-family: var(--font-body);
-  font-size: clamp(17px, 1.45vw, 20px);
-  font-weight: 500;
+  font-size: clamp(17px, 1.35vw, 19px);
+  font-weight: 400;
   line-height: 1.45;
 }
 
@@ -401,13 +414,17 @@ h2 {
 }
 
 #results .section-heading .eyebrow {
-  color: var(--teal);
-  font-size: clamp(29px, 2.9vw, 40px);
+  color: var(--ink);
+  font-size: clamp(33px, 3vw, 44px);
   letter-spacing: 0;
 }
 
+#results .section-heading .eyebrow::before {
+  background: var(--teal);
+}
+
 #results .section-heading h2 {
-  font-size: clamp(18px, 1.55vw, 21px);
+  font-size: clamp(18px, 1.45vw, 20px);
 }
 
 #results {
@@ -545,7 +562,7 @@ select {
 
 .metric {
   padding: 13px 14px;
-  border: 1px solid rgba(15, 166, 120, 0.16);
+  border: 1px solid rgba(51, 118, 101, 0.16);
   border-radius: 8px;
   background: var(--paper-2);
 }
@@ -560,7 +577,6 @@ select {
 .metric strong {
   display: block;
   margin-top: 8px;
-  font-family: var(--font-display);
   font-size: 18px;
   line-height: 1;
   font-weight: 700;
@@ -581,7 +597,7 @@ select {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background: #111619;
   color: white;
-  font: 600 14px var(--font-display);
+  font: 700 14px var(--font-body);
 }
 
 .code-panel {
@@ -653,7 +669,7 @@ select {
 .placeholder h3 {
   margin: 12px 0 6px;
   color: var(--ink);
-  font: 700 22px/1.2 var(--font-display);
+  font: 700 22px/1.2 var(--font-body);
 }
 
 .placeholder p {
@@ -712,7 +728,7 @@ select {
   max-width: min(54%, 520px);
   padding: 14px 16px;
   border: 1px solid rgba(17, 22, 25, 0.1);
-  border-left: 5px solid var(--teal);
+  border-left: 4px solid var(--teal);
   border-radius: 10px;
   background: rgba(255, 255, 251, 0.88);
   color: var(--ink);
@@ -729,9 +745,9 @@ select {
 }
 
 .viewer-meta strong {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(18px, 1.65vw, 24px);
-  line-height: 1.16;
+  line-height: 1.18;
   letter-spacing: 0;
   font-weight: 700;
 }
@@ -778,7 +794,7 @@ select {
 
 .viewer-rail-header span {
   color: var(--teal);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 24px;
   font-weight: 700;
   line-height: 1;
@@ -860,6 +876,10 @@ select {
 
 .citation {
   max-width: 980px;
+  padding: clamp(42px, 5vw, 66px) clamp(28px, 5vw, 54px);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 250, 0.94), rgba(250, 251, 247, 0.9));
+  box-shadow: var(--shadow-soft);
 }
 
 .citation-heading {
@@ -867,18 +887,37 @@ select {
   align-items: baseline;
   justify-content: space-between;
   gap: 18px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(24, 33, 38, 0.1);
 }
 
 .citation-heading h2 {
-  font-size: clamp(32px, 3vw, 42px);
+  position: relative;
+  margin: 0;
+  padding-left: 15px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.1vw, 44px);
   font-weight: 700;
+  line-height: 1.05;
+}
+
+.citation-heading h2::before {
+  content: "";
+  position: absolute;
+  top: 0.18em;
+  bottom: 0.16em;
+  left: 0;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--blue);
 }
 
 .citation-format {
   margin: 0;
-  color: var(--blue);
-  font: 600 12px/1 var(--font-code);
+  color: #4e5b57;
+  font: 700 12px/1 var(--font-body);
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -887,8 +926,10 @@ select {
   border-radius: 8px;
   max-height: none;
   padding: 20px 22px;
-  font-size: 13.5px;
-  line-height: 1.58;
+  background: #11181b;
+  color: #eef5ef;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .citation code {
@@ -931,7 +972,8 @@ select {
   }
 
   .section-heading .eyebrow {
-    font-size: clamp(26px, 7vw, 36px);
+    padding-left: 13px;
+    font-size: clamp(28px, 7.4vw, 38px);
     line-height: 1.05;
   }
 
@@ -946,7 +988,7 @@ select {
   }
 
   #results .section-heading .eyebrow {
-    font-size: clamp(27px, 7.5vw, 37px);
+    font-size: clamp(30px, 7.8vw, 40px);
   }
 
   #results .section-heading h2 {
@@ -1044,7 +1086,7 @@ select {
 
   .eyebrow { font-size: 10px; }
 
-  .hero-title span { font-size: clamp(43px, 14vw, 58px); }
+  .hero-title span { font-size: clamp(42px, 13.8vw, 56px); }
   .hero-title small { font-size: clamp(22px, 7vw, 28px); }
 
   .actions {
@@ -1093,6 +1135,14 @@ select {
   .code-panel pre, .citation pre {
     padding: 14px;
     font-size: 12.5px;
+  }
+
+  .citation {
+    padding: 34px 18px;
+  }
+
+  .citation-heading {
+    align-items: flex-start;
   }
 
   .viewer-stage {

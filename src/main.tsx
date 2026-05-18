@@ -385,7 +385,7 @@ function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
   );
 }
 
-const tileColors = ["#16a47a", "#2d69c4", "#d8733f", "#7668d8", "#0e9daa", "#d19b2d"];
+const tileColors = ["#337665", "#285c8f", "#b46e4c", "#6b6b9a", "#2f7a86", "#a88743"];
 
 function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
   const mountRef = useRef<HTMLDivElement | null>(null);
