@@ -77,7 +77,7 @@ const fallbackManifest: Manifest = {
   },
   tasks: [
     { id: "text2cad", label: "Text-to-3D", formats: ["JSON", "OpenSCAD"], status: "interactive" },
-    { id: "image2cad", label: "Image-to-3D", formats: ["CadQuery", "OpenSCAD", "Three.js"], status: "interactive" },
+    { id: "image2cad", label: "Image-to-3D", formats: ["OpenSCAD", "Three.js"], status: "interactive" },
     { id: "text_image2cad", label: "Assembly-3D", formats: ["JSON", "CadQuery", "OpenSCAD"], status: "interactive" }
   ],
   models: [],

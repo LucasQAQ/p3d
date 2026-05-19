@@ -79,7 +79,6 @@ PREFERRED_TEXT_CASES = [
 ]
 
 TEXT_CASE_TARGET = 24
-IMAGE_CADQUERY_CASE_TARGET = 8
 
 VISIBLE_METRICS = [
     "chamfer_distance",
@@ -174,7 +173,7 @@ def make_manifest() -> dict[str, Any]:
         },
         "tasks": [
             {"id": "text2cad", "label": "Text-to-3D", "formats": ["JSON", "OpenSCAD"], "status": "interactive"},
-            {"id": "image2cad", "label": "Image-to-3D", "formats": ["CadQuery", "OpenSCAD", "Three.js"], "status": "interactive"},
+            {"id": "image2cad", "label": "Image-to-3D", "formats": ["OpenSCAD", "Three.js"], "status": "interactive"},
             {"id": "text_image2cad", "label": "Assembly-3D", "formats": ["JSON", "CadQuery", "OpenSCAD"], "status": "interactive"},
         ],
         "models": [],
@@ -247,7 +246,7 @@ def build_primary_cadquery_runs() -> tuple[list[dict[str, Any]], list[dict[str, 
     runs: list[dict[str, Any]] = []
     cases: list[dict[str, Any]] = []
 
-    for task, spec, limit in [("image2cad", "image", IMAGE_CADQUERY_CASE_TARGET), ("text_image2cad", "image_text", 3)]:
+    for task, spec, limit in [("text_image2cad", "image_text", 3)]:
         combos = {key: value for key, value in data.items() if key.startswith(f"{task}/")}
         if not combos:
             continue
@@ -266,49 +265,11 @@ def build_primary_cadquery_runs() -> tuple[list[dict[str, Any]], list[dict[str, 
                     incomplete_valid_runs.append({"case_id": case["case_id"], "model": model, "format": fmt})
             combo_cases[combo_key] = exportable_cases
 
-        if task == "image2cad":
-            case_support = {
-                case_id: sum(1 for cases_by_id in combo_cases.values() if case_id in cases_by_id)
-                for case_id in {case_id for cases_by_id in combo_cases.values() for case_id in cases_by_id}
-            }
-            ranked = sorted(case_support, key=lambda case_id: (-case_support[case_id], case_id))
-            selected = ranked[:limit]
-            skipped = ranked[limit:]
-            AUDIT["image2cad_cadquery_source"] = {
-                "native_format": "cadquery",
-                "exportable_case_count": len(case_support),
-                "exportable_run_count": sum(case_support.values()),
-                "selected_case_count": len(selected),
-                "selected_run_count": sum(case_support[case_id] for case_id in selected),
-                "selection_policy": f"Selected the {limit} highest-model-coverage CadQuery cases for the lightweight public page demo.",
-                "support_distribution": {
-                    str(count): sum(1 for value in case_support.values() if value == count)
-                    for count in sorted(set(case_support.values()))
-                },
-                "selected_cases": [
-                    {
-                        "case_id": case_id,
-                        "model_count": case_support[case_id],
-                        "models": sorted(
-                            normalize_model(combo_key.split("/")[1])
-                            for combo_key, cases_by_id in combo_cases.items()
-                            if case_id in cases_by_id
-                        ),
-                    }
-                    for case_id in selected
-                ],
-                "not_selected_cases": [
-                    {"case_id": case_id, "model_count": case_support[case_id]}
-                    for case_id in skipped
-                ],
-                "incomplete_valid_runs": incomplete_valid_runs,
-            }
-        else:
-            common = None
-            for cases_by_id in combo_cases.values():
-                valid = set(cases_by_id)
-                common = valid if common is None else common & valid
-            selected = sorted(common or [])[:limit]
+        common = None
+        for cases_by_id in combo_cases.values():
+            valid = set(cases_by_id)
+            common = valid if common is None else common & valid
+        selected = sorted(common or [])[:limit]
 
         for case_id in selected:
             title = None
@@ -422,6 +383,8 @@ def build_articraft_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
 
     AUDIT["image2cad_articraft_source"] = {
         "available": True,
+        "external_sources_used": False,
+        "paper_native_formats": ["cadquery", "openscad", "threejs"],
         "source_case_count": len([path for path in ARTICRAFT_ALL_MODELS_ROOT.iterdir() if path.is_dir()]),
         "selected_case_count": len(cases),
         "selected_run_count": len(runs),
@@ -429,6 +392,11 @@ def build_articraft_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
             fmt: sum(1 for report in case_reports if report["formats"].get(fmt))
             for fmt in ["cadquery", "openscad", "threejs"]
         },
+        "missing_native_formats": [
+            fmt
+            for fmt in ["cadquery", "openscad", "threejs"]
+            if not any(report["formats"].get(fmt) for report in case_reports)
+        ],
         "cases": [
             {
                 "case_id": report["case_id"],
