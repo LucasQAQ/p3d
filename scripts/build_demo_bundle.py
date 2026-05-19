@@ -7,18 +7,8 @@ import json
 import math
 import os
 import shutil
-import zipfile
 from pathlib import Path
 from typing import Any
-
-import matplotlib
-import numpy as np
-import trimesh
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-
 
 REPO = Path(__file__).resolve().parents[1]
 OUT = REPO / "public" / "demo"
@@ -31,7 +21,12 @@ DOUBAO_PARAM_JSON_ROOT = WORKBENCH / "artifacts/relabel_eval/doubao_textp3d_cana
 DETAILED_JSON_ROOT = WORKBENCH / "artifacts/relabel_eval/v65_eval400_current_detailed_json_local_eval"
 DOUBAO_DETAILED_JSON_ROOT = WORKBENCH / "artifacts/relabel_eval/doubao_textp3d_canary_20260512_local/detailed/json"
 PRIMARY_CADQUERY_RESULTS = WORKBENCH / "artifacts/relabel_eval/v65_50_primary_allmodels_cadquery/full_results.json"
-ARTICRAFT_ZIP = Path(os.environ.get("P3D_ARTICRAFT_ZIP", Path.home() / "_articraft_meshes.zip")).expanduser()
+ARTICRAFT_ALL_MODELS_ROOT = Path(
+    os.environ.get("P3D_ARTICRAFT_ALL_MODELS_ROOT", REPO / "local/articraft_all_models")
+).expanduser()
+ARTICRAFT_ASSEMBLY_ROOT = Path(
+    os.environ.get("P3D_ARTICRAFT_ASSEMBLY_ROOT", REPO / "local/articraft_assembly")
+).expanduser()
 
 TEXT_MODELS = [
     "gpt55-reason",
@@ -84,7 +79,6 @@ PREFERRED_TEXT_CASES = [
 ]
 
 TEXT_CASE_TARGET = 24
-ARTICRAFT_GT_ZIP_MAX_BYTES = 6_500_000
 
 VISIBLE_METRICS = [
     "chamfer_distance",
@@ -109,7 +103,7 @@ def main() -> None:
     articraft_runs, articraft_cases = build_articraft_runs()
 
     all_runs = add_json_view_runs(text_runs + other_runs + articraft_runs)
-    all_cases = dedupe_cases(text_cases + other_cases + articraft_cases)
+    all_cases = normalize_case_titles(dedupe_cases(text_cases + other_cases + articraft_cases))
     used_models = sorted({run["model"] for run in all_runs}, key=model_sort_key)
 
     manifest["models"] = [
@@ -166,7 +160,7 @@ def make_manifest() -> dict[str, Any]:
         },
         "tasks": [
             {"id": "text2cad", "label": "Text-to-3D", "formats": ["JSON", "OpenSCAD"], "status": "interactive"},
-            {"id": "image2cad", "label": "Image-to-3D", "formats": ["JSON", "CadQuery", "OpenSCAD", "Three.js"], "status": "interactive"},
+            {"id": "image2cad", "label": "Image-to-3D", "formats": ["JSON", "OpenSCAD", "Three.js"], "status": "interactive"},
             {"id": "text_image2cad", "label": "Assembly-3D", "formats": ["JSON", "CadQuery", "OpenSCAD"], "status": "interactive"},
         ],
         "models": [],
@@ -239,7 +233,7 @@ def build_primary_cadquery_runs() -> tuple[list[dict[str, Any]], list[dict[str, 
     runs: list[dict[str, Any]] = []
     cases: list[dict[str, Any]] = []
 
-    for task, spec, limit in [("image2cad", "image", 2), ("text_image2cad", "image_text", 3)]:
+    for task, spec, limit in [("text_image2cad", "image_text", 3)]:
         combos = {key: value for key, value in data.items() if key.startswith(f"{task}/")}
         if not combos:
             continue
@@ -279,84 +273,125 @@ def build_primary_cadquery_runs() -> tuple[list[dict[str, Any]], list[dict[str, 
 
 
 def build_articraft_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    if not ARTICRAFT_ZIP.exists():
+    if not ARTICRAFT_ALL_MODELS_ROOT.exists():
         return [], []
 
     runs: list[dict[str, Any]] = []
     cases: list[dict[str, Any]] = []
-    with zipfile.ZipFile(ARTICRAFT_ZIP) as zf:
-        folders = sorted({Path(name).parts[1] for name in zf.namelist() if name.count("/") >= 2 and name.startswith("_articraft_meshes/")})
-        folders = [
-            folder
-            for folder in folders
-            if zf.getinfo(f"_articraft_meshes/{folder}/gt.npz").file_size <= ARTICRAFT_GT_ZIP_MAX_BYTES
-        ]
-        image_count = max(1, len(folders) // 2)
-        for index, folder in enumerate(folders):
-            meta = json.loads(zf.read(f"_articraft_meshes/{folder}/meta.json").decode("utf-8"))
-            task = "image2cad" if index < image_count else "text_image2cad"
-            spec = "image" if task == "image2cad" else "image_text"
-            fmt = safe_format(meta.get("fmt") or "openscad")
-            model = normalize_model(meta.get("model_dir") or folder.split("_")[0])
-            label = str(meta.get("label") or folder).replace("_", " ")
-            case_id = f"articraft/{folder}"
-            title = label.title()
-            condition = f"{task_label(task)} Articraft mesh case: {label}."
 
-            run_dir = OUT / "runs" / run_id(task, case_id, spec, fmt, model)
-            run_dir.mkdir(parents=True, exist_ok=True)
+    for case_dir in sorted((path for path in ARTICRAFT_ALL_MODELS_ROOT.iterdir() if path.is_dir()), key=articraft_case_sort_key):
+        label, numeric_id = split_articraft_case_name(case_dir.name)
+        uid = find_articraft_uid(case_dir, numeric_id)
+        case_id = f"articraft/{case_dir.name}"
+        title = title_case_words(label.replace("_", " "))
+        condition = f"Reference image: {label.replace('_', ' ')}."
+        input_image = resolve_articraft_input_image(uid)
+        thumbnail = copy_asset(input_image, OUT / "inputs" / f"{safe_slug('image2cad_' + case_id)}.png") if input_image else None
+        cases.append(
+            {
+                "id": case_id,
+                "title": title,
+                "task": "image2cad",
+                **({"thumbnail": rel(thumbnail)} if thumbnail else {}),
+            }
+        )
 
-            pred_npz = read_npz_from_zip(zf, f"_articraft_meshes/{folder}/pred.npz")
-            gt_npz = read_npz_from_zip(zf, f"_articraft_meshes/{folder}/gt.npz")
-            pred_stl = run_dir / "model.stl"
-            gt_stl = OUT / "gt_meshes" / f"{safe_slug(case_id)}.stl"
-            pred_png = run_dir / "pred_render.png"
-            gt_png = OUT / "gt_renders" / f"{safe_slug(case_id)}.png"
-            npz_to_stl(pred_npz, pred_stl)
-            npz_to_stl(gt_npz, gt_stl)
-            render_npz_preview(pred_npz, pred_png)
-            render_npz_preview(gt_npz, gt_png)
-
-            generated = run_dir / "generated.json"
-            write_public_json_output(
-                generated,
-                task=task,
-                case_id=case_id,
-                model=model,
-                spec=spec,
-                fmt=fmt,
-                condition=condition,
-                valid=True,
-                metrics={},
-                original_source=None,
-                note="Sanitized mesh-preview case from the Articraft bundle; no executable source program was present in the local archive.",
-            )
-
-            case_entry = {"id": case_id, "title": title, "task": task}
-            cases.append(case_entry)
+        for model_dir in sorted((path for path in case_dir.iterdir() if path.is_dir()), key=lambda path: model_sort_key(normalize_model(path.name))):
+            metrics_path = model_dir / "metrics.json"
+            if not metrics_path.exists():
+                continue
+            payload = json.loads(metrics_path.read_text(encoding="utf-8"))
+            fmt = safe_format(payload.get("fmt") or source_format_for_model_dir(model_dir))
+            model = normalize_model(payload.get("model") or model_dir.name)
+            source = generated_source_for_format(model_dir, fmt)
+            if not source:
+                continue
+            case = {
+                "case_id": case_id,
+                "valid": payload.get("valid") is True,
+                "metrics": payload.get("metrics") or {},
+                "generated_code_path": str(source),
+                "stl_path": str(model_dir / "model_aligned.stl"),
+                "pred_render_path": str(model_dir / "pred_render_aligned.png"),
+                "gt_stl_path": str(case_dir / "gt_mesh.stl"),
+                "gt_render_path": str(case_dir / "gt_render.png"),
+                **({"input_image_path": str(input_image)} if input_image else {}),
+            }
             runs.append(
-                {
-                    "id": run_dir.name,
-                    "task": task,
-                    "case_id": case_id,
-                    "spec": spec,
-                    "format": fmt,
-                    "model": model,
-                    "valid": True,
-                    "condition": condition,
-                    "assets": {
-                        "generated": rel(generated),
-                        "generated_json": rel(generated),
-                        "mesh": rel(pred_stl),
-                        "pred_render": rel(pred_png),
-                        "gt_mesh": rel(gt_stl),
-                        "gt_render": rel(gt_png),
-                    },
-                    "metrics": {},
-                }
+                make_run_from_case(
+                    task="image2cad",
+                    model=model,
+                    spec="image",
+                    fmt=fmt,
+                    case=case,
+                    source_root=ARTICRAFT_ALL_MODELS_ROOT,
+                    condition=condition,
+                )
             )
 
     return runs, cases
+
+
+def articraft_case_sort_key(path: Path) -> tuple[int, str]:
+    label, numeric_id = split_articraft_case_name(path.name)
+    try:
+        return (int(numeric_id), label)
+    except ValueError:
+        return (999999, label)
+
+
+def split_articraft_case_name(name: str) -> tuple[str, str]:
+    label, _, numeric_id = name.rpartition("_")
+    return (label or name, numeric_id or name)
+
+
+def find_articraft_uid(case_dir: Path, numeric_id: str) -> str | None:
+    for metrics_path in sorted(case_dir.glob("*/metrics.json")):
+        try:
+            uid = json.loads(metrics_path.read_text(encoding="utf-8")).get("case_id")
+        except json.JSONDecodeError:
+            continue
+        if uid:
+            return str(uid)
+
+    matches = sorted(ARTICRAFT_ASSEMBLY_ROOT.glob(f"{numeric_id}_*")) if numeric_id else []
+    return matches[0].name if matches else None
+
+
+def resolve_articraft_input_image(uid: str | None) -> Path | None:
+    if not uid:
+        return None
+    candidates = [
+        ARTICRAFT_ASSEMBLY_ROOT / uid / "assembly.png",
+    ]
+    for path in candidates:
+        if path.exists():
+            return path
+    return None
+
+
+def source_format_for_model_dir(model_dir: Path) -> str:
+    if (model_dir / "generated.js").exists():
+        return "threejs"
+    if (model_dir / "generated.scad").exists():
+        return "openscad"
+    if (model_dir / "generated.py").exists():
+        return "cadquery"
+    return "json"
+
+
+def generated_source_for_format(model_dir: Path, fmt: str) -> Path | None:
+    candidates = {
+        "openscad": ["generated.scad"],
+        "threejs": ["generated.js"],
+        "cadquery": ["generated.py"],
+        "json": ["generated.json"],
+    }.get(fmt, ["generated.txt"])
+    for name in candidates:
+        path = model_dir / name
+        if path.exists():
+            return path
+    return None
 
 
 def make_run_from_case(
@@ -589,49 +624,6 @@ def sanitize_metrics(case: dict[str, Any]) -> dict[str, Any]:
     return metrics
 
 
-def read_npz_from_zip(zf: zipfile.ZipFile, name: str) -> dict[str, np.ndarray]:
-    import io
-
-    with np.load(io.BytesIO(zf.read(name))) as data:
-        return {key: data[key] for key in data.files}
-
-
-def npz_to_stl(data: dict[str, np.ndarray], dst: Path) -> None:
-    mesh = trimesh.Trimesh(vertices=data["vertices"], faces=data["faces"], process=False)
-    dst.parent.mkdir(parents=True, exist_ok=True)
-    mesh.export(dst)
-
-
-def render_npz_preview(data: dict[str, np.ndarray], dst: Path) -> None:
-    vertices = np.asarray(data["vertices"], dtype=float)
-    faces = np.asarray(data["faces"], dtype=int)
-    if len(faces) > 6500:
-        idx = np.linspace(0, len(faces) - 1, 6500).astype(int)
-        faces = faces[idx]
-
-    fig = plt.figure(figsize=(5.2, 4.1), dpi=120)
-    ax = fig.add_subplot(111, projection="3d")
-    tris = vertices[faces]
-    collection = Poly3DCollection(tris, linewidths=0.025, alpha=1.0)
-    collection.set_facecolor((0.74, 0.62, 0.43, 1.0))
-    collection.set_edgecolor((0.22, 0.25, 0.25, 0.08))
-    ax.add_collection3d(collection)
-    mins = vertices.min(axis=0)
-    maxs = vertices.max(axis=0)
-    center = (mins + maxs) / 2.0
-    span = float((maxs - mins).max() or 1.0)
-    for axis, value in zip([ax.set_xlim, ax.set_ylim, ax.set_zlim], center):
-        axis(value - span * 0.56, value + span * 0.56)
-    ax.view_init(elev=24, azim=-38)
-    ax.set_axis_off()
-    ax.set_facecolor((0.93, 0.95, 0.92, 1.0))
-    fig.patch.set_facecolor((0.93, 0.95, 0.92, 1.0))
-    plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
-    dst.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(dst, facecolor=fig.get_facecolor(), pad_inches=0)
-    plt.close(fig)
-
-
 def spread_pick(items: list[str], count: int) -> list[str]:
     if count <= 0 or not items:
         return []
@@ -654,6 +646,58 @@ def dedupe_cases(cases: list[dict[str, Any]]) -> list[dict[str, Any]]:
         seen.add(key)
         output.append(case)
     return output
+
+
+def normalize_case_titles(cases: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    counters = {"image2cad": 0, "text_image2cad": 0}
+    prefixes = {"image2cad": "Image Case", "text_image2cad": "Assembly Case"}
+    output = []
+    for case in cases:
+        normalized = dict(case)
+        task = normalized["task"]
+        if task in counters:
+            counters[task] += 1
+            descriptor = compact_case_descriptor(normalized)
+            normalized["title"] = f"{prefixes[task]} {counters[task]:02d} · {descriptor}" if descriptor else f"{prefixes[task]} {counters[task]:02d}"
+        output.append(normalized)
+    return output
+
+
+def compact_case_descriptor(case: dict[str, Any]) -> str:
+    title = " ".join(str(case.get("title") or "").split()).strip(" .")
+    if title.lower().startswith("image reference for "):
+        return short_case_id(case["id"])
+    if title.startswith("Abstract:"):
+        title = title[len("Abstract:") :].strip()
+        title = title.split("Detailed CAD", 1)[0].strip(" .")
+    if title.lower().startswith("a "):
+        title = title[2:]
+    if title.lower().startswith("an "):
+        title = title[3:]
+    if title.lower().startswith("the "):
+        title = title[4:]
+    return title_case_words(truncate_words(title, 5)) or short_case_id(case["id"])
+
+
+def title_case_words(text: str) -> str:
+    keep_upper = {"CAD", "3D", "TV", "PC"}
+    words = []
+    for word in text.replace("-", " - ").split():
+        if word == "-":
+            continue
+        clean = word.strip(".,:;")
+        upper = clean.upper()
+        words.append(upper if upper in keep_upper else clean[:1].upper() + clean[1:].lower())
+    return " ".join(words)
+
+
+def truncate_words(text: str, limit: int) -> str:
+    words = text.split()
+    return " ".join(words[:limit])
+
+
+def short_case_id(case_id: str) -> str:
+    return case_id.split("/")[-1] if "/" in case_id else case_id
 
 
 def add_json_view_runs(runs: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -700,7 +744,8 @@ def model_sort_key(model: str) -> tuple[int, str]:
 
 
 def safe_format(fmt: str) -> str:
-    return fmt.lower().replace(".js", "threejs")
+    normalized = fmt.lower().replace(".js", "threejs")
+    return "threejs" if normalized == "js" else normalized
 
 
 def safe_slug(value: str) -> str:

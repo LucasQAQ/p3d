@@ -77,7 +77,7 @@ const fallbackManifest: Manifest = {
   },
   tasks: [
     { id: "text2cad", label: "Text-to-3D", formats: ["JSON", "OpenSCAD"], status: "interactive" },
-    { id: "image2cad", label: "Image-to-3D", formats: ["JSON", "CadQuery", "OpenSCAD", "Three.js"], status: "interactive" },
+    { id: "image2cad", label: "Image-to-3D", formats: ["JSON", "OpenSCAD", "Three.js"], status: "interactive" },
     { id: "text_image2cad", label: "Assembly-3D", formats: ["JSON", "CadQuery", "OpenSCAD"], status: "interactive" }
   ],
   models: [],
@@ -149,13 +149,14 @@ function App() {
   const showcaseItems = useMemo(() => buildShowcaseItems(manifest), [manifest]);
   const heroItems = useMemo(() => showcaseItems.slice(0, 16), [showcaseItems]);
   const visibleTasks = useMemo(() => manifest.tasks.filter((item) => item.status === "interactive"), [manifest]);
+  const caseUsesImagePicker = cases.some((item) => item.thumbnail);
   const selectedInput = selectedRun?.condition || selectedCase?.title || "No input.";
   const selectedInputItem = selectedRun ? {
     title: selectedCase?.title || `Case ${selectedRun.case_id}`,
     taskLabel: selectedTask?.label || selectedRun.task,
     specLabel: inputSpecLabel(selectedRun.spec),
     input: selectedInput,
-    inputImage: selectedRun.assets.input_image,
+    inputImage: caseUsesImagePicker ? undefined : selectedRun.assets.input_image,
     subtitle: `${selectedModel?.label || selectedRun.model} / ${outputFormatLabel(selectedRun.format)}`
   } : null;
 
@@ -236,6 +237,13 @@ function App() {
           <div className="workbench">
             <aside className="controls">
               <Select label="Case" value={activeCaseId} options={cases.map((item) => [item.id, item.title])} onChange={(nextCase) => applyRunSelection(pickDefaultRun(taskRuns.filter((run) => run.case_id === nextCase)))} />
+              {caseUsesImagePicker ? (
+                <CaseImagePicker
+                  cases={cases}
+                  activeCaseId={activeCaseId}
+                  onSelect={(nextCase) => applyRunSelection(pickDefaultRun(taskRuns.filter((run) => run.case_id === nextCase)))}
+                />
+              ) : null}
               <Select label="Model" value={activeModel} options={models.map((item) => [item.id, item.label])} onChange={(nextModel) => applyRunSelection(pickDefaultRun(caseRuns.filter((run) => run.model === nextModel)))} />
               <Select label="Format" value={activeFormat} options={formats.map((item) => [item, outputFormatLabel(item)])} onChange={(nextFormat) => applyRunSelection(pickDefaultRun(modelRuns.filter((run) => run.format === nextFormat)))} />
               <div className="select-label readonly-select">
@@ -244,9 +252,9 @@ function App() {
               </div>
               <div className="condition">
                 <span>Input</span>
-                {selectedRun?.assets.input_image ? <img className="condition-image" src={asset(selectedRun.assets.input_image)} alt="Input reference" /> : null}
+                {selectedRun?.assets.input_image && !caseUsesImagePicker ? <img className="condition-image" src={asset(selectedRun.assets.input_image)} alt="Input reference" /> : null}
                 <p>{selectedInput}</p>
-                {selectedInputItem ? <button className="condition-full-input" type="button" onClick={() => setExpandedInput(selectedInputItem)}>View full input</button> : null}
+                {selectedInputItem && hasExpandableInput(selectedInputItem) ? <button className="condition-full-input" type="button" onClick={() => setExpandedInput(selectedInputItem)}>View full input</button> : null}
               </div>
             </aside>
             <div className="result-stage">
@@ -622,7 +630,7 @@ function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
             <strong>{selected.title}</strong>
             {selected.inputImage ? <img className="viewer-input-image" src={asset(selected.inputImage)} alt="Input reference" /> : null}
             <p>{selected.input}</p>
-            <button className="viewer-full-input" type="button" onClick={() => setExpandedItem(selected)}>View full input</button>
+            {hasExpandableInput(selected) ? <button className="viewer-full-input" type="button" onClick={() => setExpandedItem(selected)}>View full input</button> : null}
             <em>{selected.subtitle}</em>
           </div>
         </div>
@@ -1037,6 +1045,33 @@ function Select({ label, value, options, onChange }: { label: string; value: str
       </select>
     </label>
   );
+}
+
+function CaseImagePicker({ cases, activeCaseId, onSelect }: { cases: Manifest["cases"]; activeCaseId: string; onSelect: (caseId: string) => void }) {
+  const imageCases = cases.filter((item) => item.thumbnail);
+  if (!imageCases.length) return null;
+
+  return (
+    <div className="case-image-picker" aria-label="Image case picker">
+      {imageCases.map((item) => (
+        <button
+          key={item.id}
+          type="button"
+          className={item.id === activeCaseId ? "case-image-tile active" : "case-image-tile"}
+          onClick={() => onSelect(item.id)}
+          title={item.title}
+        >
+          <img src={asset(item.thumbnail)} alt="" aria-hidden="true" />
+          <span>{item.title}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function hasExpandableInput(item: Pick<InputModalItem, "input" | "inputImage">) {
+  const input = item.input || "";
+  return Boolean(item.inputImage || input.length > 180 || input.includes("\n"));
 }
 
 const superscriptDigits: Record<string, string> = {

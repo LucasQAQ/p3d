@@ -458,6 +458,64 @@ select {
   white-space: nowrap;
 }
 
+.case-image-picker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  max-height: 310px;
+  margin: -2px 0 14px;
+  padding: 8px;
+  overflow: auto;
+  border: 1px solid rgba(17, 22, 25, 0.1);
+  border-radius: 7px;
+  background: #edf3ed;
+}
+
+.case-image-tile {
+  position: relative;
+  display: grid;
+  gap: 7px;
+  min-height: 116px;
+  padding: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(17, 22, 25, 0.08);
+  border-radius: 7px;
+  background: rgba(255, 255, 251, 0.82);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.case-image-tile:hover {
+  transform: translateY(-1px);
+  border-color: rgba(51, 118, 101, 0.34);
+  box-shadow: 0 10px 22px rgba(15, 30, 24, 0.08);
+}
+
+.case-image-tile.active {
+  border-color: rgba(51, 118, 101, 0.62);
+  box-shadow: inset 0 0 0 2px rgba(51, 118, 101, 0.14), 0 12px 28px rgba(15, 30, 24, 0.1);
+}
+
+.case-image-tile img {
+  width: 100%;
+  height: 72px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.case-image-tile span {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #26302f;
+  font-size: 12.3px;
+  font-weight: 700;
+  line-height: 1.18;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
 .readonly-select strong {
   display: flex;
   min-height: 42px;
