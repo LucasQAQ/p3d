@@ -173,7 +173,7 @@ def make_manifest() -> dict[str, Any]:
         "cases": [],
         "runs": [],
         "figures": [
-            {"id": "pipeline", "title": "Pipeline figure placeholder", "placeholder": True},
+            {"id": "pipeline", "title": "Pipeline", "placeholder": True},
             {"id": "leaderboard", "title": "Leaderboard figure", "src": "figures/fig1_teaser.png"},
         ],
         "gallery": [],
@@ -391,7 +391,7 @@ def make_run_from_case(
             valid=bool(case.get("valid")),
             metrics=sanitize_metrics(case),
             original_source=read_text_asset(source_generated),
-            note="The model emitted an executable CAD program in a non-JSON language; this public demo wraps that program in a uniform JSON envelope.",
+            note="Non-JSON CAD source wrapped as JSON.",
         )
     mesh = copy_asset(resolve_case_asset(case, "stl_path", source_root, task, model, fmt, ["model_aligned.stl", "model.stl"]), run_dir / "model.stl")
     pred_render = copy_asset(

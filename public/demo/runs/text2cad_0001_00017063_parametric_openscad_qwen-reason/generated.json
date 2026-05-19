@@ -21,5 +21,5 @@
     "language": "openscad",
     "source": "// Parametric Variables\nbase_length = 0.75;\nbase_width = 0.21875;\nbase_height = 0.28125;\nmain_extrusion_depth = 0.2812;\n\ncut_radius = 0.0312;\ncut_depth = 0.0625;\ncut_z_start = 0.1081;\n\nhole1_x = 0.0717;\nhole1_y = 0.0625;\nhole2_x = 0.6692;\nhole2_y = 0.0625;\n\n$fn = 100;\n\n// Module: Main Base Block\nmodule main_base() {\n    // Solid upper-side extrusion from base datum\n    // Fills footprint to all edges with zero offset\n    cube([base_length, base_width, base_height]);\n}\n\n// Module: Remove-Material Feature\nmodule circular_cuts() {\n    // Two separate circular profiles, not connected into a slot\n    translate([hole1_x, hole1_y, cut_z_start])\n        cylinder(h=cut_depth, r=cut_radius, center=false);\n    translate([hole2_x, hole2_y, cut_z_start])\n        cylinder(h=cut_depth, r=cut_radius, center=false);\n}\n\n// Main Model Assembly\ndifference() {\n    main_base();\n    circular_cuts();\n}"
   },
-  "note": "The model emitted an executable CAD program in a non-JSON language; this public demo wraps that program in a uniform JSON envelope."
+  "note": "Non-JSON CAD source wrapped as JSON."
 }

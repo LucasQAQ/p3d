@@ -323,12 +323,12 @@ h2 {
 }
 
 .task-card {
-  min-height: 98px;
+  min-height: 82px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 8px 20px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
   align-items: center;
-  padding: 20px 24px;
+  padding: 18px 22px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(255, 255, 251, 0.78);
@@ -345,20 +345,9 @@ h2 {
   background: var(--panel);
   box-shadow: inset 5px 0 0 var(--teal), 0 16px 36px rgba(15, 30, 24, 0.08);
 }
-.task-card span, .task-card strong, .task-card em { display: block; }
+.task-card span, .task-card strong { display: block; }
 .task-card span { font: 700 21px/1.15 var(--font-body); white-space: nowrap; }
 .task-card strong { grid-column: 1; color: var(--blue); font-size: 13.5px; font-weight: 700; white-space: nowrap; }
-.task-card em {
-  grid-row: 1 / span 2;
-  grid-column: 2;
-  padding: 7px 11px;
-  border-radius: 999px;
-  background: rgba(51, 118, 101, 0.11);
-  color: var(--teal);
-  font: 600 11px/1 var(--font-code);
-  font-style: normal;
-  white-space: nowrap;
-}
 
 .section {
   max-width: 1260px;
@@ -367,26 +356,24 @@ h2 {
 }
 
 .section-heading {
-  display: grid;
-  grid-template-columns: minmax(250px, 0.36fr) minmax(0, 1fr);
-  gap: clamp(26px, 4vw, 58px);
-  align-items: start;
-  margin-bottom: 36px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
-.section-heading .eyebrow {
+.section-heading h2 {
   position: relative;
   margin: 0;
   padding-left: 16px;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: clamp(30px, 2.75vw, 40px);
+  font-size: clamp(34px, 3.25vw, 48px);
   font-weight: 700;
   line-height: 1.03;
-  text-transform: none;
+  letter-spacing: 0;
 }
 
-.section-heading .eyebrow::before {
+.section-heading h2::before {
   content: "";
   position: absolute;
   top: 0.17em;
@@ -397,33 +384,16 @@ h2 {
   background: var(--blue);
 }
 
-.section-heading h2 {
-  max-width: 680px;
-  padding-top: 6px;
-  color: #58635f;
-  font-family: var(--font-body);
-  font-size: clamp(17px, 1.35vw, 19px);
-  font-weight: 400;
-  line-height: 1.45;
-}
-
 #results .section-heading {
-  grid-template-columns: minmax(250px, 0.34fr) minmax(0, 1fr);
-  margin-bottom: 40px;
-}
-
-#results .section-heading .eyebrow {
-  color: var(--ink);
-  font-size: clamp(33px, 3vw, 44px);
-  letter-spacing: 0;
-}
-
-#results .section-heading .eyebrow::before {
-  background: var(--teal);
+  margin-bottom: 34px;
 }
 
 #results .section-heading h2 {
-  font-size: clamp(18px, 1.45vw, 20px);
+  font-size: clamp(36px, 3.6vw, 52px);
+}
+
+#results .section-heading h2::before {
+  background: var(--teal);
 }
 
 #results {
@@ -717,15 +687,6 @@ select {
   line-height: 1.08;
 }
 
-.pipeline-copy p,
-.leaderboard-head p {
-  margin: 12px 0 0;
-  max-width: 460px;
-  color: #5b6864;
-  font-size: 15px;
-  line-height: 1.55;
-}
-
 .pipeline-skeleton {
   align-self: center;
   display: grid;
@@ -778,16 +739,9 @@ select {
 
 .leaderboard-head {
   display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  align-items: end;
+  align-items: center;
   padding: clamp(22px, 3vw, 34px) clamp(22px, 3vw, 34px) 20px;
   border-bottom: 1px solid rgba(17, 22, 25, 0.1);
-}
-
-.leaderboard-head p {
-  max-width: 330px;
-  text-align: right;
 }
 
 .leaderboard-axis {
@@ -841,14 +795,6 @@ select {
   color: var(--ink);
   font: 800 clamp(20px, 2vw, 28px)/1.05 var(--font-display);
   white-space: nowrap;
-}
-
-.leaderboard-task span {
-  display: block;
-  margin-top: 8px;
-  color: var(--muted);
-  font: 700 11px/1.2 var(--font-code);
-  text-transform: uppercase;
 }
 
 .leaderboard-rows {
@@ -1343,39 +1289,23 @@ select {
   .hero-cad-scene { height: clamp(240px, 58vw, 340px); }
 
   .task-strip,
-  .section-heading,
   .workbench,
   .render-pair {
     grid-template-columns: 1fr;
   }
 
   .section-heading {
-    gap: 10px;
     margin-bottom: 28px;
   }
 
-  .section-heading .eyebrow {
+  .section-heading h2 {
     padding-left: 13px;
-    font-size: clamp(28px, 7.4vw, 38px);
+    font-size: clamp(30px, 7.8vw, 40px);
     line-height: 1.05;
   }
 
-  .section-heading h2 {
-    padding-top: 0;
-    font-size: clamp(16px, 4.6vw, 19px);
-    line-height: 1.4;
-  }
-
-  #results .section-heading {
-    grid-template-columns: 1fr;
-  }
-
-  #results .section-heading .eyebrow {
-    font-size: clamp(30px, 7.8vw, 40px);
-  }
-
   #results .section-heading h2 {
-    font-size: clamp(16px, 4.6vw, 19px);
+    font-size: clamp(32px, 8.4vw, 42px);
   }
 
   .task-strip {
@@ -1383,7 +1313,7 @@ select {
   }
 
   .task-card {
-    min-height: 104px;
+    min-height: 82px;
   }
 
   .section {
@@ -1418,11 +1348,6 @@ select {
   .leaderboard-head {
     flex-direction: column;
     align-items: start;
-  }
-
-  .leaderboard-head p {
-    max-width: 620px;
-    text-align: left;
   }
 
   .leaderboard-axis {
@@ -1526,12 +1451,6 @@ select {
 
   .task-card {
     grid-template-columns: 1fr;
-  }
-
-  .task-card em {
-    grid-row: auto;
-    grid-column: auto;
-    width: fit-content;
   }
 
   .controls,

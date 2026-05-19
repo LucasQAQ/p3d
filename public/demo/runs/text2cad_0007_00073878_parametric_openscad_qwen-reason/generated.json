@@ -21,5 +21,5 @@
     "language": "openscad",
     "source": "// Parametric Variables\nref_length = 0.375;\nref_width = 0.375;\nref_height = 0.25;\n\nmain_cx = 0.1875;\nmain_cy = 0.1875;\nmain_r = 0.1875;\nmain_h = 0.25;\nmain_bore_r = 0.075;\n\ntab_cx = 0.1875;\ntab_cy = -0.1875;\ntab_r = 0.1875;\ntab_h = 0.05;\ntab_bore_r = 0.05;\n\ncut_cx = 0.1875;\ncut_cy = 0.1875;\ncut_r = 0.075;\ncut_h = 0.125;\n\n$fn = 100;\n\n// Main Assembly\ndifference() {\n    // Union of main sleeve and shallow tab\n    union() {\n        translate([main_cx, main_cy, 0])\n            cylinder(h=main_h, r=main_r, center=false);\n        translate([tab_cx, tab_cy, 0])\n            cylinder(h=tab_h, r=tab_r, center=false);\n    }\n\n    // Main central through bore\n    translate([main_cx, main_cy, -0.1])\n        cylinder(h=main_h + 0.2, r=main_bore_r, center=false);\n\n    // Tab centered through opening\n    translate([tab_cx, tab_cy, -0.1])\n        cylinder(h=tab_h + 0.2, r=tab_bore_r, center=false);\n\n    // Underside recess/cut (circular profile)\n    translate([cut_cx, cut_cy, 0])\n        cylinder(h=cut_h, r=cut_r, center=false);\n}"
   },
-  "note": "The model emitted an executable CAD program in a non-JSON language; this public demo wraps that program in a uniform JSON envelope."
+  "note": "Non-JSON CAD source wrapped as JSON."
 }

@@ -62,7 +62,7 @@ type ShowcaseItem = {
 type CadViewItem = Pick<ShowcaseItem, "id" | "task" | "title" | "subtitle" | "src" | "mesh">;
 type InputModalItem = Pick<ShowcaseItem, "title" | "taskLabel" | "specLabel" | "input" | "inputImage" | "subtitle">;
 type LeaderboardRow = { model: string; family: string; score: number };
-type LeaderboardTask = { title: string; accent: string; note: string; rows: LeaderboardRow[] };
+type LeaderboardTask = { title: string; accent: string; rows: LeaderboardRow[] };
 type ModelFamilyStyle = { color: string; icon: string; tile?: string; filter?: string };
 
 const fallbackManifest: Manifest = {
@@ -84,8 +84,8 @@ const fallbackManifest: Manifest = {
   cases: [],
   runs: [],
   figures: [
-    { id: "pipeline", title: "Pipeline figure placeholder", placeholder: true },
-    { id: "leaderboard", title: "Leaderboard placeholder", placeholder: true }
+    { id: "pipeline", title: "Pipeline", placeholder: true },
+    { id: "leaderboard", title: "Leaderboard", placeholder: true }
   ],
   gallery: []
 };
@@ -149,7 +149,7 @@ function App() {
   const showcaseItems = useMemo(() => buildShowcaseItems(manifest), [manifest]);
   const heroItems = useMemo(() => showcaseItems.slice(0, 16), [showcaseItems]);
   const visibleTasks = useMemo(() => manifest.tasks.filter((item) => item.status === "interactive"), [manifest]);
-  const selectedInput = selectedRun?.condition || selectedCase?.title || "No result is available for this combination yet.";
+  const selectedInput = selectedRun?.condition || selectedCase?.title || "No input.";
   const selectedInputItem = selectedRun ? {
     title: selectedCase?.title || `Case ${selectedRun.case_id}`,
     taskLabel: selectedTask?.label || selectedRun.task,
@@ -224,15 +224,13 @@ function App() {
           <button key={item.id} className={task === item.id ? "task-card active" : "task-card"} onClick={() => setTask(item.id)}>
             <span>{item.label}</span>
             <strong>{item.formats.join(" / ")}</strong>
-            <em>public demo</em>
           </button>
         ))}
       </section>
 
       <section id="results" className="section">
         <div className="section-heading">
-          <p className="eyebrow">Interactive Results</p>
-          <h2>Choose a case, model, and output format.</h2>
+          <h2>Interactive Results</h2>
         </div>
         {taskRuns.length ? (
           <div className="workbench">
@@ -267,27 +265,25 @@ function App() {
               <MetricStrip run={selectedRun} />
               <div className="code-panel">
                 <div className="panel-title"><Code2 size={18} /> Generated JSON</div>
-                <pre><code>{code || "No generated JSON is bundled for this run."}</code></pre>
+                <pre><code>{code || "No JSON."}</code></pre>
               </div>
             </div>
           </div>
         ) : (
-          <Placeholder title="Results reserved" text="The task contract is implemented in the repo. Public precomputed results for this task will be added in the next bundle." />
+          <Placeholder title="Results" />
         )}
       </section>
 
       <section id="pipeline" className="section">
         <div className="section-heading">
-          <p className="eyebrow">Pipeline and Leaderboard</p>
-          <h2>Pipeline placeholder and current per-task model rankings.</h2>
+          <h2>Pipeline &amp; Leaderboard</h2>
         </div>
         <MainFigures />
       </section>
 
       <section id="gallery" className="section">
         <div className="section-heading">
-          <p className="eyebrow">Live Render Showcase</p>
-          <h2>Curated predictions across text, image, and assembly prompts.</h2>
+          <h2>Render Showcase</h2>
         </div>
         <RenderShowcase items={showcaseItems} />
       </section>
@@ -448,7 +444,6 @@ const leaderboardTasks: LeaderboardTask[] = [
   {
     title: "Text-to-3D",
     accent: "#285c8f",
-    note: "Average score",
     rows: [
       { model: "GPT-5.5", family: "openai", score: 0.848 },
       { model: "Gemini 3.1 Pro", family: "gemini", score: 0.835 },
@@ -465,7 +460,6 @@ const leaderboardTasks: LeaderboardTask[] = [
   {
     title: "Image-to-3D",
     accent: "#b46e4c",
-    note: "Average score",
     rows: [
       { model: "GPT-5.5", family: "openai", score: 0.675 },
       { model: "Gemini 3.1 Pro", family: "gemini", score: 0.667 },
@@ -480,7 +474,6 @@ const leaderboardTasks: LeaderboardTask[] = [
   {
     title: "Assembly-3D",
     accent: "#337665",
-    note: "Average score",
     rows: [
       { model: "Gemini 3.1 Pro", family: "gemini", score: 0.659 },
       { model: "GPT-5.5", family: "openai", score: 0.657 },
@@ -507,9 +500,8 @@ function PipelinePlaceholder() {
   return (
     <article className="pipeline-placeholder">
       <div className="pipeline-copy">
-        <span>Pipeline figure</span>
-        <h3>Final paper pipeline placeholder.</h3>
-        <p>The updated pipeline figure will be integrated here after the paper asset is finalized.</p>
+        <span>Pipeline</span>
+        <h3>Placeholder</h3>
       </div>
       <div className="pipeline-skeleton" aria-hidden="true">
         <div className="skeleton-node wide" />
@@ -527,10 +519,9 @@ function LeaderboardFigure() {
     <article className="leaderboard-card">
       <div className="leaderboard-head">
         <div>
-          <span>Current paper figure</span>
-          <h3>Per-task model leaderboard</h3>
+          <span>Leaderboard</span>
+          <h3>Model Ranking</h3>
         </div>
-        <p>Higher scores indicate stronger executable CAD generation under each task setting.</p>
       </div>
       <div className="leaderboard-axis" aria-hidden="true">
         <span>0.0</span>
@@ -550,7 +541,6 @@ function LeaderboardPanel({ task }: { task: LeaderboardTask }) {
     <section className="leaderboard-panel" style={{ "--task-accent": task.accent } as React.CSSProperties}>
       <div className="leaderboard-task">
         <h4>{task.title}</h4>
-        <span>{task.note}</span>
       </div>
       <div className="leaderboard-rows">
         {task.rows.map((row, index) => {
@@ -619,7 +609,7 @@ function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
   }, [items, selectedId]);
 
   if (!items.length) {
-    return <Placeholder title="Render showcase reserved" text="Curated demo renders will appear here when bundled." />;
+    return <Placeholder title="Render Showcase" />;
   }
 
   return (
@@ -638,8 +628,8 @@ function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
         </div>
         <div className="viewer-rail">
           <div className="viewer-rail-header">
-            <span>{items.length} cases</span>
-            <strong>Bundled live geometry set</strong>
+            <span>{items.length}</span>
+            <strong>Cases</strong>
           </div>
           {items.map((item, index) => (
             <button
@@ -1182,12 +1172,12 @@ function formatMetricValue(key: string, value: number | string | null) {
   return value < 1 ? value.toFixed(3) : value.toFixed(2);
 }
 
-function Placeholder({ title, text }: { title: string; text: string }) {
+function Placeholder({ title, text }: { title: string; text?: string }) {
   return (
     <div className="placeholder">
       <Layers3 size={32} />
       <h3>{title}</h3>
-      <p>{text}</p>
+      {text ? <p>{text}</p> : null}
     </div>
   );
 }
