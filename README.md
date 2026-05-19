@@ -39,3 +39,6 @@ Every bundled run also includes `assets.generated_json`. Native JSON outputs
 point to the original generated CAD JSON, while non-JSON outputs are wrapped in
 a sanitized JSON envelope that records the task, case, model, input spec,
 output format, metrics, and generated program text when that source is present.
+The page exposes JSON for every interactive case/model pair; Text-to-3D pairs
+also expose OpenSCAD, and the image/assembly demos expose their available
+native CAD format alongside JSON.

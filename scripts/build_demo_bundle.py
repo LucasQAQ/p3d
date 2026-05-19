@@ -25,7 +25,9 @@ OUT = REPO / "public" / "demo"
 WORKBENCH = Path(os.environ.get("P3D_TEXT2CAD_WORKBENCH", REPO.parent / "text2cad-workbench")).expanduser()
 
 PARAM_OPENSCAD_ROOT = WORKBENCH / "artifacts/relabel_eval/v65_eval400_current_paramdetail_openscad_local_eval_merged400"
+PARAM_JSON_ROOT = WORKBENCH / "artifacts/relabel_eval/v65_eval400_current_paramdetail_json_local_eval_merged400"
 DOUBAO_PARAM_OPENSCAD_ROOT = WORKBENCH / "artifacts/relabel_eval/doubao_textp3d_canary_20260512_local/parametric_detail/openscad"
+DOUBAO_PARAM_JSON_ROOT = WORKBENCH / "artifacts/relabel_eval/doubao_textp3d_canary_20260512_local/parametric_detail/json"
 DETAILED_JSON_ROOT = WORKBENCH / "artifacts/relabel_eval/v65_eval400_current_detailed_json_local_eval"
 DOUBAO_DETAILED_JSON_ROOT = WORKBENCH / "artifacts/relabel_eval/doubao_textp3d_canary_20260512_local/detailed/json"
 PRIMARY_CADQUERY_RESULTS = WORKBENCH / "artifacts/relabel_eval/v65_50_primary_allmodels_cadquery/full_results.json"
@@ -106,7 +108,7 @@ def main() -> None:
     other_runs, other_cases = build_primary_cadquery_runs()
     articraft_runs, articraft_cases = build_articraft_runs()
 
-    all_runs = text_runs + other_runs + articraft_runs
+    all_runs = add_json_view_runs(text_runs + other_runs + articraft_runs)
     all_cases = dedupe_cases(text_cases + other_cases + articraft_cases)
     used_models = sorted({run["model"] for run in all_runs}, key=model_sort_key)
 
@@ -164,8 +166,8 @@ def make_manifest() -> dict[str, Any]:
         },
         "tasks": [
             {"id": "text2cad", "label": "Text-to-3D", "formats": ["JSON", "OpenSCAD"], "status": "interactive"},
-            {"id": "image2cad", "label": "Image-to-3D", "formats": ["CadQuery", "OpenSCAD", "Three.js"], "status": "interactive"},
-            {"id": "text_image2cad", "label": "Assembly-3D", "formats": ["CadQuery", "OpenSCAD"], "status": "interactive"},
+            {"id": "image2cad", "label": "Image-to-3D", "formats": ["JSON", "CadQuery", "OpenSCAD", "Three.js"], "status": "interactive"},
+            {"id": "text_image2cad", "label": "Assembly-3D", "formats": ["JSON", "CadQuery", "OpenSCAD"], "status": "interactive"},
         ],
         "models": [],
         "cases": [],
@@ -651,6 +653,28 @@ def dedupe_cases(cases: list[dict[str, Any]]) -> list[dict[str, Any]]:
             continue
         seen.add(key)
         output.append(case)
+    return output
+
+
+def add_json_view_runs(runs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    output: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    for run in runs:
+        output.append(run)
+        seen_ids.add(run["id"])
+        if run["task"] == "text2cad" or run["format"] == "json" or not run.get("assets", {}).get("generated_json"):
+            continue
+
+        json_run = dict(run)
+        json_run["format"] = "json"
+        json_run["id"] = run_id(run["task"], run["case_id"], run["spec"], "json", run["model"])
+        if json_run["id"] in seen_ids:
+            continue
+        json_run["assets"] = dict(run["assets"])
+        json_run["assets"]["generated"] = run["assets"]["generated_json"]
+        json_run["metrics"] = dict(run.get("metrics") or {})
+        output.append(json_run)
+        seen_ids.add(json_run["id"])
     return output
 
 

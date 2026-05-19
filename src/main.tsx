@@ -77,8 +77,8 @@ const fallbackManifest: Manifest = {
   },
   tasks: [
     { id: "text2cad", label: "Text-to-3D", formats: ["JSON", "OpenSCAD"], status: "interactive" },
-    { id: "image2cad", label: "Image-to-3D", formats: ["CadQuery", "OpenSCAD", "Three.js"], status: "interactive" },
-    { id: "text_image2cad", label: "Assembly-3D", formats: ["CadQuery", "OpenSCAD"], status: "interactive" }
+    { id: "image2cad", label: "Image-to-3D", formats: ["JSON", "CadQuery", "OpenSCAD", "Three.js"], status: "interactive" },
+    { id: "text_image2cad", label: "Assembly-3D", formats: ["JSON", "CadQuery", "OpenSCAD"], status: "interactive" }
   ],
   models: [],
   cases: [],
@@ -119,10 +119,13 @@ function App() {
   const taskRuns = useMemo(() => completeTaskRuns.filter((run) => interactiveCaseIds.has(run.case_id)), [completeTaskRuns, interactiveCaseIds]);
   const cases = useMemo(() => manifest.cases.filter((item) => item.task === task && interactiveCaseIds.has(item.id)), [interactiveCaseIds, manifest, task]);
   const exactRun = useMemo(
-    () => taskRuns.find((run) => run.case_id === caseId && run.model === model && run.spec === spec && run.format === format),
-    [caseId, format, model, spec, taskRuns]
+    () => taskRuns.find((run) => run.case_id === caseId && run.model === model && run.format === format),
+    [caseId, format, model, taskRuns]
   );
-  const selectedRun = useMemo(() => exactRun || pickDefaultRun(taskRuns.filter((run) => run.case_id === caseId)) || pickDefaultRun(taskRuns), [caseId, exactRun, taskRuns]);
+  const selectedRun = useMemo(
+    () => exactRun || pickDefaultRun(taskRuns.filter((run) => run.case_id === caseId && run.model === model)) || pickDefaultRun(taskRuns.filter((run) => run.case_id === caseId)) || pickDefaultRun(taskRuns),
+    [caseId, exactRun, model, taskRuns]
+  );
   const activeCaseId = selectedRun?.case_id || caseId;
   const activeModel = selectedRun?.model || model;
   const activeSpec = selectedRun?.spec || spec;
@@ -130,9 +133,7 @@ function App() {
   const caseRuns = useMemo(() => taskRuns.filter((run) => run.case_id === activeCaseId), [activeCaseId, taskRuns]);
   const models = useMemo(() => manifest.models.filter((item) => caseRuns.some((run) => run.model === item.id)), [caseRuns, manifest.models]);
   const modelRuns = useMemo(() => caseRuns.filter((run) => run.model === activeModel), [activeModel, caseRuns]);
-  const specs = useMemo(() => Array.from(new Set(modelRuns.map((run) => run.spec))).sort((a, b) => specPriority(a) - specPriority(b)), [modelRuns]);
-  const specRuns = useMemo(() => modelRuns.filter((run) => run.spec === activeSpec), [activeSpec, modelRuns]);
-  const formats = useMemo(() => Array.from(new Set(specRuns.map((run) => run.format))).sort((a, b) => formatPriority(a) - formatPriority(b)), [specRuns]);
+  const formats = useMemo(() => Array.from(new Set(modelRuns.map((run) => run.format))).sort((a, b) => formatPriority(a) - formatPriority(b)), [modelRuns]);
 
   useEffect(() => {
     if (!selectedRun) return;
@@ -231,15 +232,18 @@ function App() {
       <section id="results" className="section">
         <div className="section-heading">
           <p className="eyebrow">Interactive Results</p>
-          <h2>Choose a case, model, input specification, and output format.</h2>
+          <h2>Choose a case, model, and output format.</h2>
         </div>
         {taskRuns.length ? (
           <div className="workbench">
             <aside className="controls">
               <Select label="Case" value={activeCaseId} options={cases.map((item) => [item.id, item.title])} onChange={(nextCase) => applyRunSelection(pickDefaultRun(taskRuns.filter((run) => run.case_id === nextCase)))} />
               <Select label="Model" value={activeModel} options={models.map((item) => [item.id, item.label])} onChange={(nextModel) => applyRunSelection(pickDefaultRun(caseRuns.filter((run) => run.model === nextModel)))} />
-              <Select label="Spec" value={activeSpec} options={specs.map((item) => [item, inputSpecLabel(item)])} onChange={(nextSpec) => applyRunSelection(pickDefaultRun(modelRuns.filter((run) => run.spec === nextSpec)))} />
-              <Select label="Format" value={activeFormat} options={formats.map((item) => [item, outputFormatLabel(item)])} onChange={(nextFormat) => applyRunSelection(pickDefaultRun(specRuns.filter((run) => run.format === nextFormat)))} />
+              <Select label="Format" value={activeFormat} options={formats.map((item) => [item, outputFormatLabel(item)])} onChange={(nextFormat) => applyRunSelection(pickDefaultRun(modelRuns.filter((run) => run.format === nextFormat)))} />
+              <div className="select-label readonly-select">
+                <span>Input protocol</span>
+                <strong>{inputSpecLabel(activeSpec)}</strong>
+              </div>
               <div className="condition">
                 <span>Input</span>
                 {selectedRun?.assets.input_image ? <img className="condition-image" src={asset(selectedRun.assets.input_image)} alt="Input reference" /> : null}
@@ -340,7 +344,7 @@ function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
       id: run.id,
       task: run.task,
       title: caseTitle.get(run.case_id) || `Case ${run.case_id.split("/").pop() || run.case_id}`,
-      subtitle: `${modelLabel.get(run.model) || run.model} / ${outputFormatLabel(run.format)}`,
+      subtitle: `${modelLabel.get(run.model) || run.model} / ${outputFormatSummary((runsByCase.get(`${run.task}/${run.case_id}`) || []).filter((item) => item.model === run.model).map((item) => item.format))}`,
       taskLabel: taskLabel.get(run.task) || run.task,
       specLabel: inputSpecLabel(run.spec),
       input: run.condition || caseTitle.get(run.case_id) || `Case ${run.case_id}`,
@@ -382,12 +386,14 @@ function getInteractiveCaseIds(runs: Run[]) {
 
 function pickDefaultRun(runs: Run[]) {
   return [...runs].sort((a, b) => {
+    const validityDelta = Number(b.valid !== false) - Number(a.valid !== false);
+    if (validityDelta) return validityDelta;
+    const formatDelta = formatPriority(a.format) - formatPriority(b.format);
+    if (formatDelta) return formatDelta;
     const qualityDelta = runQuality(b) - runQuality(a);
     if (qualityDelta) return qualityDelta;
     const specDelta = specPriority(a.spec) - specPriority(b.spec);
     if (specDelta) return specDelta;
-    const formatDelta = formatPriority(a.format) - formatPriority(b.format);
-    if (formatDelta) return formatDelta;
     return a.id.localeCompare(b.id);
   })[0];
 }
@@ -406,6 +412,11 @@ function outputFormatLabel(formatName: string) {
   return formatName;
 }
 
+function outputFormatSummary(formatNames: string[]) {
+  const unique = Array.from(new Set(formatNames)).sort((a, b) => formatPriority(a) - formatPriority(b));
+  return unique.map(outputFormatLabel).join(" + ");
+}
+
 function specPriority(spec: string) {
   if (spec === "parametric") return 0;
   if (spec === "image_text" || spec === "image") return 1;
@@ -414,9 +425,9 @@ function specPriority(spec: string) {
 }
 
 function formatPriority(formatName: string) {
-  if (formatName === "openscad") return 0;
-  if (formatName === "cadquery") return 1;
-  if (formatName === "json") return 2;
+  if (formatName === "json") return 0;
+  if (formatName === "openscad") return 1;
+  if (formatName === "cadquery") return 2;
   if (formatName === "threejs") return 3;
   return 4;
 }
@@ -584,7 +595,6 @@ function runQuality(run: Run) {
   score += numberMetric(metrics.judge_geometry) * 3;
   score += numberMetric(metrics.judge_semantic) * 3;
   score += numberMetric(metrics.judge_aesthetics) * 3;
-  if (run.spec === "parametric") score += 8;
   if (typeof metrics.chamfer_distance === "number" && metrics.chamfer_distance > 0) {
     score += Math.max(0, 18 - Math.log10(metrics.chamfer_distance * 10000 + 1) * 5);
   }

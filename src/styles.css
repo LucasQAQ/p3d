@@ -488,6 +488,18 @@ select {
   white-space: nowrap;
 }
 
+.readonly-select strong {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: #f7faf6;
+  color: var(--ink);
+  font: 700 14px/1.2 var(--font-body);
+}
+
 .condition {
   margin-top: 20px;
   padding-top: 18px;

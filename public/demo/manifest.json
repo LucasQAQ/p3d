@@ -36,6 +36,7 @@
       "id": "image2cad",
       "label": "Image-to-3D",
       "formats": [
+        "JSON",
         "CadQuery",
         "OpenSCAD",
         "Three.js"
@@ -46,6 +47,7 @@
       "id": "text_image2cad",
       "label": "Assembly-3D",
       "formats": [
+        "JSON",
         "CadQuery",
         "OpenSCAD"
       ],
@@ -13035,6 +13037,35 @@
       }
     },
     {
+      "id": "image2cad_0015_00150938_image_json_gpt",
+      "task": "image2cad",
+      "case_id": "0015/00150938",
+      "spec": "image",
+      "format": "json",
+      "model": "gpt",
+      "valid": true,
+      "condition": "Reconstruct the parametric CAD model from the provided input image.",
+      "assets": {
+        "generated": "runs/image2cad_0015_00150938_image_cadquery_gpt/generated.json",
+        "generated_json": "runs/image2cad_0015_00150938_image_cadquery_gpt/generated.json",
+        "mesh": "runs/image2cad_0015_00150938_image_cadquery_gpt/model.stl",
+        "pred_render": "runs/image2cad_0015_00150938_image_cadquery_gpt/pred_render.png",
+        "gt_mesh": "gt_meshes/image2cad_0015_00150938.stl",
+        "gt_render": "gt_renders/image2cad_0015_00150938.png",
+        "input_image": "inputs/image2cad_0015_00150938.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.001602,
+        "hausdorff_distance": 0.143668,
+        "f_score_005": 0.7949,
+        "f_score_001": 0.2813,
+        "normal_consistency": 0.7241,
+        "iou_csg": 0.5452,
+        "iou_voxel": 0.568,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "image2cad_0015_00150938_image_cadquery_qwen-reason",
       "task": "image2cad",
       "case_id": "0015/00150938",
@@ -13045,6 +13076,35 @@
       "condition": "Reconstruct the parametric CAD model from the provided input image.",
       "assets": {
         "generated": "runs/image2cad_0015_00150938_image_cadquery_qwen-reason/generated.py",
+        "generated_json": "runs/image2cad_0015_00150938_image_cadquery_qwen-reason/generated.json",
+        "mesh": "runs/image2cad_0015_00150938_image_cadquery_qwen-reason/model.stl",
+        "pred_render": "runs/image2cad_0015_00150938_image_cadquery_qwen-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/image2cad_0015_00150938.stl",
+        "gt_render": "gt_renders/image2cad_0015_00150938.png",
+        "input_image": "inputs/image2cad_0015_00150938.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.00202,
+        "hausdorff_distance": 0.189222,
+        "f_score_005": 0.8027,
+        "f_score_001": 0.0345,
+        "normal_consistency": 0.6658,
+        "iou_csg": 0.4395,
+        "iou_voxel": 0.4243,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "image2cad_0015_00150938_image_json_qwen-reason",
+      "task": "image2cad",
+      "case_id": "0015/00150938",
+      "spec": "image",
+      "format": "json",
+      "model": "qwen-reason",
+      "valid": true,
+      "condition": "Reconstruct the parametric CAD model from the provided input image.",
+      "assets": {
+        "generated": "runs/image2cad_0015_00150938_image_cadquery_qwen-reason/generated.json",
         "generated_json": "runs/image2cad_0015_00150938_image_cadquery_qwen-reason/generated.json",
         "mesh": "runs/image2cad_0015_00150938_image_cadquery_qwen-reason/model.stl",
         "pred_render": "runs/image2cad_0015_00150938_image_cadquery_qwen-reason/pred_render.png",
@@ -13091,6 +13151,33 @@
       }
     },
     {
+      "id": "image2cad_0015_00150938_image_json_doubao-reason",
+      "task": "image2cad",
+      "case_id": "0015/00150938",
+      "spec": "image",
+      "format": "json",
+      "model": "doubao-reason",
+      "valid": true,
+      "condition": "Reconstruct the parametric CAD model from the provided input image.",
+      "assets": {
+        "generated": "runs/image2cad_0015_00150938_image_cadquery_doubao-reason/generated.json",
+        "generated_json": "runs/image2cad_0015_00150938_image_cadquery_doubao-reason/generated.json",
+        "mesh": "runs/image2cad_0015_00150938_image_cadquery_doubao-reason/model.stl",
+        "pred_render": "runs/image2cad_0015_00150938_image_cadquery_doubao-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/image2cad_0015_00150938.stl",
+        "gt_render": "gt_renders/image2cad_0015_00150938.png",
+        "input_image": "inputs/image2cad_0015_00150938.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.00201,
+        "hausdorff_distance": 0.187181,
+        "f_score_005": 0.8192,
+        "f_score_001": 0.0637,
+        "normal_consistency": 0.6307,
+        "pred_open_edge_ratio": 0.009464
+      }
+    },
+    {
       "id": "image2cad_0015_00150938_image_cadquery_gpt55-reason",
       "task": "image2cad",
       "case_id": "0015/00150938",
@@ -13101,6 +13188,35 @@
       "condition": "Reconstruct the parametric CAD model from the provided input image.",
       "assets": {
         "generated": "runs/image2cad_0015_00150938_image_cadquery_gpt55-reason/generated.py",
+        "generated_json": "runs/image2cad_0015_00150938_image_cadquery_gpt55-reason/generated.json",
+        "mesh": "runs/image2cad_0015_00150938_image_cadquery_gpt55-reason/model.stl",
+        "pred_render": "runs/image2cad_0015_00150938_image_cadquery_gpt55-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/image2cad_0015_00150938.stl",
+        "gt_render": "gt_renders/image2cad_0015_00150938.png",
+        "input_image": "inputs/image2cad_0015_00150938.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.002307,
+        "hausdorff_distance": 0.1896,
+        "f_score_005": 0.7832,
+        "f_score_001": 0.1086,
+        "normal_consistency": 0.6521,
+        "iou_csg": 0.4615,
+        "iou_voxel": 0.4439,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "image2cad_0015_00150938_image_json_gpt55-reason",
+      "task": "image2cad",
+      "case_id": "0015/00150938",
+      "spec": "image",
+      "format": "json",
+      "model": "gpt55-reason",
+      "valid": true,
+      "condition": "Reconstruct the parametric CAD model from the provided input image.",
+      "assets": {
+        "generated": "runs/image2cad_0015_00150938_image_cadquery_gpt55-reason/generated.json",
         "generated_json": "runs/image2cad_0015_00150938_image_cadquery_gpt55-reason/generated.json",
         "mesh": "runs/image2cad_0015_00150938_image_cadquery_gpt55-reason/model.stl",
         "pred_render": "runs/image2cad_0015_00150938_image_cadquery_gpt55-reason/pred_render.png",
@@ -13149,6 +13265,35 @@
       }
     },
     {
+      "id": "image2cad_0015_00150938_image_json_mimo_omni-reason",
+      "task": "image2cad",
+      "case_id": "0015/00150938",
+      "spec": "image",
+      "format": "json",
+      "model": "mimo_omni-reason",
+      "valid": true,
+      "condition": "Reconstruct the parametric CAD model from the provided input image.",
+      "assets": {
+        "generated": "runs/image2cad_0015_00150938_image_cadquery_mimo_omni-reason/generated.json",
+        "generated_json": "runs/image2cad_0015_00150938_image_cadquery_mimo_omni-reason/generated.json",
+        "mesh": "runs/image2cad_0015_00150938_image_cadquery_mimo_omni-reason/model.stl",
+        "pred_render": "runs/image2cad_0015_00150938_image_cadquery_mimo_omni-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/image2cad_0015_00150938.stl",
+        "gt_render": "gt_renders/image2cad_0015_00150938.png",
+        "input_image": "inputs/image2cad_0015_00150938.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.0014,
+        "hausdorff_distance": 0.153613,
+        "f_score_005": 0.8401,
+        "f_score_001": 0.1979,
+        "normal_consistency": 0.7368,
+        "iou_csg": 0.5392,
+        "iou_voxel": 0.5342,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "image2cad_0015_00150938_image_cadquery_gemini-reason",
       "task": "image2cad",
       "case_id": "0015/00150938",
@@ -13159,6 +13304,35 @@
       "condition": "Reconstruct the parametric CAD model from the provided input image.",
       "assets": {
         "generated": "runs/image2cad_0015_00150938_image_cadquery_gemini-reason/generated.py",
+        "generated_json": "runs/image2cad_0015_00150938_image_cadquery_gemini-reason/generated.json",
+        "mesh": "runs/image2cad_0015_00150938_image_cadquery_gemini-reason/model.stl",
+        "pred_render": "runs/image2cad_0015_00150938_image_cadquery_gemini-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/image2cad_0015_00150938.stl",
+        "gt_render": "gt_renders/image2cad_0015_00150938.png",
+        "input_image": "inputs/image2cad_0015_00150938.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.001174,
+        "hausdorff_distance": 0.127182,
+        "f_score_005": 0.8531,
+        "f_score_001": 0.276,
+        "normal_consistency": 0.757,
+        "iou_csg": 0.6155,
+        "iou_voxel": 0.6246,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "image2cad_0015_00150938_image_json_gemini-reason",
+      "task": "image2cad",
+      "case_id": "0015/00150938",
+      "spec": "image",
+      "format": "json",
+      "model": "gemini-reason",
+      "valid": true,
+      "condition": "Reconstruct the parametric CAD model from the provided input image.",
+      "assets": {
+        "generated": "runs/image2cad_0015_00150938_image_cadquery_gemini-reason/generated.json",
         "generated_json": "runs/image2cad_0015_00150938_image_cadquery_gemini-reason/generated.json",
         "mesh": "runs/image2cad_0015_00150938_image_cadquery_gemini-reason/model.stl",
         "pred_render": "runs/image2cad_0015_00150938_image_cadquery_gemini-reason/pred_render.png",
@@ -13207,6 +13381,35 @@
       }
     },
     {
+      "id": "image2cad_0015_00150938_image_json_kimi_k26-reason",
+      "task": "image2cad",
+      "case_id": "0015/00150938",
+      "spec": "image",
+      "format": "json",
+      "model": "kimi_k26-reason",
+      "valid": true,
+      "condition": "Reconstruct the parametric CAD model from the provided input image.",
+      "assets": {
+        "generated": "runs/image2cad_0015_00150938_image_cadquery_kimi_k26-reason/generated.json",
+        "generated_json": "runs/image2cad_0015_00150938_image_cadquery_kimi_k26-reason/generated.json",
+        "mesh": "runs/image2cad_0015_00150938_image_cadquery_kimi_k26-reason/model.stl",
+        "pred_render": "runs/image2cad_0015_00150938_image_cadquery_kimi_k26-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/image2cad_0015_00150938.stl",
+        "gt_render": "gt_renders/image2cad_0015_00150938.png",
+        "input_image": "inputs/image2cad_0015_00150938.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.001719,
+        "hausdorff_distance": 0.164354,
+        "f_score_005": 0.77,
+        "f_score_001": 0.1791,
+        "normal_consistency": 0.695,
+        "iou_csg": 0.4224,
+        "iou_voxel": 0.4607,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "image2cad_0045_00457640_image_cadquery_gpt",
       "task": "image2cad",
       "case_id": "0045/00457640",
@@ -13217,6 +13420,35 @@
       "condition": "Reconstruct the parametric CAD model from the provided input image.",
       "assets": {
         "generated": "runs/image2cad_0045_00457640_image_cadquery_gpt/generated.py",
+        "generated_json": "runs/image2cad_0045_00457640_image_cadquery_gpt/generated.json",
+        "mesh": "runs/image2cad_0045_00457640_image_cadquery_gpt/model.stl",
+        "pred_render": "runs/image2cad_0045_00457640_image_cadquery_gpt/pred_render.png",
+        "gt_mesh": "gt_meshes/image2cad_0045_00457640.stl",
+        "gt_render": "gt_renders/image2cad_0045_00457640.png",
+        "input_image": "inputs/image2cad_0045_00457640.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.001129,
+        "hausdorff_distance": 0.176954,
+        "f_score_005": 0.8929,
+        "f_score_001": 0.1516,
+        "normal_consistency": 0.7927,
+        "iou_csg": 0.2208,
+        "iou_voxel": 0.2349,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "image2cad_0045_00457640_image_json_gpt",
+      "task": "image2cad",
+      "case_id": "0045/00457640",
+      "spec": "image",
+      "format": "json",
+      "model": "gpt",
+      "valid": true,
+      "condition": "Reconstruct the parametric CAD model from the provided input image.",
+      "assets": {
+        "generated": "runs/image2cad_0045_00457640_image_cadquery_gpt/generated.json",
         "generated_json": "runs/image2cad_0045_00457640_image_cadquery_gpt/generated.json",
         "mesh": "runs/image2cad_0045_00457640_image_cadquery_gpt/model.stl",
         "pred_render": "runs/image2cad_0045_00457640_image_cadquery_gpt/pred_render.png",
@@ -13265,6 +13497,35 @@
       }
     },
     {
+      "id": "image2cad_0045_00457640_image_json_qwen-reason",
+      "task": "image2cad",
+      "case_id": "0045/00457640",
+      "spec": "image",
+      "format": "json",
+      "model": "qwen-reason",
+      "valid": true,
+      "condition": "Reconstruct the parametric CAD model from the provided input image.",
+      "assets": {
+        "generated": "runs/image2cad_0045_00457640_image_cadquery_qwen-reason/generated.json",
+        "generated_json": "runs/image2cad_0045_00457640_image_cadquery_qwen-reason/generated.json",
+        "mesh": "runs/image2cad_0045_00457640_image_cadquery_qwen-reason/model.stl",
+        "pred_render": "runs/image2cad_0045_00457640_image_cadquery_qwen-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/image2cad_0045_00457640.stl",
+        "gt_render": "gt_renders/image2cad_0045_00457640.png",
+        "input_image": "inputs/image2cad_0045_00457640.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.006517,
+        "hausdorff_distance": 0.336275,
+        "f_score_005": 0.6223,
+        "f_score_001": 0.0238,
+        "normal_consistency": 0.61,
+        "iou_csg": 0.1558,
+        "iou_voxel": 0.1818,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "image2cad_0045_00457640_image_cadquery_doubao-reason",
       "task": "image2cad",
       "case_id": "0045/00457640",
@@ -13275,6 +13536,35 @@
       "condition": "Reconstruct the parametric CAD model from the provided input image.",
       "assets": {
         "generated": "runs/image2cad_0045_00457640_image_cadquery_doubao-reason/generated.py",
+        "generated_json": "runs/image2cad_0045_00457640_image_cadquery_doubao-reason/generated.json",
+        "mesh": "runs/image2cad_0045_00457640_image_cadquery_doubao-reason/model.stl",
+        "pred_render": "runs/image2cad_0045_00457640_image_cadquery_doubao-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/image2cad_0045_00457640.stl",
+        "gt_render": "gt_renders/image2cad_0045_00457640.png",
+        "input_image": "inputs/image2cad_0045_00457640.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.000893,
+        "hausdorff_distance": 0.147586,
+        "f_score_005": 0.9167,
+        "f_score_001": 0.0804,
+        "normal_consistency": 0.7721,
+        "iou_csg": 0.1663,
+        "iou_voxel": 0.2407,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "image2cad_0045_00457640_image_json_doubao-reason",
+      "task": "image2cad",
+      "case_id": "0045/00457640",
+      "spec": "image",
+      "format": "json",
+      "model": "doubao-reason",
+      "valid": true,
+      "condition": "Reconstruct the parametric CAD model from the provided input image.",
+      "assets": {
+        "generated": "runs/image2cad_0045_00457640_image_cadquery_doubao-reason/generated.json",
         "generated_json": "runs/image2cad_0045_00457640_image_cadquery_doubao-reason/generated.json",
         "mesh": "runs/image2cad_0045_00457640_image_cadquery_doubao-reason/model.stl",
         "pred_render": "runs/image2cad_0045_00457640_image_cadquery_doubao-reason/pred_render.png",
@@ -13323,6 +13613,35 @@
       }
     },
     {
+      "id": "image2cad_0045_00457640_image_json_gpt55-reason",
+      "task": "image2cad",
+      "case_id": "0045/00457640",
+      "spec": "image",
+      "format": "json",
+      "model": "gpt55-reason",
+      "valid": true,
+      "condition": "Reconstruct the parametric CAD model from the provided input image.",
+      "assets": {
+        "generated": "runs/image2cad_0045_00457640_image_cadquery_gpt55-reason/generated.json",
+        "generated_json": "runs/image2cad_0045_00457640_image_cadquery_gpt55-reason/generated.json",
+        "mesh": "runs/image2cad_0045_00457640_image_cadquery_gpt55-reason/model.stl",
+        "pred_render": "runs/image2cad_0045_00457640_image_cadquery_gpt55-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/image2cad_0045_00457640.stl",
+        "gt_render": "gt_renders/image2cad_0045_00457640.png",
+        "input_image": "inputs/image2cad_0045_00457640.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.001593,
+        "hausdorff_distance": 0.176184,
+        "f_score_005": 0.7843,
+        "f_score_001": 0.1158,
+        "normal_consistency": 0.7501,
+        "iou_csg": 0.2354,
+        "iou_voxel": 0.2404,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "image2cad_0045_00457640_image_cadquery_mimo_omni-reason",
       "task": "image2cad",
       "case_id": "0045/00457640",
@@ -13333,6 +13652,35 @@
       "condition": "Reconstruct the parametric CAD model from the provided input image.",
       "assets": {
         "generated": "runs/image2cad_0045_00457640_image_cadquery_mimo_omni-reason/generated.py",
+        "generated_json": "runs/image2cad_0045_00457640_image_cadquery_mimo_omni-reason/generated.json",
+        "mesh": "runs/image2cad_0045_00457640_image_cadquery_mimo_omni-reason/model.stl",
+        "pred_render": "runs/image2cad_0045_00457640_image_cadquery_mimo_omni-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/image2cad_0045_00457640.stl",
+        "gt_render": "gt_renders/image2cad_0045_00457640.png",
+        "input_image": "inputs/image2cad_0045_00457640.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.00569,
+        "hausdorff_distance": 0.288513,
+        "f_score_005": 0.6182,
+        "f_score_001": 0.026,
+        "normal_consistency": 0.7137,
+        "iou_csg": 0.1288,
+        "iou_voxel": 0.1759,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "image2cad_0045_00457640_image_json_mimo_omni-reason",
+      "task": "image2cad",
+      "case_id": "0045/00457640",
+      "spec": "image",
+      "format": "json",
+      "model": "mimo_omni-reason",
+      "valid": true,
+      "condition": "Reconstruct the parametric CAD model from the provided input image.",
+      "assets": {
+        "generated": "runs/image2cad_0045_00457640_image_cadquery_mimo_omni-reason/generated.json",
         "generated_json": "runs/image2cad_0045_00457640_image_cadquery_mimo_omni-reason/generated.json",
         "mesh": "runs/image2cad_0045_00457640_image_cadquery_mimo_omni-reason/model.stl",
         "pred_render": "runs/image2cad_0045_00457640_image_cadquery_mimo_omni-reason/pred_render.png",
@@ -13381,6 +13729,35 @@
       }
     },
     {
+      "id": "image2cad_0045_00457640_image_json_gemini-reason",
+      "task": "image2cad",
+      "case_id": "0045/00457640",
+      "spec": "image",
+      "format": "json",
+      "model": "gemini-reason",
+      "valid": true,
+      "condition": "Reconstruct the parametric CAD model from the provided input image.",
+      "assets": {
+        "generated": "runs/image2cad_0045_00457640_image_cadquery_gemini-reason/generated.json",
+        "generated_json": "runs/image2cad_0045_00457640_image_cadquery_gemini-reason/generated.json",
+        "mesh": "runs/image2cad_0045_00457640_image_cadquery_gemini-reason/model.stl",
+        "pred_render": "runs/image2cad_0045_00457640_image_cadquery_gemini-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/image2cad_0045_00457640.stl",
+        "gt_render": "gt_renders/image2cad_0045_00457640.png",
+        "input_image": "inputs/image2cad_0045_00457640.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.000446,
+        "hausdorff_distance": 0.129758,
+        "f_score_005": 0.9685,
+        "f_score_001": 0.2756,
+        "normal_consistency": 0.8543,
+        "iou_csg": 0.6042,
+        "iou_voxel": 0.6282,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "image2cad_0045_00457640_image_cadquery_kimi_k26-reason",
       "task": "image2cad",
       "case_id": "0045/00457640",
@@ -13391,6 +13768,35 @@
       "condition": "Reconstruct the parametric CAD model from the provided input image.",
       "assets": {
         "generated": "runs/image2cad_0045_00457640_image_cadquery_kimi_k26-reason/generated.py",
+        "generated_json": "runs/image2cad_0045_00457640_image_cadquery_kimi_k26-reason/generated.json",
+        "mesh": "runs/image2cad_0045_00457640_image_cadquery_kimi_k26-reason/model.stl",
+        "pred_render": "runs/image2cad_0045_00457640_image_cadquery_kimi_k26-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/image2cad_0045_00457640.stl",
+        "gt_render": "gt_renders/image2cad_0045_00457640.png",
+        "input_image": "inputs/image2cad_0045_00457640.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.000595,
+        "hausdorff_distance": 0.173549,
+        "f_score_005": 0.9749,
+        "f_score_001": 0.0805,
+        "normal_consistency": 0.7482,
+        "iou_csg": 0.4201,
+        "iou_voxel": 0.4583,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "image2cad_0045_00457640_image_json_kimi_k26-reason",
+      "task": "image2cad",
+      "case_id": "0045/00457640",
+      "spec": "image",
+      "format": "json",
+      "model": "kimi_k26-reason",
+      "valid": true,
+      "condition": "Reconstruct the parametric CAD model from the provided input image.",
+      "assets": {
+        "generated": "runs/image2cad_0045_00457640_image_cadquery_kimi_k26-reason/generated.json",
         "generated_json": "runs/image2cad_0045_00457640_image_cadquery_kimi_k26-reason/generated.json",
         "mesh": "runs/image2cad_0045_00457640_image_cadquery_kimi_k26-reason/model.stl",
         "pred_render": "runs/image2cad_0045_00457640_image_cadquery_kimi_k26-reason/pred_render.png",
@@ -13439,6 +13845,35 @@
       }
     },
     {
+      "id": "text_image2cad_0009_00099014_image_text_json_doubao-reason",
+      "task": "text_image2cad",
+      "case_id": "0009/00099014",
+      "spec": "image_text",
+      "format": "json",
+      "model": "doubao-reason",
+      "valid": true,
+      "condition": "Abstract:\nA thick rectangular slab with stepped solid protrusions underneath.\n\nDetailed CAD facts:\nThe model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
+      "assets": {
+        "generated": "runs/text_image2cad_0009_00099014_image_text_cadquery_doubao-reason/generated.json",
+        "generated_json": "runs/text_image2cad_0009_00099014_image_text_cadquery_doubao-reason/generated.json",
+        "mesh": "runs/text_image2cad_0009_00099014_image_text_cadquery_doubao-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0009_00099014_image_text_cadquery_doubao-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0009_00099014.stl",
+        "gt_render": "gt_renders/text_image2cad_0009_00099014.png",
+        "input_image": "inputs/text_image2cad_0009_00099014.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.017269,
+        "hausdorff_distance": 0.464238,
+        "f_score_005": 0.4343,
+        "f_score_001": 0.0216,
+        "normal_consistency": 0.518,
+        "iou_csg": 0.098,
+        "iou_voxel": 0.1239,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "text_image2cad_0009_00099014_image_text_cadquery_qwen-reason",
       "task": "text_image2cad",
       "case_id": "0009/00099014",
@@ -13449,6 +13884,35 @@
       "condition": "Abstract:\nA thick rectangular slab with stepped solid protrusions underneath.\n\nDetailed CAD facts:\nThe model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
       "assets": {
         "generated": "runs/text_image2cad_0009_00099014_image_text_cadquery_qwen-reason/generated.py",
+        "generated_json": "runs/text_image2cad_0009_00099014_image_text_cadquery_qwen-reason/generated.json",
+        "mesh": "runs/text_image2cad_0009_00099014_image_text_cadquery_qwen-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0009_00099014_image_text_cadquery_qwen-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0009_00099014.stl",
+        "gt_render": "gt_renders/text_image2cad_0009_00099014.png",
+        "input_image": "inputs/text_image2cad_0009_00099014.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.006074,
+        "hausdorff_distance": 0.323967,
+        "f_score_005": 0.5813,
+        "f_score_001": 0.0392,
+        "normal_consistency": 0.6127,
+        "iou_csg": 0.5094,
+        "iou_voxel": 0.5027,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "text_image2cad_0009_00099014_image_text_json_qwen-reason",
+      "task": "text_image2cad",
+      "case_id": "0009/00099014",
+      "spec": "image_text",
+      "format": "json",
+      "model": "qwen-reason",
+      "valid": true,
+      "condition": "Abstract:\nA thick rectangular slab with stepped solid protrusions underneath.\n\nDetailed CAD facts:\nThe model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
+      "assets": {
+        "generated": "runs/text_image2cad_0009_00099014_image_text_cadquery_qwen-reason/generated.json",
         "generated_json": "runs/text_image2cad_0009_00099014_image_text_cadquery_qwen-reason/generated.json",
         "mesh": "runs/text_image2cad_0009_00099014_image_text_cadquery_qwen-reason/model.stl",
         "pred_render": "runs/text_image2cad_0009_00099014_image_text_cadquery_qwen-reason/pred_render.png",
@@ -13497,6 +13961,35 @@
       }
     },
     {
+      "id": "text_image2cad_0009_00099014_image_text_json_mimo_omni-reason",
+      "task": "text_image2cad",
+      "case_id": "0009/00099014",
+      "spec": "image_text",
+      "format": "json",
+      "model": "mimo_omni-reason",
+      "valid": true,
+      "condition": "Abstract:\nA thick rectangular slab with stepped solid protrusions underneath.\n\nDetailed CAD facts:\nThe model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
+      "assets": {
+        "generated": "runs/text_image2cad_0009_00099014_image_text_cadquery_mimo_omni-reason/generated.json",
+        "generated_json": "runs/text_image2cad_0009_00099014_image_text_cadquery_mimo_omni-reason/generated.json",
+        "mesh": "runs/text_image2cad_0009_00099014_image_text_cadquery_mimo_omni-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0009_00099014_image_text_cadquery_mimo_omni-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0009_00099014.stl",
+        "gt_render": "gt_renders/text_image2cad_0009_00099014.png",
+        "input_image": "inputs/text_image2cad_0009_00099014.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.019476,
+        "hausdorff_distance": 0.491185,
+        "f_score_005": 0.4239,
+        "f_score_001": 0.0185,
+        "normal_consistency": 0.498,
+        "iou_csg": 0.0816,
+        "iou_voxel": 0.0781,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "text_image2cad_0009_00099014_image_text_cadquery_gpt",
       "task": "text_image2cad",
       "case_id": "0009/00099014",
@@ -13507,6 +14000,35 @@
       "condition": "Abstract:\nA thick rectangular slab with stepped solid protrusions underneath.\n\nDetailed CAD facts:\nThe model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
       "assets": {
         "generated": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt/generated.py",
+        "generated_json": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt/generated.json",
+        "mesh": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt/model.stl",
+        "pred_render": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0009_00099014.stl",
+        "gt_render": "gt_renders/text_image2cad_0009_00099014.png",
+        "input_image": "inputs/text_image2cad_0009_00099014.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.007237,
+        "hausdorff_distance": 0.345509,
+        "f_score_005": 0.5741,
+        "f_score_001": 0.0204,
+        "normal_consistency": 0.5714,
+        "iou_csg": 0.4409,
+        "iou_voxel": 0.4541,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "text_image2cad_0009_00099014_image_text_json_gpt",
+      "task": "text_image2cad",
+      "case_id": "0009/00099014",
+      "spec": "image_text",
+      "format": "json",
+      "model": "gpt",
+      "valid": true,
+      "condition": "Abstract:\nA thick rectangular slab with stepped solid protrusions underneath.\n\nDetailed CAD facts:\nThe model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
+      "assets": {
+        "generated": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt/generated.json",
         "generated_json": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt/generated.json",
         "mesh": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt/model.stl",
         "pred_render": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt/pred_render.png",
@@ -13555,6 +14077,35 @@
       }
     },
     {
+      "id": "text_image2cad_0009_00099014_image_text_json_kimi_k26-reason",
+      "task": "text_image2cad",
+      "case_id": "0009/00099014",
+      "spec": "image_text",
+      "format": "json",
+      "model": "kimi_k26-reason",
+      "valid": true,
+      "condition": "Abstract:\nA thick rectangular slab with stepped solid protrusions underneath.\n\nDetailed CAD facts:\nThe model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
+      "assets": {
+        "generated": "runs/text_image2cad_0009_00099014_image_text_cadquery_kimi_k26-reason/generated.json",
+        "generated_json": "runs/text_image2cad_0009_00099014_image_text_cadquery_kimi_k26-reason/generated.json",
+        "mesh": "runs/text_image2cad_0009_00099014_image_text_cadquery_kimi_k26-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0009_00099014_image_text_cadquery_kimi_k26-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0009_00099014.stl",
+        "gt_render": "gt_renders/text_image2cad_0009_00099014.png",
+        "input_image": "inputs/text_image2cad_0009_00099014.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.010694,
+        "hausdorff_distance": 0.355386,
+        "f_score_005": 0.2917,
+        "f_score_001": 0.026,
+        "normal_consistency": 0.5164,
+        "iou_csg": 0.2089,
+        "iou_voxel": 0.228,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "text_image2cad_0009_00099014_image_text_cadquery_gpt55-reason",
       "task": "text_image2cad",
       "case_id": "0009/00099014",
@@ -13565,6 +14116,35 @@
       "condition": "Abstract:\nA thick rectangular slab with stepped solid protrusions underneath.\n\nDetailed CAD facts:\nThe model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
       "assets": {
         "generated": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt55-reason/generated.py",
+        "generated_json": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt55-reason/generated.json",
+        "mesh": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt55-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt55-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0009_00099014.stl",
+        "gt_render": "gt_renders/text_image2cad_0009_00099014.png",
+        "input_image": "inputs/text_image2cad_0009_00099014.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.007356,
+        "hausdorff_distance": 0.343845,
+        "f_score_005": 0.459,
+        "f_score_001": 0.017,
+        "normal_consistency": 0.5849,
+        "iou_csg": 0.3993,
+        "iou_voxel": 0.4145,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "text_image2cad_0009_00099014_image_text_json_gpt55-reason",
+      "task": "text_image2cad",
+      "case_id": "0009/00099014",
+      "spec": "image_text",
+      "format": "json",
+      "model": "gpt55-reason",
+      "valid": true,
+      "condition": "Abstract:\nA thick rectangular slab with stepped solid protrusions underneath.\n\nDetailed CAD facts:\nThe model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
+      "assets": {
+        "generated": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt55-reason/generated.json",
         "generated_json": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt55-reason/generated.json",
         "mesh": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt55-reason/model.stl",
         "pred_render": "runs/text_image2cad_0009_00099014_image_text_cadquery_gpt55-reason/pred_render.png",
@@ -13613,6 +14193,35 @@
       }
     },
     {
+      "id": "text_image2cad_0009_00099014_image_text_json_gemini-reason",
+      "task": "text_image2cad",
+      "case_id": "0009/00099014",
+      "spec": "image_text",
+      "format": "json",
+      "model": "gemini-reason",
+      "valid": true,
+      "condition": "Abstract:\nA thick rectangular slab with stepped solid protrusions underneath.\n\nDetailed CAD facts:\nThe model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
+      "assets": {
+        "generated": "runs/text_image2cad_0009_00099014_image_text_cadquery_gemini-reason/generated.json",
+        "generated_json": "runs/text_image2cad_0009_00099014_image_text_cadquery_gemini-reason/generated.json",
+        "mesh": "runs/text_image2cad_0009_00099014_image_text_cadquery_gemini-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0009_00099014_image_text_cadquery_gemini-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0009_00099014.stl",
+        "gt_render": "gt_renders/text_image2cad_0009_00099014.png",
+        "input_image": "inputs/text_image2cad_0009_00099014.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.011245,
+        "hausdorff_distance": 0.378999,
+        "f_score_005": 0.4532,
+        "f_score_001": 0.0279,
+        "normal_consistency": 0.5436,
+        "iou_csg": 0.1791,
+        "iou_voxel": 0.183,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "text_image2cad_0026_00268024_image_text_cadquery_doubao-reason",
       "task": "text_image2cad",
       "case_id": "0026/00268024",
@@ -13623,6 +14232,35 @@
       "condition": "Abstract:\nA rectangular frame plate with raised round collars around corner holes.\n\nDetailed CAD facts:\nThe part is a thin rectangular base with a large rectangular opening cut through the middle, leaving a continuous border frame. Four raised circular collars sit on the upper face near the corners of the frame rather than on any rectangular pads. Each collar is annular, with a central round hole that continues through the base. The rectangular center cut is a removed through area, and the circular centers are also removed material, while only the surrounding ring portions are added material. The model has stepped depth behavior: the base is shallow, the collars rise above it, and the central and circular cuts extend through the relevant thickness rather than forming raised features.",
       "assets": {
         "generated": "runs/text_image2cad_0026_00268024_image_text_cadquery_doubao-reason/generated.py",
+        "generated_json": "runs/text_image2cad_0026_00268024_image_text_cadquery_doubao-reason/generated.json",
+        "mesh": "runs/text_image2cad_0026_00268024_image_text_cadquery_doubao-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0026_00268024_image_text_cadquery_doubao-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0026_00268024.stl",
+        "gt_render": "gt_renders/text_image2cad_0026_00268024.png",
+        "input_image": "inputs/text_image2cad_0026_00268024.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.000323,
+        "hausdorff_distance": 0.061089,
+        "f_score_005": 0.9803,
+        "f_score_001": 0.4544,
+        "normal_consistency": 0.7212,
+        "iou_csg": 0.3141,
+        "iou_voxel": 0.3453,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "text_image2cad_0026_00268024_image_text_json_doubao-reason",
+      "task": "text_image2cad",
+      "case_id": "0026/00268024",
+      "spec": "image_text",
+      "format": "json",
+      "model": "doubao-reason",
+      "valid": true,
+      "condition": "Abstract:\nA rectangular frame plate with raised round collars around corner holes.\n\nDetailed CAD facts:\nThe part is a thin rectangular base with a large rectangular opening cut through the middle, leaving a continuous border frame. Four raised circular collars sit on the upper face near the corners of the frame rather than on any rectangular pads. Each collar is annular, with a central round hole that continues through the base. The rectangular center cut is a removed through area, and the circular centers are also removed material, while only the surrounding ring portions are added material. The model has stepped depth behavior: the base is shallow, the collars rise above it, and the central and circular cuts extend through the relevant thickness rather than forming raised features.",
+      "assets": {
+        "generated": "runs/text_image2cad_0026_00268024_image_text_cadquery_doubao-reason/generated.json",
         "generated_json": "runs/text_image2cad_0026_00268024_image_text_cadquery_doubao-reason/generated.json",
         "mesh": "runs/text_image2cad_0026_00268024_image_text_cadquery_doubao-reason/model.stl",
         "pred_render": "runs/text_image2cad_0026_00268024_image_text_cadquery_doubao-reason/pred_render.png",
@@ -13671,6 +14309,35 @@
       }
     },
     {
+      "id": "text_image2cad_0026_00268024_image_text_json_qwen-reason",
+      "task": "text_image2cad",
+      "case_id": "0026/00268024",
+      "spec": "image_text",
+      "format": "json",
+      "model": "qwen-reason",
+      "valid": true,
+      "condition": "Abstract:\nA rectangular frame plate with raised round collars around corner holes.\n\nDetailed CAD facts:\nThe part is a thin rectangular base with a large rectangular opening cut through the middle, leaving a continuous border frame. Four raised circular collars sit on the upper face near the corners of the frame rather than on any rectangular pads. Each collar is annular, with a central round hole that continues through the base. The rectangular center cut is a removed through area, and the circular centers are also removed material, while only the surrounding ring portions are added material. The model has stepped depth behavior: the base is shallow, the collars rise above it, and the central and circular cuts extend through the relevant thickness rather than forming raised features.",
+      "assets": {
+        "generated": "runs/text_image2cad_0026_00268024_image_text_cadquery_qwen-reason/generated.json",
+        "generated_json": "runs/text_image2cad_0026_00268024_image_text_cadquery_qwen-reason/generated.json",
+        "mesh": "runs/text_image2cad_0026_00268024_image_text_cadquery_qwen-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0026_00268024_image_text_cadquery_qwen-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0026_00268024.stl",
+        "gt_render": "gt_renders/text_image2cad_0026_00268024.png",
+        "input_image": "inputs/text_image2cad_0026_00268024.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.001697,
+        "hausdorff_distance": 0.231757,
+        "f_score_005": 0.892,
+        "f_score_001": 0.0871,
+        "normal_consistency": 0.6946,
+        "iou_csg": 0.248,
+        "iou_voxel": 0.3177,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "text_image2cad_0026_00268024_image_text_cadquery_mimo_omni-reason",
       "task": "text_image2cad",
       "case_id": "0026/00268024",
@@ -13681,6 +14348,35 @@
       "condition": "Abstract:\nA rectangular frame plate with raised round collars around corner holes.\n\nDetailed CAD facts:\nThe part is a thin rectangular base with a large rectangular opening cut through the middle, leaving a continuous border frame. Four raised circular collars sit on the upper face near the corners of the frame rather than on any rectangular pads. Each collar is annular, with a central round hole that continues through the base. The rectangular center cut is a removed through area, and the circular centers are also removed material, while only the surrounding ring portions are added material. The model has stepped depth behavior: the base is shallow, the collars rise above it, and the central and circular cuts extend through the relevant thickness rather than forming raised features.",
       "assets": {
         "generated": "runs/text_image2cad_0026_00268024_image_text_cadquery_mimo_omni-reason/generated.py",
+        "generated_json": "runs/text_image2cad_0026_00268024_image_text_cadquery_mimo_omni-reason/generated.json",
+        "mesh": "runs/text_image2cad_0026_00268024_image_text_cadquery_mimo_omni-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0026_00268024_image_text_cadquery_mimo_omni-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0026_00268024.stl",
+        "gt_render": "gt_renders/text_image2cad_0026_00268024.png",
+        "input_image": "inputs/text_image2cad_0026_00268024.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.001169,
+        "hausdorff_distance": 0.21384,
+        "f_score_005": 0.8679,
+        "f_score_001": 0.4849,
+        "normal_consistency": 0.6049,
+        "iou_csg": 0.3811,
+        "iou_voxel": 0.3979,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "text_image2cad_0026_00268024_image_text_json_mimo_omni-reason",
+      "task": "text_image2cad",
+      "case_id": "0026/00268024",
+      "spec": "image_text",
+      "format": "json",
+      "model": "mimo_omni-reason",
+      "valid": true,
+      "condition": "Abstract:\nA rectangular frame plate with raised round collars around corner holes.\n\nDetailed CAD facts:\nThe part is a thin rectangular base with a large rectangular opening cut through the middle, leaving a continuous border frame. Four raised circular collars sit on the upper face near the corners of the frame rather than on any rectangular pads. Each collar is annular, with a central round hole that continues through the base. The rectangular center cut is a removed through area, and the circular centers are also removed material, while only the surrounding ring portions are added material. The model has stepped depth behavior: the base is shallow, the collars rise above it, and the central and circular cuts extend through the relevant thickness rather than forming raised features.",
+      "assets": {
+        "generated": "runs/text_image2cad_0026_00268024_image_text_cadquery_mimo_omni-reason/generated.json",
         "generated_json": "runs/text_image2cad_0026_00268024_image_text_cadquery_mimo_omni-reason/generated.json",
         "mesh": "runs/text_image2cad_0026_00268024_image_text_cadquery_mimo_omni-reason/model.stl",
         "pred_render": "runs/text_image2cad_0026_00268024_image_text_cadquery_mimo_omni-reason/pred_render.png",
@@ -13729,6 +14425,35 @@
       }
     },
     {
+      "id": "text_image2cad_0026_00268024_image_text_json_gpt",
+      "task": "text_image2cad",
+      "case_id": "0026/00268024",
+      "spec": "image_text",
+      "format": "json",
+      "model": "gpt",
+      "valid": true,
+      "condition": "Abstract:\nA rectangular frame plate with raised round collars around corner holes.\n\nDetailed CAD facts:\nThe part is a thin rectangular base with a large rectangular opening cut through the middle, leaving a continuous border frame. Four raised circular collars sit on the upper face near the corners of the frame rather than on any rectangular pads. Each collar is annular, with a central round hole that continues through the base. The rectangular center cut is a removed through area, and the circular centers are also removed material, while only the surrounding ring portions are added material. The model has stepped depth behavior: the base is shallow, the collars rise above it, and the central and circular cuts extend through the relevant thickness rather than forming raised features.",
+      "assets": {
+        "generated": "runs/text_image2cad_0026_00268024_image_text_cadquery_gpt/generated.json",
+        "generated_json": "runs/text_image2cad_0026_00268024_image_text_cadquery_gpt/generated.json",
+        "mesh": "runs/text_image2cad_0026_00268024_image_text_cadquery_gpt/model.stl",
+        "pred_render": "runs/text_image2cad_0026_00268024_image_text_cadquery_gpt/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0026_00268024.stl",
+        "gt_render": "gt_renders/text_image2cad_0026_00268024.png",
+        "input_image": "inputs/text_image2cad_0026_00268024.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.000257,
+        "hausdorff_distance": 0.066951,
+        "f_score_005": 0.981,
+        "f_score_001": 0.5991,
+        "normal_consistency": 0.6922,
+        "iou_csg": 0.546,
+        "iou_voxel": 0.6171,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "text_image2cad_0026_00268024_image_text_cadquery_kimi_k26-reason",
       "task": "text_image2cad",
       "case_id": "0026/00268024",
@@ -13739,6 +14464,35 @@
       "condition": "Abstract:\nA rectangular frame plate with raised round collars around corner holes.\n\nDetailed CAD facts:\nThe part is a thin rectangular base with a large rectangular opening cut through the middle, leaving a continuous border frame. Four raised circular collars sit on the upper face near the corners of the frame rather than on any rectangular pads. Each collar is annular, with a central round hole that continues through the base. The rectangular center cut is a removed through area, and the circular centers are also removed material, while only the surrounding ring portions are added material. The model has stepped depth behavior: the base is shallow, the collars rise above it, and the central and circular cuts extend through the relevant thickness rather than forming raised features.",
       "assets": {
         "generated": "runs/text_image2cad_0026_00268024_image_text_cadquery_kimi_k26-reason/generated.py",
+        "generated_json": "runs/text_image2cad_0026_00268024_image_text_cadquery_kimi_k26-reason/generated.json",
+        "mesh": "runs/text_image2cad_0026_00268024_image_text_cadquery_kimi_k26-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0026_00268024_image_text_cadquery_kimi_k26-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0026_00268024.stl",
+        "gt_render": "gt_renders/text_image2cad_0026_00268024.png",
+        "input_image": "inputs/text_image2cad_0026_00268024.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.000792,
+        "hausdorff_distance": 0.15007,
+        "f_score_005": 0.9108,
+        "f_score_001": 0.3285,
+        "normal_consistency": 0.6381,
+        "iou_csg": 0.3835,
+        "iou_voxel": 0.4439,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "text_image2cad_0026_00268024_image_text_json_kimi_k26-reason",
+      "task": "text_image2cad",
+      "case_id": "0026/00268024",
+      "spec": "image_text",
+      "format": "json",
+      "model": "kimi_k26-reason",
+      "valid": true,
+      "condition": "Abstract:\nA rectangular frame plate with raised round collars around corner holes.\n\nDetailed CAD facts:\nThe part is a thin rectangular base with a large rectangular opening cut through the middle, leaving a continuous border frame. Four raised circular collars sit on the upper face near the corners of the frame rather than on any rectangular pads. Each collar is annular, with a central round hole that continues through the base. The rectangular center cut is a removed through area, and the circular centers are also removed material, while only the surrounding ring portions are added material. The model has stepped depth behavior: the base is shallow, the collars rise above it, and the central and circular cuts extend through the relevant thickness rather than forming raised features.",
+      "assets": {
+        "generated": "runs/text_image2cad_0026_00268024_image_text_cadquery_kimi_k26-reason/generated.json",
         "generated_json": "runs/text_image2cad_0026_00268024_image_text_cadquery_kimi_k26-reason/generated.json",
         "mesh": "runs/text_image2cad_0026_00268024_image_text_cadquery_kimi_k26-reason/model.stl",
         "pred_render": "runs/text_image2cad_0026_00268024_image_text_cadquery_kimi_k26-reason/pred_render.png",
@@ -13787,6 +14541,35 @@
       }
     },
     {
+      "id": "text_image2cad_0026_00268024_image_text_json_gpt55-reason",
+      "task": "text_image2cad",
+      "case_id": "0026/00268024",
+      "spec": "image_text",
+      "format": "json",
+      "model": "gpt55-reason",
+      "valid": true,
+      "condition": "Abstract:\nA rectangular frame plate with raised round collars around corner holes.\n\nDetailed CAD facts:\nThe part is a thin rectangular base with a large rectangular opening cut through the middle, leaving a continuous border frame. Four raised circular collars sit on the upper face near the corners of the frame rather than on any rectangular pads. Each collar is annular, with a central round hole that continues through the base. The rectangular center cut is a removed through area, and the circular centers are also removed material, while only the surrounding ring portions are added material. The model has stepped depth behavior: the base is shallow, the collars rise above it, and the central and circular cuts extend through the relevant thickness rather than forming raised features.",
+      "assets": {
+        "generated": "runs/text_image2cad_0026_00268024_image_text_cadquery_gpt55-reason/generated.json",
+        "generated_json": "runs/text_image2cad_0026_00268024_image_text_cadquery_gpt55-reason/generated.json",
+        "mesh": "runs/text_image2cad_0026_00268024_image_text_cadquery_gpt55-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0026_00268024_image_text_cadquery_gpt55-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0026_00268024.stl",
+        "gt_render": "gt_renders/text_image2cad_0026_00268024.png",
+        "input_image": "inputs/text_image2cad_0026_00268024.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.000433,
+        "hausdorff_distance": 0.091929,
+        "f_score_005": 0.9703,
+        "f_score_001": 0.417,
+        "normal_consistency": 0.6466,
+        "iou_csg": 0.4264,
+        "iou_voxel": 0.4544,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "text_image2cad_0026_00268024_image_text_cadquery_gemini-reason",
       "task": "text_image2cad",
       "case_id": "0026/00268024",
@@ -13797,6 +14580,35 @@
       "condition": "Abstract:\nA rectangular frame plate with raised round collars around corner holes.\n\nDetailed CAD facts:\nThe part is a thin rectangular base with a large rectangular opening cut through the middle, leaving a continuous border frame. Four raised circular collars sit on the upper face near the corners of the frame rather than on any rectangular pads. Each collar is annular, with a central round hole that continues through the base. The rectangular center cut is a removed through area, and the circular centers are also removed material, while only the surrounding ring portions are added material. The model has stepped depth behavior: the base is shallow, the collars rise above it, and the central and circular cuts extend through the relevant thickness rather than forming raised features.",
       "assets": {
         "generated": "runs/text_image2cad_0026_00268024_image_text_cadquery_gemini-reason/generated.py",
+        "generated_json": "runs/text_image2cad_0026_00268024_image_text_cadquery_gemini-reason/generated.json",
+        "mesh": "runs/text_image2cad_0026_00268024_image_text_cadquery_gemini-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0026_00268024_image_text_cadquery_gemini-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0026_00268024.stl",
+        "gt_render": "gt_renders/text_image2cad_0026_00268024.png",
+        "input_image": "inputs/text_image2cad_0026_00268024.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.000144,
+        "hausdorff_distance": 0.043061,
+        "f_score_005": 1.0,
+        "f_score_001": 0.6427,
+        "normal_consistency": 0.7811,
+        "iou_csg": 0.6498,
+        "iou_voxel": 0.7318,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "text_image2cad_0026_00268024_image_text_json_gemini-reason",
+      "task": "text_image2cad",
+      "case_id": "0026/00268024",
+      "spec": "image_text",
+      "format": "json",
+      "model": "gemini-reason",
+      "valid": true,
+      "condition": "Abstract:\nA rectangular frame plate with raised round collars around corner holes.\n\nDetailed CAD facts:\nThe part is a thin rectangular base with a large rectangular opening cut through the middle, leaving a continuous border frame. Four raised circular collars sit on the upper face near the corners of the frame rather than on any rectangular pads. Each collar is annular, with a central round hole that continues through the base. The rectangular center cut is a removed through area, and the circular centers are also removed material, while only the surrounding ring portions are added material. The model has stepped depth behavior: the base is shallow, the collars rise above it, and the central and circular cuts extend through the relevant thickness rather than forming raised features.",
+      "assets": {
+        "generated": "runs/text_image2cad_0026_00268024_image_text_cadquery_gemini-reason/generated.json",
         "generated_json": "runs/text_image2cad_0026_00268024_image_text_cadquery_gemini-reason/generated.json",
         "mesh": "runs/text_image2cad_0026_00268024_image_text_cadquery_gemini-reason/model.stl",
         "pred_render": "runs/text_image2cad_0026_00268024_image_text_cadquery_gemini-reason/pred_render.png",
@@ -13843,6 +14655,33 @@
       }
     },
     {
+      "id": "text_image2cad_0092_00925049_image_text_json_doubao-reason",
+      "task": "text_image2cad",
+      "case_id": "0092/00925049",
+      "spec": "image_text",
+      "format": "json",
+      "model": "doubao-reason",
+      "valid": true,
+      "condition": "Abstract:\nA shallow channel-like solid with upright side walls and a raised perforated feature.\n\nDetailed CAD facts:\nThe model is built from a solid rectangular base with two long upright side walls added along opposite edges. Each side wall contains a round opening near the same end, and those openings are voids through the wall rather than raised circular details. A smaller solid rectangular raised feature sits on the upper face of the base between the walls. That raised feature contains two smaller circular cut or recess features at a matching height, with the cuts forming a shallower depth tier than the taller added material.",
+      "assets": {
+        "generated": "runs/text_image2cad_0092_00925049_image_text_cadquery_doubao-reason/generated.json",
+        "generated_json": "runs/text_image2cad_0092_00925049_image_text_cadquery_doubao-reason/generated.json",
+        "mesh": "runs/text_image2cad_0092_00925049_image_text_cadquery_doubao-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0092_00925049_image_text_cadquery_doubao-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0092_00925049.stl",
+        "gt_render": "gt_renders/text_image2cad_0092_00925049.png",
+        "input_image": "inputs/text_image2cad_0092_00925049.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.007381,
+        "hausdorff_distance": 0.282295,
+        "f_score_005": 0.3381,
+        "f_score_001": 0.0364,
+        "normal_consistency": 0.6023,
+        "pred_open_edge_ratio": 0.003937
+      }
+    },
+    {
       "id": "text_image2cad_0092_00925049_image_text_cadquery_qwen-reason",
       "task": "text_image2cad",
       "case_id": "0092/00925049",
@@ -13853,6 +14692,35 @@
       "condition": "Abstract:\nA shallow channel-like solid with upright side walls and a raised perforated feature.\n\nDetailed CAD facts:\nThe model is built from a solid rectangular base with two long upright side walls added along opposite edges. Each side wall contains a round opening near the same end, and those openings are voids through the wall rather than raised circular details. A smaller solid rectangular raised feature sits on the upper face of the base between the walls. That raised feature contains two smaller circular cut or recess features at a matching height, with the cuts forming a shallower depth tier than the taller added material.",
       "assets": {
         "generated": "runs/text_image2cad_0092_00925049_image_text_cadquery_qwen-reason/generated.py",
+        "generated_json": "runs/text_image2cad_0092_00925049_image_text_cadquery_qwen-reason/generated.json",
+        "mesh": "runs/text_image2cad_0092_00925049_image_text_cadquery_qwen-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0092_00925049_image_text_cadquery_qwen-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0092_00925049.stl",
+        "gt_render": "gt_renders/text_image2cad_0092_00925049.png",
+        "input_image": "inputs/text_image2cad_0092_00925049.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.001043,
+        "hausdorff_distance": 0.137625,
+        "f_score_005": 0.8719,
+        "f_score_001": 0.3951,
+        "normal_consistency": 0.7067,
+        "iou_csg": 0.323,
+        "iou_voxel": 0.413,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "text_image2cad_0092_00925049_image_text_json_qwen-reason",
+      "task": "text_image2cad",
+      "case_id": "0092/00925049",
+      "spec": "image_text",
+      "format": "json",
+      "model": "qwen-reason",
+      "valid": true,
+      "condition": "Abstract:\nA shallow channel-like solid with upright side walls and a raised perforated feature.\n\nDetailed CAD facts:\nThe model is built from a solid rectangular base with two long upright side walls added along opposite edges. Each side wall contains a round opening near the same end, and those openings are voids through the wall rather than raised circular details. A smaller solid rectangular raised feature sits on the upper face of the base between the walls. That raised feature contains two smaller circular cut or recess features at a matching height, with the cuts forming a shallower depth tier than the taller added material.",
+      "assets": {
+        "generated": "runs/text_image2cad_0092_00925049_image_text_cadquery_qwen-reason/generated.json",
         "generated_json": "runs/text_image2cad_0092_00925049_image_text_cadquery_qwen-reason/generated.json",
         "mesh": "runs/text_image2cad_0092_00925049_image_text_cadquery_qwen-reason/model.stl",
         "pred_render": "runs/text_image2cad_0092_00925049_image_text_cadquery_qwen-reason/pred_render.png",
@@ -13901,6 +14769,35 @@
       }
     },
     {
+      "id": "text_image2cad_0092_00925049_image_text_json_mimo_omni-reason",
+      "task": "text_image2cad",
+      "case_id": "0092/00925049",
+      "spec": "image_text",
+      "format": "json",
+      "model": "mimo_omni-reason",
+      "valid": true,
+      "condition": "Abstract:\nA shallow channel-like solid with upright side walls and a raised perforated feature.\n\nDetailed CAD facts:\nThe model is built from a solid rectangular base with two long upright side walls added along opposite edges. Each side wall contains a round opening near the same end, and those openings are voids through the wall rather than raised circular details. A smaller solid rectangular raised feature sits on the upper face of the base between the walls. That raised feature contains two smaller circular cut or recess features at a matching height, with the cuts forming a shallower depth tier than the taller added material.",
+      "assets": {
+        "generated": "runs/text_image2cad_0092_00925049_image_text_cadquery_mimo_omni-reason/generated.json",
+        "generated_json": "runs/text_image2cad_0092_00925049_image_text_cadquery_mimo_omni-reason/generated.json",
+        "mesh": "runs/text_image2cad_0092_00925049_image_text_cadquery_mimo_omni-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0092_00925049_image_text_cadquery_mimo_omni-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0092_00925049.stl",
+        "gt_render": "gt_renders/text_image2cad_0092_00925049.png",
+        "input_image": "inputs/text_image2cad_0092_00925049.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.008276,
+        "hausdorff_distance": 0.277738,
+        "f_score_005": 0.4245,
+        "f_score_001": 0.0616,
+        "normal_consistency": 0.2601,
+        "iou_csg": 0.0398,
+        "iou_voxel": 0.0562,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "text_image2cad_0092_00925049_image_text_cadquery_gpt",
       "task": "text_image2cad",
       "case_id": "0092/00925049",
@@ -13911,6 +14808,35 @@
       "condition": "Abstract:\nA shallow channel-like solid with upright side walls and a raised perforated feature.\n\nDetailed CAD facts:\nThe model is built from a solid rectangular base with two long upright side walls added along opposite edges. Each side wall contains a round opening near the same end, and those openings are voids through the wall rather than raised circular details. A smaller solid rectangular raised feature sits on the upper face of the base between the walls. That raised feature contains two smaller circular cut or recess features at a matching height, with the cuts forming a shallower depth tier than the taller added material.",
       "assets": {
         "generated": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt/generated.py",
+        "generated_json": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt/generated.json",
+        "mesh": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt/model.stl",
+        "pred_render": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0092_00925049.stl",
+        "gt_render": "gt_renders/text_image2cad_0092_00925049.png",
+        "input_image": "inputs/text_image2cad_0092_00925049.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.004688,
+        "hausdorff_distance": 0.258842,
+        "f_score_005": 0.5819,
+        "f_score_001": 0.1133,
+        "normal_consistency": 0.4195,
+        "iou_csg": 0.0451,
+        "iou_voxel": 0.0669,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "text_image2cad_0092_00925049_image_text_json_gpt",
+      "task": "text_image2cad",
+      "case_id": "0092/00925049",
+      "spec": "image_text",
+      "format": "json",
+      "model": "gpt",
+      "valid": true,
+      "condition": "Abstract:\nA shallow channel-like solid with upright side walls and a raised perforated feature.\n\nDetailed CAD facts:\nThe model is built from a solid rectangular base with two long upright side walls added along opposite edges. Each side wall contains a round opening near the same end, and those openings are voids through the wall rather than raised circular details. A smaller solid rectangular raised feature sits on the upper face of the base between the walls. That raised feature contains two smaller circular cut or recess features at a matching height, with the cuts forming a shallower depth tier than the taller added material.",
+      "assets": {
+        "generated": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt/generated.json",
         "generated_json": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt/generated.json",
         "mesh": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt/model.stl",
         "pred_render": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt/pred_render.png",
@@ -13959,6 +14885,35 @@
       }
     },
     {
+      "id": "text_image2cad_0092_00925049_image_text_json_kimi_k26-reason",
+      "task": "text_image2cad",
+      "case_id": "0092/00925049",
+      "spec": "image_text",
+      "format": "json",
+      "model": "kimi_k26-reason",
+      "valid": true,
+      "condition": "Abstract:\nA shallow channel-like solid with upright side walls and a raised perforated feature.\n\nDetailed CAD facts:\nThe model is built from a solid rectangular base with two long upright side walls added along opposite edges. Each side wall contains a round opening near the same end, and those openings are voids through the wall rather than raised circular details. A smaller solid rectangular raised feature sits on the upper face of the base between the walls. That raised feature contains two smaller circular cut or recess features at a matching height, with the cuts forming a shallower depth tier than the taller added material.",
+      "assets": {
+        "generated": "runs/text_image2cad_0092_00925049_image_text_cadquery_kimi_k26-reason/generated.json",
+        "generated_json": "runs/text_image2cad_0092_00925049_image_text_cadquery_kimi_k26-reason/generated.json",
+        "mesh": "runs/text_image2cad_0092_00925049_image_text_cadquery_kimi_k26-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0092_00925049_image_text_cadquery_kimi_k26-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0092_00925049.stl",
+        "gt_render": "gt_renders/text_image2cad_0092_00925049.png",
+        "input_image": "inputs/text_image2cad_0092_00925049.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.001113,
+        "hausdorff_distance": 0.138469,
+        "f_score_005": 0.8745,
+        "f_score_001": 0.4622,
+        "normal_consistency": 0.7124,
+        "iou_csg": 0.2967,
+        "iou_voxel": 0.4145,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "text_image2cad_0092_00925049_image_text_cadquery_gpt55-reason",
       "task": "text_image2cad",
       "case_id": "0092/00925049",
@@ -13969,6 +14924,35 @@
       "condition": "Abstract:\nA shallow channel-like solid with upright side walls and a raised perforated feature.\n\nDetailed CAD facts:\nThe model is built from a solid rectangular base with two long upright side walls added along opposite edges. Each side wall contains a round opening near the same end, and those openings are voids through the wall rather than raised circular details. A smaller solid rectangular raised feature sits on the upper face of the base between the walls. That raised feature contains two smaller circular cut or recess features at a matching height, with the cuts forming a shallower depth tier than the taller added material.",
       "assets": {
         "generated": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt55-reason/generated.py",
+        "generated_json": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt55-reason/generated.json",
+        "mesh": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt55-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt55-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0092_00925049.stl",
+        "gt_render": "gt_renders/text_image2cad_0092_00925049.png",
+        "input_image": "inputs/text_image2cad_0092_00925049.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.000439,
+        "hausdorff_distance": 0.110407,
+        "f_score_005": 0.9639,
+        "f_score_001": 0.3314,
+        "normal_consistency": 0.8157,
+        "iou_csg": 0.4305,
+        "iou_voxel": 0.5294,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
+      "id": "text_image2cad_0092_00925049_image_text_json_gpt55-reason",
+      "task": "text_image2cad",
+      "case_id": "0092/00925049",
+      "spec": "image_text",
+      "format": "json",
+      "model": "gpt55-reason",
+      "valid": true,
+      "condition": "Abstract:\nA shallow channel-like solid with upright side walls and a raised perforated feature.\n\nDetailed CAD facts:\nThe model is built from a solid rectangular base with two long upright side walls added along opposite edges. Each side wall contains a round opening near the same end, and those openings are voids through the wall rather than raised circular details. A smaller solid rectangular raised feature sits on the upper face of the base between the walls. That raised feature contains two smaller circular cut or recess features at a matching height, with the cuts forming a shallower depth tier than the taller added material.",
+      "assets": {
+        "generated": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt55-reason/generated.json",
         "generated_json": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt55-reason/generated.json",
         "mesh": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt55-reason/model.stl",
         "pred_render": "runs/text_image2cad_0092_00925049_image_text_cadquery_gpt55-reason/pred_render.png",
@@ -14017,11 +15001,59 @@
       }
     },
     {
+      "id": "text_image2cad_0092_00925049_image_text_json_gemini-reason",
+      "task": "text_image2cad",
+      "case_id": "0092/00925049",
+      "spec": "image_text",
+      "format": "json",
+      "model": "gemini-reason",
+      "valid": true,
+      "condition": "Abstract:\nA shallow channel-like solid with upright side walls and a raised perforated feature.\n\nDetailed CAD facts:\nThe model is built from a solid rectangular base with two long upright side walls added along opposite edges. Each side wall contains a round opening near the same end, and those openings are voids through the wall rather than raised circular details. A smaller solid rectangular raised feature sits on the upper face of the base between the walls. That raised feature contains two smaller circular cut or recess features at a matching height, with the cuts forming a shallower depth tier than the taller added material.",
+      "assets": {
+        "generated": "runs/text_image2cad_0092_00925049_image_text_cadquery_gemini-reason/generated.json",
+        "generated_json": "runs/text_image2cad_0092_00925049_image_text_cadquery_gemini-reason/generated.json",
+        "mesh": "runs/text_image2cad_0092_00925049_image_text_cadquery_gemini-reason/model.stl",
+        "pred_render": "runs/text_image2cad_0092_00925049_image_text_cadquery_gemini-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/text_image2cad_0092_00925049.stl",
+        "gt_render": "gt_renders/text_image2cad_0092_00925049.png",
+        "input_image": "inputs/text_image2cad_0092_00925049.png"
+      },
+      "metrics": {
+        "chamfer_distance": 0.003246,
+        "hausdorff_distance": 0.23768,
+        "f_score_005": 0.6804,
+        "f_score_001": 0.106,
+        "normal_consistency": 0.6761,
+        "iou_csg": 0.0371,
+        "iou_voxel": 0.0536,
+        "pred_open_edge_ratio": 0.0
+      }
+    },
+    {
       "id": "image2cad_articraft_claude_23751_image_openscad_claude-reason",
       "task": "image2cad",
       "case_id": "articraft/claude_23751",
       "spec": "image",
       "format": "openscad",
+      "model": "claude-reason",
+      "valid": true,
+      "condition": "Image-to-3D Articraft mesh case: hand plane.",
+      "assets": {
+        "generated": "runs/image2cad_articraft_claude_23751_image_openscad_claude-reason/generated.json",
+        "generated_json": "runs/image2cad_articraft_claude_23751_image_openscad_claude-reason/generated.json",
+        "mesh": "runs/image2cad_articraft_claude_23751_image_openscad_claude-reason/model.stl",
+        "pred_render": "runs/image2cad_articraft_claude_23751_image_openscad_claude-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_claude_23751.stl",
+        "gt_render": "gt_renders/articraft_claude_23751.png"
+      },
+      "metrics": {}
+    },
+    {
+      "id": "image2cad_articraft_claude_23751_image_json_claude-reason",
+      "task": "image2cad",
+      "case_id": "articraft/claude_23751",
+      "spec": "image",
+      "format": "json",
       "model": "claude-reason",
       "valid": true,
       "condition": "Image-to-3D Articraft mesh case: hand plane.",
@@ -14055,11 +15087,49 @@
       "metrics": {}
     },
     {
+      "id": "image2cad_articraft_claude_24074_image_json_claude-reason",
+      "task": "image2cad",
+      "case_id": "articraft/claude_24074",
+      "spec": "image",
+      "format": "json",
+      "model": "claude-reason",
+      "valid": true,
+      "condition": "Image-to-3D Articraft mesh case: keyboard.",
+      "assets": {
+        "generated": "runs/image2cad_articraft_claude_24074_image_openscad_claude-reason/generated.json",
+        "generated_json": "runs/image2cad_articraft_claude_24074_image_openscad_claude-reason/generated.json",
+        "mesh": "runs/image2cad_articraft_claude_24074_image_openscad_claude-reason/model.stl",
+        "pred_render": "runs/image2cad_articraft_claude_24074_image_openscad_claude-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_claude_24074.stl",
+        "gt_render": "gt_renders/articraft_claude_24074.png"
+      },
+      "metrics": {}
+    },
+    {
       "id": "image2cad_articraft_doubao_128372_image_openscad_doubao-reason",
       "task": "image2cad",
       "case_id": "articraft/doubao_128372",
       "spec": "image",
       "format": "openscad",
+      "model": "doubao-reason",
+      "valid": true,
+      "condition": "Image-to-3D Articraft mesh case: pc fan.",
+      "assets": {
+        "generated": "runs/image2cad_articraft_doubao_128372_image_openscad_doubao-reason/generated.json",
+        "generated_json": "runs/image2cad_articraft_doubao_128372_image_openscad_doubao-reason/generated.json",
+        "mesh": "runs/image2cad_articraft_doubao_128372_image_openscad_doubao-reason/model.stl",
+        "pred_render": "runs/image2cad_articraft_doubao_128372_image_openscad_doubao-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_doubao_128372.stl",
+        "gt_render": "gt_renders/articraft_doubao_128372.png"
+      },
+      "metrics": {}
+    },
+    {
+      "id": "image2cad_articraft_doubao_128372_image_json_doubao-reason",
+      "task": "image2cad",
+      "case_id": "articraft/doubao_128372",
+      "spec": "image",
+      "format": "json",
       "model": "doubao-reason",
       "valid": true,
       "condition": "Image-to-3D Articraft mesh case: pc fan.",
@@ -14093,11 +15163,49 @@
       "metrics": {}
     },
     {
+      "id": "image2cad_articraft_gemini_146853_image_json_gemini-reason",
+      "task": "image2cad",
+      "case_id": "articraft/gemini_146853",
+      "spec": "image",
+      "format": "json",
+      "model": "gemini-reason",
+      "valid": true,
+      "condition": "Image-to-3D Articraft mesh case: shed.",
+      "assets": {
+        "generated": "runs/image2cad_articraft_gemini_146853_image_openscad_gemini-reason/generated.json",
+        "generated_json": "runs/image2cad_articraft_gemini_146853_image_openscad_gemini-reason/generated.json",
+        "mesh": "runs/image2cad_articraft_gemini_146853_image_openscad_gemini-reason/model.stl",
+        "pred_render": "runs/image2cad_articraft_gemini_146853_image_openscad_gemini-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_gemini_146853.stl",
+        "gt_render": "gt_renders/articraft_gemini_146853.png"
+      },
+      "metrics": {}
+    },
+    {
       "id": "image2cad_articraft_gemini_25809_image_openscad_gemini-reason",
       "task": "image2cad",
       "case_id": "articraft/gemini_25809",
       "spec": "image",
       "format": "openscad",
+      "model": "gemini-reason",
+      "valid": true,
+      "condition": "Image-to-3D Articraft mesh case: shuttlecock.",
+      "assets": {
+        "generated": "runs/image2cad_articraft_gemini_25809_image_openscad_gemini-reason/generated.json",
+        "generated_json": "runs/image2cad_articraft_gemini_25809_image_openscad_gemini-reason/generated.json",
+        "mesh": "runs/image2cad_articraft_gemini_25809_image_openscad_gemini-reason/model.stl",
+        "pred_render": "runs/image2cad_articraft_gemini_25809_image_openscad_gemini-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_gemini_25809.stl",
+        "gt_render": "gt_renders/articraft_gemini_25809.png"
+      },
+      "metrics": {}
+    },
+    {
+      "id": "image2cad_articraft_gemini_25809_image_json_gemini-reason",
+      "task": "image2cad",
+      "case_id": "articraft/gemini_25809",
+      "spec": "image",
+      "format": "json",
       "model": "gemini-reason",
       "valid": true,
       "condition": "Image-to-3D Articraft mesh case: shuttlecock.",
@@ -14131,11 +15239,49 @@
       "metrics": {}
     },
     {
+      "id": "image2cad_articraft_glm_5v_turbo_127964_image_json_glm_5v_turbo-reason",
+      "task": "image2cad",
+      "case_id": "articraft/glm_5v_turbo_127964",
+      "spec": "image",
+      "format": "json",
+      "model": "glm_5v_turbo-reason",
+      "valid": true,
+      "condition": "Image-to-3D Articraft mesh case: shock absorber.",
+      "assets": {
+        "generated": "runs/image2cad_articraft_glm_5v_turbo_127964_image_openscad_glm_5v_turbo-reason/generated.json",
+        "generated_json": "runs/image2cad_articraft_glm_5v_turbo_127964_image_openscad_glm_5v_turbo-reason/generated.json",
+        "mesh": "runs/image2cad_articraft_glm_5v_turbo_127964_image_openscad_glm_5v_turbo-reason/model.stl",
+        "pred_render": "runs/image2cad_articraft_glm_5v_turbo_127964_image_openscad_glm_5v_turbo-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_glm_5v_turbo_127964.stl",
+        "gt_render": "gt_renders/articraft_glm_5v_turbo_127964.png"
+      },
+      "metrics": {}
+    },
+    {
       "id": "image2cad_articraft_gpt55_146890_image_openscad_gpt55-reason",
       "task": "image2cad",
       "case_id": "articraft/gpt55_146890",
       "spec": "image",
       "format": "openscad",
+      "model": "gpt55-reason",
+      "valid": true,
+      "condition": "Image-to-3D Articraft mesh case: crt tv.",
+      "assets": {
+        "generated": "runs/image2cad_articraft_gpt55_146890_image_openscad_gpt55-reason/generated.json",
+        "generated_json": "runs/image2cad_articraft_gpt55_146890_image_openscad_gpt55-reason/generated.json",
+        "mesh": "runs/image2cad_articraft_gpt55_146890_image_openscad_gpt55-reason/model.stl",
+        "pred_render": "runs/image2cad_articraft_gpt55_146890_image_openscad_gpt55-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_gpt55_146890.stl",
+        "gt_render": "gt_renders/articraft_gpt55_146890.png"
+      },
+      "metrics": {}
+    },
+    {
+      "id": "image2cad_articraft_gpt55_146890_image_json_gpt55-reason",
+      "task": "image2cad",
+      "case_id": "articraft/gpt55_146890",
+      "spec": "image",
+      "format": "json",
       "model": "gpt55-reason",
       "valid": true,
       "condition": "Image-to-3D Articraft mesh case: crt tv.",
@@ -14169,11 +15315,49 @@
       "metrics": {}
     },
     {
+      "id": "text_image2cad_articraft_gpt55_20546_image_text_json_gpt55-reason",
+      "task": "text_image2cad",
+      "case_id": "articraft/gpt55_20546",
+      "spec": "image_text",
+      "format": "json",
+      "model": "gpt55-reason",
+      "valid": true,
+      "condition": "Assembly-3D Articraft mesh case: toy robot.",
+      "assets": {
+        "generated": "runs/text_image2cad_articraft_gpt55_20546_image_text_openscad_gpt55-reason/generated.json",
+        "generated_json": "runs/text_image2cad_articraft_gpt55_20546_image_text_openscad_gpt55-reason/generated.json",
+        "mesh": "runs/text_image2cad_articraft_gpt55_20546_image_text_openscad_gpt55-reason/model.stl",
+        "pred_render": "runs/text_image2cad_articraft_gpt55_20546_image_text_openscad_gpt55-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_gpt55_20546.stl",
+        "gt_render": "gt_renders/articraft_gpt55_20546.png"
+      },
+      "metrics": {}
+    },
+    {
       "id": "text_image2cad_articraft_gpt55_20745_image_text_openscad_gpt55-reason",
       "task": "text_image2cad",
       "case_id": "articraft/gpt55_20745",
       "spec": "image_text",
       "format": "openscad",
+      "model": "gpt55-reason",
+      "valid": true,
+      "condition": "Assembly-3D Articraft mesh case: wall fan.",
+      "assets": {
+        "generated": "runs/text_image2cad_articraft_gpt55_20745_image_text_openscad_gpt55-reason/generated.json",
+        "generated_json": "runs/text_image2cad_articraft_gpt55_20745_image_text_openscad_gpt55-reason/generated.json",
+        "mesh": "runs/text_image2cad_articraft_gpt55_20745_image_text_openscad_gpt55-reason/model.stl",
+        "pred_render": "runs/text_image2cad_articraft_gpt55_20745_image_text_openscad_gpt55-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_gpt55_20745.stl",
+        "gt_render": "gt_renders/articraft_gpt55_20745.png"
+      },
+      "metrics": {}
+    },
+    {
+      "id": "text_image2cad_articraft_gpt55_20745_image_text_json_gpt55-reason",
+      "task": "text_image2cad",
+      "case_id": "articraft/gpt55_20745",
+      "spec": "image_text",
+      "format": "json",
       "model": "gpt55-reason",
       "valid": true,
       "condition": "Assembly-3D Articraft mesh case: wall fan.",
@@ -14207,11 +15391,49 @@
       "metrics": {}
     },
     {
+      "id": "text_image2cad_articraft_gpt55_24547_image_text_json_gpt55-reason",
+      "task": "text_image2cad",
+      "case_id": "articraft/gpt55_24547",
+      "spec": "image_text",
+      "format": "json",
+      "model": "gpt55-reason",
+      "valid": true,
+      "condition": "Assembly-3D Articraft mesh case: engine.",
+      "assets": {
+        "generated": "runs/text_image2cad_articraft_gpt55_24547_image_text_openscad_gpt55-reason/generated.json",
+        "generated_json": "runs/text_image2cad_articraft_gpt55_24547_image_text_openscad_gpt55-reason/generated.json",
+        "mesh": "runs/text_image2cad_articraft_gpt55_24547_image_text_openscad_gpt55-reason/model.stl",
+        "pred_render": "runs/text_image2cad_articraft_gpt55_24547_image_text_openscad_gpt55-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_gpt55_24547.stl",
+        "gt_render": "gt_renders/articraft_gpt55_24547.png"
+      },
+      "metrics": {}
+    },
+    {
       "id": "text_image2cad_articraft_gpt55_34338_image_text_openscad_gpt55-reason",
       "task": "text_image2cad",
       "case_id": "articraft/gpt55_34338",
       "spec": "image_text",
       "format": "openscad",
+      "model": "gpt55-reason",
+      "valid": true,
+      "condition": "Assembly-3D Articraft mesh case: loader.",
+      "assets": {
+        "generated": "runs/text_image2cad_articraft_gpt55_34338_image_text_openscad_gpt55-reason/generated.json",
+        "generated_json": "runs/text_image2cad_articraft_gpt55_34338_image_text_openscad_gpt55-reason/generated.json",
+        "mesh": "runs/text_image2cad_articraft_gpt55_34338_image_text_openscad_gpt55-reason/model.stl",
+        "pred_render": "runs/text_image2cad_articraft_gpt55_34338_image_text_openscad_gpt55-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_gpt55_34338.stl",
+        "gt_render": "gt_renders/articraft_gpt55_34338.png"
+      },
+      "metrics": {}
+    },
+    {
+      "id": "text_image2cad_articraft_gpt55_34338_image_text_json_gpt55-reason",
+      "task": "text_image2cad",
+      "case_id": "articraft/gpt55_34338",
+      "spec": "image_text",
+      "format": "json",
       "model": "gpt55-reason",
       "valid": true,
       "condition": "Assembly-3D Articraft mesh case: loader.",
@@ -14245,11 +15467,49 @@
       "metrics": {}
     },
     {
+      "id": "text_image2cad_articraft_kimi_k26_21133_image_text_json_kimi_k26-reason",
+      "task": "text_image2cad",
+      "case_id": "articraft/kimi_k26_21133",
+      "spec": "image_text",
+      "format": "json",
+      "model": "kimi_k26-reason",
+      "valid": true,
+      "condition": "Assembly-3D Articraft mesh case: clock.",
+      "assets": {
+        "generated": "runs/text_image2cad_articraft_kimi_k26_21133_image_text_threejs_kimi_k26-reason/generated.json",
+        "generated_json": "runs/text_image2cad_articraft_kimi_k26_21133_image_text_threejs_kimi_k26-reason/generated.json",
+        "mesh": "runs/text_image2cad_articraft_kimi_k26_21133_image_text_threejs_kimi_k26-reason/model.stl",
+        "pred_render": "runs/text_image2cad_articraft_kimi_k26_21133_image_text_threejs_kimi_k26-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_kimi_k26_21133.stl",
+        "gt_render": "gt_renders/articraft_kimi_k26_21133.png"
+      },
+      "metrics": {}
+    },
+    {
       "id": "text_image2cad_articraft_kimi_k26_24012_image_text_openscad_kimi_k26-reason",
       "task": "text_image2cad",
       "case_id": "articraft/kimi_k26_24012",
       "spec": "image_text",
       "format": "openscad",
+      "model": "kimi_k26-reason",
+      "valid": true,
+      "condition": "Assembly-3D Articraft mesh case: piston.",
+      "assets": {
+        "generated": "runs/text_image2cad_articraft_kimi_k26_24012_image_text_openscad_kimi_k26-reason/generated.json",
+        "generated_json": "runs/text_image2cad_articraft_kimi_k26_24012_image_text_openscad_kimi_k26-reason/generated.json",
+        "mesh": "runs/text_image2cad_articraft_kimi_k26_24012_image_text_openscad_kimi_k26-reason/model.stl",
+        "pred_render": "runs/text_image2cad_articraft_kimi_k26_24012_image_text_openscad_kimi_k26-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_kimi_k26_24012.stl",
+        "gt_render": "gt_renders/articraft_kimi_k26_24012.png"
+      },
+      "metrics": {}
+    },
+    {
+      "id": "text_image2cad_articraft_kimi_k26_24012_image_text_json_kimi_k26-reason",
+      "task": "text_image2cad",
+      "case_id": "articraft/kimi_k26_24012",
+      "spec": "image_text",
+      "format": "json",
       "model": "kimi_k26-reason",
       "valid": true,
       "condition": "Assembly-3D Articraft mesh case: piston.",
@@ -14283,11 +15543,49 @@
       "metrics": {}
     },
     {
+      "id": "text_image2cad_articraft_mimo_omni_36189_image_text_json_mimo_omni-reason",
+      "task": "text_image2cad",
+      "case_id": "articraft/mimo_omni_36189",
+      "spec": "image_text",
+      "format": "json",
+      "model": "mimo_omni-reason",
+      "valid": true,
+      "condition": "Assembly-3D Articraft mesh case: speaker.",
+      "assets": {
+        "generated": "runs/text_image2cad_articraft_mimo_omni_36189_image_text_threejs_mimo_omni-reason/generated.json",
+        "generated_json": "runs/text_image2cad_articraft_mimo_omni_36189_image_text_threejs_mimo_omni-reason/generated.json",
+        "mesh": "runs/text_image2cad_articraft_mimo_omni_36189_image_text_threejs_mimo_omni-reason/model.stl",
+        "pred_render": "runs/text_image2cad_articraft_mimo_omni_36189_image_text_threejs_mimo_omni-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_mimo_omni_36189.stl",
+        "gt_render": "gt_renders/articraft_mimo_omni_36189.png"
+      },
+      "metrics": {}
+    },
+    {
       "id": "text_image2cad_articraft_qwen_26917_image_text_threejs_qwen-reason",
       "task": "text_image2cad",
       "case_id": "articraft/qwen_26917",
       "spec": "image_text",
       "format": "threejs",
+      "model": "qwen-reason",
+      "valid": true,
+      "condition": "Assembly-3D Articraft mesh case: coffee grinder.",
+      "assets": {
+        "generated": "runs/text_image2cad_articraft_qwen_26917_image_text_threejs_qwen-reason/generated.json",
+        "generated_json": "runs/text_image2cad_articraft_qwen_26917_image_text_threejs_qwen-reason/generated.json",
+        "mesh": "runs/text_image2cad_articraft_qwen_26917_image_text_threejs_qwen-reason/model.stl",
+        "pred_render": "runs/text_image2cad_articraft_qwen_26917_image_text_threejs_qwen-reason/pred_render.png",
+        "gt_mesh": "gt_meshes/articraft_qwen_26917.stl",
+        "gt_render": "gt_renders/articraft_qwen_26917.png"
+      },
+      "metrics": {}
+    },
+    {
+      "id": "text_image2cad_articraft_qwen_26917_image_text_json_qwen-reason",
+      "task": "text_image2cad",
+      "case_id": "articraft/qwen_26917",
+      "spec": "image_text",
+      "format": "json",
       "model": "qwen-reason",
       "valid": true,
       "condition": "Assembly-3D Articraft mesh case: coffee grinder.",
