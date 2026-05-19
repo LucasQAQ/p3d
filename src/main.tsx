@@ -69,7 +69,7 @@ const fallbackManifest: Manifest = {
   schema_version: 1,
   paper: {
     title: "P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning",
-    authors: ["Yikang Yang¹,²,*", "Zhanpeng Hu¹,*", "Youtian Lin¹,²", "Mengqi Zhou¹,²", "Feihu Zhang²", "Jiaheng Liu¹", "Yao Yao¹"],
+    authors: ["Yikang Yang¹,²,*", "Zhanpeng Hu¹,*", "Youtian Lin¹", "Mengqi Zhou¹,²", "Feihu Zhang²", "Jiaheng Liu¹", "Yao Yao¹"],
     affiliations: ["¹Nanjing University", "²DreamTech", "*Equal contribution."],
     abstract:
       "Multimodal large language models can write code and interpret rendered images of 3D designs, but it remains unclear whether they can produce executable parametric 3D programs that are geometrically precise, semantically aligned and assembly-consistent. We introduce P3D-Bench, a benchmark that evaluates this ability under a unified protocol across three task families: text-conditioned part synthesis, image-conditioned multi-part reconstruction and image-plus-annotation assembly composition, with metrics that jointly probe executability, geometric fidelity, topology, text-grounded constraints, multiview semantic alignment and part-level assembly structure.",

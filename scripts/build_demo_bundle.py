@@ -146,7 +146,7 @@ def make_manifest() -> dict[str, Any]:
             "authors": [
                 "Yikang Yang¹,²,*",
                 "Zhanpeng Hu¹,*",
-                "Youtian Lin¹,²",
+                "Youtian Lin¹",
                 "Mengqi Zhou¹,²",
                 "Feihu Zhang²",
                 "Jiaheng Liu¹",
