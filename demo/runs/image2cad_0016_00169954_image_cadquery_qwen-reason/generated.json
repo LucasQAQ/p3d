@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0016/00169954",
+  "model": "qwen-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.019299,
+    "hausdorff_distance": 0.46622,
+    "f_score_005": 0.2748,
+    "f_score_001": 0.0679,
+    "normal_consistency": 0.5311,
+    "iou_csg": 0.0156,
+    "iou_voxel": 0.0271,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters - estimated from visual proportions in the image\nbase_thickness = 5.0          # Thickness of the main base plate\nbase_width = 80.0             # Overall width of the triangular base\nbase_depth = 60.0             # Depth of the triangular base (from front to back)\ncorner_radius = 15.0          # Radius for rounded corners on the base\nlarge_hole_diameter = 30.0    # Diameter of the large circular cutout on left\nlarge_hole_offset_x = 20.0    # X offset of large hole from left edge\nlarge_hole_offset_y = 30.0    # Y offset of large hole from front edge\n\n# Pin dimensions\npin1_diameter = 12.0          # Diameter of tall rear pin\npin1_height = 40.0            # Height of tall rear pin\npin1_hole_diameter = 4.0      # Hole diameter in tall rear pin\n\npin2_diameter = 10.0          # Diameter of medium right-side pin\npin2_height = 30.0            # Height of medium right-side pin\npin2_hole_diameter = 3.5      # Hole diameter in medium right-side pin\n\npin3_diameter = 8.0           # Diameter of short front-left pin\npin3_height = 20.0            # Height of short front-left pin\npin3_hole_diameter = 3.0      # Hole diameter in short front-left pin\n\n# Boss features (small cylindrical protrusions with holes)\nboss1_diameter = 10.0         # Diameter of first boss\nboss1_height = 8.0            # Height of first boss\nboss1_hole_diameter = 3.0     # Hole diameter in first boss\nboss1_x = 35.0                # X position of first boss\nboss1_y = 25.0                # Y position of first boss\n\nboss2_diameter = 8.0          # Diameter of second boss\nboss2_height = 6.0            # Height of second boss\nboss2_hole_diameter = 2.5     # Hole diameter in second boss\nboss2_x = 50.0                # X position of second boss\nboss2_y = 35.0                # Y position of second boss\n\n# Create the base plate with triangular shape and rounded corners\nbase = (\n    cq.Workplane(\"XY\")\n    .moveTo(0, 0)\n    .lineTo(base_width, 0)\n    .lineTo(base_width * 0.7, base_depth)\n    .threePointArc((base_width * 0.35, base_depth + corner_radius), (0, base_depth))\n    .close()\n    .extrude(base_thickness)\n)\n\n# Add the large circular cutout on the left side\nbase = (\n    base\n    .faces(\">Z\")\n    .workplane()\n    .center(large_hole_offset_x, large_hole_offset_y)\n    .circle(large_hole_diameter / 2)\n    .cutThruAll()\n)\n\n# Add the tall rear pin (positioned near the back corner)\npin1_pos_x = base_width * 0.8\npin1_pos_y = base_depth * 0.9\nresult = (\n    base\n    .faces(\">Z\")\n    .workplane()\n    .center(pin1_pos_x, pin1_pos_y)\n    .circle(pin1_diameter / 2)\n    .extrude(pin1_height)\n    .faces(\">Z\")\n    .workplane()\n    .circle(pin1_hole_diameter / 2)\n    .cutThruAll()\n)\n\n# Add the medium right-side pin\npin2_pos_x = base_width * 0.9\npin2_pos_y = base_depth * 0.3\nresult = (\n    result\n    .faces(\">Z\")\n    .workplane()\n    .center(pin2_pos_x, pin2_pos_y)\n    .circle(pin2_diameter / 2)\n    .extrude(pin2_height)\n    .faces(\">Z\")\n    .workplane()\n    .circle(pin2_hole_diameter / 2)\n    .cutThruAll()\n)\n\n# Add the short front-left pin\npin3_pos_x = base_width * 0.2\npin3_pos_y = base_depth * 0.2\nresult = (\n    result\n    .faces(\">Z\")\n    .workplane()\n    .center(pin3_pos_x, pin3_pos_y)\n    .circle(pin3_diameter / 2)\n    .extrude(pin3_height)\n    .faces(\">Z\")\n    .workplane()\n    .circle(pin3_hole_diameter / 2)\n    .cutThruAll()\n)\n\n# Add the first boss feature\nresult = (\n    result\n    .faces(\">Z\")\n    .workplane()\n    .center(boss1_x, boss1_y)\n    .circle(boss1_diameter / 2)\n    .extrude(boss1_height)\n    .faces(\">Z\")\n    .workplane()\n    .circle(boss1_hole_diameter / 2)\n    .cutThruAll()\n)\n\n# Add the second boss feature\nresult = (\n    result\n    .faces(\">Z\")\n    .workplane()\n    .center(boss2_x, boss2_y)\n    .circle(boss2_diameter / 2)\n    .extrude(boss2_height)\n    .faces(\">Z\")\n    .workplane()\n    .circle(boss2_hole_diameter / 2)\n    .cutThruAll()\n)"
+  },
+  "note": "Non-JSON CAD source wrapped as JSON."
+}

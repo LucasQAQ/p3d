@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0045/00457640",
+  "model": "gemini-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.000446,
+    "hausdorff_distance": 0.129758,
+    "f_score_005": 0.9685,
+    "f_score_001": 0.2756,
+    "normal_consistency": 0.8543,
+    "iou_csg": 0.6042,
+    "iou_voxel": 0.6282,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# ==========================================\n# Parameters\n# ==========================================\n\n# Overall box dimensions\nbox_length = 100.0\nbox_width = 100.0\nbase_thickness = 3.0\n\n# Wall and lip features\nlip_width = 2.0        # How much the base extends past the walls\nwall_thickness = 3.0   # Thickness of the main walls\nwall_height = 25.0     # Height of the walls from the base\n\n# Post features\npost_radius = 3.0\npost_height = 35.0     # Total height of the posts from the inner floor\npost_corner_offset = 8.0 # Distance from the inner corner to the post center\n\n# ==========================================\n# Calculations\n# ==========================================\n\n# Calculate wall outer and inner profiles\nouter_l = box_length - (2 * lip_width)\nouter_w = box_width - (2 * lip_width)\ninner_l = outer_l - (2 * wall_thickness)\ninner_w = outer_w - (2 * wall_thickness)\n\n# Calculate post center positions (relative to the center of the box)\npost_x = (inner_l / 2.0) - post_corner_offset\npost_y = (inner_w / 2.0) - post_corner_offset\n\npost_positions = [\n    (post_x, post_y),\n    (-post_x, post_y),\n    (post_x, -post_y),\n    (-post_x, -post_y)\n]\n\n# ==========================================\n# Modeling\n# ==========================================\n\n# 1. Create the base plate\n# The box is centered at the origin, so the top face is at Z = base_thickness / 2\nbase_plate = cq.Workplane(\"XY\").box(box_length, box_width, base_thickness)\n\n# 2. Create the outer walls\n# We select the top face of the base plate, draw the outer and inner rectangles, \n# and extrude to create a hollow shell.\nbody = (\n    base_plate.faces(\">Z\")\n    .workplane()\n    .rect(outer_l, outer_w)\n    .rect(inner_l, inner_w)\n    .extrude(wall_height)\n)\n\n# 3. Create the inner cylindrical posts\n# We create a new workplane starting at the inner floor level \n# (which is the top of the base plate) and extrude the cylinders.\nposts = (\n    cq.Workplane(\"XY\")\n    .workplane(offset=base_thickness / 2.0)\n    .pushPoints(post_positions)\n    .circle(post_radius)\n    .extrude(post_height)\n)\n\n# 4. Combine the body and the posts into a single solid\nresult = body.union(posts)"
+  },
+  "note": "Non-JSON CAD source wrapped as JSON."
+}

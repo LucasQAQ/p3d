@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0026/00268027",
+  "model": "doubao-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.003845,
+    "hausdorff_distance": 0.246366,
+    "f_score_005": 0.7291,
+    "f_score_001": 0.3928,
+    "normal_consistency": 0.5538,
+    "iou_csg": 0.2133,
+    "iou_voxel": 0.2588,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# ----------------------------\n# Parameter Definitions\n# ----------------------------\n# Outer rectangular frame dimensions\nframe_length = 160.0   # Overall length of the frame\nframe_width = 100.0    # Overall width of the frame\nframe_thickness = 3.0  # Thickness of the flat frame plate\nborder_width = 10.0    # Width of the frame edge around the central cutout\n\n# Mounting boss parameters\nboss_diameter = 12.0   # Outer diameter of each mounting boss\nboss_height = 6.0      # Height of bosses above the frame surface\nboss_hole_dia = 4.0    # Diameter of the through-hole in each boss\nboss_inset = 8.0       # Inset distance of bosses from the outer frame edges\n\n# ----------------------------\n# Modeling Steps\n# ----------------------------\n# 1. Create the base rectangular frame with a central rectangular cutout\nresult = (\n    cq.Workplane(\"XY\")\n    # Create outer rectangle of the frame\n    .rect(frame_length, frame_width)\n    # Subtract inner rectangle to make the hollow frame\n    .rect(frame_length - 2 * border_width, frame_width - 2 * border_width, forConstruction=True)\n    .extrude(frame_thickness)\n)\n\n# 2. Add mounting bosses on the corners of the frame\nresult = (\n    result.faces(\">Z\")  # Select top surface of the frame\n    .workplane()\n    # Place points at each boss location (inset from outer corners)\n    .pushPoints([\n        (frame_length/2 - boss_inset, frame_width/2 - boss_inset),\n        (frame_length/2 - boss_inset, -frame_width/2 + boss_inset),\n        (-frame_length/2 + boss_inset, -frame_width/2 + boss_inset),\n        (-frame_length/2 + boss_inset, frame_width/2 - boss_inset)\n    ])\n    # Create solid boss cylinders\n    .circle(boss_diameter / 2)\n    .extrude(boss_height)\n    # Drill through-holes through each boss and the frame plate\n    .faces(\">Z\")\n    .workplane()\n    .pushPoints([\n        (frame_length/2 - boss_inset, frame_width/2 - boss_inset),\n        (frame_length/2 - boss_inset, -frame_width/2 + boss_inset),\n        (-frame_length/2 + boss_inset, -frame_width/2 + boss_inset),\n        (-frame_length/2 + boss_inset, frame_width/2 - boss_inset)\n    ])\n    .circle(boss_hole_dia / 2)\n    .cutThruAll()\n)"
+  },
+  "note": "Non-JSON CAD source wrapped as JSON."
+}

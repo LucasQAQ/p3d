@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0026/00268027",
+  "model": "mimo_omni-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.003462,
+    "hausdorff_distance": 0.329676,
+    "f_score_005": 0.8747,
+    "f_score_001": 0.5542,
+    "normal_consistency": 0.5789,
+    "iou_csg": 0.2999,
+    "iou_voxel": 0.3777,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters - estimated based on proportions in the image\nframe_length = 100.0  # Overall length of the rectangular frame\nframe_width = 70.0    # Overall width of the rectangular frame\nframe_thickness = 2.0 # Thickness of the flat frame\nwall_width = 10.0     # Width of the frame's walls\nboss_diameter = 10.0  # Outer diameter of the cylindrical bosses\nboss_height = 5.0     # Height of the cylindrical bosses\nhole_diameter = 4.0   # Diameter of the through-holes in the bosses\n\n# Create the base rectangular frame with a central cutout\n# Start with a rectangle and subtract a smaller rectangle to create the frame\nouter_rect = (\n    cq.Workplane(\"XY\")\n    .box(frame_length, frame_width, frame_thickness)\n)\n\ninner_rect = (\n    cq.Workplane(\"XY\")\n    .box(frame_length - 2*wall_width, frame_width - 2*wall_width, frame_thickness)\n)\n\n# Combine to create the frame shape\nframe = outer_rect.cut(inner_rect)\n\n# Create the four cylindrical bosses at the corners\n# Position them inset from the corners by half the wall width\nboss_positions = [\n    (frame_length/2 - wall_width/2, frame_width/2 - wall_width/2),\n    (frame_length/2 - wall_width/2, -frame_width/2 + wall_width/2),\n    (-frame_length/2 + wall_width/2, frame_width/2 - wall_width/2),\n    (-frame_length/2 + wall_width/2, -frame_width/2 + wall_width/2)\n]\n\n# Add bosses to the frame\nresult = frame\nfor x, y in boss_positions:\n    # Create a boss at each position\n    boss = (\n        result\n        .workplane(offset=frame_thickness)\n        .center(x, y)\n        .circle(boss_diameter/2)\n        .extrude(boss_height)\n    )\n    result = boss\n\n# Add through-holes to each boss\nfor x, y in boss_positions:\n    # Create a hole through each boss\n    hole = (\n        result\n        .workplane(offset=frame_thickness)\n        .center(x, y)\n        .circle(hole_diameter/2)\n        .cutThruAll()\n    )\n    result = hole"
+  },
+  "note": "Non-JSON CAD source wrapped as JSON."
+}

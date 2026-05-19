@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0043/00431078",
+  "model": "qwen-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.006856,
+    "hausdorff_distance": 0.348116,
+    "f_score_005": 0.5719,
+    "f_score_001": 0.0524,
+    "normal_consistency": 0.3968,
+    "iou_csg": 0.1942,
+    "iou_voxel": 0.2196,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters - estimated from image proportions\n# Ring parameters\nring_outer_diameter = 20.0\nring_inner_diameter = 14.0\nring_height = 8.0\n\n# Base plate parameters\nbase_length = 35.0\nbase_width = 18.0\nbase_thickness = 3.0\n\n# Vertical wall parameters\nwall_height = 15.0\nwall_thickness = 4.0\n\n# Notch parameters (on top of vertical wall)\nnotch_width = 6.0\nnotch_depth = 3.0\nnotch_height = 2.0\n\n# Connector between ring and base\nconnector_width = 6.0\nconnector_height = 3.0\n\n# Create the model\nresult = (\n    # Start with the cylindrical ring\n    cq.Workplane(\"XY\")\n    .circle(ring_outer_diameter / 2)\n    .circle(ring_inner_diameter / 2)\n    .extrude(ring_height)\n    \n    # Add the base plate extending from the ring\n    .moveTo(ring_outer_diameter / 2, 0)\n    .box(base_length, base_width, base_thickness)\n    \n    # Add the vertical wall at the end of the base\n    .moveTo(base_length / 2 + ring_outer_diameter / 2, 0)\n    .workplane(offset=base_thickness)\n    .box(wall_thickness, base_width, wall_height)\n    \n    # Add notch on top of vertical wall (front side)\n    .moveTo(0, -base_width / 2 + notch_width / 2)\n    .workplane(offset=wall_height / 2)\n    .box(notch_depth, notch_width, notch_height)\n    \n    # Add notch on top of vertical wall (back side) \n    .moveTo(0, base_width - notch_width)\n    .box(notch_depth, notch_width, notch_height)\n    \n    # Add connector piece between ring and base\n    .moveTo(-base_length / 2, 0)\n    .workplane(offset=base_thickness / 2)\n    .box(connector_width, connector_width, connector_height)\n)\n\n# Union all parts into a single solid\nresult = result.union(result)"
+  },
+  "note": "Non-JSON CAD source wrapped as JSON."
+}
