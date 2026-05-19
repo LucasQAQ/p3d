@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0004/00042777",
+  "model": "gemini-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.000927,
+    "hausdorff_distance": 0.160689,
+    "f_score_005": 0.9115,
+    "f_score_001": 0.3288,
+    "normal_consistency": 0.7018,
+    "iou_csg": 0.5535,
+    "iou_voxel": 0.5762,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# ==========================================\n# Parameters\n# ==========================================\n# Base L-bracket dimensions\nbase_length_x = 120.0\nbase_length_y = 80.0\nbase_width = 30.0\nbase_thickness = 15.0\n\n# Vertical angle iron dimensions\nvert_length = 25.0\nvert_thickness = 4.0\nvert_height = 35.0\n\n# Features\nhole_radius = 4.0\nslot_width = 1.5\nslot_height = 8.0\n\n# ==========================================\n# Modeling\n# ==========================================\n\n# 1. Create the L-shaped base\n# We define the perimeter points of the L-shape on the XY plane\npts = [\n    (0, 0),\n    (base_length_x, 0),\n    (base_length_x, base_length_y),\n    (base_length_x - base_width, base_length_y),\n    (base_length_x - base_width, base_width),\n    (0, base_width)\n]\n\nbase = (\n    cq.Workplane(\"XY\")\n    .polyline(pts).close()\n    .extrude(base_thickness)\n)\n\n# 2. Add mounting holes to the base\n# Two holes on the long arm, one hole on the short arm\nhole_pts = [\n    (20, base_width / 2),                                    # Long arm hole 1\n    (60, base_width / 2),                                    # Long arm hole 2\n    (base_length_x - base_width / 2, base_length_y - 15)     # Short arm hole\n]\n\nbase = (\n    base.faces(\"<Z\").workplane()\n    .pushPoints(hole_pts)\n    .circle(hole_radius)\n    .cutThruAll()\n)\n\n# 3. Create the vertical L-shaped part (angle bracket)\n# It sits on top of the base at the inner corner\ninner_x = base_length_x - base_width\ninner_y = base_width\n\nv_pts = [\n    (inner_x, inner_y),\n    (inner_x - vert_length, inner_y),\n    (inner_x - vert_length, inner_y - vert_thickness),\n    (inner_x + vert_thickness, inner_y - vert_thickness),\n    (inner_x + vert_thickness, inner_y + vert_length),\n    (inner_x, inner_y + vert_length)\n]\n\nvert_part = (\n    cq.Workplane(\"XY\").workplane(offset=base_thickness)\n    .polyline(v_pts).close()\n    .extrude(vert_height)\n)\n\n# Combine the base and the vertical part\nresult = base.union(vert_part)\n\n# 4. Add the small vertical slot detail on the vertical flange\nslot_x = inner_x - vert_length / 2\nslot_z = base_thickness + vert_height / 2\n\nslot_cut = (\n    cq.Workplane(\"XY\")\n    .workplane(offset=slot_z)\n    .center(slot_x, inner_y - vert_thickness / 2)\n    .box(slot_width, vert_thickness * 2, slot_height)\n)\n\nresult = result.cut(slot_cut)\n\n# Export the final model\n# result.val().exportStep(\"l_bracket_assembly.step\")"
+  },
+  "note": "Non-JSON CAD source wrapped as JSON."
+}

@@ -79,6 +79,7 @@ PREFERRED_TEXT_CASES = [
 ]
 
 TEXT_CASE_TARGET = 24
+IMAGE_CADQUERY_CASE_TARGET = 8
 
 VISIBLE_METRICS = [
     "chamfer_distance",
@@ -92,6 +93,14 @@ VISIBLE_METRICS = [
     "acc_cmd",
     "acc_param",
 ]
+
+AUDIT: dict[str, Any] = {
+    "schema_version": 1,
+    "notes": [
+        "This file reports source-data coverage for the public static demo.",
+        "It intentionally omits private absolute paths and raw production logs.",
+    ],
+}
 
 
 def main() -> None:
@@ -117,10 +126,15 @@ def main() -> None:
         json.dump(manifest, fh, indent=2, ensure_ascii=False)
         fh.write("\n")
 
+    with (OUT / "data_audit.json").open("w", encoding="utf-8") as fh:
+        json.dump(AUDIT, fh, indent=2, ensure_ascii=False)
+        fh.write("\n")
+
     print(f"wrote {len(all_cases)} cases, {len(all_runs)} runs, {len(used_models)} model ids")
     print(f"text2cad: {len(text_cases)} cases, {sum(1 for r in text_runs if r['task'] == 'text2cad')} runs")
     print(f"image2cad: {sum(1 for c in all_cases if c['task'] == 'image2cad')} cases")
     print(f"text_image2cad: {sum(1 for c in all_cases if c['task'] == 'text_image2cad')} cases")
+    print("wrote public/demo/data_audit.json")
 
 
 def reset_public_demo() -> None:
@@ -160,7 +174,7 @@ def make_manifest() -> dict[str, Any]:
         },
         "tasks": [
             {"id": "text2cad", "label": "Text-to-3D", "formats": ["JSON", "OpenSCAD"], "status": "interactive"},
-            {"id": "image2cad", "label": "Image-to-3D", "formats": ["JSON", "OpenSCAD", "Three.js"], "status": "interactive"},
+            {"id": "image2cad", "label": "Image-to-3D", "formats": ["CadQuery", "OpenSCAD", "Three.js"], "status": "interactive"},
             {"id": "text_image2cad", "label": "Assembly-3D", "formats": ["JSON", "CadQuery", "OpenSCAD"], "status": "interactive"},
         ],
         "models": [],
@@ -233,29 +247,86 @@ def build_primary_cadquery_runs() -> tuple[list[dict[str, Any]], list[dict[str, 
     runs: list[dict[str, Any]] = []
     cases: list[dict[str, Any]] = []
 
-    for task, spec, limit in [("text_image2cad", "image_text", 3)]:
+    for task, spec, limit in [("image2cad", "image", IMAGE_CADQUERY_CASE_TARGET), ("text_image2cad", "image_text", 3)]:
         combos = {key: value for key, value in data.items() if key.startswith(f"{task}/")}
         if not combos:
             continue
-        common = None
-        for result in combos.values():
-            valid = {
-                case["case_id"]
-                for case in result.get("cases", [])
-                if case.get("valid") is True and case.get("stl_path") and case.get("pred_render_path")
+        combo_cases: dict[str, dict[str, dict[str, Any]]] = {}
+        incomplete_valid_runs: list[dict[str, Any]] = []
+        for combo_key, result in combos.items():
+            _, model_raw, fmt = combo_key.split("/")
+            model = normalize_model(model_raw)
+            exportable_cases = {}
+            for case in result.get("cases", []):
+                if case.get("valid") is not True:
+                    continue
+                if case_is_exportable(case, PRIMARY_CADQUERY_RESULTS.parent, task, model, fmt):
+                    exportable_cases[case["case_id"]] = case
+                else:
+                    incomplete_valid_runs.append({"case_id": case["case_id"], "model": model, "format": fmt})
+            combo_cases[combo_key] = exportable_cases
+
+        if task == "image2cad":
+            case_support = {
+                case_id: sum(1 for cases_by_id in combo_cases.values() if case_id in cases_by_id)
+                for case_id in {case_id for cases_by_id in combo_cases.values() for case_id in cases_by_id}
             }
-            common = valid if common is None else common & valid
-        selected = sorted(common or [])[:limit]
+            ranked = sorted(case_support, key=lambda case_id: (-case_support[case_id], case_id))
+            selected = ranked[:limit]
+            skipped = ranked[limit:]
+            AUDIT["image2cad_cadquery_source"] = {
+                "native_format": "cadquery",
+                "exportable_case_count": len(case_support),
+                "exportable_run_count": sum(case_support.values()),
+                "selected_case_count": len(selected),
+                "selected_run_count": sum(case_support[case_id] for case_id in selected),
+                "selection_policy": f"Selected the {limit} highest-model-coverage CadQuery cases for the lightweight public page demo.",
+                "support_distribution": {
+                    str(count): sum(1 for value in case_support.values() if value == count)
+                    for count in sorted(set(case_support.values()))
+                },
+                "selected_cases": [
+                    {
+                        "case_id": case_id,
+                        "model_count": case_support[case_id],
+                        "models": sorted(
+                            normalize_model(combo_key.split("/")[1])
+                            for combo_key, cases_by_id in combo_cases.items()
+                            if case_id in cases_by_id
+                        ),
+                    }
+                    for case_id in selected
+                ],
+                "not_selected_cases": [
+                    {"case_id": case_id, "model_count": case_support[case_id]}
+                    for case_id in skipped
+                ],
+                "incomplete_valid_runs": incomplete_valid_runs,
+            }
+        else:
+            common = None
+            for cases_by_id in combo_cases.values():
+                valid = set(cases_by_id)
+                common = valid if common is None else common & valid
+            selected = sorted(common or [])[:limit]
 
         for case_id in selected:
             title = None
-            for combo_key, result in combos.items():
+            thumbnail = None
+            for combo_key, cases_by_id in combo_cases.items():
                 model_raw = combo_key.split("/")[1]
                 model = normalize_model(model_raw)
                 fmt = combo_key.split("/")[2]
-                source_case = next(case for case in result["cases"] if case["case_id"] == case_id)
+                source_case = cases_by_id.get(case_id)
+                if not source_case:
+                    continue
                 condition = source_case.get("condition_text") or default_condition_for_task(task)
                 title = title or summarize_condition(condition if task != "image2cad" else f"Image reference for {case_id}.")
+                if task == "image2cad" and thumbnail is None:
+                    thumbnail = copy_asset(
+                        resolve_existing(source_case.get("input_image_path")),
+                        OUT / "inputs" / f"{safe_slug(task + '_' + case_id)}.png",
+                    )
                 runs.append(
                     make_run_from_case(
                         task=task,
@@ -267,17 +338,26 @@ def build_primary_cadquery_runs() -> tuple[list[dict[str, Any]], list[dict[str, 
                         condition=condition,
                     )
                 )
-            cases.append({"id": case_id, "title": title or case_id, "task": task})
+            cases.append(
+                {
+                    "id": case_id,
+                    "title": title or case_id,
+                    "task": task,
+                    **({"thumbnail": rel(thumbnail)} if thumbnail else {}),
+                }
+            )
 
     return runs, cases
 
 
 def build_articraft_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     if not ARTICRAFT_ALL_MODELS_ROOT.exists():
+        AUDIT["image2cad_articraft_source"] = {"available": False}
         return [], []
 
     runs: list[dict[str, Any]] = []
     cases: list[dict[str, Any]] = []
+    case_reports: list[dict[str, Any]] = []
 
     for case_dir in sorted((path for path in ARTICRAFT_ALL_MODELS_ROOT.iterdir() if path.is_dir()), key=articraft_case_sort_key):
         label, numeric_id = split_articraft_case_name(case_dir.name)
@@ -306,6 +386,17 @@ def build_articraft_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
             source = generated_source_for_format(model_dir, fmt)
             if not source:
                 continue
+            case_report = next((item for item in case_reports if item["case_id"] == case_id), None)
+            if case_report is None:
+                case_report = {
+                    "case_id": case_id,
+                    "input_image": bool(input_image),
+                    "models": [],
+                    "formats": {},
+                }
+                case_reports.append(case_report)
+            case_report["models"].append(model)
+            case_report["formats"][fmt] = case_report["formats"].get(fmt, 0) + 1
             case = {
                 "case_id": case_id,
                 "valid": payload.get("valid") is True,
@@ -328,6 +419,27 @@ def build_articraft_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                     condition=condition,
                 )
             )
+
+    AUDIT["image2cad_articraft_source"] = {
+        "available": True,
+        "source_case_count": len([path for path in ARTICRAFT_ALL_MODELS_ROOT.iterdir() if path.is_dir()]),
+        "selected_case_count": len(cases),
+        "selected_run_count": len(runs),
+        "native_format_summary": {
+            fmt: sum(1 for report in case_reports if report["formats"].get(fmt))
+            for fmt in ["cadquery", "openscad", "threejs"]
+        },
+        "cases": [
+            {
+                "case_id": report["case_id"],
+                "model_count": len(report["models"]),
+                "models": sorted(report["models"]),
+                "formats": report["formats"],
+                "input_image": report["input_image"],
+            }
+            for report in case_reports
+        ],
+    }
 
     return runs, cases
 
@@ -706,19 +818,6 @@ def add_json_view_runs(runs: list[dict[str, Any]]) -> list[dict[str, Any]]:
     for run in runs:
         output.append(run)
         seen_ids.add(run["id"])
-        if run["task"] == "text2cad" or run["format"] == "json" or not run.get("assets", {}).get("generated_json"):
-            continue
-
-        json_run = dict(run)
-        json_run["format"] = "json"
-        json_run["id"] = run_id(run["task"], run["case_id"], run["spec"], "json", run["model"])
-        if json_run["id"] in seen_ids:
-            continue
-        json_run["assets"] = dict(run["assets"])
-        json_run["assets"]["generated"] = run["assets"]["generated_json"]
-        json_run["metrics"] = dict(run.get("metrics") or {})
-        output.append(json_run)
-        seen_ids.add(json_run["id"])
     return output
 
 

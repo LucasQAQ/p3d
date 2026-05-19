@@ -77,7 +77,7 @@ const fallbackManifest: Manifest = {
   },
   tasks: [
     { id: "text2cad", label: "Text-to-3D", formats: ["JSON", "OpenSCAD"], status: "interactive" },
-    { id: "image2cad", label: "Image-to-3D", formats: ["JSON", "OpenSCAD", "Three.js"], status: "interactive" },
+    { id: "image2cad", label: "Image-to-3D", formats: ["CadQuery", "OpenSCAD", "Three.js"], status: "interactive" },
     { id: "text_image2cad", label: "Assembly-3D", formats: ["JSON", "CadQuery", "OpenSCAD"], status: "interactive" }
   ],
   models: [],
@@ -133,7 +133,8 @@ function App() {
   const caseRuns = useMemo(() => taskRuns.filter((run) => run.case_id === activeCaseId), [activeCaseId, taskRuns]);
   const models = useMemo(() => manifest.models.filter((item) => caseRuns.some((run) => run.model === item.id)), [caseRuns, manifest.models]);
   const modelRuns = useMemo(() => caseRuns.filter((run) => run.model === activeModel), [activeModel, caseRuns]);
-  const formats = useMemo(() => Array.from(new Set(modelRuns.map((run) => run.format))).sort((a, b) => formatPriority(a) - formatPriority(b)), [modelRuns]);
+  const taskFormats = useMemo(() => Array.from(new Set(taskRuns.map((run) => run.format))).sort((a, b) => formatPriority(a) - formatPriority(b)), [taskRuns]);
+  const formats = taskFormats.length ? taskFormats : modelRuns.map((run) => run.format);
 
   useEffect(() => {
     if (!selectedRun) return;
@@ -168,8 +169,14 @@ function App() {
     setFormat(run.format);
   };
 
+  const pickRunForFormat = (nextFormat: string) =>
+    pickDefaultRun(taskRuns.filter((run) => run.case_id === activeCaseId && run.model === activeModel && run.format === nextFormat)) ||
+    pickDefaultRun(taskRuns.filter((run) => run.case_id === activeCaseId && run.format === nextFormat)) ||
+    pickDefaultRun(taskRuns.filter((run) => run.model === activeModel && run.format === nextFormat)) ||
+    pickDefaultRun(taskRuns.filter((run) => run.format === nextFormat));
+
   useEffect(() => {
-    const path = selectedRun?.assets.generated_json || selectedRun?.assets.generated;
+    const path = selectedRun?.assets.generated || selectedRun?.assets.generated_json;
     if (!path) {
       setCode("");
       return;
@@ -245,7 +252,7 @@ function App() {
                 />
               ) : null}
               <Select label="Model" value={activeModel} options={models.map((item) => [item.id, item.label])} onChange={(nextModel) => applyRunSelection(pickDefaultRun(caseRuns.filter((run) => run.model === nextModel)))} />
-              <Select label="Format" value={activeFormat} options={formats.map((item) => [item, outputFormatLabel(item)])} onChange={(nextFormat) => applyRunSelection(pickDefaultRun(modelRuns.filter((run) => run.format === nextFormat)))} />
+              <Select label="Format" value={activeFormat} options={formats.map((item) => [item, outputFormatLabel(item)])} onChange={(nextFormat) => applyRunSelection(pickRunForFormat(nextFormat))} />
               <div className="select-label readonly-select">
                 <span>Input protocol</span>
                 <strong>{inputSpecLabel(activeSpec)}</strong>
@@ -272,8 +279,8 @@ function App() {
               </div>
               <MetricStrip run={selectedRun} />
               <div className="code-panel">
-                <div className="panel-title"><Code2 size={18} /> Generated JSON</div>
-                <pre><code>{code || "No JSON."}</code></pre>
+                <div className="panel-title"><Code2 size={18} /> Generated {outputFormatLabel(activeFormat)}</div>
+                <pre><code>{code || "No generated output."}</code></pre>
               </div>
             </div>
           </div>
@@ -314,7 +321,7 @@ function App() {
 
 function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
   const modelCycle = ["gpt55-reason", "gemini-reason", "claude-reason", "kimi_k26-reason", "doubao-reason", "qwen-reason", "mimo_omni-reason"];
-  const formatCycle = ["json", "openscad", "json", "openscad"];
+  const formatCycle = ["openscad", "cadquery", "threejs", "json"];
   const modelLabel = new Map(manifest.models.map((model) => [model.id, model.label]));
   const taskLabel = new Map(manifest.tasks.map((task) => [task.id, task.label]));
   const caseTitle = new Map(manifest.cases.map((item) => [item.id, item.title]));
@@ -381,7 +388,7 @@ function interleaveShowcaseItems(items: ShowcaseItem[]) {
 }
 
 function isCompleteDemoRun(run: Run) {
-  return Boolean((run.condition || "").trim() && run.assets.generated_json && run.assets.gt_mesh && run.assets.gt_render && run.assets.mesh && run.assets.pred_render);
+  return Boolean((run.condition || "").trim() && (run.assets.generated || run.assets.generated_json) && run.assets.gt_mesh && run.assets.gt_render && run.assets.mesh && run.assets.pred_render);
 }
 
 function getInteractiveCaseIds(runs: Run[]) {
@@ -430,8 +437,8 @@ function specPriority(spec: string) {
 
 function formatPriority(formatName: string) {
   if (formatName === "json") return 0;
-  if (formatName === "openscad") return 1;
-  if (formatName === "cadquery") return 2;
+  if (formatName === "cadquery") return 1;
+  if (formatName === "openscad") return 2;
   if (formatName === "threejs") return 3;
   return 4;
 }

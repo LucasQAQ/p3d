@@ -45,14 +45,16 @@ The bundle intentionally keeps only page-facing artifacts: generated CAD
 programs, STL meshes, thumbnails, input images, and compact public metrics. It
 does not include request configs, response logs, token usage, screening or
 annotation artifacts, full result trees, or paper plotting outputs.
+The rebuild also writes `public/demo/data_audit.json`, which records source
+coverage and any case/model subsets used for the lightweight public demo without
+including private absolute paths.
 
-Every bundled run also includes `assets.generated_json`. Native JSON outputs
-point to the original generated CAD JSON, while non-JSON outputs are wrapped in
-a sanitized JSON envelope that records the task, case, model, input spec,
-output format, metrics, and generated program text when that source is present.
-The page exposes JSON for every interactive case/model pair; Text-to-3D pairs
-also expose OpenSCAD. The Image-to-3D demo is rebuilt from the sanitized
-all-model Articraft bundle and exposes 17 image cases with 8 model predictions
-per case; each case exposes its available native CAD format, currently
-OpenSCAD or Three.js, alongside JSON. Assembly cases remain a small placeholder
-set until the complete public assembly bundle is supplied.
+Every bundled run includes the native generated program in `assets.generated`.
+For auditability, non-JSON outputs also include `assets.generated_json`, a
+sanitized JSON envelope that records the task, case, model, input spec, output
+format, metrics, and generated program text when that source is present.
+Text-to-3D exposes JSON and OpenSCAD. Image-to-3D follows the paper protocol and
+exposes the three native formats CadQuery, OpenSCAD, and Three.js from real
+local runs; JSON is not treated as an Image-to-3D native format. Assembly cases
+remain a small placeholder set until the complete public assembly bundle is
+supplied.

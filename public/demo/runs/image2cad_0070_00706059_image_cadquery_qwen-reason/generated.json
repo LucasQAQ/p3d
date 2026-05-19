@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0070/00706059",
+  "model": "qwen-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.006155,
+    "hausdorff_distance": 0.266724,
+    "f_score_005": 0.5244,
+    "f_score_001": 0.0292,
+    "normal_consistency": 0.5357,
+    "iou_csg": 0.3722,
+    "iou_voxel": 0.3878,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters - estimated from visual proportions\n# Main cylinder dimensions\ncylinder_outer_diameter = 30.0\ncylinder_inner_diameter = 18.0\ncylinder_height = 25.0\n\n# Base plate dimensions\nbase_width = 60.0\nbase_depth = 40.0\nbase_thickness = 8.0\n\n# Mounting tabs (the three rectangular protrusions)\ntab_width = 12.0\ntab_depth = 15.0\ntab_height = 12.0\n\n# Circular cutout in base (left side)\ncutout_diameter = 20.0\ncutout_offset_x = -15.0  # offset from center towards left\ncutout_offset_y = 0.0\n\n# Create the model\nresult = (\n    cq.Workplane(\"XY\")\n    \n    # Step 1: Create the main base plate\n    .box(base_width, base_depth, base_thickness)\n    \n    # Step 2: Add the central cylinder (extruded upward from base top)\n    .moveTo(0, 0)\n    .circle(cylinder_outer_diameter / 2)\n    .extrude(cylinder_height)\n    \n    # Step 3: Subtract the inner hole of the cylinder\n    .moveTo(0, 0)\n    .circle(cylinder_inner_diameter / 2)\n    .extrude(-cylinder_height - base_thickness, both=True)\n    \n    # Step 4: Add mounting tab on the right side\n    .moveTo(base_width/2 - tab_depth/2, 0)\n    .rect(tab_depth, tab_width)\n    .extrude(tab_height)\n    \n    # Step 5: Add mounting tab on the front side\n    .moveTo(0, base_depth/2 - tab_depth/2)\n    .rect(tab_width, tab_depth)\n    .extrude(tab_height)\n    \n    # Step 6: Add mounting tab on the back-left side (angled or positioned appropriately)\n    # Based on image, this appears to be a third tab extending diagonally or at an angle\n    # For simplicity, we'll place it symmetrically opposite the front tab but rotated\n    .moveTo(-base_width/4, -base_depth/2 + tab_depth/2)\n    .rect(tab_width, tab_depth)\n    .extrude(tab_height)\n    \n    # Step 7: Cut out the circular hole in the base (left side)\n    .moveTo(cutout_offset_x, cutout_offset_y)\n    .circle(cutout_diameter / 2)\n    .extrude(-base_thickness, both=True)\n)\n\n# Final result is ready for export"
+  },
+  "note": "Non-JSON CAD source wrapped as JSON."
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0016/00169954",
+  "model": "mimo_omni-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.014327,
+    "hausdorff_distance": 0.369648,
+    "f_score_005": 0.3181,
+    "f_score_001": 0.0525,
+    "normal_consistency": 0.3207,
+    "iou_csg": 0.0389,
+    "iou_voxel": 0.0469,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters - estimated based on proportions in the image\nbase_width = 40.0          # Width of the rectangular portion\nbase_length = 60.0         # Length of the rectangular portion\nbase_thickness = 3.0       # Thickness of the base plate\ncorner_radius = 20.0       # Radius of the rounded corner\n\n# Mounting post dimensions\ntall_post_height = 25.0    # Height of the three tall posts\ntall_post_diameter = 6.0   # Diameter of the tall posts\ntall_hole_diameter = 2.5   # Hole diameter in tall posts\n\nshort_post_height = 8.0    # Height of the two short posts\nshort_post_diameter = 8.0  # Diameter of the short posts\nshort_hole_diameter = 3.5  # Hole diameter in short posts\n\n# Create the base plate with rounded corner\n# Start with a rectangular base\nbase = (\n    cq.Workplane(\"XY\")\n    .box(base_width, base_length, base_thickness)\n)\n\n# Add the rounded corner (fillet one edge)\n# The rounded corner is on the left side in the image\nbase = (\n    base.faces(\"<Z\").workplane()\n    .transformed(offset=(0, -base_length/2 + corner_radius, 0))\n    .circle(corner_radius)\n    .extrude(base_thickness, both=True)\n)\n\n# Create the large circular cutout in the rounded corner\nbase = (\n    base.faces(\">Z\").workplane()\n    .transformed(offset=(0, -base_length/2 + corner_radius, 0))\n    .hole(corner_radius * 1.6)  # Large hole in the rounded section\n)\n\n# Add the three tall mounting posts\n# Positions estimated from the image\ntall_post_positions = [\n    (base_width/2 - 10, base_length/2 - 10),      # Top right\n    (-base_width/2 + 10, base_length/2 - 10),     # Top left\n    (-base_width/2 + 10, -base_length/2 + 10),    # Bottom left\n]\n\nfor x, y in tall_post_positions:\n    base = (\n        base.faces(\">Z\").workplane()\n        .pushPoints([(x, y)])\n        .circle(tall_post_diameter/2)\n        .extrude(tall_post_height)\n        .faces(\">Z\").workplane()\n        .hole(tall_hole_diameter)\n    )\n\n# Add the two short mounting posts\n# Positions estimated from the image\nshort_post_positions = [\n    (0, -5),      # Center front\n    (10, 5),      # Center right\n]\n\nfor x, y in short_post_positions:\n    base = (\n        base.faces(\">Z\").workplane()\n        .pushPoints([(x, y)])\n        .circle(short_post_diameter/2)\n        .extrude(short_post_height)\n        .faces(\">Z\").workplane()\n        .hole(short_hole_diameter)\n    )\n\n# Final result\nresult = base"
+  },
+  "note": "Non-JSON CAD source wrapped as JSON."
+}

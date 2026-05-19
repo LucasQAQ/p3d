@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0004/00042777",
+  "model": "mimo_omni-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.007929,
+    "hausdorff_distance": 0.267918,
+    "f_score_005": 0.5029,
+    "f_score_001": 0.1625,
+    "normal_consistency": 0.4189,
+    "iou_csg": 0.1426,
+    "iou_voxel": 0.1604,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters - estimated based on proportions in the image\n# Base plate dimensions\nbase_length = 80.0\nbase_width = 20.0\nbase_thickness = 5.0\n\n# Vertical post dimensions\npost_width = 20.0\npost_height = 25.0\npost_thickness = 5.0\n\n# Top flange dimensions\nflange_length = 30.0\nflange_width = 20.0\nflange_thickness = 5.0\n\n# Hole parameters\nhole_diameter = 4.0\nhole_offset_from_end = 10.0  # Distance from ends of base plate\n\n# Create the base plate with two holes\nbase = (\n    cq.Workplane(\"XY\")\n    .box(base_length, base_width, base_thickness)\n    # Add holes to base plate\n    .faces(\">Z\")\n    .workplane()\n    .pushPoints([\n        (base_length/2 - hole_offset_from_end, 0),\n        (-base_length/2 + hole_offset_from_end, 0)\n    ])\n    .hole(hole_diameter)\n)\n\n# Create the vertical post attached to the base\npost = (\n    cq.Workplane(\"XY\")\n    .transformed(offset=(0, 0, base_thickness))\n    .box(post_width, post_thickness, post_height)\n)\n\n# Create the top flange attached to the post\nflange = (\n    cq.Workplane(\"XY\")\n    .transformed(offset=(0, 0, base_thickness + post_height))\n    .box(flange_length, flange_width, flange_thickness)\n)\n\n# Combine all parts into a single solid\nresult = base.union(post).union(flange)"
+  },
+  "note": "Non-JSON CAD source wrapped as JSON."
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0004/00042777",
+  "model": "kimi_k26-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.00502,
+    "hausdorff_distance": 0.210666,
+    "f_score_005": 0.5853,
+    "f_score_001": 0.0656,
+    "normal_consistency": 0.4221,
+    "iou_csg": 0.1836,
+    "iou_voxel": 0.202,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Main base plate parameters\nbase_length = 80.0\nbase_width = 20.0\nbase_height = 10.0\n\n# Vertical post parameters\npost_width = 20.0\npost_depth = 20.0\npost_height = 30.0\n\n# Top arm parameters (extends from top of post, same width as post)\narm_length = 30.0\narm_width = 20.0\narm_height = 10.0\n\n# Hole parameters\nhole_diameter = 4.0\nhole_offset_from_end = 10.0  # Distance from each end of base plate\n\n# Build the model starting from the base plate\nresult = (\n    cq.Workplane(\"XY\")\n    # Create the main base plate\n    .box(base_length, base_width, base_height, centered=False)\n    # Move to the center-top of the base plate for the vertical post\n    .faces(\">Z\")\n    .workplane()\n    .moveTo(base_length / 2, base_width / 2)\n    # Create the vertical post centered on the base plate\n    .rect(post_width, post_depth)\n    .extrude(post_height)\n    # Move to the top of the post for the upper arm\n    .faces(\">Z\")\n    .workplane()\n    # The arm extends backward (negative Y direction) from the post\n    .moveTo(0, -arm_length / 2 + post_depth / 2)\n    .rect(post_width, arm_length)\n    .extrude(arm_height)\n    # Move back to the base plate top face to cut holes\n    .faces(\"<Z\")\n    .workplane()\n    # First hole near one end of base plate\n    .moveTo(hole_offset_from_end, base_width / 2)\n    .hole(hole_diameter)\n    # Second hole near the other end of base plate\n    .moveTo(base_length - hole_offset_from_end, base_width / 2)\n    .hole(hole_diameter)\n)"
+  },
+  "note": "Non-JSON CAD source wrapped as JSON."
+}

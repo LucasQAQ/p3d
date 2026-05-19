@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0026/00268027",
+  "model": "kimi_k26-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.000437,
+    "hausdorff_distance": 0.088069,
+    "f_score_005": 0.9765,
+    "f_score_001": 0.0211,
+    "normal_consistency": 0.7555,
+    "iou_csg": 0.2463,
+    "iou_voxel": 0.3679,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters - overall frame dimensions\nouter_width = 120.0       # Overall width of the rectangular frame (X direction)\nouter_length = 80.0       # Overall length of the rectangular frame (Y direction)\nframe_thickness = 5.0     # Thickness of the base plate (Z direction)\nframe_width = 15.0        # Width of the frame border (from outer edge to inner cutout edge)\n\n# Parameters - mounting bosses\nboss_diameter = 10.0      # Outer diameter of cylindrical mounting bosses\nboss_height = 8.0         # Height of bosses above the frame surface\nhole_diameter = 4.0       # Diameter of through-hole in each boss\nhole_depth = frame_thickness + boss_height  # Through-hole depth (must go through boss and plate)\n\n# Derived parameters - inner cutout dimensions\ninner_width = outer_width - 2 * frame_width   # Width of the central rectangular cutout\ninner_length = outer_length - 2 * frame_width # Length of the central rectangular cutout\n\n# Boss positions - centered on each corner of the inner cutout\n# These positions place the bosses at the inner corners of the frame border\nboss_offset_x = inner_width / 2   # Half inner width for X positioning\nboss_offset_y = inner_length / 2  # Half inner length for Y positioning\n\n# Create the base rectangular frame with a central cutout\n# Start with a solid rectangle, then cut out the center to create the border\nframe_base = (\n    cq.Workplane(\"XY\")\n    .box(outer_width, outer_length, frame_thickness, centered=True)\n    .faces(\">Z\")  # Select the top face for the cutout workplane\n    .workplane()\n    .rect(inner_width, inner_length, forConstruction=False)\n    .cutThruAll()  # Cut through the entire thickness to create the open center\n)\n\n# Create mounting bosses at the four inner corners\n# Using a separate workplane to place cylinders, then union with frame\nbosses = (\n    cq.Workplane(\"XY\")\n    # Define the four corner positions for bosses\n    .pushPoints([\n        (-boss_offset_x, -boss_offset_y),  # Bottom-left corner\n        ( boss_offset_x, -boss_offset_y),  # Bottom-right corner\n        ( boss_offset_x,  boss_offset_y),  # Top-right corner\n        (-boss_offset_x,  boss_offset_y),  # Top-left corner\n    ])\n    # Create cylindrical bosses with specified diameter and height\n    .circle(boss_diameter / 2)\n    .extrude(boss_height)\n    # Add through-holes in each boss\n    .faces(\">Z\")  # Select top face of bosses for hole workplane\n    .workplane()\n    .pushPoints([\n        (-boss_offset_x, -boss_offset_y),\n        ( boss_offset_x, -boss_offset_y),\n        ( boss_offset_x,  boss_offset_y),\n        (-boss_offset_x,  boss_offset_y),\n    ])\n    .circle(hole_diameter / 2)\n    .cutThruAll()  # Cut through-holes through entire boss and plate\n)\n\n# Combine the frame base with the bosses to create the final model\nresult = frame_base.union(bosses)"
+  },
+  "note": "Non-JSON CAD source wrapped as JSON."
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0005/00057589",
+  "model": "gemini-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.000313,
+    "hausdorff_distance": 0.189098,
+    "f_score_005": 0.9796,
+    "f_score_001": 0.4193,
+    "normal_consistency": 0.8663,
+    "iou_csg": 0.4378,
+    "iou_voxel": 0.453,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# --- Parameters ---\n# Overall dimensions of the enclosure\nlength = 120.0\nwidth = 60.0\nheight = 35.0\nwall_thickness = 2.0\n\n# Corner mounting posts\ncorner_post_radius = 4.0\ncorner_hole_radius = 1.5\n\n# Central standoff post\ncenter_post_radius = 3.0\ncenter_hole_radius = 1.2\ncenter_post_height = 8.0\n\n# --- Modeling ---\n\n# 1. Base Enclosure Shell\n# Create a solid box sitting on the XY plane (bottom at Z=0)\nbase_box = cq.Workplane(\"XY\").box(length, width, height, centered=(True, True, False))\n\n# Hollow out the box by selecting the top face and shelling inward\nenclosure = base_box.faces(\">Z\").shell(-wall_thickness)\n\n# 2. Corner Posts\n# Calculate the center distance for the corner posts so their outer edges \n# are perfectly flush with the outer walls of the box.\npost_center_x = length - 2 * corner_post_radius\npost_center_y = width - 2 * corner_post_radius\n\n# Extrude the solid corner posts from the inner floor to the top of the box\nenclosure = (\n    enclosure.workplane(offset=wall_thickness)\n    .rect(post_center_x, post_center_y, forConstruction=True)\n    .vertices()\n    .circle(corner_post_radius)\n    .extrude(height - wall_thickness)\n)\n\n# 3. Corner Post Holes\n# Cut blind holes into the corner posts from the top face down to the inner floor\nenclosure = (\n    enclosure.faces(\">Z\").workplane()\n    .rect(post_center_x, post_center_y, forConstruction=True)\n    .vertices()\n    .circle(corner_hole_radius)\n    .cutBlind(-(height - wall_thickness))\n)\n\n# 4. Central Standoff\n# Extrude the solid central post from the inner floor\nenclosure = (\n    enclosure.workplane(offset=wall_thickness)\n    .center(0, 0)\n    .circle(center_post_radius)\n    .extrude(center_post_height)\n)\n\n# Cut the hole in the central standoff\nenclosure = (\n    enclosure.workplane(offset=wall_thickness + center_post_height)\n    .center(0, 0)\n    .circle(center_hole_radius)\n    .cutBlind(-center_post_height)\n)\n\n# Export final result\nresult = enclosure"
+  },
+  "note": "Non-JSON CAD source wrapped as JSON."
+}

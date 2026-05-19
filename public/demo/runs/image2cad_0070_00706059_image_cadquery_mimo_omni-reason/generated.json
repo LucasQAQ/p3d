@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0070/00706059",
+  "model": "mimo_omni-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.008387,
+    "hausdorff_distance": 0.263841,
+    "f_score_005": 0.4693,
+    "f_score_001": 0.0539,
+    "normal_consistency": 0.483,
+    "iou_csg": 0.194,
+    "iou_voxel": 0.2167,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters\nbase_plate_width = 30.0\nbase_plate_length = 40.0\nbase_plate_thickness = 5.0\n\n# Central cylinder parameters\ncylinder_outer_diameter = 20.0\ncylinder_inner_diameter = 12.0\ncylinder_height = 25.0\n\n# Left circular ear parameters\near_outer_radius = 10.0\near_inner_radius = 5.0\near_thickness = base_plate_thickness\n\n# Right rectangular tab parameters\ntab_width = 10.0\ntab_length = 15.0\ntab_height = 15.0\n\n# Rib parameters (connecting cylinder to right tab)\nrib_width = 3.0\nrib_length = 8.0\n\n# Create the base plate\nresult = (\n    cq.Workplane(\"XY\")\n    .box(base_plate_width, base_plate_length, base_plate_thickness)\n)\n\n# Add the central cylinder on top of the base plate\nresult = (\n    result.faces(\">Z\").workplane()\n    .circle(cylinder_outer_diameter / 2)\n    .extrude(cylinder_height)\n)\n\n# Create the through-hole in the cylinder\nresult = (\n    result.faces(\">Z\").workplane()\n    .hole(cylinder_inner_diameter)\n)\n\n# Add the left circular ear (attached to the side of the base plate)\nresult = (\n    result.faces(\"<X\").workplane()\n    .center(0, -base_plate_length / 4)  # Position along the left face\n    .circle(ear_outer_radius)\n    .circle(ear_inner_radius)\n    .extrude(ear_thickness)\n)\n\n# Add the right rectangular tab (attached to the side of the base plate)\nresult = (\n    result.faces(\">X\").workplane()\n    .center(0, base_plate_length / 4)  # Position along the right face\n    .box(tab_width, tab_length, tab_height)\n)\n\n# Add the rib connecting the cylinder to the right tab\nresult = (\n    result.faces(\">X\").workplane()\n    .center(0, base_plate_length / 4 - tab_length / 2)  # Align with tab\n    .rect(rib_width, rib_length)\n    .extrude(rib_length)\n)\n\n# Fillet the sharp edges for a more finished look\nresult = result.edges(\"|Z\").fillet(1.0)"
+  },
+  "note": "Non-JSON CAD source wrapped as JSON."
+}

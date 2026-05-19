@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0070/00706059",
+  "model": "doubao-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.004443,
+    "hausdorff_distance": 0.2415,
+    "f_score_005": 0.5537,
+    "f_score_001": 0.092,
+    "normal_consistency": 0.5404,
+    "iou_csg": 0.3489,
+    "iou_voxel": 0.3662,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# ------------------------\n# Parameter Definitions\n# ------------------------\n# Main cylindrical collar dimensions\ncollar_outer_dia = 40.0\ncollar_inner_dia = 28.0\ncollar_height = 45.0\n\n# Mounting block (right side) dimensions\nmount_block_width = 30.0\nmount_block_depth = 12.0\nmount_block_height = 45.0\n\n# Front lug (left side) dimensions\nlug_outer_dia = 32.0\nlug_inner_dia = 20.0\nlug_thickness = 10.0\nlug_offset_from_center = 28.0  # Distance from main collar center to lug center\n\n# Support web dimensions (connecting all features)\nweb_thickness = 8.0\nweb_height = 18.0  # Height of the lower support webs\n\n# ------------------------\n# Modeling Steps\n# ------------------------\n# 1. Create main cylindrical collar with through hole\nmain_collar = (\n    cq.Workplane(\"XY\")\n    .circle(collar_outer_dia / 2)\n    .circle(collar_inner_dia / 2)\n    .extrude(collar_height)\n)\n\n# 2. Create right side mounting block\nmount_block = (\n    cq.Workplane(\"XY\")\n    # Position block so its left face is tangent to the collar outer surface\n    .center(collar_outer_dia/2 + mount_block_width/2, 0)\n    .rect(mount_block_width, mount_block_depth)\n    .extrude(mount_block_height)\n)\n\n# 3. Create left side mounting lug with through hole\nleft_lug = (\n    cq.Workplane(\"XY\")\n    # Offset lug to left of main collar\n    .center(-lug_offset_from_center, 0)\n    .circle(lug_outer_dia / 2)\n    .circle(lug_inner_dia / 2)\n    .extrude(lug_thickness)\n)\n\n# 4. Create support webs connecting all components\n# Web connecting collar to left lug\nweb_left = (\n    cq.Workplane(\"XY\")\n    .moveTo(-lug_offset_from_center, -lug_outer_dia/2)\n    .lineTo(collar_outer_dia/2, -mount_block_depth/2)\n    .lineTo(collar_outer_dia/2 + mount_block_width, -mount_block_depth/2)\n    .lineTo(collar_outer_dia/2 + mount_block_width, mount_block_depth/2)\n    .lineTo(collar_outer_dia/2, mount_block_depth/2)\n    .lineTo(-lug_offset_from_center, lug_outer_dia/2)\n    .close()\n    .extrude(web_height)\n)\n\n# 5. Combine all components into a single part\nresult = main_collar.union(mount_block).union(left_lug).union(web_left)"
+  },
+  "note": "Non-JSON CAD source wrapped as JSON."
+}
