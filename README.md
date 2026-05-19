@@ -34,3 +34,8 @@ The bundle intentionally keeps only page-facing artifacts: generated CAD
 programs, STL meshes, thumbnails, input images, and compact public metrics. It
 does not include request configs, response logs, token usage, screening or
 annotation artifacts, full result trees, or paper plotting outputs.
+
+Every bundled run also includes `assets.generated_json`. Native JSON outputs
+point to the original generated CAD JSON, while non-JSON outputs are wrapped in
+a sanitized JSON envelope that records the task, case, model, input spec,
+output format, metrics, and generated program text when that source is present.

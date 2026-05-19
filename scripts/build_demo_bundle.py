@@ -316,7 +316,19 @@ def build_articraft_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
             render_npz_preview(gt_npz, gt_png)
 
             generated = run_dir / "generated.json"
-            generated.write_text(json.dumps({"format": fmt, "label": label, "source": "articraft_mesh_preview"}, indent=2) + "\n", encoding="utf-8")
+            write_public_json_output(
+                generated,
+                task=task,
+                case_id=case_id,
+                model=model,
+                spec=spec,
+                fmt=fmt,
+                condition=condition,
+                valid=True,
+                metrics={},
+                original_source=None,
+                note="Sanitized mesh-preview case from the Articraft bundle; no executable source program was present in the local archive.",
+            )
 
             case_entry = {"id": case_id, "title": title, "task": task}
             cases.append(case_entry)
@@ -332,6 +344,7 @@ def build_articraft_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                     "condition": condition,
                     "assets": {
                         "generated": rel(generated),
+                        "generated_json": rel(generated),
                         "mesh": rel(pred_stl),
                         "pred_render": rel(pred_png),
                         "gt_mesh": rel(gt_stl),
@@ -360,7 +373,24 @@ def make_run_from_case(
     run_dir.mkdir(parents=True, exist_ok=True)
 
     ext = {"json": "json", "openscad": "scad", "cadquery": "py", "threejs": "js"}.get(fmt, "txt")
-    generated = copy_asset(resolve_generated(case, source_root, task, model, fmt), run_dir / f"generated.{ext}")
+    source_generated = resolve_generated(case, source_root, task, model, fmt)
+    generated = copy_asset(source_generated, run_dir / f"generated.{ext}")
+    generated_json = generated
+    if fmt != "json":
+        generated_json = run_dir / "generated.json"
+        write_public_json_output(
+            generated_json,
+            task=task,
+            case_id=case_id,
+            model=model,
+            spec=spec,
+            fmt=fmt,
+            condition=condition,
+            valid=bool(case.get("valid")),
+            metrics=sanitize_metrics(case),
+            original_source=read_text_asset(source_generated),
+            note="The model emitted an executable CAD program in a non-JSON language; this public demo wraps that program in a uniform JSON envelope.",
+        )
     mesh = copy_asset(resolve_case_asset(case, "stl_path", source_root, task, model, fmt, ["model_aligned.stl", "model.stl"]), run_dir / "model.stl")
     pred_render = copy_asset(
         resolve_case_asset(case, "pred_render_path", source_root, task, model, fmt, ["pred_render_aligned.png", "pred_render.png", "preview.png"]),
@@ -380,6 +410,7 @@ def make_run_from_case(
 
     assets = {
         "generated": rel(generated),
+        "generated_json": rel(generated_json),
         "mesh": rel(mesh),
         "pred_render": rel(pred_render),
         "gt_mesh": rel(gt_mesh),
@@ -477,6 +508,50 @@ def copy_asset(src: Path | None, dst: Path) -> Path | None:
     dst.parent.mkdir(parents=True, exist_ok=True)
     if not dst.exists():
         shutil.copy2(src, dst)
+    return dst
+
+
+def read_text_asset(path: Path | None) -> str | None:
+    if not path or not path.exists():
+        return None
+    try:
+        return path.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        return path.read_text(encoding="utf-8", errors="replace")
+
+
+def write_public_json_output(
+    dst: Path,
+    *,
+    task: str,
+    case_id: str,
+    model: str,
+    spec: str,
+    fmt: str,
+    condition: str,
+    valid: bool,
+    metrics: dict[str, Any],
+    original_source: str | None,
+    note: str,
+) -> Path:
+    payload: dict[str, Any] = {
+        "schema": "p3d.demo.generated_output.v1",
+        "task": task,
+        "case_id": case_id,
+        "model": model,
+        "input_spec": spec,
+        "output_format": fmt,
+        "valid": valid,
+        "condition": condition,
+        "metrics": metrics,
+        "program": {
+            "language": fmt,
+            "source": original_source,
+        },
+        "note": note,
+    }
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    dst.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return dst
 
 

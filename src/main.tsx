@@ -11,6 +11,7 @@ type AssetMap = {
   gt_mesh?: string;
   pred_render?: string;
   generated?: string;
+  generated_json?: string;
   mesh?: string;
   input_image?: string;
 };
@@ -47,6 +48,7 @@ type Manifest = {
 
 type ShowcaseItem = {
   id: string;
+  task: string;
   title: string;
   subtitle: string;
   taskLabel: string;
@@ -57,7 +59,7 @@ type ShowcaseItem = {
   mesh: string;
 };
 
-type CadViewItem = Pick<ShowcaseItem, "id" | "title" | "subtitle" | "src" | "mesh">;
+type CadViewItem = Pick<ShowcaseItem, "id" | "task" | "title" | "subtitle" | "src" | "mesh">;
 type InputModalItem = Pick<ShowcaseItem, "title" | "taskLabel" | "specLabel" | "input" | "inputImage" | "subtitle">;
 type LeaderboardRow = { model: string; family: string; score: number };
 type LeaderboardTask = { title: string; accent: string; note: string; rows: LeaderboardRow[] };
@@ -165,7 +167,7 @@ function App() {
   };
 
   useEffect(() => {
-    const path = selectedRun?.assets.generated;
+    const path = selectedRun?.assets.generated_json || selectedRun?.assets.generated;
     if (!path) {
       setCode("");
       return;
@@ -260,8 +262,8 @@ function App() {
               </div>
               <MetricStrip run={selectedRun} />
               <div className="code-panel">
-                <div className="panel-title"><Code2 size={18} /> Generated {selectedRun ? outputFormatLabel(selectedRun.format) : "Artifact"}</div>
-                <pre><code>{code || "No generated artifact is bundled for this run."}</code></pre>
+                <div className="panel-title"><Code2 size={18} /> Generated JSON</div>
+                <pre><code>{code || "No generated JSON is bundled for this run."}</code></pre>
               </div>
             </div>
           </div>
@@ -318,7 +320,7 @@ function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
       runsByCase.set(key, runs);
     });
 
-  return manifest.cases
+  const items = manifest.cases
     .map((item, index) => {
       const targetModel = modelCycle[index % modelCycle.length];
       const targetFormat = formatCycle[index % formatCycle.length];
@@ -336,6 +338,7 @@ function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
     .filter((run): run is Run => Boolean(run))
     .map((run) => ({
       id: run.id,
+      task: run.task,
       title: caseTitle.get(run.case_id) || `Case ${run.case_id.split("/").pop() || run.case_id}`,
       subtitle: `${modelLabel.get(run.model) || run.model} / ${outputFormatLabel(run.format)}`,
       taskLabel: taskLabel.get(run.task) || run.task,
@@ -345,10 +348,32 @@ function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
       src: run.assets.pred_render || "",
       mesh: run.assets.mesh || "",
     }));
+  return interleaveShowcaseItems(items);
+}
+
+function interleaveShowcaseItems(items: ShowcaseItem[]) {
+  const taskOrder = ["text2cad", "image2cad", "text_image2cad"];
+  const groups = new Map<string, ShowcaseItem[]>();
+  items.forEach((item) => groups.set(item.task, [...(groups.get(item.task) || []), item]));
+  const output: ShowcaseItem[] = [];
+  let index = 0;
+  while (output.length < items.length) {
+    let added = false;
+    for (const task of taskOrder) {
+      const item = groups.get(task)?.[index];
+      if (item) {
+        output.push(item);
+        added = true;
+      }
+    }
+    if (!added) break;
+    index += 1;
+  }
+  return output;
 }
 
 function isCompleteDemoRun(run: Run) {
-  return Boolean((run.condition || "").trim() && run.assets.generated && run.assets.gt_mesh && run.assets.gt_render && run.assets.mesh && run.assets.pred_render);
+  return Boolean((run.condition || "").trim() && run.assets.generated_json && run.assets.gt_mesh && run.assets.gt_render && run.assets.mesh && run.assets.pred_render);
 }
 
 function getInteractiveCaseIds(runs: Run[]) {
@@ -646,6 +671,16 @@ function InputModal({ item, onClose }: { item: InputModalItem; onClose: () => vo
 
 const tileColors = ["#337665", "#285c8f", "#b46e4c", "#6b6b9a", "#2f7a86", "#a88743"];
 
+const renderTaskStyles: Record<string, { body: number; edge: number; shadow: number }> = {
+  text2cad: { body: 0xc6a25f, edge: 0x5d4f35, shadow: 0x4e4636 },
+  image2cad: { body: 0x78a18a, edge: 0x38584b, shadow: 0x334d43 },
+  text_image2cad: { body: 0x708eae, edge: 0x344b63, shadow: 0x303f50 },
+};
+
+function renderStyleForTask(task?: string) {
+  return renderTaskStyles[task || ""] || renderTaskStyles.text2cad;
+}
+
 function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
   const mountRef = useRef<HTMLDivElement | null>(null);
 
@@ -697,7 +732,6 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
     stage.add(shadowPlane);
 
     const displayItems = items.slice(0, 16);
-    const palette = [0xc6a25f, 0x78a18a, 0x708eae, 0xb77b64, 0x8583ad, 0x5f99a5, 0xc49350, 0x7c8b72];
     const loader = new STLLoader();
     const geometries: THREE.BufferGeometry[] = [shadowPlane.geometry];
     const materials: THREE.Material[] = [shadowPlane.material as THREE.Material];
@@ -732,8 +766,9 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
         geometry.scale(1.08 / maxAxis, 1.08 / maxAxis, 1.08 / maxAxis);
         geometries.push(geometry);
 
+        const taskStyle = renderStyleForTask(item.task);
         const material = new THREE.MeshStandardMaterial({
-          color: palette[index % palette.length],
+          color: taskStyle.body,
           roughness: 0.58,
           metalness: 0.04,
         });
@@ -749,7 +784,7 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
         modelGroup.add(mesh);
 
         const edgeGeometry = new THREE.EdgesGeometry(geometry, 30);
-        const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x2f3b39, transparent: true, opacity: 0.28 });
+        const edgeMaterial = new THREE.LineBasicMaterial({ color: taskStyle.edge, transparent: true, opacity: 0.28 });
         geometries.push(edgeGeometry);
         materials.push(edgeMaterial);
         modelGroup.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
@@ -817,6 +852,7 @@ function GroundTruthFigure({ run, title, subtitle }: { run?: Run; title: string;
         <CadViewer
           item={{
             id: `${run.case_id}-${run.spec}-ground-truth`,
+            task: run.task,
             title,
             subtitle,
             src: run.assets.gt_render || "",
@@ -841,6 +877,7 @@ function PredictionFigure({ run, title, subtitle }: { run?: Run; title: string; 
         <CadViewer
           item={{
             id: run.id,
+            task: run.task,
             title,
             subtitle,
             src: run.assets.pred_render || "",
@@ -863,6 +900,7 @@ function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf0f4ee);
     scene.fog = new THREE.Fog(0xf0f4ee, 6.5, 11.5);
+    const taskStyle = renderStyleForTask(item.task);
     const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 100);
     camera.position.set(3.6, 2.35, variant === "result" ? 4.35 : 4.7);
 
@@ -896,7 +934,7 @@ function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?
 
     const shadowPlane = new THREE.Mesh(
       new THREE.PlaneGeometry(6, 4),
-      new THREE.ShadowMaterial({ color: 0x53665f, opacity: 0.09 })
+      new THREE.ShadowMaterial({ color: taskStyle.shadow, opacity: 0.09 })
     );
     shadowPlane.rotation.x = -Math.PI / 2;
     shadowPlane.position.y = -1.06;
@@ -933,7 +971,7 @@ function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?
       loadedGeometry = geometry;
 
       const material = new THREE.MeshStandardMaterial({
-        color: 0xe4d4b6,
+        color: taskStyle.body,
         roughness: 0.62,
         metalness: 0.05,
         emissive: 0x2a2115,
@@ -947,7 +985,7 @@ function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?
       group.add(mesh);
 
       edgeGeometry = new THREE.EdgesGeometry(geometry, 28);
-      edgeMaterial = new THREE.LineBasicMaterial({ color: 0x7e776b, transparent: true, opacity: variant === "result" ? 0.22 : 0.26 });
+      edgeMaterial = new THREE.LineBasicMaterial({ color: taskStyle.edge, transparent: true, opacity: variant === "result" ? 0.22 : 0.26 });
       group.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
     });
 

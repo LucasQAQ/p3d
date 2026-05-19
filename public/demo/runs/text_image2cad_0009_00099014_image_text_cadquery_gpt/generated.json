@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "text_image2cad",
+  "case_id": "0009/00099014",
+  "model": "gpt",
+  "input_spec": "image_text",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Abstract:\nA thick rectangular slab with stepped solid protrusions underneath.\n\nDetailed CAD facts:\nThe model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
+  "metrics": {
+    "chamfer_distance": 0.007237,
+    "hausdorff_distance": 0.345509,
+    "f_score_005": 0.5741,
+    "f_score_001": 0.0204,
+    "normal_consistency": 0.5714,
+    "iou_csg": 0.4409,
+    "iou_voxel": 0.4541,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters\nslab_length = 100.0\nslab_width = 70.0\nslab_thickness = 16.0\n\n# First-tier underside pads\npad_size = 14.0\npad_depth = 8.0\npad_inset_x = 12.0\npad_inset_y = 10.0\n\n# Second-tier deeper continuations, narrower and aligned to one side of each pad\nleg_width = 8.0\nleg_depth = 12.0\n\n# Corner positions for the four underside protrusion groups\ncorner_positions = [\n    (-slab_length / 2 + pad_inset_x + pad_size / 2, -slab_width / 2 + pad_inset_y + pad_size / 2),  # back-left\n    ( slab_length / 2 - pad_inset_x - pad_size / 2, -slab_width / 2 + pad_inset_y + pad_size / 2),  # back-right\n    (-slab_length / 2 + pad_inset_x + pad_size / 2,  slab_width / 2 - pad_inset_y - pad_size / 2),  # front-left\n    ( slab_length / 2 - pad_inset_x - pad_size / 2,  slab_width / 2 - pad_inset_y - pad_size / 2),  # front-right\n]\n\n# Build the main slab\nresult = cq.Workplane(\"XY\").box(slab_length, slab_width, slab_thickness)\n\n# Add the shallow underside pads\nresult = (\n    result.faces(\"<Z\")\n    .workplane()\n    .pushPoints(corner_positions)\n    .box(pad_size, pad_size, pad_depth, centered=(True, True, False), combine=True)\n)\n\n# Deeper continuations under each pad:\n# left-side pads have the deeper leg sharing the left edge of the pad,\n# right-side pads have the deeper leg sharing the right edge of the pad.\nleft_leg_center_offset_x = -(pad_size - leg_width) / 2\nright_leg_center_offset_x = (pad_size - leg_width) / 2\n\ndeep_leg_positions = [\n    (corner_positions[0][0] + left_leg_center_offset_x,  corner_positions[0][1]),   # back-left\n    (corner_positions[1][0] + right_leg_center_offset_x, corner_positions[1][1]),   # back-right\n    (corner_positions[2][0] + left_leg_center_offset_x,  corner_positions[2][1]),   # front-left\n    (corner_positions[3][0] + right_leg_center_offset_x, corner_positions[3][1]),   # front-right\n]\n\n# Add the deeper second-tier legs from the bottom faces of the shallow pads\nresult = (\n    result.faces(\"<Z\")\n    .workplane()\n    .pushPoints(deep_leg_positions)\n    .box(leg_width, pad_size, leg_depth, centered=(True, True, False), combine=True)\n)"
+  },
+  "note": "The model emitted an executable CAD program in a non-JSON language; this public demo wraps that program in a uniform JSON envelope."
+}

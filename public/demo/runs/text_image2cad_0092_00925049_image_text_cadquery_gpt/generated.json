@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "text_image2cad",
+  "case_id": "0092/00925049",
+  "model": "gpt",
+  "input_spec": "image_text",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Abstract:\nA shallow channel-like solid with upright side walls and a raised perforated feature.\n\nDetailed CAD facts:\nThe model is built from a solid rectangular base with two long upright side walls added along opposite edges. Each side wall contains a round opening near the same end, and those openings are voids through the wall rather than raised circular details. A smaller solid rectangular raised feature sits on the upper face of the base between the walls. That raised feature contains two smaller circular cut or recess features at a matching height, with the cuts forming a shallower depth tier than the taller added material.",
+  "metrics": {
+    "chamfer_distance": 0.004688,
+    "hausdorff_distance": 0.258842,
+    "f_score_005": 0.5819,
+    "f_score_001": 0.1133,
+    "normal_consistency": 0.4195,
+    "iou_csg": 0.0451,
+    "iou_voxel": 0.0669,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters\nbase_length = 100.0\nbase_width = 24.0\nbase_thickness = 3.0\n\nwall_thickness = 3.0\nleft_wall_height = 18.0\nright_wall_height = 18.0\n\nleft_wall_hole_diameter = 3.5\nright_wall_hole_diameter = 3.5\nwall_hole_height = 9.0\nleft_wall_hole_x = 10.0\nright_wall_hole_x = 86.0\n\ncenter_step_x = 48.0\ncenter_step_width = 5.0\ncenter_step_depth = 2.0\n\nleft_plate_length = 50.0\nright_plate_length = 40.0\n\nleft_inner_post_x = 56.0\nright_inner_post_x = 61.0\ninner_post_y = 9.0\ninner_post_width = 3.5\ninner_post_length = 5.0\nleft_inner_post_height = 10.0\nright_inner_post_height = 13.0\n\ninner_post_hole_diameter = 1.8\ninner_post_hole_height = 7.5\ninner_post_hole_depth = 1.2\n\n# Base plate\nresult = cq.Workplane(\"XY\").box(\n    base_length, base_width, base_thickness, centered=(False, False, False)\n)\n\n# Left side wall with sloped lower edge and through-hole\nleft_wall_profile = (\n    cq.Workplane(\"XZ\")\n    .moveTo(0, 0)\n    .lineTo(0, left_wall_height)\n    .lineTo(left_plate_length, base_thickness)\n    .lineTo(left_plate_length, 0)\n    .close()\n)\n\nleft_wall = (\n    left_wall_profile\n    .extrude(wall_thickness)\n    .translate((0, 0, base_thickness))\n)\n\nleft_wall = (\n    left_wall.faces(\"<Y\")\n    .workplane()\n    .center(left_wall_hole_x, wall_hole_height)\n    .hole(left_wall_hole_diameter)\n)\n\n# Right side wall with rectangular profile and through-hole\nright_wall = (\n    cq.Workplane(\"XZ\")\n    .rect(right_plate_length, right_wall_height, centered=False)\n    .extrude(wall_thickness)\n    .translate((base_length - right_plate_length, base_width - wall_thickness, base_thickness))\n)\n\nright_wall = (\n    right_wall.faces(\">Y\")\n    .workplane()\n    .center(right_wall_hole_x - (base_length - right_plate_length), wall_hole_height)\n    .hole(right_wall_hole_diameter)\n)\n\n# Small center underside step visible in the transition area\ncenter_step = (\n    cq.Workplane(\"XY\")\n    .box(center_step_width, wall_thickness, center_step_depth, centered=(False, False, False))\n    .translate((center_step_x, 0, base_thickness - center_step_depth))\n)\n\n# Two raised perforated tabs on the base between walls\nleft_inner_post = (\n    cq.Workplane(\"XY\")\n    .box(inner_post_width, inner_post_length, left_inner_post_height, centered=(False, False, False))\n    .translate((left_inner_post_x, inner_post_y, base_thickness))\n)\n\nright_inner_post = (\n    cq.Workplane(\"XY\")\n    .box(inner_post_width, inner_post_length, right_inner_post_height, centered=(False, False, False))\n    .translate((right_inner_post_x, inner_post_y, base_thickness))\n)\n\n# Add shallow circular recesses/holes on the inner posts"
+  },
+  "note": "The model emitted an executable CAD program in a non-JSON language; this public demo wraps that program in a uniform JSON envelope."
+}

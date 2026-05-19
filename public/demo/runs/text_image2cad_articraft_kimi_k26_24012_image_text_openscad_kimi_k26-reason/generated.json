@@ -1,5 +1,16 @@
 {
-  "format": "openscad",
-  "label": "piston",
-  "source": "articraft_mesh_preview"
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "text_image2cad",
+  "case_id": "articraft/kimi_k26_24012",
+  "model": "kimi_k26-reason",
+  "input_spec": "image_text",
+  "output_format": "openscad",
+  "valid": true,
+  "condition": "Assembly-3D Articraft mesh case: piston.",
+  "metrics": {},
+  "program": {
+    "language": "openscad",
+    "source": null
+  },
+  "note": "Sanitized mesh-preview case from the Articraft bundle; no executable source program was present in the local archive."
 }

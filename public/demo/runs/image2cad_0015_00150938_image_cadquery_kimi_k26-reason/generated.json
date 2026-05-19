@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0015/00150938",
+  "model": "kimi_k26-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.001719,
+    "hausdorff_distance": 0.164354,
+    "f_score_005": 0.77,
+    "f_score_001": 0.1791,
+    "normal_consistency": 0.695,
+    "iou_csg": 0.4224,
+    "iou_voxel": 0.4607,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Base plate parameters\nbase_plate_width = 100.0\nbase_plate_depth = 100.0\nbase_plate_thickness = 5.0\n\n# Mounting hole parameters\nmounting_hole_diameter = 8.0\nmounting_hole_offset = 15.0  # Distance from each corner edge to hole center\n\n# Central block parameters (square pedestal under the cylinder)\nblock_width = 50.0\nblock_depth = 50.0\nblock_height = 15.0\n\n# Main cylindrical boss parameters (hollow cylinder on top of block)\ncylinder_outer_diameter = 45.0\ncylinder_inner_diameter = 38.0  # Wall thickness ~3.5mm\ncylinder_height = 25.0\n\n# Side cylindrical support parameters (two smaller cylinders on opposite corners)\nsupport_cylinder_diameter = 18.0\nsupport_cylinder_height = 20.0  # Slightly shorter than main cylinder, extends from base plate\n\n# Positions for side supports (diagonally opposite corners of the block)\nsupport_offset_x = block_width / 2 + support_cylinder_diameter / 2 - 5.0  # Overlap slightly with block\nsupport_offset_y = block_depth / 2 + support_cylinder_diameter / 2 - 5.0\n\n# Create the base plate with mounting holes\nbase_plate = (\n    cq.Workplane(\"XY\")\n    .box(base_plate_width, base_plate_depth, base_plate_thickness, centered=True)\n    # Mounting hole 1: front-left corner\n    .faces(\">Z\")\n    .workplane()\n    .pushPoints([\n        (-base_plate_width/2 + mounting_hole_offset, -base_plate_depth/2 + mounting_hole_offset),\n        (base_plate_width/2 - mounting_hole_offset, -base_plate_depth/2 + mounting_hole_offset),\n        (-base_plate_width/2 + mounting_hole_offset, base_plate_depth/2 - mounting_hole_offset),\n        (base_plate_width/2 - mounting_hole_offset, base_plate_depth/2 - mounting_hole_offset),\n    ])\n    .circle(mounting_hole_diameter / 2)\n    .cutThruAll()\n)\n\n# Create the central square block (pedestal)\ncentral_block = (\n    cq.Workplane(\"XY\")\n    .workplane(offset=base_plate_thickness / 2)  # Start on top of base plate\n    .box(block_width, block_depth, block_height, centered=True)\n)\n\n# Create the main hollow cylinder on top of the central block\nmain_cylinder = (\n    cq.Workplane(\"XY\")\n    .workplane(offset=base_plate_thickness / 2 + block_height)  # Start on top of block\n    .circle(cylinder_outer_diameter / 2)\n    .circle(cylinder_inner_diameter / 2)  # Inner hole for hollow cylinder\n    .extrude(cylinder_height)\n)\n\n# Create the two side support cylinders (diagonally opposite, extending from base plate)\n# Position: front-left and back-right corners relative to the block\nsupport_positions = [\n    (-support_offset_x, -support_offset_y),  # Front-left support\n    (support_offset_x, support_offset_y),    # Back-right support\n]\n\nside_supports = (\n    cq.Workplane(\"XY\")\n    .workplane(offset=base_plate_thickness / 2)  # Start on top of base plate\n    .pushPoints(support_positions)\n    .circle(support_cylinder_diameter / 2)\n    .extrude(support_cylinder_height)\n)\n\n# Combine all components using union operations\nresult = base_plate.union(central_block).union(main_cylinder).union(side_supports)\n\n# The result is the final assembled model"
+  },
+  "note": "The model emitted an executable CAD program in a non-JSON language; this public demo wraps that program in a uniform JSON envelope."
+}
