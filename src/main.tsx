@@ -12,6 +12,7 @@ type AssetMap = {
   pred_render?: string;
   generated?: string;
   mesh?: string;
+  input_image?: string;
 };
 
 type Run = {
@@ -51,12 +52,13 @@ type ShowcaseItem = {
   taskLabel: string;
   specLabel: string;
   input: string;
+  inputImage?: string;
   src: string;
   mesh: string;
 };
 
 type CadViewItem = Pick<ShowcaseItem, "id" | "title" | "subtitle" | "src" | "mesh">;
-type InputModalItem = Pick<ShowcaseItem, "title" | "taskLabel" | "specLabel" | "input" | "subtitle">;
+type InputModalItem = Pick<ShowcaseItem, "title" | "taskLabel" | "specLabel" | "input" | "inputImage" | "subtitle">;
 type LeaderboardRow = { model: string; family: string; score: number };
 type LeaderboardTask = { title: string; accent: string; note: string; rows: LeaderboardRow[] };
 type ModelFamilyStyle = { color: string; icon: string; tile?: string; filter?: string };
@@ -73,8 +75,8 @@ const fallbackManifest: Manifest = {
   },
   tasks: [
     { id: "text2cad", label: "Text-to-3D", formats: ["JSON", "OpenSCAD"], status: "interactive" },
-    { id: "image2cad", label: "Image-to-3D", formats: ["CadQuery", "OpenSCAD", "Three.js"], status: "reserved" },
-    { id: "text_image2cad", label: "Assembly-3D", formats: ["CadQuery", "OpenSCAD"], status: "reserved" }
+    { id: "image2cad", label: "Image-to-3D", formats: ["CadQuery", "OpenSCAD", "Three.js"], status: "interactive" },
+    { id: "text_image2cad", label: "Assembly-3D", formats: ["CadQuery", "OpenSCAD"], status: "interactive" }
   ],
   models: [],
   cases: [],
@@ -111,7 +113,7 @@ function App() {
   }, []);
 
   const completeTaskRuns = useMemo(() => manifest.runs.filter((run) => run.task === task && isCompleteDemoRun(run)), [manifest, task]);
-  const interactiveCaseIds = useMemo(() => getInteractiveCaseIds(completeTaskRuns, manifest.models.map((item) => item.id)), [completeTaskRuns, manifest.models]);
+  const interactiveCaseIds = useMemo(() => getInteractiveCaseIds(completeTaskRuns), [completeTaskRuns]);
   const taskRuns = useMemo(() => completeTaskRuns.filter((run) => interactiveCaseIds.has(run.case_id)), [completeTaskRuns, interactiveCaseIds]);
   const cases = useMemo(() => manifest.cases.filter((item) => item.task === task && interactiveCaseIds.has(item.id)), [interactiveCaseIds, manifest, task]);
   const exactRun = useMemo(
@@ -126,9 +128,9 @@ function App() {
   const caseRuns = useMemo(() => taskRuns.filter((run) => run.case_id === activeCaseId), [activeCaseId, taskRuns]);
   const models = useMemo(() => manifest.models.filter((item) => caseRuns.some((run) => run.model === item.id)), [caseRuns, manifest.models]);
   const modelRuns = useMemo(() => caseRuns.filter((run) => run.model === activeModel), [activeModel, caseRuns]);
-  const specs = useMemo(() => Array.from(new Set(modelRuns.map((run) => run.spec))).sort(), [modelRuns]);
+  const specs = useMemo(() => Array.from(new Set(modelRuns.map((run) => run.spec))).sort((a, b) => specPriority(a) - specPriority(b)), [modelRuns]);
   const specRuns = useMemo(() => modelRuns.filter((run) => run.spec === activeSpec), [activeSpec, modelRuns]);
-  const formats = useMemo(() => Array.from(new Set(specRuns.map((run) => run.format))).sort(), [specRuns]);
+  const formats = useMemo(() => Array.from(new Set(specRuns.map((run) => run.format))).sort((a, b) => formatPriority(a) - formatPriority(b)), [specRuns]);
 
   useEffect(() => {
     if (!selectedRun) return;
@@ -150,7 +152,8 @@ function App() {
     taskLabel: selectedTask?.label || selectedRun.task,
     specLabel: inputSpecLabel(selectedRun.spec),
     input: selectedInput,
-    subtitle: `${selectedModel?.label || selectedRun.model} / ${selectedRun.format.toUpperCase()}`
+    inputImage: selectedRun.assets.input_image,
+    subtitle: `${selectedModel?.label || selectedRun.model} / ${outputFormatLabel(selectedRun.format)}`
   } : null;
 
   const applyRunSelection = (run?: Run) => {
@@ -233,10 +236,11 @@ function App() {
             <aside className="controls">
               <Select label="Case" value={activeCaseId} options={cases.map((item) => [item.id, item.title])} onChange={(nextCase) => applyRunSelection(pickDefaultRun(taskRuns.filter((run) => run.case_id === nextCase)))} />
               <Select label="Model" value={activeModel} options={models.map((item) => [item.id, item.label])} onChange={(nextModel) => applyRunSelection(pickDefaultRun(caseRuns.filter((run) => run.model === nextModel)))} />
-              <Select label="Spec" value={activeSpec} options={specs.map((item) => [item, item])} onChange={(nextSpec) => applyRunSelection(pickDefaultRun(modelRuns.filter((run) => run.spec === nextSpec)))} />
-              <Select label="Format" value={activeFormat} options={formats.map((item) => [item, item.toUpperCase()])} onChange={(nextFormat) => applyRunSelection(pickDefaultRun(specRuns.filter((run) => run.format === nextFormat)))} />
+              <Select label="Spec" value={activeSpec} options={specs.map((item) => [item, inputSpecLabel(item)])} onChange={(nextSpec) => applyRunSelection(pickDefaultRun(modelRuns.filter((run) => run.spec === nextSpec)))} />
+              <Select label="Format" value={activeFormat} options={formats.map((item) => [item, outputFormatLabel(item)])} onChange={(nextFormat) => applyRunSelection(pickDefaultRun(specRuns.filter((run) => run.format === nextFormat)))} />
               <div className="condition">
                 <span>Input</span>
+                {selectedRun?.assets.input_image ? <img className="condition-image" src={asset(selectedRun.assets.input_image)} alt="Input reference" /> : null}
                 <p>{selectedInput}</p>
                 {selectedInputItem ? <button className="condition-full-input" type="button" onClick={() => setExpandedInput(selectedInputItem)}>View full input</button> : null}
               </div>
@@ -251,12 +255,12 @@ function App() {
                 <PredictionFigure
                   run={selectedRun}
                   title={selectedCase?.title || "Prediction"}
-                  subtitle={`${selectedModel?.label || selectedRun?.model || ""}${selectedRun ? ` / ${selectedRun.format.toUpperCase()}` : ""}`}
+                  subtitle={`${selectedModel?.label || selectedRun?.model || ""}${selectedRun ? ` / ${outputFormatLabel(selectedRun.format)}` : ""}`}
                 />
               </div>
               <MetricStrip run={selectedRun} />
               <div className="code-panel">
-                <div className="panel-title"><Code2 size={18} /> Generated {selectedRun?.format?.toUpperCase() || "Artifact"}</div>
+                <div className="panel-title"><Code2 size={18} /> Generated {selectedRun ? outputFormatLabel(selectedRun.format) : "Artifact"}</div>
                 <pre><code>{code || "No generated artifact is bundled for this run."}</code></pre>
               </div>
             </div>
@@ -276,8 +280,8 @@ function App() {
 
       <section id="gallery" className="section">
         <div className="section-heading">
-          <p className="eyebrow">Text-to-3D Render Showcase</p>
-          <h2>Executable CAD programs as live geometry.</h2>
+          <p className="eyebrow">Live Render Showcase</p>
+          <h2>Curated predictions across text, image, and assembly prompts.</h2>
         </div>
         <RenderShowcase items={showcaseItems} />
       </section>
@@ -299,26 +303,26 @@ function App() {
 }
 
 function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
-  const modelCycle = ["gemini-reason", "claude-reason", "qwen-reason", "gpt55-reason"];
+  const modelCycle = ["gpt55-reason", "gemini-reason", "claude-reason", "kimi_k26-reason", "doubao-reason", "qwen-reason", "mimo_omni-reason"];
   const formatCycle = ["json", "openscad", "json", "openscad"];
   const modelLabel = new Map(manifest.models.map((model) => [model.id, model.label]));
   const taskLabel = new Map(manifest.tasks.map((task) => [task.id, task.label]));
   const caseTitle = new Map(manifest.cases.map((item) => [item.id, item.title]));
   const runsByCase = new Map<string, Run[]>();
   manifest.runs
-    .filter((run) => run.task === "text2cad" && isCompleteDemoRun(run) && run.valid !== false)
+    .filter((run) => isCompleteDemoRun(run) && run.valid !== false)
     .forEach((run) => {
-      const runs = runsByCase.get(run.case_id) || [];
+      const key = `${run.task}/${run.case_id}`;
+      const runs = runsByCase.get(key) || [];
       runs.push(run);
-      runsByCase.set(run.case_id, runs);
+      runsByCase.set(key, runs);
     });
 
   return manifest.cases
-    .filter((item) => item.task === "text2cad")
     .map((item, index) => {
       const targetModel = modelCycle[index % modelCycle.length];
       const targetFormat = formatCycle[index % formatCycle.length];
-      const run = [...(runsByCase.get(item.id) || [])].sort((a, b) => {
+      const run = [...(runsByCase.get(`${item.task}/${item.id}`) || [])].sort((a, b) => {
         const qualityDelta = runQuality(b) - runQuality(a);
         if (qualityDelta) return qualityDelta;
         const modelDelta = Number(a.model !== targetModel) - Number(b.model !== targetModel);
@@ -333,10 +337,11 @@ function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
     .map((run) => ({
       id: run.id,
       title: caseTitle.get(run.case_id) || `Case ${run.case_id.split("/").pop() || run.case_id}`,
-      subtitle: `${modelLabel.get(run.model) || run.model} / ${run.format.toUpperCase()}`,
+      subtitle: `${modelLabel.get(run.model) || run.model} / ${outputFormatLabel(run.format)}`,
       taskLabel: taskLabel.get(run.task) || run.task,
       specLabel: inputSpecLabel(run.spec),
       input: run.condition || caseTitle.get(run.case_id) || `Case ${run.case_id}`,
+      inputImage: run.assets.input_image,
       src: run.assets.pred_render || "",
       mesh: run.assets.mesh || "",
     }));
@@ -346,45 +351,49 @@ function isCompleteDemoRun(run: Run) {
   return Boolean((run.condition || "").trim() && run.assets.generated && run.assets.gt_mesh && run.assets.gt_render && run.assets.mesh && run.assets.pred_render);
 }
 
-const requiredInteractiveSpecs = ["descriptive", "parametric"];
-const requiredInteractiveFormats = ["json", "openscad"];
-
-function getInteractiveCaseIds(runs: Run[], modelIds: string[]) {
-  const requiredModels = modelIds.length ? modelIds : Array.from(new Set(runs.map((run) => run.model))).sort();
-  const grouped = new Map<string, Run[]>();
-  runs.forEach((run) => {
-    const caseRuns = grouped.get(run.case_id) || [];
-    caseRuns.push(run);
-    grouped.set(run.case_id, caseRuns);
-  });
-
-  return new Set(
-    Array.from(grouped.entries())
-      .filter(([, caseRuns]) => {
-        const hasEveryModelForEverySpec = requiredInteractiveSpecs.every((specName) =>
-          requiredModels.every((modelId) => caseRuns.some((run) => run.spec === specName && run.model === modelId))
-        );
-        const hasEveryOutputFormat = requiredInteractiveFormats.every((formatName) => caseRuns.some((run) => run.format === formatName));
-        return requiredModels.length > 0 && hasEveryModelForEverySpec && hasEveryOutputFormat;
-      })
-      .map(([caseId]) => caseId)
-  );
+function getInteractiveCaseIds(runs: Run[]) {
+  return new Set(runs.map((run) => run.case_id));
 }
 
 function pickDefaultRun(runs: Run[]) {
   return [...runs].sort((a, b) => {
     const qualityDelta = runQuality(b) - runQuality(a);
     if (qualityDelta) return qualityDelta;
-    const specDelta = Number(a.spec !== "descriptive") - Number(b.spec !== "descriptive");
+    const specDelta = specPriority(a.spec) - specPriority(b.spec);
     if (specDelta) return specDelta;
-    const formatDelta = Number(a.format !== "openscad") - Number(b.format !== "openscad");
+    const formatDelta = formatPriority(a.format) - formatPriority(b.format);
     if (formatDelta) return formatDelta;
     return a.id.localeCompare(b.id);
   })[0];
 }
 
 function inputSpecLabel(spec: string) {
+  if (spec === "image") return "Image input";
+  if (spec === "image_text") return "Image + text input";
   return spec === "parametric" ? "Parametric input" : "Descriptive input";
+}
+
+function outputFormatLabel(formatName: string) {
+  if (formatName === "json") return "JSON";
+  if (formatName === "openscad") return "OpenSCAD";
+  if (formatName === "cadquery") return "CadQuery";
+  if (formatName === "threejs") return "Three.js";
+  return formatName;
+}
+
+function specPriority(spec: string) {
+  if (spec === "parametric") return 0;
+  if (spec === "image_text" || spec === "image") return 1;
+  if (spec === "descriptive") return 2;
+  return 3;
+}
+
+function formatPriority(formatName: string) {
+  if (formatName === "openscad") return 0;
+  if (formatName === "cadquery") return 1;
+  if (formatName === "json") return 2;
+  if (formatName === "threejs") return 3;
+  return 4;
 }
 
 const modelFamilies: Record<string, ModelFamilyStyle> = {
@@ -586,6 +595,7 @@ function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
           <div className="viewer-meta">
             <span>{selected.taskLabel} · {selected.specLabel}</span>
             <strong>{selected.title}</strong>
+            {selected.inputImage ? <img className="viewer-input-image" src={asset(selected.inputImage)} alt="Input reference" /> : null}
             <p>{selected.input}</p>
             <button className="viewer-full-input" type="button" onClick={() => setExpandedItem(selected)}>View full input</button>
             <em>{selected.subtitle}</em>
@@ -594,7 +604,7 @@ function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
         <div className="viewer-rail">
           <div className="viewer-rail-header">
             <span>{items.length} cases</span>
-            <strong>Bundled STL demo set</strong>
+            <strong>Bundled live geometry set</strong>
           </div>
           {items.map((item, index) => (
             <button
@@ -626,6 +636,7 @@ function InputModal({ item, onClose }: { item: InputModalItem; onClose: () => vo
           <button type="button" onClick={onClose}>Close</button>
         </div>
         <h3 id="input-modal-title">{item.title}</h3>
+        {item.inputImage ? <img className="input-modal-image" src={asset(item.inputImage)} alt="Input reference" /> : null}
         <p>{item.input}</p>
         <em>{item.subtitle}</em>
       </div>
@@ -643,8 +654,8 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
     if (!mount || !items.length) return;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xf7f8f4);
-    scene.fog = new THREE.Fog(0xf7f8f4, 8.8, 14.5);
+    scene.background = new THREE.Color(0xdfe7df);
+    scene.fog = new THREE.Fog(0xdfe7df, 8.8, 14.5);
 
     const camera = new THREE.PerspectiveCamera(30, 1, 0.01, 100);
     camera.position.set(0, 3.05, 5.9);
@@ -652,15 +663,15 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0xf7f8f4, 1);
+    renderer.setClearColor(0xdfe7df, 1);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     mount.appendChild(renderer.domElement);
 
-    scene.add(new THREE.HemisphereLight(0xffffff, 0xd9e1dc, 2.4));
+    scene.add(new THREE.HemisphereLight(0xf7f3e8, 0xa9b5ae, 2.25));
 
-    const key = new THREE.DirectionalLight(0xffffff, 3.4);
+    const key = new THREE.DirectionalLight(0xfff2da, 3.15);
     key.position.set(4.5, 6.5, 5.2);
     key.castShadow = true;
     key.shadow.mapSize.set(2048, 2048);
@@ -678,7 +689,7 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
 
     const shadowPlane = new THREE.Mesh(
       new THREE.PlaneGeometry(7.6, 3.6),
-      new THREE.ShadowMaterial({ color: 0x50665f, opacity: 0.08 })
+      new THREE.ShadowMaterial({ color: 0x344943, opacity: 0.13 })
     );
     shadowPlane.rotation.x = -Math.PI / 2;
     shadowPlane.position.y = -0.84;
@@ -686,7 +697,7 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
     stage.add(shadowPlane);
 
     const displayItems = items.slice(0, 16);
-    const palette = [0xf3ead7, 0xdfece6, 0xe8edf5, 0xf0ddd5, 0xe3e2f0, 0xdce9ef];
+    const palette = [0xc6a25f, 0x78a18a, 0x708eae, 0xb77b64, 0x8583ad, 0x5f99a5, 0xc49350, 0x7c8b72];
     const loader = new STLLoader();
     const geometries: THREE.BufferGeometry[] = [shadowPlane.geometry];
     const materials: THREE.Material[] = [shadowPlane.material as THREE.Material];
@@ -738,7 +749,7 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
         modelGroup.add(mesh);
 
         const edgeGeometry = new THREE.EdgesGeometry(geometry, 30);
-        const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x66716b, transparent: true, opacity: 0.22 });
+        const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x2f3b39, transparent: true, opacity: 0.28 });
         geometries.push(edgeGeometry);
         materials.push(edgeMaterial);
         modelGroup.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
@@ -750,6 +761,10 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
       const { clientWidth, clientHeight } = mount;
       const width = Math.max(320, clientWidth);
       const height = Math.max(360, clientHeight);
+      const layoutScale = width < 560 ? 0.52 : width < 760 ? 0.78 : 1;
+      stage.scale.setScalar(layoutScale);
+      camera.position.set(0, width < 560 ? 3.32 : 3.05, width < 560 ? 8.15 : width < 760 ? 6.55 : 5.9);
+      camera.lookAt(0, 0, 0);
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
@@ -846,14 +861,14 @@ function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?
     if (!mount || !item.mesh) return;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xf7fbf4);
-    scene.fog = new THREE.Fog(0xf7fbf4, 6.5, 11.5);
+    scene.background = new THREE.Color(0xf0f4ee);
+    scene.fog = new THREE.Fog(0xf0f4ee, 6.5, 11.5);
     const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 100);
     camera.position.set(3.6, 2.35, variant === "result" ? 4.35 : 4.7);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0xf7fbf4, 1);
+    renderer.setClearColor(0xf0f4ee, 1);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -918,7 +933,7 @@ function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?
       loadedGeometry = geometry;
 
       const material = new THREE.MeshStandardMaterial({
-        color: 0xf5eddc,
+        color: 0xe4d4b6,
         roughness: 0.62,
         metalness: 0.05,
         emissive: 0x2a2115,
@@ -1073,6 +1088,8 @@ const metricLabels: Record<string, string> = {
   judge_geometry: "Geometry score",
   judge_semantic: "Semantic score",
   judge_aesthetics: "Aesthetic score",
+  acc_cmd: "Command acc.",
+  acc_param: "Parameter acc.",
 };
 
 function getMetricEntries(run?: Run) {
