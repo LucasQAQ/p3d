@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0015/00150938",
+  "model": "gemini-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.001174,
+    "hausdorff_distance": 0.127182,
+    "f_score_005": 0.8531,
+    "f_score_001": 0.276,
+    "normal_consistency": 0.757,
+    "iou_csg": 0.6155,
+    "iou_voxel": 0.6246,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# ==========================================\n# Parameters\n# ==========================================\n\n# Base plate dimensions\nbase_length = 100.0\nbase_width = 100.0\nbase_thickness = 5.0\n\n# Base mounting holes\nhole_dia = 5.0\ncsk_dia = 9.0\nhole_offset = 12.0\n\n# Middle block dimensions\nmid_length = 50.0\nmid_width = 45.0\nmid_thickness = 15.0\n\n# Middle block side extensions\next_radius = 10.0\n\n# Top hollow cylinder dimensions\ncyl_outer_dia = 40.0\ncyl_inner_dia = 34.0\ncyl_height = 20.0\n\n# ==========================================\n# Modeling\n# ==========================================\n\n# 1. Create the base plate with countersunk holes\nbase = (\n    cq.Workplane(\"XY\")\n    .box(base_length, base_width, base_thickness)\n    .faces(\">Z\")\n    .workplane()\n    .rect(base_length - 2 * hole_offset, base_width - 2 * hole_offset, forConstruction=True)\n    .vertices()\n    .cskHole(diameter=hole_dia, cskDiameter=csk_dia, cskAngle=90)\n)\n\n# 2. Create the middle rectangular block\n# Offset Z to start exactly on top of the base plate\nmiddle_block = (\n    cq.Workplane(\"XY\")\n    .workplane(offset=base_thickness / 2.0)\n    .box(mid_length, mid_width, mid_thickness, centered=(True, True, False))\n)\n\n# 3. Create the semi-cylindrical extensions for the middle block\n# Placing full cylinders at the edges merges half inside and half outside\next_right = (\n    cq.Workplane(\"XY\")\n    .workplane(offset=base_thickness / 2.0)\n    .center(mid_length / 2.0, 0)\n    .cylinder(mid_thickness, ext_radius, centered=(True, True, False))\n)\n\next_left = (\n    cq.Workplane(\"XY\")\n    .workplane(offset=base_thickness / 2.0)\n    .center(-mid_length / 2.0, 0)\n    .cylinder(mid_thickness, ext_radius, centered=(True, True, False))\n)\n\n# 4. Create the top hollow cylinder\n# Offset Z to start exactly on top of the middle block\ntop_cylinder = (\n    cq.Workplane(\"XY\")\n    .workplane(offset=(base_thickness / 2.0) + mid_thickness)\n    .circle(cyl_outer_dia / 2.0)\n    .circle(cyl_inner_dia / 2.0)\n    .extrude(cyl_height)\n)\n\n# 5. Combine all components into the final solid\nresult = (\n    base\n    .union(middle_block)\n    .union(ext_right)\n    .union(ext_left)\n    .union(top_cylinder)\n)"
+  },
+  "note": "The model emitted an executable CAD program in a non-JSON language; this public demo wraps that program in a uniform JSON envelope."
+}

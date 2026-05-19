@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "text_image2cad",
+  "case_id": "0009/00099014",
+  "model": "gpt55-reason",
+  "input_spec": "image_text",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Abstract:\nA thick rectangular slab with stepped solid protrusions underneath.\n\nDetailed CAD facts:\nThe model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
+  "metrics": {
+    "chamfer_distance": 0.007356,
+    "hausdorff_distance": 0.343845,
+    "f_score_005": 0.459,
+    "f_score_001": 0.017,
+    "normal_consistency": 0.5849,
+    "iou_csg": 0.3993,
+    "iou_voxel": 0.4145,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters\nslab_length = 100.0\nslab_width = 70.0\nslab_thickness = 12.0\n\npad_length = 24.0\npad_width = 16.0\npad_thickness = 7.0\n\nleg_length = 12.0\nleg_width = 16.0\nleg_depth = 16.0\n\npad_offset_x = 32.0\npad_offset_y = 22.0\n\n# Z positions\nslab_center_z = slab_thickness / 2.0\npad_center_z = -pad_thickness / 2.0\nleg_center_z = -pad_thickness - leg_depth / 2.0\n\n# Create the main thick rectangular slab\nresult = cq.Workplane(\"XY\").box(\n    slab_length,\n    slab_width,\n    slab_thickness,\n    centered=(True, True, False)\n)\n\n# Underside protrusion layout:\n# Each shallow pad is attached to the slab underside.\n# Each deeper continuation is narrower in X, shares the pad's front/back edges,\n# and aligns with either the left or right vertical edge of the pad footprint.\ncorner_features = [\n    # x position, y position, leg side within pad (-1 = left edge, +1 = right edge)\n    (-pad_offset_x, -pad_offset_y, -1),\n    ( pad_offset_x, -pad_offset_y,  1),\n    (-pad_offset_x,  pad_offset_y, -1),\n    ( pad_offset_x,  pad_offset_y,  1),\n]\n\nfor pad_x, pad_y, leg_side in corner_features:\n    # Shallow rectangular underside pad\n    pad = (\n        cq.Workplane(\"XY\")\n        .center(pad_x, pad_y)\n        .box(\n            pad_length,\n            pad_width,\n            pad_thickness,\n            centered=(True, True, False)\n        )\n        .translate((0, 0, -pad_thickness))\n    )\n\n    # Deeper rectangular continuation, contained within the pad footprint\n    leg_x = pad_x + leg_side * (pad_length - leg_length) / 2.0\n\n    leg = (\n        cq.Workplane(\"XY\")\n        .center(leg_x, pad_y)\n        .box(\n            leg_length,\n            leg_width,\n            leg_depth,\n            centered=(True, True, False)\n        )\n        .translate((0, 0, -pad_thickness - leg_depth))\n    )\n\n    result = result.union(pad).union(leg)\n\n# Return one unified model\nresult = result.combine()"
+  },
+  "note": "The model emitted an executable CAD program in a non-JSON language; this public demo wraps that program in a uniform JSON envelope."
+}

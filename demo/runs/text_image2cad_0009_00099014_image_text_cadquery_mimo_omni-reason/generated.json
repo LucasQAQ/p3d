@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "text_image2cad",
+  "case_id": "0009/00099014",
+  "model": "mimo_omni-reason",
+  "input_spec": "image_text",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Abstract:\nA thick rectangular slab with stepped solid protrusions underneath.\n\nDetailed CAD facts:\nThe model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
+  "metrics": {
+    "chamfer_distance": 0.019476,
+    "hausdorff_distance": 0.491185,
+    "f_score_005": 0.4239,
+    "f_score_001": 0.0185,
+    "normal_consistency": 0.498,
+    "iou_csg": 0.0816,
+    "iou_voxel": 0.0781,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters\nslab_width = 80.0\nslab_length = 80.0\nslab_thickness = 10.0\n\n# Underside shallow pad dimensions (near perimeter)\npad_width = 15.0\npad_length = 15.0\npad_thickness = 5.0\n\n# Deeper continuation dimensions (below each pad)\ncontinuation_width = 8.0\ncontinuation_length = 8.0\ncontinuation_thickness = 10.0\n\n# Offsets from slab edges for pad placement\nedge_offset = 5.0\n\n# Create the main rectangular slab\nresult = (\n    cq.Workplane(\"XY\")\n    .box(slab_width, slab_length, slab_thickness)\n)\n\n# Define the four corner positions for underside features\n# Using the bottom face of the slab as reference\nbottom_face = result.faces(\"<Z\").workplane()\n\n# Calculate positions for the four corners (front-left, front-right, back-left, back-right)\n# Offsets ensure pads are near the perimeter\npositions = [\n    (slab_width/2 - edge_offset - pad_width/2, slab_length/2 - edge_offset - pad_length/2),  # Front-right\n    (-slab_width/2 + edge_offset + pad_width/2, slab_length/2 - edge_offset - pad_length/2),  # Front-left\n    (slab_width/2 - edge_offset - pad_width/2, -slab_length/2 + edge_offset + pad_length/2),  # Back-right\n    (-slab_width/2 + edge_offset + pad_width/2, -slab_length/2 + edge_offset + pad_length/2), # Back-left\n]\n\n# Add shallow pads and deeper continuations for each corner\nfor i, (x_pos, y_pos) in enumerate(positions):\n    # Determine alignment for the deeper continuation\n    # Continuation shares either left/right edge with pad, and front/back edges\n    if x_pos > 0:  # Right side: align continuation to right edge of pad\n        cont_x_offset = (pad_width - continuation_width) / 2\n    else:  # Left side: align continuation to left edge of pad\n        cont_x_offset = -(pad_width - continuation_width) / 2\n    \n    if y_pos > 0:  # Front side: align continuation to front edge of pad\n        cont_y_offset = (pad_length - continuation_length) / 2\n    else:  # Back side: align continuation to back edge of pad\n        cont_y_offset = -(pad_length - continuation_length) / 2\n    \n    # Add shallow pad (first tier)\n    pad = (\n        bottom_face\n        .workplane(offset=-slab_thickness/2)\n        .center(x_pos, y_pos)\n        .box(pad_width, pad_length, pad_thickness, combine=\"a\")\n    )\n    \n    # Add deeper continuation (second tier) below the pad\n    # Position relative to the pad's center, with alignment offset\n    cont_x = x_pos + cont_x_offset\n    cont_y = y_pos + cont_y_offset\n    \n    continuation = (\n        bottom_face\n        .workplane(offset=-slab_thickness/2 - pad_thickness)\n        .center(cont_x, cont_y)\n        .box(continuation_width, continuation_length, continuation_thickness, combine=\"a\")\n    )\n    \n    # Update result with combined geometry\n    result = pad.union(continuation)\n\n# Final result is the unified model"
+  },
+  "note": "The model emitted an executable CAD program in a non-JSON language; this public demo wraps that program in a uniform JSON envelope."
+}

@@ -1,5 +1,16 @@
 {
-  "format": "openscad",
-  "label": "shuttlecock",
-  "source": "articraft_mesh_preview"
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "articraft/gemini_25809",
+  "model": "gemini-reason",
+  "input_spec": "image",
+  "output_format": "openscad",
+  "valid": true,
+  "condition": "Image-to-3D Articraft mesh case: shuttlecock.",
+  "metrics": {},
+  "program": {
+    "language": "openscad",
+    "source": null
+  },
+  "note": "Sanitized mesh-preview case from the Articraft bundle; no executable source program was present in the local archive."
 }

@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "text_image2cad",
+  "case_id": "0026/00268024",
+  "model": "gpt55-reason",
+  "input_spec": "image_text",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Abstract:\nA rectangular frame plate with raised round collars around corner holes.\n\nDetailed CAD facts:\nThe part is a thin rectangular base with a large rectangular opening cut through the middle, leaving a continuous border frame. Four raised circular collars sit on the upper face near the corners of the frame rather than on any rectangular pads. Each collar is annular, with a central round hole that continues through the base. The rectangular center cut is a removed through area, and the circular centers are also removed material, while only the surrounding ring portions are added material. The model has stepped depth behavior: the base is shallow, the collars rise above it, and the central and circular cuts extend through the relevant thickness rather than forming raised features.",
+  "metrics": {
+    "chamfer_distance": 0.000433,
+    "hausdorff_distance": 0.091929,
+    "f_score_005": 0.9703,
+    "f_score_001": 0.417,
+    "normal_consistency": 0.6466,
+    "iou_csg": 0.4264,
+    "iou_voxel": 0.4544,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters\nbase_length = 100.0\nbase_width = 70.0\nbase_thickness = 4.0\n\nframe_border_x = 18.0\nframe_border_y = 16.0\ncenter_opening_length = base_length - 2.0 * frame_border_x\ncenter_opening_width = base_width - 2.0 * frame_border_y\n\ncollar_outer_diameter = 14.0\ncollar_inner_diameter = 6.0\ncollar_height = 8.0\n\ncollar_offset_x = 16.0\ncollar_offset_y = 14.0\n\nedge_chamfer = 0.8\ncollar_top_chamfer = 0.6\n\n# Derived dimensions\ncollar_positions = [\n    (-base_length / 2.0 + collar_offset_x, -base_width / 2.0 + collar_offset_y),\n    ( base_length / 2.0 - collar_offset_x, -base_width / 2.0 + collar_offset_y),\n    (-base_length / 2.0 + collar_offset_x,  base_width / 2.0 - collar_offset_y),\n    ( base_length / 2.0 - collar_offset_x,  base_width / 2.0 - collar_offset_y),\n]\n\n# Create the thin rectangular frame plate with a through rectangular center opening\nbase_frame = (\n    cq.Workplane(\"XY\")\n    .box(base_length, base_width, base_thickness)\n    .edges(\"|Z\")\n    .chamfer(edge_chamfer)\n    .faces(\">Z\")\n    .workplane()\n    .rect(center_opening_length, center_opening_width)\n    .cutThruAll()\n)\n\n# Add raised circular collars on the upper face\ncollars = (\n    cq.Workplane(\"XY\")\n    .workplane(offset=base_thickness / 2.0)\n    .pushPoints(collar_positions)\n    .circle(collar_outer_diameter / 2.0)\n    .extrude(collar_height)\n)\n\n# Combine base and collars into one solid\nmodel = base_frame.union(collars)\n\n# Cut the central holes through the collars and base\nresult = (\n    model\n    .faces(\">Z\")\n    .workplane()\n    .pushPoints(collar_positions)\n    .circle(collar_inner_diameter / 2.0)\n    .cutThruAll()\n    .edges(\">Z\")\n    .filter(lambda edge: abs(edge.Center().z - (base_thickness / 2.0 + collar_height)) < 1e-5)\n    .chamfer(collar_top_chamfer)\n)"
+  },
+  "note": "The model emitted an executable CAD program in a non-JSON language; this public demo wraps that program in a uniform JSON envelope."
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "text_image2cad",
+  "case_id": "0092/00925049",
+  "model": "gemini-reason",
+  "input_spec": "image_text",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Abstract:\nA shallow channel-like solid with upright side walls and a raised perforated feature.\n\nDetailed CAD facts:\nThe model is built from a solid rectangular base with two long upright side walls added along opposite edges. Each side wall contains a round opening near the same end, and those openings are voids through the wall rather than raised circular details. A smaller solid rectangular raised feature sits on the upper face of the base between the walls. That raised feature contains two smaller circular cut or recess features at a matching height, with the cuts forming a shallower depth tier than the taller added material.",
+  "metrics": {
+    "chamfer_distance": 0.003246,
+    "hausdorff_distance": 0.23768,
+    "f_score_005": 0.6804,
+    "f_score_001": 0.106,
+    "normal_consistency": 0.6761,
+    "iou_csg": 0.0371,
+    "iou_voxel": 0.0536,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters for the base\nbase_length = 140.0\nbase_width = 30.0\nbase_thickness = 3.0\n\n# Parameters for the side walls\nwall_thickness = 3.0\nwall_length = 65.0\nwall_height_max = 35.0\nwall_height_min = 12.0\n\n# Parameters for the center raised features (tabs)\ntab_length = 5.0\ntab_width = 8.0\ntab_height = 16.0\ntab_offset_x = 6.0\ntab_offset_y = 5.0\n\n# Parameters for the holes\nhole_radius_wall = 2.0\nhole_radius_tab = 1.2\nwall_hole_offset_x = 12.0\nwall_hole_offset_z = 10.0\ntab_hole_offset_z = 4.0\n\n# 1. Create the solid rectangular base\nbase = cq.Workplane(\"XY\").box(base_length, base_width, base_thickness)\n\n# 2. Create the left side wall (on the front edge, tapering down towards the center)\nleft_wall_pts = [\n    (-base_length/2, -base_thickness/2),\n    (-base_length/2, wall_height_max),\n    (-base_length/2 + wall_length, wall_height_min),\n    (-base_length/2 + wall_length, -base_thickness/2)\n]\nleft_wall = (\n    cq.Workplane(\"XZ\", origin=(0, -base_width/2 + wall_thickness/2, 0))\n    .polyline(left_wall_pts).close()\n    .extrude(wall_thickness/2, both=True)\n)\n\n# 3. Create the right side wall (on the back edge, tapering down towards the center)\nright_wall_pts = [\n    (base_length/2, -base_thickness/2),\n    (base_length/2, wall_height_max),\n    (base_length/2 - wall_length, wall_height_min),\n    (base_length/2 - wall_length, -base_thickness/2)\n]\nright_wall = (\n    cq.Workplane(\"XZ\", origin=(0, base_width/2 - wall_thickness/2, 0))\n    .polyline(right_wall_pts).close()\n    .extrude(wall_thickness/2, both=True)\n)\n\n# 4. Create the center raised features (two offset rectangular tabs)\nleft_tab = (\n    cq.Workplane(\"XY\", origin=(-tab_offset_x, -tab_offset_y, base_thickness/2))\n    .box(tab_length, tab_width, tab_height, centered=(True, True, False))\n)\nright_tab = (\n    cq.Workplane(\"XY\", origin=(tab_offset_x, tab_offset_y, base_thickness/2))\n    .box(tab_length, tab_width, tab_height, centered=(True, True, False))\n)\n\n# Combine all solid geometry into a single unified body\nresult = base.union(left_wall).union(right_wall).union(left_tab).union(right_tab)\n\n# 5. Define cutting tools for the holes\n# Hole in the left wall\nleft_hole = (\n    cq.Workplane(\"XZ\", origin=(-base_length/2 + wall_hole_offset_x, 0, wall_height_max - wall_hole_offset_z))\n    .circle(hole_radius_wall)\n    .extrude(base_width * 2, both=True)\n)\n\n# Hole in the right wall\nright_hole = (\n    cq.Workplane(\"XZ\", origin=(base_length/2 - wall_hole_offset_x, 0, wall_height_max - wall_hole_offset_z))\n    .circle(hole_radius_wall)\n    .extrude(base_width * 2, both=True)\n)\n\n# Holes in the center tabs\ntab_holes = (\n    cq.Workplane(\"XZ\", origin=(0, 0, base_thickness/2 + tab_height - tab_hole_offset_z))\n    .pushPoints([(-tab_offset_x, 0), (tab_offset_x, 0)])\n    .circle(hole_radius_tab)\n    .extrude(base_width * 2, both=True)\n)\n\n# Subtract the holes from the main body\nresult = result.cut(left_hole).cut(right_hole).cut(tab_holes)"
+  },
+  "note": "The model emitted an executable CAD program in a non-JSON language; this public demo wraps that program in a uniform JSON envelope."
+}

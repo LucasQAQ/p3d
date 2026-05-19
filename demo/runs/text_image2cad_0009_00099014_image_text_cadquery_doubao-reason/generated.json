@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "text_image2cad",
+  "case_id": "0009/00099014",
+  "model": "doubao-reason",
+  "input_spec": "image_text",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Abstract:\nA thick rectangular slab with stepped solid protrusions underneath.\n\nDetailed CAD facts:\nThe model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
+  "metrics": {
+    "chamfer_distance": 0.017269,
+    "hausdorff_distance": 0.464238,
+    "f_score_005": 0.4343,
+    "f_score_001": 0.0216,
+    "normal_consistency": 0.518,
+    "iou_csg": 0.098,
+    "iou_voxel": 0.1239,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# ================== PARAMETERS ==================\n# Main slab dimensions\nslab_length = 100.0    # X-axis length of main slab\nslab_width = 80.0      # Y-axis width of main slab\nslab_thickness = 10.0  # Z-axis thickness of main slab\n\n# First tier (shallow pad) parameters\npad_length = 20.0      # X length of each shallow pad\npad_width = 15.0       # Y width of each shallow pad\npad_height = 5.0       # Z height of each shallow pad\n\n# Second tier (deep continuation) parameters\nleg_length = 15.0      # X length of each lower leg\nleg_width = 15.0       # Y width of each lower leg (matches pad width)\nleg_height = 15.0      # Z height of each lower leg\n\n# Offset from slab edge for pad placement\nedge_offset = 5.0      # Distance from slab edge to nearest pad edge\n# ================================================\n\n# Create main rectangular slab\nresult = cq.Workplane(\"XY\").box(slab_length, slab_width, slab_thickness)\n\n# ------------------ Underside pads + legs ------------------\n# Work on the bottom face of the slab, Z offset down for adding material\nbottom_workplane = result.faces(\"<Z\").workplane(offset=-pad_height/2, invert=False)\n\n# Create shallow pads as first tier (2 pairs, left/right aligned)\npads = (\n    bottom_workplane\n    # Left end pads (near X min edge)\n    .pushPoints([\n        (-slab_length/2 + edge_offset + pad_length/2, -slab_width/2 + edge_offset + pad_width/2),  # Front left pad\n        (-slab_length/2 + edge_offset + pad_length/2, slab_width/2 - edge_offset - pad_width/2)    # Rear left pad\n    ])\n    .box(pad_length, pad_width, pad_height)\n    # Right end pads (near X max edge)\n    .pushPoints([\n        (slab_length/2 - edge_offset - pad_length/2, -slab_width/2 + edge_offset + pad_width/2),   # Front right pad\n        (slab_length/2 - edge_offset - pad_length/2, slab_width/2 - edge_offset - pad_width/2)     # Rear right pad\n    ])\n    .box(pad_length, pad_width, pad_height)\n)\n\n# Join pads to main slab\nresult = result.union(pads)\n\n# Create second tier legs (attached underneath each pad, aligned to side edge of pad)\nleg_workplane = result.faces(\"<Z\").workplane(offset=-leg_height/2, invert=False)\n\nlegs = (\n    leg_workplane\n    # Left end legs (aligned to left edge of left pads, matching front/back edges)\n    .pushPoints([\n        (-slab_length/2 + edge_offset + leg_length/2, -slab_width/2 + edge_offset + leg_width/2),  # Front left leg\n        (-slab_length/2 + edge_offset + leg_length/2, slab_width/2 - edge_offset - leg_width/2)    # Rear left leg\n    ])\n    .box(leg_length, leg_width, leg_height)\n    # Right end legs (aligned to right edge of right pads, matching front/back edges)\n    .pushPoints([\n        (slab_length/2 - edge_offset - leg_length/2, -slab_width/2 + edge_offset + leg_width/2),   # Front right leg\n        (slab_length/2 - edge_offset - leg_length/2, slab_width/2 - edge_offset - leg_width/2)     # Rear right leg\n    ])\n    .box(leg_length, leg_width, leg_height)\n)\n\n# Join legs to the existing model\nresult = result.union(legs)"
+  },
+  "note": "The model emitted an executable CAD program in a non-JSON language; this public demo wraps that program in a uniform JSON envelope."
+}

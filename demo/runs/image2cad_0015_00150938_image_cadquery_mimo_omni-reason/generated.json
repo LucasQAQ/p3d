@@ -1,0 +1,25 @@
+{
+  "schema": "p3d.demo.generated_output.v1",
+  "task": "image2cad",
+  "case_id": "0015/00150938",
+  "model": "mimo_omni-reason",
+  "input_spec": "image",
+  "output_format": "cadquery",
+  "valid": true,
+  "condition": "Reconstruct the parametric CAD model from the provided input image.",
+  "metrics": {
+    "chamfer_distance": 0.0014,
+    "hausdorff_distance": 0.153613,
+    "f_score_005": 0.8401,
+    "f_score_001": 0.1979,
+    "normal_consistency": 0.7368,
+    "iou_csg": 0.5392,
+    "iou_voxel": 0.5342,
+    "pred_open_edge_ratio": 0.0
+  },
+  "program": {
+    "language": "cadquery",
+    "source": "import cadquery as cq\n\n# Parameters - estimated from visual proportions\nbase_width = 80.0\nbase_depth = 80.0\nbase_thickness = 3.0\n\n# Central square block parameters\nblock_width = 40.0\nblock_depth = 40.0\nblock_height = 15.0\n\n# Cylindrical ring parameters\ncylinder_outer_diameter = 35.0\ncylinder_inner_diameter = 30.0\ncylinder_height = 20.0\n\n# Side cylindrical features\nside_cylinder_diameter = 12.0\nside_cylinder_height = 10.0\n\n# Mounting holes\nhole_diameter = 5.0\nhole_offset = 10.0  # Distance from edges\n\n# Create the base plate\nresult = (\n    cq.Workplane(\"XY\")\n    .box(base_width, base_depth, base_thickness)\n    .faces(\">Z\").workplane()\n)\n\n# Add the central square block\nresult = (\n    result\n    .rect(block_width, block_depth)\n    .extrude(block_height)\n)\n\n# Add the cylindrical ring on top of the block\nresult = (\n    result\n    .faces(\">Z\")\n    .workplane()\n    .circle(cylinder_outer_diameter / 2)\n    .circle(cylinder_inner_diameter / 2)\n    .extrude(cylinder_height)\n)\n\n# Add side cylindrical features (two on opposite sides)\n# First side cylinder\nresult = (\n    result\n    .workplane(offset=block_height / 2, centerOption=\"CenterOfMass\")\n    .transformed(rotate=(0, 0, 0))\n    .center(-block_width / 2, 0)\n    .circle(side_cylinder_diameter / 2)\n    .extrude(side_cylinder_height, combine=\"cut\")  # Cut to create the cylindrical extension\n)\n\n# Second side cylinder (opposite side)\nresult = (\n    result\n    .workplane(offset=block_height / 2, centerOption=\"CenterOfMass\")\n    .transformed(rotate=(0, 0, 180))\n    .center(-block_width / 2, 0)\n    .circle(side_cylinder_diameter / 2)\n    .extrude(side_cylinder_height, combine=\"cut\")  # Cut to create the cylindrical extension\n)\n\n# Add mounting holes in the base plate corners\n# Workplane for holes on the base plate\nresult = (\n    result\n    .faces(\"<Z\")\n    .workplane()\n    .rect(\n        base_width - 2 * hole_offset,\n        base_depth - 2 * hole_offset,\n        forConstruction=True\n    )\n    .vertices()\n    .hole(hole_diameter)\n)"
+  },
+  "note": "The model emitted an executable CAD program in a non-JSON language; this public demo wraps that program in a uniform JSON envelope."
+}
