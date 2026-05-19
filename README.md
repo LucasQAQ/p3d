@@ -54,7 +54,8 @@ For auditability, non-JSON outputs also include `assets.generated_json`, a
 sanitized JSON envelope that records the task, case, model, input spec, output
 format, metrics, and generated program text when that source is present.
 Text-to-3D exposes JSON and OpenSCAD. Image-to-3D uses only the provided
-Articraft all-model bundle for the public demo; that bundle currently contains
-OpenSCAD and Three.js runs and no CadQuery runs. JSON is not treated as an
+Articraft all-model bundle for the public demo. The page exposes whichever
+native formats are present in that bundle, including CadQuery, OpenSCAD, and
+Three.js when complete runs are available. JSON is not treated as an
 Image-to-3D native format. Assembly cases remain a small placeholder set until
 the complete public assembly bundle is supplied.
