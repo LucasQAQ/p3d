@@ -297,7 +297,7 @@ h2 {
   height: clamp(280px, 28vw, 390px);
   overflow: hidden;
   border-radius: 0;
-  background: #dfe7df;
+  background: #eaf5f1;
   box-shadow: none;
 }
 
@@ -526,6 +526,26 @@ select {
   background: #f7faf6;
   color: var(--ink);
   font: 700 14px/1.2 var(--font-body);
+}
+
+.availability-note {
+  display: grid;
+  grid-template-columns: 6px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+  margin: -2px 0 15px;
+  color: #78837e;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.availability-note span {
+  width: 6px;
+  height: 6px;
+  margin-top: 6px;
+  border-radius: 999px;
+  background: rgba(83, 119, 107, 0.46);
 }
 
 .condition {

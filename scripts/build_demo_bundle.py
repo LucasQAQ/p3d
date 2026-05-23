@@ -20,12 +20,11 @@ DOUBAO_PARAM_OPENSCAD_ROOT = WORKBENCH / "artifacts/relabel_eval/doubao_textp3d_
 DOUBAO_PARAM_JSON_ROOT = WORKBENCH / "artifacts/relabel_eval/doubao_textp3d_canary_20260512_local/parametric_detail/json"
 DETAILED_JSON_ROOT = WORKBENCH / "artifacts/relabel_eval/v65_eval400_current_detailed_json_local_eval"
 DOUBAO_DETAILED_JSON_ROOT = WORKBENCH / "artifacts/relabel_eval/doubao_textp3d_canary_20260512_local/detailed/json"
-PRIMARY_CADQUERY_RESULTS = WORKBENCH / "artifacts/relabel_eval/v65_50_primary_allmodels_cadquery/full_results.json"
 ARTICRAFT_ALL_MODELS_ROOT = Path(
     os.environ.get("P3D_ARTICRAFT_ALL_MODELS_ROOT", REPO / "local/articraft_all_models")
 ).expanduser()
-ARTICRAFT_ASSEMBLY_ROOT = Path(
-    os.environ.get("P3D_ARTICRAFT_ASSEMBLY_ROOT", REPO / "local/articraft_assembly")
+TEXTIMAGE2CAD_ALL_MODELS_ROOT = Path(
+    os.environ.get("P3D_TEXTIMAGE2CAD_ALL_MODELS_ROOT", REPO / "local/textimage2cad_all_models")
 ).expanduser()
 
 TEXT_MODELS = [
@@ -107,11 +106,11 @@ def main() -> None:
     manifest = make_manifest()
 
     text_runs, text_cases = build_text_runs()
-    other_runs, other_cases = build_primary_cadquery_runs()
+    assembly_runs, assembly_cases = build_textimage2cad_runs()
     articraft_runs, articraft_cases = build_articraft_runs()
 
-    all_runs = add_json_view_runs(text_runs + other_runs + articraft_runs)
-    all_cases = normalize_case_titles(dedupe_cases(text_cases + other_cases + articraft_cases))
+    all_runs = add_json_view_runs(text_runs + assembly_runs + articraft_runs)
+    all_cases = normalize_case_titles(dedupe_cases(text_cases + assembly_cases + articraft_cases))
     used_models = sorted({run["model"] for run in all_runs}, key=model_sort_key)
 
     manifest["models"] = [
@@ -156,6 +155,7 @@ def make_manifest() -> dict[str, Any]:
                 "Zhanpeng Hu¹,*",
                 "Youtian Lin¹",
                 "Mengqi Zhou¹,²",
+                "Jingxi Xu²",
                 "Feihu Zhang²",
                 "Jiaheng Liu¹",
                 "Yao Yao¹",
@@ -175,7 +175,7 @@ def make_manifest() -> dict[str, Any]:
         "tasks": [
             {"id": "text2cad", "label": "Text-to-3D", "formats": ["JSON", "OpenSCAD"], "status": "interactive"},
             {"id": "image2cad", "label": "Image-to-3D", "formats": ["CadQuery", "OpenSCAD", "Three.js"], "status": "interactive"},
-            {"id": "text_image2cad", "label": "Assembly-3D", "formats": ["JSON", "CadQuery", "OpenSCAD"], "status": "interactive"},
+            {"id": "text_image2cad", "label": "Assembly-3D", "formats": ["CadQuery", "OpenSCAD"], "status": "interactive"},
         ],
         "models": [],
         "cases": [],
@@ -242,74 +242,129 @@ def build_text_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     return runs, cases
 
 
-def build_primary_cadquery_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    data = json.loads(PRIMARY_CADQUERY_RESULTS.read_text(encoding="utf-8"))
+def build_textimage2cad_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    if not TEXTIMAGE2CAD_ALL_MODELS_ROOT.exists():
+        AUDIT["text_image2cad_source"] = {"available": False}
+        return [], []
+
     runs: list[dict[str, Any]] = []
-    cases: list[dict[str, Any]] = []
+    cases_by_id: dict[str, dict[str, Any]] = {}
+    reports_by_case: dict[str, dict[str, Any]] = {}
+    source_formats: set[str] = set()
+    source_models: set[str] = set()
+    source_run_count = 0
 
-    for task, spec, limit in [("text_image2cad", "image_text", 3)]:
-        combos = {key: value for key, value in data.items() if key.startswith(f"{task}/")}
-        if not combos:
-            continue
-        combo_cases: dict[str, dict[str, dict[str, Any]]] = {}
-        incomplete_valid_runs: list[dict[str, Any]] = []
-        for combo_key, result in combos.items():
-            _, model_raw, fmt = combo_key.split("/")
-            model = normalize_model(model_raw)
-            exportable_cases = {}
-            for case in result.get("cases", []):
-                if case.get("valid") is not True:
+    for fmt_dir in sorted((path for path in TEXTIMAGE2CAD_ALL_MODELS_ROOT.iterdir() if path.is_dir()), key=lambda path: format_sort_key(safe_format(path.name))):
+        fmt = safe_format(fmt_dir.name)
+        source_formats.add(fmt)
+        for case_dir in sorted((path for path in fmt_dir.iterdir() if path.is_dir()), key=lambda path: path.name):
+            case_id = f"textimage2cad/{case_dir.name}"
+            input_dir = case_dir / "input"
+            condition = read_text_asset(input_dir / "condition.txt") or default_condition_for_task("text_image2cad")
+            title = summarize_condition(condition)
+            report = reports_by_case.setdefault(
+                case_id,
+                {
+                    "case_id": case_id,
+                    "selected": False,
+                    "source_formats": set(),
+                    "source_models": set(),
+                    "models": set(),
+                    "formats": {},
+                    "incomplete_runs": [],
+                    "input_reference": (input_dir / "gt_render.png").exists(),
+                },
+            )
+            report["source_formats"].add(fmt)
+
+            case_runs: list[dict[str, Any]] = []
+            for model_dir in sorted((path for path in case_dir.iterdir() if path.is_dir() and path.name != "input"), key=lambda path: model_sort_key(normalize_model(path.name))):
+                metrics_path = model_dir / "metrics.json"
+                if not metrics_path.exists():
                     continue
-                if case_is_exportable(case, PRIMARY_CADQUERY_RESULTS.parent, task, model, fmt):
-                    exportable_cases[case["case_id"]] = case
-                else:
-                    incomplete_valid_runs.append({"case_id": case["case_id"], "model": model, "format": fmt})
-            combo_cases[combo_key] = exportable_cases
-
-        common = None
-        for cases_by_id in combo_cases.values():
-            valid = set(cases_by_id)
-            common = valid if common is None else common & valid
-        selected = sorted(common or [])[:limit]
-
-        for case_id in selected:
-            title = None
-            thumbnail = None
-            for combo_key, cases_by_id in combo_cases.items():
-                model_raw = combo_key.split("/")[1]
-                model = normalize_model(model_raw)
-                fmt = combo_key.split("/")[2]
-                source_case = cases_by_id.get(case_id)
-                if not source_case:
+                payload = json.loads(metrics_path.read_text(encoding="utf-8"))
+                model = normalize_model(payload.get("model") or model_dir.name)
+                source_models.add(model)
+                report["source_models"].add(model)
+                source_run_count += 1
+                source = generated_source_for_format(model_dir, fmt)
+                missing = missing_textimage_run_assets(case_dir, model_dir, fmt, source)
+                if missing:
+                    report["incomplete_runs"].append({"model": model, "format": fmt, "missing": missing})
                     continue
-                condition = source_case.get("condition_text") or default_condition_for_task(task)
-                title = title or summarize_condition(condition if task != "image2cad" else f"Image reference for {case_id}.")
-                if task == "image2cad" and thumbnail is None:
-                    thumbnail = copy_asset(
-                        resolve_existing(source_case.get("input_image_path")),
-                        OUT / "inputs" / f"{safe_slug(task + '_' + case_id)}.png",
-                    )
-                runs.append(
+
+                report["selected"] = True
+                report["models"].add(model)
+                report["formats"][fmt] = report["formats"].get(fmt, 0) + 1
+                source_case = {
+                    "case_id": case_id,
+                    "valid": payload.get("valid") is True,
+                    "metrics": payload.get("metrics") or {},
+                    "generated_code_path": str(source),
+                    "stl_path": str(model_dir / "model_aligned.stl"),
+                    "pred_render_path": str(model_dir / "pred_render_aligned.png"),
+                    "gt_stl_path": str(input_dir / "gt_mesh.stl"),
+                    "gt_render_path": str(input_dir / "gt_render.png"),
+                    "input_image_path": str(input_dir / "gt_render.png"),
+                }
+                case_runs.append(
                     make_run_from_case(
-                        task=task,
+                        task="text_image2cad",
                         model=model,
-                        spec=spec,
+                        spec="image_text",
                         fmt=fmt,
                         case=source_case,
-                        source_root=PRIMARY_CADQUERY_RESULTS.parent,
+                        source_root=TEXTIMAGE2CAD_ALL_MODELS_ROOT,
                         condition=condition,
                     )
                 )
-            cases.append(
-                {
+
+            if case_runs and case_id not in cases_by_id:
+                thumbnail = copy_asset(input_dir / "gt_render.png", OUT / "inputs" / f"{safe_slug('text_image2cad_' + case_id)}.png")
+                cases_by_id[case_id] = {
                     "id": case_id,
                     "title": title or case_id,
-                    "task": task,
+                    "task": "text_image2cad",
                     **({"thumbnail": rel(thumbnail)} if thumbnail else {}),
                 }
-            )
+            runs.extend(case_runs)
 
-    return runs, cases
+    serializable_reports = [
+        {
+            "case_id": report["case_id"],
+            "selected": report["selected"],
+            "source_formats": sorted(report["source_formats"], key=format_sort_key),
+            "source_model_count": len(report["source_models"]),
+            "source_models": sorted(report["source_models"], key=model_sort_key),
+            "complete_run_count": sum(report["formats"].values()),
+            "model_count": len(report["models"]),
+            "models": sorted(report["models"], key=model_sort_key),
+            "formats": report["formats"],
+            "input_reference": report["input_reference"],
+            "incomplete_runs": report["incomplete_runs"],
+        }
+        for report in sorted(reports_by_case.values(), key=lambda item: item["case_id"])
+    ]
+
+    AUDIT["text_image2cad_source"] = {
+        "available": True,
+        "external_sources_used": False,
+        "source_formats": sorted(source_formats, key=format_sort_key),
+        "source_model_count": len(source_models),
+        "source_models": sorted(source_models, key=model_sort_key),
+        "source_case_count": len(reports_by_case),
+        "source_run_count": source_run_count,
+        "selected_case_count": len(cases_by_id),
+        "selected_run_count": len(runs),
+        "complete_run_summary": {
+            fmt: sum(report["formats"].get(fmt, 0) for report in serializable_reports)
+            for fmt in sorted(source_formats, key=format_sort_key)
+        },
+        "incomplete_run_count": sum(len(report["incomplete_runs"]) for report in serializable_reports),
+        "cases": serializable_reports,
+    }
+
+    return runs, list(cases_by_id.values())
 
 
 def build_articraft_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
@@ -322,15 +377,14 @@ def build_articraft_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     case_reports: list[dict[str, Any]] = []
 
     for case_dir in sorted((path for path in ARTICRAFT_ALL_MODELS_ROOT.iterdir() if path.is_dir()), key=articraft_case_sort_key):
-        label, numeric_id = split_articraft_case_name(case_dir.name)
-        uid = find_articraft_uid(case_dir, numeric_id)
+        label, _numeric_id = split_articraft_case_name(case_dir.name)
         case_id = f"articraft/{case_dir.name}"
         title = title_case_words(label.replace("_", " "))
         condition = f"Reference image: {label.replace('_', ' ')}."
-        input_image = resolve_articraft_input_image(uid)
+        input_image = case_dir / "gt_render.png"
         case_report: dict[str, Any] = {
             "case_id": case_id,
-            "input_image": bool(input_image),
+            "input_image": input_image.exists(),
             "models": set(),
             "formats": {},
             "model_formats": {},
@@ -416,6 +470,7 @@ def build_articraft_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     AUDIT["image2cad_articraft_source"] = {
         "available": True,
         "external_sources_used": False,
+        "input_thumbnail_source": "provided_bundle_gt_render",
         "paper_native_formats": ["cadquery", "openscad", "threejs"],
         "source_model_count": len(image_models),
         "source_models": image_models,
@@ -462,6 +517,20 @@ def missing_articraft_run_assets(case_dir: Path, fmt_dir: Path, fmt: str, source
     return [label for label, path in checks if not path or not path.exists()]
 
 
+def missing_textimage_run_assets(case_dir: Path, model_dir: Path, fmt: str, source: Path | None) -> list[str]:
+    source_ext = {"cadquery": "py", "openscad": "scad", "threejs": "js"}.get(fmt, "txt")
+    input_dir = case_dir / "input"
+    checks = [
+        (f"generated.{source_ext}", source),
+        ("model_aligned.stl", model_dir / "model_aligned.stl"),
+        ("pred_render_aligned.png", model_dir / "pred_render_aligned.png"),
+        ("input/gt_mesh.stl", input_dir / "gt_mesh.stl"),
+        ("input/gt_render.png", input_dir / "gt_render.png"),
+        ("input/condition.txt", input_dir / "condition.txt"),
+    ]
+    return [label for label, path in checks if not path or not path.exists()]
+
+
 def articraft_case_sort_key(path: Path) -> tuple[int, str]:
     label, numeric_id = split_articraft_case_name(path.name)
     try:
@@ -473,31 +542,6 @@ def articraft_case_sort_key(path: Path) -> tuple[int, str]:
 def split_articraft_case_name(name: str) -> tuple[str, str]:
     label, _, numeric_id = name.rpartition("_")
     return (label or name, numeric_id or name)
-
-
-def find_articraft_uid(case_dir: Path, numeric_id: str) -> str | None:
-    for metrics_path in sorted(list(case_dir.glob("*/metrics.json")) + list(case_dir.glob("*/*/metrics.json"))):
-        try:
-            uid = json.loads(metrics_path.read_text(encoding="utf-8")).get("case_id")
-        except json.JSONDecodeError:
-            continue
-        if uid:
-            return str(uid)
-
-    matches = sorted(ARTICRAFT_ASSEMBLY_ROOT.glob(f"{numeric_id}_*")) if numeric_id else []
-    return matches[0].name if matches else None
-
-
-def resolve_articraft_input_image(uid: str | None) -> Path | None:
-    if not uid:
-        return None
-    candidates = [
-        ARTICRAFT_ASSEMBLY_ROOT / uid / "assembly.png",
-    ]
-    for path in candidates:
-        if path.exists():
-            return path
-    return None
 
 
 def source_format_for_model_dir(model_dir: Path) -> str:

@@ -36,10 +36,10 @@ Optional local inputs can be provided through environment variables:
 | --- | --- |
 | `P3D_TEXT2CAD_WORKBENCH` | Local Text-to-3D evaluation artifact root. |
 | `P3D_ARTICRAFT_ALL_MODELS_ROOT` | Extracted Image-to-3D all-model result bundle. |
-| `P3D_ARTICRAFT_ASSEMBLY_ROOT` | Original assembly image folders used for Image-to-3D input thumbnails. |
+| `P3D_TEXTIMAGE2CAD_ALL_MODELS_ROOT` | Extracted Assembly-3D all-model result bundle. |
 
 If those variables are not set, the script looks for ignored local symlinks at
-`local/articraft_all_models` and `local/articraft_assembly`.
+`local/articraft_all_models` and `local/textimage2cad_all_models`.
 
 The bundle intentionally keeps only page-facing artifacts: generated CAD
 programs, STL meshes, thumbnails, input images, and compact public metrics. It
@@ -57,5 +57,5 @@ Text-to-3D exposes JSON and OpenSCAD. Image-to-3D uses only the provided
 Articraft all-model bundle for the public demo. The page exposes whichever
 native formats are present in that bundle, including CadQuery, OpenSCAD, and
 Three.js when complete runs are available. JSON is not treated as an
-Image-to-3D native format. Assembly cases remain a small placeholder set until
-the complete public assembly bundle is supplied.
+Image-to-3D native format. Assembly-3D uses only the provided text-image CAD
+all-model bundle and exposes the native formats with complete runs.

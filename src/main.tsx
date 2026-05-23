@@ -64,12 +64,13 @@ type InputModalItem = Pick<ShowcaseItem, "title" | "taskLabel" | "specLabel" | "
 type LeaderboardRow = { model: string; family: string; score: number };
 type LeaderboardTask = { title: string; accent: string; rows: LeaderboardRow[] };
 type ModelFamilyStyle = { color: string; icon: string; tile?: string; filter?: string };
+type AvailabilitySummary = { invalidCount: number; caseCount: number; modelCount: number; formatCount: number };
 
 const fallbackManifest: Manifest = {
   schema_version: 1,
   paper: {
     title: "P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning",
-    authors: ["Yikang Yang¹,²,*", "Zhanpeng Hu¹,*", "Youtian Lin¹", "Mengqi Zhou¹,²", "Feihu Zhang²", "Jiaheng Liu¹", "Yao Yao¹"],
+    authors: ["Yikang Yang¹,²,*", "Zhanpeng Hu¹,*", "Youtian Lin¹", "Mengqi Zhou¹,²", "Jingxi Xu²", "Feihu Zhang²", "Jiaheng Liu¹", "Yao Yao¹"],
     affiliations: ["¹Nanjing University", "²DreamTech", "*Equal contribution."],
     abstract:
       "Multimodal large language models can write code and interpret rendered images of 3D designs, but it remains unclear whether they can produce executable parametric 3D programs that are geometrically precise, semantically aligned and assembly-consistent. We introduce P3D-Bench, a benchmark that evaluates this ability under a unified protocol across three task families: text-conditioned part synthesis, image-conditioned multi-part reconstruction and image-plus-annotation assembly composition, with metrics that jointly probe executability, geometric fidelity, topology, text-grounded constraints, multiview semantic alignment and part-level assembly structure.",
@@ -78,7 +79,7 @@ const fallbackManifest: Manifest = {
   tasks: [
     { id: "text2cad", label: "Text-to-3D", formats: ["JSON", "OpenSCAD"], status: "interactive" },
     { id: "image2cad", label: "Image-to-3D", formats: ["CadQuery", "OpenSCAD", "Three.js"], status: "interactive" },
-    { id: "text_image2cad", label: "Assembly-3D", formats: ["JSON", "CadQuery", "OpenSCAD"], status: "interactive" }
+    { id: "text_image2cad", label: "Assembly-3D", formats: ["CadQuery", "OpenSCAD"], status: "interactive" }
   ],
   models: [],
   cases: [],
@@ -135,6 +136,7 @@ function App() {
   const modelRuns = useMemo(() => caseRuns.filter((run) => run.model === activeModel), [activeModel, caseRuns]);
   const taskFormats = useMemo(() => Array.from(new Set(taskRuns.map((run) => run.format))).sort((a, b) => formatPriority(a) - formatPriority(b)), [taskRuns]);
   const formats = taskFormats.length ? taskFormats : modelRuns.map((run) => run.format);
+  const availabilitySummary = useMemo(() => buildAvailabilitySummary(cases, taskRuns), [cases, taskRuns]);
 
   useEffect(() => {
     if (!selectedRun) return;
@@ -148,7 +150,7 @@ function App() {
   const selectedModel = manifest.models.find((item) => item.id === activeModel);
   const selectedTask = manifest.tasks.find((item) => item.id === selectedRun?.task);
   const showcaseItems = useMemo(() => buildShowcaseItems(manifest), [manifest]);
-  const heroItems = useMemo(() => showcaseItems.slice(0, 16), [showcaseItems]);
+  const heroItems = useMemo(() => pickHeroSceneItems(showcaseItems), [showcaseItems]);
   const visibleTasks = useMemo(() => manifest.tasks.filter((item) => item.status === "interactive"), [manifest]);
   const caseUsesImagePicker = cases.some((item) => item.thumbnail);
   const selectedInput = selectedRun?.condition || selectedCase?.title || "No input.";
@@ -257,6 +259,7 @@ function App() {
                 <span>Input protocol</span>
                 <strong>{inputSpecLabel(activeSpec)}</strong>
               </div>
+              <AvailabilityNote summary={availabilitySummary} />
               <div className="condition">
                 <span>Input</span>
                 {selectedRun?.assets.input_image && !caseUsesImagePicker ? <img className="condition-image" src={asset(selectedRun.assets.input_image)} alt="Input reference" /> : null}
@@ -310,7 +313,7 @@ function App() {
         </div>
         <pre><code>{`@article{p3dbench2026,
   title={P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning},
-  author={Yang, Yikang and Hu, Zhanpeng and Lin, Youtian and Zhou, Mengqi and Zhang, Feihu and Liu, Jiaheng and Yao, Yao},
+  author={Yang, Yikang and Hu, Zhanpeng and Lin, Youtian and Zhou, Mengqi and Xu, Jingxi and Zhang, Feihu and Liu, Jiaheng and Yao, Yao},
   year={2026}
 }`}</code></pre>
       </section>
@@ -393,6 +396,30 @@ function isCompleteDemoRun(run: Run) {
 
 function getInteractiveCaseIds(runs: Run[]) {
   return new Set(runs.map((run) => run.case_id));
+}
+
+function buildAvailabilitySummary(cases: Manifest["cases"], runs: Run[]): AvailabilitySummary {
+  const caseIds = new Set(cases.map((item) => item.id));
+  const modelIds = new Set(runs.map((run) => run.model));
+  const formatIds = new Set(runs.map((run) => run.format));
+  const completeRunKeys = new Set(runs.map((run) => `${run.case_id}/${run.model}/${run.format}`));
+  const expectedCount = caseIds.size * modelIds.size * formatIds.size;
+  return {
+    invalidCount: Math.max(0, expectedCount - completeRunKeys.size),
+    caseCount: caseIds.size,
+    modelCount: modelIds.size,
+    formatCount: formatIds.size,
+  };
+}
+
+function AvailabilityNote({ summary }: { summary: AvailabilitySummary }) {
+  if (!summary.invalidCount) return null;
+  return (
+    <p className="availability-note" title={`${summary.caseCount} cases, ${summary.modelCount} models, ${summary.formatCount} formats`}>
+      <span aria-hidden="true" />
+      Invalid or non-renderable outputs are omitted from these selectors ({summary.invalidCount} combinations).
+    </p>
+  );
 }
 
 function pickDefaultRun(runs: Run[]) {
@@ -684,16 +711,38 @@ function InputModal({ item, onClose }: { item: InputModalItem; onClose: () => vo
   );
 }
 
-const tileColors = ["#337665", "#285c8f", "#b46e4c", "#6b6b9a", "#2f7a86", "#a88743"];
+const tileColors = ["#337665", "#2f7a86", "#4f88a8", "#7aa08f"];
 
-const renderTaskStyles: Record<string, { body: number; edge: number; shadow: number }> = {
-  text2cad: { body: 0xc6a25f, edge: 0x5d4f35, shadow: 0x4e4636 },
-  image2cad: { body: 0x78a18a, edge: 0x38584b, shadow: 0x334d43 },
-  text_image2cad: { body: 0x708eae, edge: 0x344b63, shadow: 0x303f50 },
+const renderTaskStyles: Record<string, { body: number; edge: number; shadow: number; rim: number }> = {
+  text2cad: { body: 0xbfd9ec, edge: 0x316c92, shadow: 0x5a7382, rim: 0xd9efff },
+  image2cad: { body: 0xb5ddcf, edge: 0x2e7564, shadow: 0x4f786c, rim: 0xd9f4ea },
+  text_image2cad: { body: 0xbfdddf, edge: 0x4b7580, shadow: 0x5b747b, rim: 0xe1f5f6 },
 };
 
 function renderStyleForTask(task?: string) {
   return renderTaskStyles[task || ""] || renderTaskStyles.text2cad;
+}
+
+function pickHeroSceneItems(items: ShowcaseItem[]) {
+  const taskOrder = ["text2cad", "image2cad", "text_image2cad"];
+  const perTask = 4;
+  const picked: ShowcaseItem[] = [];
+  const seen = new Set<string>();
+
+  for (const task of taskOrder) {
+    const taskItems = items.filter((item) => item.task === task).slice(0, perTask);
+    taskItems.forEach((item) => {
+      picked.push(item);
+      seen.add(item.id);
+    });
+  }
+
+  for (const item of items) {
+    if (picked.length >= taskOrder.length * perTask) break;
+    if (!seen.has(item.id)) picked.push(item);
+  }
+
+  return picked;
 }
 
 function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
@@ -704,49 +753,55 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
     if (!mount || !items.length) return;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xdfe7df);
-    scene.fog = new THREE.Fog(0xdfe7df, 8.8, 14.5);
+    scene.background = new THREE.Color(0xeaf5f1);
+    scene.fog = new THREE.Fog(0xeaf5f1, 9.2, 15.6);
 
     const camera = new THREE.PerspectiveCamera(30, 1, 0.01, 100);
-    camera.position.set(0, 3.05, 5.9);
+    camera.position.set(0, 3.35, 6.55);
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0xdfe7df, 1);
+    renderer.setClearColor(0xeaf5f1, 1);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     mount.appendChild(renderer.domElement);
 
-    scene.add(new THREE.HemisphereLight(0xf7f3e8, 0xa9b5ae, 2.25));
+    scene.add(new THREE.HemisphereLight(0xf8fffb, 0xadc5bd, 1.9));
 
-    const key = new THREE.DirectionalLight(0xfff2da, 3.15);
-    key.position.set(4.5, 6.5, 5.2);
+    const key = new THREE.DirectionalLight(0xffffff, 2.55);
+    key.position.set(4.7, 6.6, 5.4);
     key.castShadow = true;
     key.shadow.mapSize.set(2048, 2048);
     key.shadow.camera.near = 0.1;
     key.shadow.camera.far = 16;
     scene.add(key);
 
-    const fill = new THREE.DirectionalLight(0x8dc6bb, 1.25);
+    const fill = new THREE.DirectionalLight(0xb5eadf, 0.82);
     fill.position.set(-5.0, 3.0, -3.0);
     scene.add(fill);
+
+    const rim = new THREE.DirectionalLight(0xb7dcff, 0.68);
+    rim.position.set(-2.6, 4.6, 4.8);
+    scene.add(rim);
 
     const stage = new THREE.Group();
     stage.position.set(0, 0.16, -0.05);
     scene.add(stage);
 
     const shadowPlane = new THREE.Mesh(
-      new THREE.PlaneGeometry(7.6, 3.6),
-      new THREE.ShadowMaterial({ color: 0x344943, opacity: 0.13 })
+      new THREE.PlaneGeometry(7.4, 4.4),
+      new THREE.ShadowMaterial({ color: 0x4d6e67, opacity: 0.1 })
     );
     shadowPlane.rotation.x = -Math.PI / 2;
-    shadowPlane.position.y = -0.84;
+    shadowPlane.position.y = -0.88;
     shadowPlane.receiveShadow = true;
     stage.add(shadowPlane);
 
-    const displayItems = items.slice(0, 16);
+    const displayItems = items.slice(0, 12);
     const loader = new STLLoader();
     const geometries: THREE.BufferGeometry[] = [shadowPlane.geometry];
     const materials: THREE.Material[] = [shadowPlane.material as THREE.Material];
@@ -755,12 +810,13 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
     let disposed = false;
 
     displayItems.forEach((item, index) => {
-      const column = index % 8;
-      const row = Math.floor(index / 8);
-      const y = row === 0 ? 0.18 : -0.12;
+      const column = index % 4;
+      const row = Math.floor(index / 4);
+      const rowZ = [-0.9, 0.02, 0.94][row] ?? 0;
+      const y = [0.22, 0.04, -0.1][row] ?? 0;
       const shell = new THREE.Group();
-      shell.position.set((column - 3.5) * 0.76, y, (row - 0.5) * 0.95);
-      shell.rotation.y = (column - 3.5) * 0.04;
+      shell.position.set((column - 1.5) * 1.32, y, rowZ);
+      shell.rotation.y = (column - 1.5) * 0.05 + (row - 1) * 0.035;
       stage.add(shell);
       objectGroups.push(shell);
       baseY.push(y);
@@ -778,20 +834,24 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
         const size = new THREE.Vector3();
         box?.getSize(size);
         const maxAxis = Math.max(size.x, size.y, size.z) || 1;
-        geometry.scale(1.08 / maxAxis, 1.08 / maxAxis, 1.08 / maxAxis);
+        geometry.scale(0.93 / maxAxis, 0.93 / maxAxis, 0.93 / maxAxis);
         geometries.push(geometry);
 
         const taskStyle = renderStyleForTask(item.task);
-        const material = new THREE.MeshStandardMaterial({
+        const material = new THREE.MeshPhysicalMaterial({
           color: taskStyle.body,
           roughness: 0.58,
-          metalness: 0.04,
+          metalness: 0.02,
+          clearcoat: 0.1,
+          clearcoatRoughness: 0.64,
+          emissive: taskStyle.rim,
+          emissiveIntensity: 0.006,
         });
         materials.push(material);
 
         const modelGroup = new THREE.Group();
         modelGroup.rotation.x = -Math.PI / 2;
-        modelGroup.rotation.z = (index % 2 ? -1 : 1) * 0.18;
+        modelGroup.rotation.z = (index % 2 ? -1 : 1) * 0.12;
 
         const mesh = new THREE.Mesh(geometry, material);
         mesh.castShadow = true;
@@ -799,7 +859,7 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
         modelGroup.add(mesh);
 
         const edgeGeometry = new THREE.EdgesGeometry(geometry, 30);
-        const edgeMaterial = new THREE.LineBasicMaterial({ color: taskStyle.edge, transparent: true, opacity: 0.28 });
+        const edgeMaterial = new THREE.LineBasicMaterial({ color: taskStyle.edge, transparent: true, opacity: 0.26 });
         geometries.push(edgeGeometry);
         materials.push(edgeMaterial);
         modelGroup.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
@@ -811,9 +871,9 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
       const { clientWidth, clientHeight } = mount;
       const width = Math.max(320, clientWidth);
       const height = Math.max(360, clientHeight);
-      const layoutScale = width < 560 ? 0.52 : width < 760 ? 0.78 : 1;
+      const layoutScale = width < 560 ? 0.68 : width < 760 ? 0.88 : 1.08;
       stage.scale.setScalar(layoutScale);
-      camera.position.set(0, width < 560 ? 3.32 : 3.05, width < 560 ? 8.15 : width < 760 ? 6.55 : 5.9);
+      camera.position.set(0, width < 560 ? 3.45 : 3.35, width < 560 ? 7.35 : width < 760 ? 6.85 : 6.55);
       camera.lookAt(0, 0, 0);
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
@@ -829,9 +889,9 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
     const animate = () => {
       const t = clock.getElapsedTime();
       frame = requestAnimationFrame(animate);
-      stage.rotation.y = Math.sin(t * 0.34) * 0.085;
+      stage.rotation.y = Math.sin(t * 0.3) * 0.06;
       objectGroups.forEach((group, index) => {
-        group.position.y = baseY[index] + Math.sin(t * 0.9 + index * 0.57) * 0.045;
+        group.position.y = baseY[index] + Math.sin(t * 0.72 + index * 0.57) * 0.028;
       });
       renderer.render(scene, camera);
     };
@@ -913,16 +973,18 @@ function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?
     if (!mount || !item.mesh) return;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xf0f4ee);
-    scene.fog = new THREE.Fog(0xf0f4ee, 6.5, 11.5);
+    scene.background = new THREE.Color(0xf3faf7);
+    scene.fog = new THREE.Fog(0xf3faf7, 6.8, 12.2);
     const taskStyle = renderStyleForTask(item.task);
     const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 100);
     camera.position.set(3.6, 2.35, variant === "result" ? 4.35 : 4.7);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0xf0f4ee, 1);
+    renderer.setClearColor(0xf3faf7, 1);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     mount.appendChild(renderer.domElement);
@@ -935,17 +997,21 @@ function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?
     controls.minDistance = 2.2;
     controls.maxDistance = 7.5;
 
-    scene.add(new THREE.HemisphereLight(0xffffff, 0xaeb8b3, 2.1));
+    scene.add(new THREE.HemisphereLight(0xfafffc, 0xb9cac2, 1.95));
 
-    const key = new THREE.DirectionalLight(0xffffff, 3.0);
-    key.position.set(3.5, 4.5, 3.2);
+    const key = new THREE.DirectionalLight(0xffffff, 2.65);
+    key.position.set(3.8, 4.8, 3.5);
     key.castShadow = true;
     key.shadow.mapSize.set(1024, 1024);
     scene.add(key);
 
-    const fill = new THREE.DirectionalLight(0x9bdccc, 1.2);
-    fill.position.set(-3.0, 2.0, -2.5);
+    const fill = new THREE.DirectionalLight(0xb7eadf, 0.86);
+    fill.position.set(-3.2, 2.2, -2.6);
     scene.add(fill);
+
+    const rim = new THREE.DirectionalLight(0xc6e5ff, 0.62);
+    rim.position.set(-2.4, 3.4, 3.4);
+    scene.add(rim);
 
     const shadowPlane = new THREE.Mesh(
       new THREE.PlaneGeometry(6, 4),
@@ -985,12 +1051,14 @@ function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?
       geometry.computeBoundingBox();
       loadedGeometry = geometry;
 
-      const material = new THREE.MeshStandardMaterial({
+      const material = new THREE.MeshPhysicalMaterial({
         color: taskStyle.body,
-        roughness: 0.62,
-        metalness: 0.05,
-        emissive: 0x2a2115,
-        emissiveIntensity: 0.02,
+        roughness: 0.58,
+        metalness: 0.02,
+        clearcoat: 0.1,
+        clearcoatRoughness: 0.68,
+        emissive: taskStyle.rim,
+        emissiveIntensity: 0.006,
       });
       loadedMaterial = material;
 
@@ -1000,7 +1068,7 @@ function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?
       group.add(mesh);
 
       edgeGeometry = new THREE.EdgesGeometry(geometry, 28);
-      edgeMaterial = new THREE.LineBasicMaterial({ color: taskStyle.edge, transparent: true, opacity: variant === "result" ? 0.22 : 0.26 });
+      edgeMaterial = new THREE.LineBasicMaterial({ color: taskStyle.edge, transparent: true, opacity: variant === "result" ? 0.24 : 0.28 });
       group.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
     });
 
