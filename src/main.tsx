@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { BookOpen, Braces, Code2, Github, Image as ImageIcon, Layers3, Play } from "lucide-react";
+import { BookOpen, Braces, ChevronDown, ChevronUp, Code2, Github, Image as ImageIcon, Layers3, Play } from "lucide-react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
@@ -59,7 +59,33 @@ type ShowcaseItem = {
   mesh: string;
 };
 
-type CadViewItem = Pick<ShowcaseItem, "id" | "task" | "title" | "subtitle" | "src" | "mesh">;
+type ShowcaseVariant = {
+  id: string;
+  task: string;
+  model: string;
+  modelLabel: string;
+  family: string;
+  formatLabel: string;
+  specLabel: string;
+  src: string;
+  mesh: string;
+};
+
+type ShowcaseComparison = {
+  id: string;
+  task: string;
+  taskLabel: string;
+  title: string;
+  input: string;
+  inputImage?: string;
+  gtRender: string;
+  gtMesh: string;
+  formatLabel: string;
+  specLabel: string;
+  variants: ShowcaseVariant[];
+};
+
+type CadViewItem = { id: string; task: string; title: string; subtitle: string; src?: string; mesh: string };
 type InputModalItem = Pick<ShowcaseItem, "title" | "taskLabel" | "specLabel" | "input" | "inputImage" | "subtitle">;
 type LeaderboardRow = { model: string; family: string; score: number };
 type LeaderboardTask = { title: string; accent: string; rows: LeaderboardRow[] };
@@ -73,7 +99,7 @@ const fallbackManifest: Manifest = {
     authors: ["Yikang Yang¹,²,*", "Zhanpeng Hu¹,*", "Youtian Lin¹", "Mengqi Zhou¹,²", "Jingxi Xu²", "Feihu Zhang²", "Jiaheng Liu¹", "Yao Yao¹"],
     affiliations: ["¹Nanjing University", "²DreamTech", "*Equal contribution."],
     abstract:
-      "Multimodal large language models can write code and interpret rendered images of 3D designs, but it remains unclear whether they can produce executable parametric 3D programs that are geometrically precise, semantically aligned and assembly-consistent. We introduce P3D-Bench, a benchmark that evaluates this ability under a unified protocol across three task families: text-conditioned part synthesis, image-conditioned multi-part reconstruction and image-plus-annotation assembly composition, with metrics that jointly probe executability, geometric fidelity, topology, text-grounded constraints, multiview semantic alignment and part-level assembly structure.",
+      "Multimodal large language models can write code and interpret rendered images of 3D designs, but it remains unclear whether they can produce executable parametric 3D programs that are geometrically precise, semantically aligned and assembly-consistent. We introduce P3D-Bench, a benchmark that evaluates this ability under a unified protocol across three task families: text-conditioned part synthesis, image-conditioned multi-part reconstruction and image-plus-annotation assembly composition, with metrics that jointly probe executability, geometric fidelity, topology, text-grounded constraints, multiview semantic alignment and part-level assembly structure. Evaluating frontier MLLMs and text-only LLMs, with CAD-specialized baselines included as reference points, on 400 text cases, 400 image cases and 203 annotated assemblies yields three findings. First, text-conditioned part synthesis exposes a gap between executable generation and parametric correctness, as explicit parameters do not reliably form coherent geometry. Second, on image-conditioned reconstruction the multiview Judge shows semantic recognition outpacing geometric alignment: the strongest MLLM scores J^sem = 8.2 versus J^geo = 3.2 out of 10, naming the object and its parts without recovering the dimensions needed for editable parametric output. Third, annotated assembly remains the hardest setting: long part-level and assembly-level annotations widen model differences, with weaker MLLMs dropping sharply in executable validity and structural consistency; even the strongest model reaches only 0.525 cross-format PartMatchF1, showing that explicit part recovery remains limited. Together these results expose a persistent gap between executable or visually plausible 3D programs and editable parametric designs with correct parameter dimensions and part relations.",
     links: { code: "https://github.com/LucasQAQ/p3d" }
   },
   tasks: [
@@ -150,6 +176,7 @@ function App() {
   const selectedModel = manifest.models.find((item) => item.id === activeModel);
   const selectedTask = manifest.tasks.find((item) => item.id === selectedRun?.task);
   const showcaseItems = useMemo(() => buildShowcaseItems(manifest), [manifest]);
+  const showcaseComparisons = useMemo(() => buildShowcaseComparisons(manifest), [manifest]);
   const heroItems = useMemo(() => pickHeroSceneItems(showcaseItems), [showcaseItems]);
   const visibleTasks = useMemo(() => manifest.tasks.filter((item) => item.status === "interactive"), [manifest]);
   const caseUsesImagePicker = cases.some((item) => item.thumbnail);
@@ -280,11 +307,14 @@ function App() {
                   subtitle={`${selectedModel?.label || selectedRun?.model || ""}${selectedRun ? ` / ${outputFormatLabel(selectedRun.format)}` : ""}`}
                 />
               </div>
-              <MetricStrip run={selectedRun} />
-              <div className="code-panel">
-                <div className="panel-title"><Code2 size={18} /> Generated {outputFormatLabel(activeFormat)}</div>
-                <pre><code>{code || "No generated output."}</code></pre>
-              </div>
+              <Collapsible title="Metrics" icon={<Layers3 size={16} />} defaultOpen>
+                <MetricStrip run={selectedRun} />
+              </Collapsible>
+              <Collapsible title={`Generated ${outputFormatLabel(activeFormat)}`} icon={<Code2 size={16} />}>
+                <div className="code-panel">
+                  <pre><code>{code || "No generated output."}</code></pre>
+                </div>
+              </Collapsible>
             </div>
           </div>
         ) : (
@@ -302,8 +332,9 @@ function App() {
       <section id="gallery" className="section">
         <div className="section-heading">
           <h2>Render Showcase</h2>
+          <p>Same case, same format, different models.</p>
         </div>
-        <RenderShowcase items={showcaseItems} />
+        <RenderShowcase comparisons={showcaseComparisons} />
       </section>
 
       <section id="citation" className="section citation">
@@ -388,6 +419,120 @@ function interleaveShowcaseItems(items: ShowcaseItem[]) {
     index += 1;
   }
   return output;
+}
+
+function buildShowcaseComparisons(manifest: Manifest): ShowcaseComparison[] {
+  const taskOrder = ["text2cad", "image2cad", "text_image2cad"];
+  const formatPreference: Record<string, string[]> = {
+    text2cad: ["openscad", "json"],
+    image2cad: ["cadquery", "openscad", "threejs"],
+    text_image2cad: ["cadquery", "openscad"],
+  };
+  const taskLabel = new Map(manifest.tasks.map((task) => [task.id, task.label]));
+  const modelById = new Map(manifest.models.map((model) => [model.id, model]));
+  const caseById = new Map(manifest.cases.map((item) => [item.id, item]));
+  const completeRuns = manifest.runs.filter((run) => isCompleteDemoRun(run) && run.valid !== false);
+
+  return taskOrder
+    .map((task) => {
+      const cases = manifest.cases.filter((item) => item.task === task);
+      const availableFormats = Array.from(new Set(completeRuns.filter((run) => run.task === task).map((run) => run.format)));
+      const formats = Array.from(new Set([...(formatPreference[task] || []), ...availableFormats])).filter((formatName) => availableFormats.includes(formatName));
+      let best: { score: number; caseId: string; format: string; runs: Run[] } | null = null;
+
+      cases.forEach((item, caseIndex) => {
+        formats.forEach((formatName, formatIndex) => {
+          const runs = pickComparisonRuns(completeRuns.filter((run) => run.task === task && run.case_id === item.id && run.format === formatName));
+          if (runs.length < 3) return;
+          const preferredCoverage = runs.reduce((sum, run) => sum + Math.max(0, 16 - modelPreferenceIndex(run.model)), 0);
+          const curatedCaseIndex = (showcaseCasePreference[task] || []).indexOf(item.id);
+          const curatedCaseBonus = curatedCaseIndex >= 0 ? 1600 - curatedCaseIndex * 160 : Math.max(0, 80 - caseIndex);
+          const score = (formats.length - formatIndex) * 1000 + runs.length * 120 + curatedCaseBonus + preferredCoverage * 2 + runs.reduce((sum, run) => sum + runQuality(run) * 0.04, 0);
+          if (!best || score > best.score) {
+            best = { score, caseId: item.id, format: formatName, runs };
+          }
+        });
+      });
+
+      if (!best) return null;
+      const referenceRun = best.runs[0];
+      const caseItem = caseById.get(best.caseId);
+      return {
+        id: `${task}-${best.caseId}-${best.format}`,
+        task,
+        taskLabel: taskLabel.get(task) || task,
+        title: displayShowcaseTitle(task, best.caseId, caseItem?.title),
+        input: referenceRun.condition || caseItem?.title || `Case ${best.caseId}`,
+        inputImage: referenceRun.assets.input_image || caseItem?.thumbnail,
+        gtRender: referenceRun.assets.gt_render || "",
+        gtMesh: referenceRun.assets.gt_mesh || "",
+        formatLabel: outputFormatLabel(best.format),
+        specLabel: inputSpecLabel(referenceRun.spec),
+        variants: best.runs.map((run) => {
+          const model = modelById.get(run.model);
+          return {
+            id: run.id,
+            task: run.task,
+            model: run.model,
+            modelLabel: model?.label || run.model,
+            family: model?.family || "",
+            formatLabel: outputFormatLabel(run.format),
+            specLabel: inputSpecLabel(run.spec),
+            src: run.assets.pred_render || "",
+            mesh: run.assets.mesh || "",
+          };
+        }),
+      };
+    })
+    .filter((item): item is ShowcaseComparison => Boolean(item));
+}
+
+function displayShowcaseTitle(task: string, caseId: string, title?: string) {
+  if (task === "text2cad") return `Text Case · ${caseId.split("/").pop() || caseId}`;
+  return title || `Case ${caseId.split("/").pop() || caseId}`;
+}
+
+const modelComparisonPreference = [
+  "gpt55-reason",
+  "gemini-reason",
+  "kimi_k26-reason",
+  "claude-reason",
+  "deepseek_v4pro-reason",
+  "qwen-reason",
+  "mimo_omni-reason",
+  "doubao-reason",
+  "glm_5v_turbo-reason",
+  "glm-reason",
+  "mimo_v25-reason",
+  "mimo-reason",
+];
+
+const showcaseCasePreference: Record<string, string[]> = {
+  text2cad: ["0075/00758810", "0013/00134405", "0053/00531353"],
+  image2cad: ["articraft/toy_robot_20546", "articraft/hose_reel_24414", "articraft/wall_fan_20745"],
+  text_image2cad: ["textimage2cad/120712_92f373b4", "textimage2cad/117698_aca36590", "textimage2cad/33528_10e28c4c"],
+};
+
+function pickComparisonRuns(runs: Run[]) {
+  const byModel = new Map<string, Run>();
+  [...runs]
+    .sort((a, b) => runQuality(b) - runQuality(a) || specPriority(a.spec) - specPriority(b.spec) || a.id.localeCompare(b.id))
+    .forEach((run) => {
+      if (!byModel.has(run.model)) byModel.set(run.model, run);
+    });
+
+  return Array.from(byModel.values())
+    .sort((a, b) => {
+      const modelDelta = modelPreferenceIndex(a.model) - modelPreferenceIndex(b.model);
+      if (modelDelta) return modelDelta;
+      return runQuality(b) - runQuality(a) || a.id.localeCompare(b.id);
+    })
+    .slice(0, 3);
+}
+
+function modelPreferenceIndex(model: string) {
+  const index = modelComparisonPreference.indexOf(model);
+  return index === -1 ? modelComparisonPreference.length : index;
 }
 
 function isCompleteDemoRun(run: Run) {
@@ -641,54 +786,108 @@ function countVisibleMetricValues(run: Run) {
   return Object.entries(run.metrics || {}).filter(([key, value]) => isVisibleMetric(key, value, run)).length;
 }
 
-function RenderShowcase({ items }: { items: ShowcaseItem[] }) {
-  const [selectedId, setSelectedId] = useState("");
+function RenderShowcase({ comparisons }: { comparisons: ShowcaseComparison[] }) {
   const [expandedItem, setExpandedItem] = useState<InputModalItem | null>(null);
-  const selected = items.find((item) => item.id === selectedId) || items[0];
 
-  useEffect(() => {
-    if (!selectedId && items[0]) setSelectedId(items[0].id);
-  }, [items, selectedId]);
-
-  if (!items.length) {
+  if (!comparisons.length) {
     return <Placeholder title="Render Showcase" />;
   }
 
   return (
     <div className="render-showcase">
-      <div className="viewer-shell">
-        <div className="viewer-stage">
-          <CadViewer item={selected} />
-          <div className="viewer-meta">
-            <span>{selected.taskLabel} · {selected.specLabel}</span>
-            <strong>{selected.title}</strong>
-            {selected.inputImage ? <img className="viewer-input-image" src={asset(selected.inputImage)} alt="Input reference" /> : null}
-            <p>{selected.input}</p>
-            {hasExpandableInput(selected) ? <button className="viewer-full-input" type="button" onClick={() => setExpandedItem(selected)}>View full input</button> : null}
-            <em>{selected.subtitle}</em>
-          </div>
-        </div>
-        <div className="viewer-rail">
-          <div className="viewer-rail-header">
-            <span>{items.length}</span>
-            <strong>Cases</strong>
-          </div>
-          {items.map((item, index) => (
-            <button
-              className={item.id === selected.id ? "viewer-case active" : "viewer-case"}
-              key={item.id}
-              onClick={() => setSelectedId(item.id)}
-              title={item.input}
-              style={{ "--case-accent": tileColors[index % tileColors.length] } as React.CSSProperties}
-            >
-              <img src={asset(item.src)} alt={item.title} />
-              <em className="case-task">{item.taskLabel} · {item.specLabel}</em>
-              <span>{item.input}</span>
-              <strong>{item.subtitle}</strong>
-            </button>
-          ))}
-        </div>
-      </div>
+      {comparisons.map((comparison, index) => {
+        const inputItem = {
+          title: comparison.title,
+          taskLabel: comparison.taskLabel,
+          specLabel: comparison.specLabel,
+          input: comparison.input,
+          inputImage: comparison.inputImage,
+          subtitle: `${comparison.formatLabel} comparison`,
+        };
+
+        return (
+          <article
+            className="comparison-panel"
+            key={comparison.id}
+            style={{ "--task-accent": tileColors[index % tileColors.length] } as React.CSSProperties}
+          >
+            <div className="comparison-head">
+              <div>
+                <span>{comparison.taskLabel}</span>
+                <h3>{comparison.title}</h3>
+              </div>
+              <strong>{comparison.formatLabel}</strong>
+            </div>
+
+            <div className="comparison-body">
+              <aside className="comparison-reference">
+                <div className="compare-card-head">
+                  <div>
+                    <span>Reference</span>
+                    <strong>Ground Truth</strong>
+                  </div>
+                </div>
+                <div className="compare-viewer gt-viewer">
+                  <CadViewer
+                    item={{
+                      id: `${comparison.id}-ground-truth`,
+                      task: comparison.task,
+                      title: comparison.title,
+                      subtitle: "Ground Truth",
+                      src: comparison.gtRender,
+                      mesh: comparison.gtMesh,
+                    }}
+                  />
+                </div>
+                <div className="comparison-input">
+                  {comparison.inputImage ? <img src={asset(comparison.inputImage)} alt="Input reference" /> : null}
+                  <p>{comparison.input}</p>
+                  {hasExpandableInput(inputItem) ? <button className="viewer-full-input" type="button" onClick={() => setExpandedItem(inputItem)}>View full input</button> : null}
+                </div>
+              </aside>
+
+              <div className="model-comparison-grid">
+                {comparison.variants.map((variant) => {
+                  const family = modelFamilies[variant.family] || { color: "#337665", icon: "icons/src/openai.svg" };
+                  return (
+                    <section
+                      className="model-comparison-card"
+                      key={variant.id}
+                      style={{
+                        "--model-color": family.color,
+                        "--model-tile": family.tile || "#fffdfa",
+                        "--icon-filter": family.filter || "none",
+                      } as React.CSSProperties}
+                    >
+                      <div className="compare-card-head">
+                        <span className="model-mark compare-model-mark">
+                          <img src={asset(family.icon)} alt="" aria-hidden="true" />
+                        </span>
+                        <div>
+                          <span>{variant.formatLabel}</span>
+                          <strong>{variant.modelLabel}</strong>
+                        </div>
+                      </div>
+                      <div className="compare-viewer">
+                        <CadViewer
+                          item={{
+                            id: variant.id,
+                            task: variant.task,
+                            title: variant.modelLabel,
+                            subtitle: variant.formatLabel,
+                            src: variant.src,
+                            mesh: variant.mesh,
+                          }}
+                        />
+                      </div>
+                    </section>
+                  );
+                })}
+              </div>
+            </div>
+          </article>
+        );
+      })}
       {expandedItem ? <InputModal item={expandedItem} onClose={() => setExpandedItem(null)} /> : null}
     </div>
   );
@@ -1184,6 +1383,20 @@ function Figure({ title, src }: { title: string; src?: string }) {
       <span>{title}</span>
       {src ? <img src={asset(src)} alt={title} /> : <div className="render-missing"><ImageIcon />No render</div>}
     </figure>
+  );
+}
+
+function Collapsible({ title, icon, defaultOpen = false, children }: { title: string; icon?: React.ReactNode; defaultOpen?: boolean; children: React.ReactNode }) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className={`collapsible ${open ? "open" : "closed"}`}>
+      <button className="collapsible-header" type="button" onClick={() => setOpen(!open)}>
+        {icon ? <span className="collapsible-icon">{icon}</span> : null}
+        <span className="collapsible-title">{title}</span>
+        {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+      </button>
+      {open ? <div className="collapsible-body">{children}</div> : null}
+    </div>
   );
 }
 
