@@ -132,7 +132,6 @@ function App() {
   const [spec, setSpec] = useState("descriptive");
   const [format, setFormat] = useState("openscad");
   const [code, setCode] = useState("");
-  const [expandedInput, setExpandedInput] = useState<InputModalItem | null>(null);
 
   useEffect(() => {
     fetch(asset("manifest.json"))
@@ -287,12 +286,12 @@ function App() {
                 <strong>{inputSpecLabel(activeSpec)}</strong>
               </div>
               <AvailabilityNote summary={availabilitySummary} />
-              <div className="condition">
-                <span>Input</span>
-                {selectedRun?.assets.input_image && !caseUsesImagePicker ? <img className="condition-image" src={asset(selectedRun.assets.input_image)} alt="Input reference" /> : null}
-                <p>{selectedInput}</p>
-                {selectedInputItem && hasExpandableInput(selectedInputItem) ? <button className="condition-full-input" type="button" onClick={() => setExpandedInput(selectedInputItem)}>View full input</button> : null}
-              </div>
+              <Collapsible title="Input" icon={<ImageIcon size={16} />}>
+                <div className="condition-body">
+                  {selectedRun?.assets.input_image && !caseUsesImagePicker ? <img className="condition-image" src={asset(selectedRun.assets.input_image)} alt="Input reference" /> : null}
+                  <p>{selectedInput}</p>
+                </div>
+              </Collapsible>
               <Collapsible title="Metrics" icon={<Layers3 size={16} />} defaultOpen>
                 <MetricStrip run={selectedRun} />
               </Collapsible>
@@ -348,7 +347,6 @@ function App() {
   year={2026}
 }`}</code></pre>
       </section>
-      {expandedInput ? <InputModal item={expandedInput} onClose={() => setExpandedInput(null)} /> : null}
     </main>
   );
 }
