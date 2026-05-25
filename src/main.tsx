@@ -293,6 +293,14 @@ function App() {
                 <p>{selectedInput}</p>
                 {selectedInputItem && hasExpandableInput(selectedInputItem) ? <button className="condition-full-input" type="button" onClick={() => setExpandedInput(selectedInputItem)}>View full input</button> : null}
               </div>
+              <Collapsible title="Metrics" icon={<Layers3 size={16} />} defaultOpen>
+                <MetricStrip run={selectedRun} />
+              </Collapsible>
+              <Collapsible title={`Generated ${outputFormatLabel(activeFormat)}`} icon={<Code2 size={16} />}>
+                <div className="code-panel">
+                  <pre><code>{code || "No generated output."}</code></pre>
+                </div>
+              </Collapsible>
             </aside>
             <div className="result-stage">
               <div className="render-pair">
@@ -307,14 +315,6 @@ function App() {
                   subtitle={`${selectedModel?.label || selectedRun?.model || ""}${selectedRun ? ` / ${outputFormatLabel(selectedRun.format)}` : ""}`}
                 />
               </div>
-              <Collapsible title="Metrics" icon={<Layers3 size={16} />} defaultOpen>
-                <MetricStrip run={selectedRun} />
-              </Collapsible>
-              <Collapsible title={`Generated ${outputFormatLabel(activeFormat)}`} icon={<Code2 size={16} />}>
-                <div className="code-panel">
-                  <pre><code>{code || "No generated output."}</code></pre>
-                </div>
-              </Collapsible>
             </div>
           </div>
         ) : (
