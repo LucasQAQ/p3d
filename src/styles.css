@@ -1,6 +1,6 @@
 :root {
-  --paper: #f7f7f1;
-  --paper-2: #edf1ed;
+  --paper: #ffffff;
+  --paper-2: #f8f9fa;
   --ink: #182126;
   --muted: #66726f;
   --faint: #89928f;
@@ -53,7 +53,7 @@ main {
   justify-content: space-between;
   padding: 0 clamp(22px, 4.4vw, 70px);
   border-bottom: 1px solid rgba(17, 22, 25, 0.1);
-  background: rgba(246, 248, 246, 0.86);
+  background: rgba(255, 255, 255, 0.86);
   backdrop-filter: blur(16px);
 }
 
@@ -308,7 +308,7 @@ h2 {
   height: clamp(280px, 28vw, 390px);
   overflow: hidden;
   border-radius: 0;
-  background: #eaf5f1;
+  background: #ffffff;
   box-shadow: none;
 }
 
@@ -530,7 +530,7 @@ select {
   padding: 0 10px;
   border: 1px solid var(--line);
   border-radius: 5px;
-  background: #f7faf6;
+  background: #ffffff;
   color: var(--ink);
   font: 700 14px/1.2 var(--font-body);
 }
