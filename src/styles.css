@@ -30,11 +30,7 @@ body {
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.55;
-  background:
-    linear-gradient(rgba(40, 92, 143, 0.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(40, 92, 143, 0.026) 1px, transparent 1px),
-    var(--paper);
-  background-size: 48px 48px;
+  background: #ffffff;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   font-synthesis-weight: none;

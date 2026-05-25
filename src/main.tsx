@@ -944,8 +944,8 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
     if (!mount || !items.length) return;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xeaf5f1);
-    scene.fog = new THREE.Fog(0xeaf5f1, 9.2, 15.6);
+    scene.background = new THREE.Color(0xffffff);
+    scene.fog = new THREE.Fog(0xffffff, 9.2, 15.6);
 
     const camera = new THREE.PerspectiveCamera(30, 1, 0.01, 100);
     camera.position.set(0, 3.35, 6.55);
@@ -953,7 +953,7 @@ function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0xeaf5f1, 1);
+    renderer.setClearColor(0xffffff, 1);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.0;
@@ -1164,15 +1164,15 @@ function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?
     if (!mount || !item.mesh) return;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xf3faf7);
-    scene.fog = new THREE.Fog(0xf3faf7, 6.8, 12.2);
+    scene.background = new THREE.Color(0xffffff);
+    scene.fog = new THREE.Fog(0xffffff, 6.8, 12.2);
     const taskStyle = renderStyleForTask(item.task);
     const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 100);
     camera.position.set(3.6, 2.35, variant === "result" ? 4.35 : 4.7);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0xf3faf7, 1);
+    renderer.setClearColor(0xffffff, 1);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.0;
