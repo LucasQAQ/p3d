@@ -223,7 +223,6 @@ function App() {
         <a className="brand" href="#top">P3D-Bench</a>
         <div>
           <a href="#results">Results</a>
-          <a href="#pipeline">Pipeline</a>
           <a href="#gallery">Viewer</a>
         </div>
       </nav>
@@ -319,13 +318,6 @@ function App() {
         ) : (
           <Placeholder title="Results" />
         )}
-      </section>
-
-      <section id="pipeline" className="section">
-        <div className="section-heading">
-          <h2>Pipeline &amp; Leaderboard</h2>
-        </div>
-        <MainFigures />
       </section>
 
       <section id="gallery" className="section">
