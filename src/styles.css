@@ -622,6 +622,7 @@ select {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
+  min-height: 540px;
 }
 
 .render-card, .placeholder, .code-panel, .code-callout {
@@ -635,11 +636,13 @@ select {
   margin-bottom: 10px;
   color: var(--muted);
   font: 700 13px/1.2 var(--font-display);
+  flex: 0 0 auto;
 }
 
 .result-viewer {
   position: relative;
-  aspect-ratio: 16 / 9;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow: hidden;
   border: 1px solid rgba(17, 22, 25, 0.1);
   border-radius: 5px;
@@ -647,6 +650,9 @@ select {
 }
 
 .render-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   margin: 0;
   padding: 14px;
   box-shadow: 0 12px 36px rgba(15, 30, 24, 0.05);
@@ -655,7 +661,8 @@ select {
 .render-card img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  flex: 1 1 auto;
+  min-height: 0;
   object-fit: contain;
   border: 1px solid rgba(17, 22, 25, 0.1);
   border-radius: 5px;
@@ -671,7 +678,8 @@ select {
   display: grid;
   place-items: center;
   gap: 8px;
-  aspect-ratio: 4 / 3;
+  flex: 1 1 auto;
+  min-height: 0;
   color: var(--muted);
   background: var(--paper-2);
 }

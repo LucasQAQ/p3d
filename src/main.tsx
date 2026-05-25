@@ -284,10 +284,7 @@ function App() {
               ) : null}
               <Select label="Model" value={activeModel} options={models.map((item) => [item.id, item.label])} onChange={(nextModel) => applyRunSelection(pickDefaultRun(caseRuns.filter((run) => run.model === nextModel)))} />
               <Select label="Format" value={activeFormat} options={formats.map((item) => [item, outputFormatLabel(item)])} onChange={(nextFormat) => applyRunSelection(pickRunForFormat(nextFormat))} />
-              <div className="select-label readonly-select">
-                <span>Input protocol</span>
-                <strong>{inputSpecLabel(activeSpec)}</strong>
-              </div>
+              <Select label="Input protocol" value={activeSpec} options={Array.from(new Set(caseRuns.filter((run) => run.model === activeModel).map((run) => run.spec))).sort((a, b) => specPriority(a) - specPriority(b)).map((s) => [s, inputSpecLabel(s)])} onChange={(nextSpec) => applyRunSelection(pickDefaultRun(caseRuns.filter((run) => run.model === activeModel && run.spec === nextSpec)))} />
               <AvailabilityNote summary={availabilitySummary} />
               <Collapsible title="Input" icon={<ImageIcon size={16} />}>
                 <div className="condition-body">
@@ -295,7 +292,7 @@ function App() {
                   <p>{selectedInput}</p>
                 </div>
               </Collapsible>
-              <Collapsible title="Metrics" icon={<Layers3 size={16} />} defaultOpen>
+              <Collapsible title="Metrics" icon={<Layers3 size={16} />}>
                 <MetricStrip run={selectedRun} />
               </Collapsible>
               <Collapsible title={`Generated ${outputFormatLabel(activeFormat)}`} icon={<Code2 size={16} />}>
