@@ -496,7 +496,7 @@ const modelComparisonPreference = [
 
 const showcaseCasePreference: Record<string, string[]> = {
   text2cad: ["0075/00758810", "0013/00134405", "0053/00531353"],
-  image2cad: ["articraft/toy_robot_20546", "articraft/hose_reel_24414", "articraft/wall_fan_20745"],
+  image2cad: ["articraft/wall_fan_20745"],
   text_image2cad: ["textimage2cad/144940_885193da"],
 };
 
