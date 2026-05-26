@@ -323,7 +323,6 @@ function App() {
       <section id="gallery" className="section">
         <div className="section-heading">
           <h2>Render Showcase</h2>
-          <p>Same case, same format, different models.</p>
         </div>
         <RenderShowcase comparisons={showcaseComparisons} />
       </section>
