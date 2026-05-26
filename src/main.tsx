@@ -284,12 +284,14 @@ function App() {
               <Select label="Format" value={activeFormat} options={formats.map((item) => [item, outputFormatLabel(item)])} onChange={(nextFormat) => applyRunSelection(pickRunForFormat(nextFormat))} />
               <Select label="Input protocol" value={activeSpec} options={Array.from(new Set(caseRuns.filter((run) => run.model === activeModel).map((run) => run.spec))).sort((a, b) => specPriority(a) - specPriority(b)).map((s) => [s, inputSpecLabel(s)])} onChange={(nextSpec) => applyRunSelection(pickDefaultRun(caseRuns.filter((run) => run.model === activeModel && run.spec === nextSpec)))} />
               <AvailabilityNote summary={availabilitySummary} />
-              <Collapsible title="Input" icon={<ImageIcon size={16} />}>
-                <div className="condition-body">
-                  {selectedRun?.assets.input_image && !caseUsesImagePicker ? <img className="condition-image" src={asset(selectedRun.assets.input_image)} alt="Input reference" /> : null}
-                  <p>{selectedInput}</p>
-                </div>
-              </Collapsible>
+              {task !== "image2cad" ? (
+                <Collapsible title="Input" icon={<ImageIcon size={16} />}>
+                  <div className="condition-body">
+                    {selectedRun?.assets.input_image && !caseUsesImagePicker ? <img className="condition-image" src={asset(selectedRun.assets.input_image)} alt="Input reference" /> : null}
+                    <p>{selectedInput}</p>
+                  </div>
+                </Collapsible>
+              ) : null}
               <Collapsible title="Metrics" icon={<Layers3 size={16} />}>
                 <MetricStrip run={selectedRun} />
               </Collapsible>
