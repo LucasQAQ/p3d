@@ -1425,35 +1425,24 @@ select {
 
 .citation-heading {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 18px;
-  width: min(100%, 980px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
   margin-bottom: 18px;
   padding-bottom: 14px;
   border-bottom: 1px solid rgba(24, 33, 38, 0.1);
+  text-align: center;
 }
 
 .citation-heading h2 {
-  position: relative;
   margin: 0;
-  padding-left: 15px;
   color: var(--ink);
   font-family: var(--font-display);
   font-size: clamp(32px, 3.1vw, 44px);
   font-weight: 700;
   line-height: 1.05;
-}
-
-.citation-heading h2::before {
-  content: "";
-  position: absolute;
-  top: 0.18em;
-  bottom: 0.16em;
-  left: 0;
-  width: 4px;
-  border-radius: 999px;
-  background: var(--blue);
 }
 
 .citation-format {
@@ -1465,7 +1454,7 @@ select {
 }
 
 .citation pre {
-  width: min(100%, 980px);
+  width: 100%;
   border-radius: 8px;
   max-height: none;
   padding: 20px 22px;
@@ -1850,7 +1839,7 @@ select {
   }
 
   .citation-heading {
-    align-items: flex-start;
+    align-items: center;
   }
 
   .viewer-stage {
