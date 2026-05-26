@@ -229,7 +229,6 @@ function App() {
 
       <section id="top" className="hero">
         <div className="hero-copy">
-          <p className="eyebrow">Parametric 3D CAD Benchmark</p>
           <h1 className="hero-title">
             <span>P3D-Bench</span>
             <small>Benchmarking MLLMs for <em>Parametric 3D</em> Generation and <em>Structural Reasoning</em></small>
