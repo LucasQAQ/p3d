@@ -244,7 +244,7 @@ function App() {
             <a href={paper.links?.paper || "#pipeline"}><BookOpen size={17} /> Paper</a>
             <a href={paper.links?.code || "https://github.com/LucasQAQ/p3d"}><Github size={17} /> Page Repo</a>
             <a href="#results"><Play size={17} /> Demo</a>
-            <a href="#citation"><Braces size={17} /> BibTeX</a>
+            <a href="#citation"><Braces size={17} /> Citation</a>
           </div>
         </div>
         <HeroCadScene items={heroItems} />
@@ -331,7 +331,6 @@ function App() {
       <section id="citation" className="section citation">
         <div className="citation-heading">
           <h2>Citation</h2>
-          <p className="citation-format">BibTeX</p>
         </div>
         <pre><code>{`@article{p3dbench2026,
   title={P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning},
