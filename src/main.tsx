@@ -248,7 +248,7 @@ function App() {
         </div>
         <HeroCadScene items={heroItems} />
         <figure className="teaser-figure">
-          <img src="/figures/fig_tasks_grouped_bars.svg" alt="Task overview: grouped bar scores across text, image and assembly tasks" />
+          <img src="./figures/fig_tasks_grouped_bars.svg" alt="Task overview: grouped bar scores across text, image and assembly tasks" />
         </figure>
         <div className="abstract-panel">
           <p className="eyebrow">Abstract</p>
@@ -672,7 +672,7 @@ function MainFigures() {
     <div className="main-figures">
       <PipelinePlaceholder />
       <figure className="leaderboard-figure">
-        <img src="/figures/fig_tasks_grouped_bars.svg" alt="Task overview: grouped bar scores across text, image and assembly tasks" />
+        <img src="./figures/fig_tasks_grouped_bars.svg" alt="Task overview: grouped bar scores across text, image and assembly tasks" />
       </figure>
     </div>
   );
