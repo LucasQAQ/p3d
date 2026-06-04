@@ -162,13 +162,21 @@ def make_manifest() -> dict[str, Any]:
             ],
             "affiliations": ["¹Nanjing University", "²DreamTech", "*Equal contribution."],
             "abstract": (
-                "Multimodal large language models can write code and interpret rendered images of 3D designs, "
-                "but it remains unclear whether they can produce executable parametric 3D programs that are "
-                "geometrically precise, semantically aligned and assembly-consistent. We introduce P3D-Bench, "
-                "a benchmark that evaluates this ability under a unified protocol across three task families: "
-                "text-conditioned part synthesis, image-conditioned multi-part reconstruction and image-plus-annotation "
-                "assembly composition, with metrics that jointly probe executability, geometric fidelity, topology, "
-                "text-grounded constraints, multiview semantic alignment and part-level assembly structure."
+                "Multimodal large language models can write code to produce complex programs as well as use "
+                "programs to do 3D modeling, which opens up a new avenue for 3D generation powered by their "
+                "priors, world knowledge and reasoning. Yet existing benchmarks rarely evaluate 3D modeling "
+                "through code. Such modeling demands more than runnable code: from a text or visual specification, "
+                "a model must generate a parametric 3D program that is geometrically precise, semantically "
+                "aligned and assembly-consistent. We introduce P3D-Bench, a benchmark for parametric 3D "
+                "generation. Unlike a 3D mesh, a parametric 3D program exposes explicit dimensions, construction "
+                "operations and part relations, revealing whether a model recovers a design's structure, not "
+                "just its appearance. Under a unified protocol, P3D-Bench covers three task families (Text-to-3D, "
+                "Image-to-3D and Assembly-3D) and scores each output for executability, geometric fidelity, "
+                "topology, text-grounded constraints, multiview semantic alignment and part-level structure. "
+                "We evaluate frontier MLLMs and text-only LLMs on 400 text cases, 400 image cases and 203 "
+                "annotated assemblies, with domain-specialized baselines as reference points. We find that even "
+                "the strongest MLLMs struggle to generate fully executable and semantically aligned 3D programs, "
+                "especially on Assembly-3D, where part-level recovery remains limited."
             ),
             "links": {"paper": "#pipeline", "code": "https://github.com/LucasQAQ/p3d"},
         },
