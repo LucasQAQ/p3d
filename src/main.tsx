@@ -99,7 +99,7 @@ const fallbackManifest: Manifest = {
     authors: ["Yikang Yang¹,²,*", "Zhanpeng Hu¹,*", "Youtian Lin¹", "Mengqi Zhou¹,²", "Jingxi Xu²", "Feihu Zhang²", "Jiaheng Liu¹", "Yao Yao¹"],
     affiliations: ["¹Nanjing University", "²DreamTech", "*Equal contribution."],
     abstract:
-      "Multimodal large language models can write code to produce complex programs as well as use programs to do 3D modeling, which opens up a new avenue for 3D generation powered by their priors, world knowledge and reasoning. Yet existing benchmarks rarely evaluate 3D modeling through code. Such modeling demands more than runnable code: from a text or visual specification, a model must generate a parametric 3D program that is geometrically precise, semantically aligned and assembly-consistent. We introduce P3D-Bench, a benchmark for parametric 3D generation. Unlike a 3D mesh, a parametric 3D program exposes explicit dimensions, construction operations and part relations, revealing whether a model recovers a design's structure, not just its appearance. Under a unified protocol, P3D-Bench covers three task families (Text-to-3D, Image-to-3D and Assembly-3D) and scores each output for executability, geometric fidelity, topology, text-grounded constraints, multiview semantic alignment and part-level structure. We evaluate frontier MLLMs and text-only LLMs on 400 text cases, 400 image cases and 203 annotated assemblies, with domain-specialized baselines as reference points. We find that even the strongest MLLMs struggle to generate fully executable and semantically aligned 3D programs, especially on Assembly-3D, where part-level recovery remains limited.",
+      "Multimodal large language models can write code to produce complex programs as well as use programs to do 3D modeling, which opens up a new avenue for 3D generation powered by their priors, world knowledge and reasoning. Yet existing benchmarks rarely evaluate 3D modeling through code. Such modeling demands more than runnable code: from a text or visual specification, a model must generate a parametric 3D program that is geometrically precise, semantically aligned and assembly-consistent. We introduce P3D-Bench, a benchmark for parametric 3D generation. Unlike a 3D mesh, a parametric 3D program exposes explicit dimensions, construction operations and part relations, revealing whether a model recovers a design's structure, not just its appearance. Under a unified protocol, P3D-Bench covers three task families (Text-to-3D, Image-to-3D and Assembly-3D) and scores each output for executability, geometric fidelity, topology, text-grounded constraints, multiview semantic alignment and part-level structure. We evaluate frontier MLLMs and text-only LLMs on 400 text cases, 400 image cases and 203 annotated assemblies, with domain-specific models as reference points. Our extensive evaluation yields three findings. First, assemblies are the hardest setting, where models still fail to compose multiple parts into a coherent structure. Second, models capture the overall shape of a semantically correct object, yet the parametric geometry they produce does not align precisely with the input specification. Third, part-level modeling remains weak on assemblies, where models recover neither the geometry of each part nor the right number of parts. These results establish P3D-Bench as a benchmark for measuring whether models produce correct parametric 3D and recover how an object is built from its parts, not just how it looks.",
     links: { code: "https://github.com/LucasQAQ/p3d" }
   },
   tasks: [
@@ -247,13 +247,17 @@ function App() {
           </div>
         </div>
         <HeroCadScene items={heroItems} />
-        <figure className="teaser-figure">
-          <img src="./figures/fig_tasks_grouped_bars.svg" alt="Task overview: grouped bar scores across text, image and assembly tasks" />
-        </figure>
         <div className="abstract-panel">
           <p className="eyebrow">Abstract</p>
           <p className="abstract" dangerouslySetInnerHTML={{ __html: paper.abstract }} />
         </div>
+      </section>
+
+      <section id="pipeline" className="section">
+        <div className="section-heading">
+          <h2>Leaderboard</h2>
+        </div>
+        <MainFigures />
       </section>
 
       <section className="task-strip">
@@ -670,9 +674,10 @@ const leaderboardTasks: LeaderboardTask[] = [
 function MainFigures() {
   return (
     <div className="main-figures">
-      <PipelinePlaceholder />
       <figure className="leaderboard-figure">
-        <img src="./figures/fig_tasks_grouped_bars.svg" alt="Task overview: grouped bar scores across text, image and assembly tasks" />
+        <a href="./figures/fig_tasks_grouped_bars.pdf" aria-label="Open leaderboard figure PDF">
+          <img src="./figures/fig_tasks_grouped_bars.svg" alt="Task overview: grouped bar scores across text, image and assembly tasks" />
+        </a>
       </figure>
     </div>
   );

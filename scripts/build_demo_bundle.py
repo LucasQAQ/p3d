@@ -174,9 +174,14 @@ def make_manifest() -> dict[str, Any]:
                 "Image-to-3D and Assembly-3D) and scores each output for executability, geometric fidelity, "
                 "topology, text-grounded constraints, multiview semantic alignment and part-level structure. "
                 "We evaluate frontier MLLMs and text-only LLMs on 400 text cases, 400 image cases and 203 "
-                "annotated assemblies, with domain-specialized baselines as reference points. We find that even "
-                "the strongest MLLMs struggle to generate fully executable and semantically aligned 3D programs, "
-                "especially on Assembly-3D, where part-level recovery remains limited."
+                "annotated assemblies, with domain-specific models as reference points. Our extensive evaluation "
+                "yields three findings. First, assemblies are the hardest setting, where models still fail to "
+                "compose multiple parts into a coherent structure. Second, models capture the overall shape of a "
+                "semantically correct object, yet the parametric geometry they produce does not align precisely "
+                "with the input specification. Third, part-level modeling remains weak on assemblies, where models "
+                "recover neither the geometry of each part nor the right number of parts. These results establish "
+                "P3D-Bench as a benchmark for measuring whether models produce correct parametric 3D and recover "
+                "how an object is built from its parts, not just how it looks."
             ),
             "links": {"paper": "#pipeline", "code": "https://github.com/LucasQAQ/p3d"},
         },
@@ -190,7 +195,7 @@ def make_manifest() -> dict[str, Any]:
         "runs": [],
         "figures": [
             {"id": "pipeline", "title": "Pipeline", "placeholder": True},
-            {"id": "leaderboard", "title": "Leaderboard figure", "src": "figures/fig1_teaser.png"},
+            {"id": "leaderboard", "title": "Leaderboard figure", "src": "figures/fig_tasks_grouped_bars.pdf"},
         ],
         "gallery": [],
     }

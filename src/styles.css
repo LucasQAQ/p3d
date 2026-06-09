@@ -207,21 +207,6 @@ h2 {
   text-align: left;
 }
 
-.teaser-figure {
-  width: min(100%, 1100px);
-  margin: 10px auto 0;
-  padding: 0;
-}
-
-.teaser-figure img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border: 1px solid rgba(17, 22, 25, 0.1);
-  border-radius: 8px;
-  background: var(--panel);
-}
-
 .abstract-panel {
   display: grid;
   grid-template-columns: 160px minmax(0, 1fr);
@@ -791,9 +776,13 @@ select {
   padding: 0;
 }
 
+.leaderboard-figure a,
 .leaderboard-figure img {
   display: block;
   width: 100%;
+}
+
+.leaderboard-figure img {
   height: auto;
   border: 1px solid var(--line);
   border-radius: 8px;
