@@ -723,6 +723,34 @@ select {
   font: 700 clamp(23px, 2.2vw, 32px)/1.08 var(--font-display);
 }
 
+.complex-linked-case {
+  display: grid;
+  gap: 5px;
+  justify-items: end;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(17, 22, 25, 0.1);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  text-align: right;
+}
+
+.complex-linked-case span {
+  color: var(--muted);
+  font: 700 10.5px/1.1 var(--font-code);
+  text-transform: uppercase;
+}
+
+.complex-linked-case strong {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 13.5px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .complex-layout {
   display: grid;
   grid-template-columns: minmax(230px, 0.8fr) minmax(420px, 1.25fr) minmax(270px, 0.9fr);
@@ -732,8 +760,7 @@ select {
 
 .complex-summary,
 .complex-viewer-card,
-.part-inspector,
-.complex-reference-strip figure {
+.part-inspector {
   min-width: 0;
   border: 1px solid rgba(17, 22, 25, 0.1);
   border-radius: 7px;
@@ -816,8 +843,7 @@ select {
 
 .complex-main-view {
   display: grid;
-  grid-template-rows: minmax(390px, 1fr) 122px;
-  gap: 12px;
+  min-height: 430px;
   min-width: 0;
 }
 
@@ -857,32 +883,6 @@ select {
 .part-viewer .cad-viewer {
   position: absolute;
   inset: 0;
-}
-
-.complex-reference-strip {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.complex-reference-strip figure {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  gap: 7px;
-  margin: 0;
-  padding: 9px;
-}
-
-.complex-reference-strip span {
-  color: var(--muted);
-  font: 800 11px/1 var(--font-code);
-  text-transform: uppercase;
-}
-
-.complex-reference-strip img {
-  width: 100%;
-  height: 72px;
-  object-fit: contain;
 }
 
 .part-tile-grid {
@@ -2016,7 +2016,7 @@ select {
   }
 
   .complex-main-view {
-    grid-template-rows: minmax(420px, 1fr) auto;
+    min-height: 420px;
   }
 
   .part-inspector {
@@ -2205,13 +2205,17 @@ select {
     gap: 12px;
   }
 
-  .complex-stat-grid,
-  .complex-reference-strip {
+  .complex-linked-case {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .complex-stat-grid {
     grid-template-columns: 1fr;
   }
 
   .complex-main-view {
-    grid-template-rows: minmax(340px, 1fr) auto;
+    min-height: 340px;
   }
 
   .part-inspector {

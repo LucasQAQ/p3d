@@ -341,7 +341,7 @@ function App() {
                   subtitle={`${selectedModel?.label || selectedRun?.model || ""}${selectedRun ? ` / ${outputFormatLabel(selectedRun.format)}` : ""}`}
                 />
               </div>
-              {task === "text_image2cad" ? <ComplexAssemblyShowcase items={complexAssemblies} /> : null}
+              {task === "text_image2cad" ? <ComplexAssemblyShowcase items={complexAssemblies} run={selectedRun} /> : null}
             </div>
           </div>
         ) : (
@@ -852,16 +852,16 @@ function RenderShowcase({ comparisons }: { comparisons: ShowcaseComparison[] }) 
   );
 }
 
-function ComplexAssemblyShowcase({ items }: { items: ComplexAssemblyItem[] }) {
-  const [activeId, setActiveId] = useState("");
+function ComplexAssemblyShowcase({ items, run }: { items: ComplexAssemblyItem[]; run?: Run }) {
   const [activePartIndex, setActivePartIndex] = useState(0);
-  const active = useMemo(() => items.find((item) => item.id === activeId) || items[0], [activeId, items]);
+  const active = useMemo(() => {
+    if (!run) return undefined;
+    return (
+      items.find((item) => item.case_id === run.case_id && item.model === run.model && item.format === run.format) ||
+      items.find((item) => item.case_id === run.case_id)
+    );
+  }, [items, run]);
   const selectedPart = active?.parts.find((part) => part.index === activePartIndex) || active?.parts[0];
-
-  useEffect(() => {
-    if (!active && activeId) setActiveId("");
-    if (!activeId && items[0]) setActiveId(items[0].id);
-  }, [active, activeId, items]);
 
   useEffect(() => {
     setActivePartIndex(active?.parts[0]?.index ?? 0);
@@ -877,15 +877,12 @@ function ComplexAssemblyShowcase({ items }: { items: ComplexAssemblyItem[] }) {
       <div className="complex-head">
         <div>
           <span>Part Generation</span>
-          <h3>Assembly decomposition on complex cases</h3>
+          <h3>Generated assembly and parts</h3>
         </div>
-        <select value={active.id} onChange={(event) => setActiveId(event.target.value)} aria-label="Complex assembly case">
-          {items.map((item) => (
-            <option value={item.id} key={item.id}>
-              {item.model_label} / {item.format_label} / {item.short_case_id}
-            </option>
-          ))}
-        </select>
+        <div className="complex-linked-case">
+          <span>Linked to current selection</span>
+          <strong>{active.model_label} / {active.format_label} / {active.short_case_id}</strong>
+        </div>
       </div>
 
       <div className="complex-layout">
@@ -925,17 +922,6 @@ function ComplexAssemblyShowcase({ items }: { items: ComplexAssemblyItem[] }) {
                 variant="result"
               />
             </div>
-          </div>
-
-          <div className="complex-reference-strip">
-            <figure>
-              <span>Reference render</span>
-              <img src={asset(active.assets.gt_render)} alt="" />
-            </figure>
-            <figure>
-              <span>Generated render</span>
-              <img src={asset(active.assets.pred_render)} alt="" />
-            </figure>
           </div>
         </div>
 
