@@ -709,9 +709,7 @@ select {
 }
 
 .complex-head span,
-.complex-card-head span,
-.complex-case-label span,
-.complex-stat span {
+.complex-card-head span {
   color: var(--blue);
   font: 700 10.5px/1.1 var(--font-code);
   text-transform: uppercase;
@@ -753,12 +751,11 @@ select {
 
 .complex-layout {
   display: grid;
-  grid-template-columns: minmax(230px, 0.8fr) minmax(420px, 1.25fr) minmax(270px, 0.9fr);
+  grid-template-columns: minmax(420px, 1.15fr) minmax(360px, 0.85fr);
   gap: 16px;
   align-items: stretch;
 }
 
-.complex-summary,
 .complex-viewer-card,
 .part-inspector {
   min-width: 0;
@@ -767,90 +764,40 @@ select {
   background: rgba(255, 255, 255, 0.72);
 }
 
-.complex-summary {
+.complex-empty-state {
   display: grid;
-  align-content: start;
-  gap: 14px;
-  padding: 14px;
+  gap: 6px;
+  min-height: 120px;
+  align-content: center;
+  padding: 18px;
+  border: 1px dashed rgba(17, 22, 25, 0.16);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.62);
 }
 
-.complex-case-label {
-  display: grid;
-  gap: 4px;
-}
-
-.complex-case-label strong {
+.complex-empty-state strong {
   color: var(--ink);
-  font: 800 18px/1.1 var(--font-body);
+  font: 800 16px/1.25 var(--font-body);
 }
 
-.complex-case-label em {
+.complex-empty-state span {
+  max-width: 680px;
   color: var(--muted);
-  font: 700 12px/1.1 var(--font-code);
-  font-style: normal;
-}
-
-.complex-stat-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.complex-stat {
-  position: relative;
-  min-height: 70px;
-  padding: 10px;
-  border: 1px solid rgba(51, 118, 101, 0.15);
-  border-radius: 6px;
-  background: #f8faf8;
-}
-
-.complex-stat strong {
-  display: block;
-  margin-top: 8px;
-  color: #152023;
-  font: 800 22px/1 var(--font-body);
-}
-
-.complex-stat em {
-  position: absolute;
-  right: 9px;
-  bottom: 9px;
-  color: var(--coral);
-  font: 800 11px/1 var(--font-code);
-  font-style: normal;
-}
-
-.complex-summary p,
-.part-inspector p {
-  display: -webkit-box;
-  margin: 0;
-  overflow: hidden;
-  color: #4d5b57;
-  font-size: 13.2px;
-  font-weight: 500;
-  line-height: 1.55;
-  -webkit-box-orient: vertical;
-}
-
-.complex-summary p {
-  -webkit-line-clamp: 8;
-}
-
-.part-inspector p {
-  -webkit-line-clamp: 5;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.45;
 }
 
 .complex-main-view {
   display: grid;
-  min-height: 430px;
+  min-height: 460px;
   min-width: 0;
 }
 
 .complex-viewer-card,
 .part-inspector {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr);
   gap: 10px;
   padding: 12px;
 }
@@ -887,21 +834,22 @@ select {
 
 .part-tile-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(178px, 1fr));
-  gap: 8px;
-  max-height: 236px;
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  gap: 7px;
+  max-height: 150px;
   overflow: auto;
   padding: 2px;
 }
 
 .part-tile {
   display: grid;
-  grid-template-rows: auto auto 1fr;
-  gap: 5px;
-  min-height: 112px;
-  padding: 10px;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  min-height: 46px;
+  padding: 8px 10px;
   border: 1px solid rgba(17, 22, 25, 0.1);
-  border-radius: 7px;
+  border-radius: 6px;
   background: rgba(255, 255, 255, 0.72);
   color: var(--ink);
   text-align: left;
@@ -921,8 +869,14 @@ select {
 }
 
 .part-tile span {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
+  background: rgba(51, 118, 101, 0.1);
   color: var(--blue);
-  font: 800 10.5px/1 var(--font-code);
+  font: 800 10px/1 var(--font-code);
   text-transform: uppercase;
 }
 
@@ -934,18 +888,6 @@ select {
   line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.part-tile em {
-  display: -webkit-box;
-  overflow: hidden;
-  color: #65716d;
-  font-size: 12.2px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 1.35;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
 }
 
 .render-missing {
@@ -2208,10 +2150,6 @@ select {
   .complex-linked-case {
     justify-items: start;
     text-align: left;
-  }
-
-  .complex-stat-grid {
-    grid-template-columns: 1fr;
   }
 
   .complex-main-view {

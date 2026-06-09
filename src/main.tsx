@@ -856,10 +856,7 @@ function ComplexAssemblyShowcase({ items, run }: { items: ComplexAssemblyItem[];
   const [activePartIndex, setActivePartIndex] = useState(0);
   const active = useMemo(() => {
     if (!run) return undefined;
-    return (
-      items.find((item) => item.case_id === run.case_id && item.model === run.model && item.format === run.format) ||
-      items.find((item) => item.case_id === run.case_id)
-    );
+    return items.find((item) => item.case_id === run.case_id && item.model === run.model && item.format === run.format);
   }, [items, run]);
   const selectedPart = active?.parts.find((part) => part.index === activePartIndex) || active?.parts[0];
 
@@ -867,10 +864,26 @@ function ComplexAssemblyShowcase({ items, run }: { items: ComplexAssemblyItem[];
     setActivePartIndex(active?.parts[0]?.index ?? 0);
   }, [active?.id]);
 
-  if (!active) return null;
-
-  const metrics = active.metrics || {};
-  const partDelta = typeof metrics.gt_parts === "number" && typeof metrics.pred_parts === "number" ? metrics.pred_parts - metrics.gt_parts : null;
+  if (!active) {
+    return (
+      <section className="complex-assembly-showcase complex-empty">
+        <div className="complex-head">
+          <div>
+            <span>Part Generation</span>
+            <h3>Generated assembly and parts</h3>
+          </div>
+          <div className="complex-linked-case">
+            <span>Linked to current selection</span>
+            <strong>{run ? `${run.model_label || run.model} / ${outputFormatLabel(run.format)} / ${run.case_id.split("/").pop() || run.case_id}` : "No selection"}</strong>
+          </div>
+        </div>
+        <div className="complex-empty-state">
+          <strong>No part-level export for this exact selection.</strong>
+          <span>Part meshes are only shown when the selected assembly case, model, and format all match an exported part decomposition.</span>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="complex-assembly-showcase">
@@ -886,23 +899,6 @@ function ComplexAssemblyShowcase({ items, run }: { items: ComplexAssemblyItem[];
       </div>
 
       <div className="complex-layout">
-        <aside className="complex-summary">
-          <div className="complex-case-label">
-            <span>{active.format_label}</span>
-            <strong>{active.model_label}</strong>
-            <em>{active.short_case_id}</em>
-          </div>
-          <div className="complex-stat-grid">
-            <MetricCell label="GT parts" value={formatMetric(metrics.gt_parts, 0)} />
-            <MetricCell label="Generated parts" value={formatMetric(metrics.pred_parts, 0)} delta={partDelta} />
-            <MetricCell label="Matched" value={formatMetric(metrics.matched_count, 0)} />
-            <MetricCell label="Part F1" value={formatMetric(metrics.match_f1, 3)} />
-            <MetricCell label="Per-part F" value={formatMetric(metrics.per_part_f_score, 3)} />
-            <MetricCell label="Judge" value={formatMetric(metrics.judge_avg, 1)} />
-          </div>
-          <p>{active.judge_reason || active.title}</p>
-        </aside>
-
         <div className="complex-main-view">
           <div className="complex-viewer-card">
             <div className="complex-card-head">
@@ -925,7 +921,7 @@ function ComplexAssemblyShowcase({ items, run }: { items: ComplexAssemblyItem[];
           </div>
         </div>
 
-        <aside className="part-inspector">
+        <div className="part-inspector">
           <div className="complex-card-head">
             <span>Selected part</span>
             <strong>{selectedPart?.name || "Part"}</strong>
@@ -943,8 +939,7 @@ function ComplexAssemblyShowcase({ items, run }: { items: ComplexAssemblyItem[];
               />
             ) : null}
           </div>
-          <p>{selectedPart?.semantic || "No part-level description available."}</p>
-        </aside>
+        </div>
       </div>
 
       <div className="part-tile-grid" aria-label="Generated assembly parts">
@@ -957,28 +952,11 @@ function ComplexAssemblyShowcase({ items, run }: { items: ComplexAssemblyItem[];
           >
             <span>{part.label}</span>
             <strong>{part.name}</strong>
-            <em>{part.semantic || "Generated mesh"}</em>
           </button>
         ))}
       </div>
     </section>
   );
-}
-
-function MetricCell({ label, value, delta }: { label: string; value: string; delta?: number | null }) {
-  return (
-    <div className="complex-stat">
-      <span>{label}</span>
-      <strong>{value}</strong>
-      {typeof delta === "number" && delta !== 0 ? <em>{delta > 0 ? `+${delta}` : delta}</em> : null}
-    </div>
-  );
-}
-
-function formatMetric(value: number | string | null | undefined, digits: number) {
-  if (typeof value === "number" && Number.isFinite(value)) return value.toFixed(digits);
-  if (typeof value === "string" && value) return value;
-  return "n/a";
 }
 
 function InputModal({ item, onClose }: { item: InputModalItem; onClose: () => void }) {
