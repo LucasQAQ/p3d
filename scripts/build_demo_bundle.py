@@ -183,7 +183,7 @@ def make_manifest() -> dict[str, Any]:
                 "P3D-Bench as a benchmark for measuring whether models produce correct parametric 3D and recover "
                 "how an object is built from its parts, not just how it looks."
             ),
-            "links": {"paper": "#pipeline", "code": "https://github.com/LucasQAQ/p3d"},
+            "links": {"paper": "#top", "code": "https://github.com/LucasQAQ/p3d"},
         },
         "tasks": [
             {"id": "text2cad", "label": "Text-to-3D", "formats": ["JSON", "OpenSCAD"], "status": "interactive"},

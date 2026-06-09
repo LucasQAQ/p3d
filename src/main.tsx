@@ -1,6 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { BookOpen, Braces, ChevronDown, ChevronUp, Code2, Github, Image as ImageIcon, Layers3, Play } from "lucide-react";
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 import "./styles.css";
 
 type AssetMap = {
@@ -43,19 +46,6 @@ type Manifest = {
   gallery?: Array<{ id: string; title: string; src: string; caption?: string }>;
 };
 
-type ShowcaseItem = {
-  id: string;
-  task: string;
-  title: string;
-  subtitle: string;
-  taskLabel: string;
-  specLabel: string;
-  input: string;
-  inputImage?: string;
-  src: string;
-  mesh: string;
-};
-
 type ShowcaseVariant = {
   id: string;
   task: string;
@@ -82,7 +72,16 @@ type ShowcaseComparison = {
   variants: ShowcaseVariant[];
 };
 
-type InputModalItem = Pick<ShowcaseItem, "title" | "taskLabel" | "specLabel" | "input" | "inputImage" | "subtitle">;
+type CadViewItem = { id: string; task: string; title: string; subtitle: string; src?: string; mesh: string };
+type InputModalItem = {
+  task: string;
+  title: string;
+  taskLabel: string;
+  specLabel: string;
+  input: string;
+  inputImage?: string;
+  subtitle: string;
+};
 type LeaderboardRow = { model: string; family: string; score: number };
 type LeaderboardTask = { title: string; accent: string; rows: LeaderboardRow[] };
 type ModelFamilyStyle = { color: string; icon: string; tile?: string; filter?: string };
@@ -176,6 +175,7 @@ function App() {
   const selectedInput = selectedRun?.condition || selectedCase?.title || "No input.";
   const selectedInputItem = selectedRun ? {
     title: selectedCase?.title || `Case ${selectedRun.case_id}`,
+    task: selectedRun.task,
     taskLabel: selectedTask?.label || selectedRun.task,
     specLabel: inputSpecLabel(selectedRun.spec),
     input: selectedInput,
@@ -234,7 +234,7 @@ function App() {
             {paper.affiliations?.map((affiliation) => <span className="affiliation-item" key={affiliation}>{renderAffiliation(affiliation)}</span>)}
           </div>
           <div className="actions">
-            <a href={paper.links?.paper || "#pipeline"}><BookOpen size={17} /> Paper</a>
+            <a href={paper.links?.paper || "#top"}><BookOpen size={17} /> Paper</a>
             <a href={paper.links?.code || "https://github.com/LucasQAQ/p3d"}><Github size={17} /> Page Repo</a>
             <a href="#results"><Play size={17} /> Demo</a>
             <a href="#citation"><Braces size={17} /> Citation</a>
@@ -283,7 +283,7 @@ function App() {
                 <Collapsible title="Input" icon={<ImageIcon size={16} />}>
                   <div className="condition-body">
                     {selectedRun?.assets.input_image && !caseUsesImagePicker ? <img className="condition-image" src={asset(selectedRun.assets.input_image)} alt="Input reference" /> : null}
-                    <p>{selectedInput}</p>
+                    <InputAnnotation task={selectedRun?.task} text={selectedInput} />
                   </div>
                 </Collapsible>
               ) : null}
@@ -335,74 +335,6 @@ function App() {
       </section>
     </main>
   );
-}
-
-function buildShowcaseItems(manifest: Manifest): ShowcaseItem[] {
-  const modelCycle = ["gpt55-reason", "gemini-reason", "claude-reason", "kimi_k26-reason", "doubao-reason", "qwen-reason", "mimo_omni-reason"];
-  const formatCycle = ["openscad", "cadquery", "threejs", "json"];
-  const modelLabel = new Map(manifest.models.map((model) => [model.id, model.label]));
-  const taskLabel = new Map(manifest.tasks.map((task) => [task.id, task.label]));
-  const caseTitle = new Map(manifest.cases.map((item) => [item.id, item.title]));
-  const runsByCase = new Map<string, Run[]>();
-  manifest.runs
-    .filter((run) => isCompleteDemoRun(run) && run.valid !== false)
-    .forEach((run) => {
-      const key = `${run.task}/${run.case_id}`;
-      const runs = runsByCase.get(key) || [];
-      runs.push(run);
-      runsByCase.set(key, runs);
-    });
-
-  const items = manifest.cases
-    .map((item, index) => {
-      const targetModel = modelCycle[index % modelCycle.length];
-      const targetFormat = formatCycle[index % formatCycle.length];
-      const run = [...(runsByCase.get(`${item.task}/${item.id}`) || [])].sort((a, b) => {
-        const qualityDelta = runQuality(b) - runQuality(a);
-        if (qualityDelta) return qualityDelta;
-        const modelDelta = Number(a.model !== targetModel) - Number(b.model !== targetModel);
-        if (modelDelta) return modelDelta;
-        const formatDelta = Number(a.format !== targetFormat) - Number(b.format !== targetFormat);
-        if (formatDelta) return formatDelta;
-        return a.id.localeCompare(b.id);
-      })[0];
-      return run;
-    })
-    .filter((run): run is Run => Boolean(run))
-    .map((run) => ({
-      id: run.id,
-      task: run.task,
-      title: caseTitle.get(run.case_id) || `Case ${run.case_id.split("/").pop() || run.case_id}`,
-      subtitle: `${modelLabel.get(run.model) || run.model} / ${outputFormatSummary((runsByCase.get(`${run.task}/${run.case_id}`) || []).filter((item) => item.model === run.model).map((item) => item.format))}`,
-      taskLabel: taskLabel.get(run.task) || run.task,
-      specLabel: inputSpecLabel(run.spec),
-      input: run.condition || caseTitle.get(run.case_id) || `Case ${run.case_id}`,
-      inputImage: run.assets.input_image,
-      src: run.assets.pred_render || "",
-      mesh: run.assets.mesh || "",
-    }));
-  return interleaveShowcaseItems(items);
-}
-
-function interleaveShowcaseItems(items: ShowcaseItem[]) {
-  const taskOrder = ["text2cad", "image2cad", "text_image2cad"];
-  const groups = new Map<string, ShowcaseItem[]>();
-  items.forEach((item) => groups.set(item.task, [...(groups.get(item.task) || []), item]));
-  const output: ShowcaseItem[] = [];
-  let index = 0;
-  while (output.length < items.length) {
-    let added = false;
-    for (const task of taskOrder) {
-      const item = groups.get(task)?.[index];
-      if (item) {
-        output.push(item);
-        added = true;
-      }
-    }
-    if (!added) break;
-    index += 1;
-  }
-  return output;
 }
 
 function buildShowcaseComparisons(manifest: Manifest): ShowcaseComparison[] {
@@ -785,6 +717,7 @@ function RenderShowcase({ comparisons }: { comparisons: ShowcaseComparison[] }) 
       {comparisons.map((comparison, index) => {
         const inputItem = {
           title: comparison.title,
+          task: comparison.task,
           taskLabel: comparison.taskLabel,
           specLabel: comparison.specLabel,
           input: comparison.input,
@@ -815,12 +748,27 @@ function RenderShowcase({ comparisons }: { comparisons: ShowcaseComparison[] }) 
                   </div>
                 </div>
                 <div className="compare-viewer gt-viewer">
-                  <StaticRenderImage src={comparison.gtRender} alt={`${comparison.title} ground truth render`} />
+                  <CadViewer
+                    item={{
+                      id: `${comparison.id}-ground-truth`,
+                      task: comparison.task,
+                      title: comparison.title,
+                      subtitle: "Ground Truth",
+                      src: comparison.gtRender,
+                      mesh: comparison.gtMesh,
+                    }}
+                  />
                 </div>
                 <div className="comparison-input">
                   {comparison.inputImage ? <img src={asset(comparison.inputImage)} alt="Input reference" /> : null}
-                  <p>{comparison.input}</p>
-                  {hasExpandableInput(inputItem) ? <button className="viewer-full-input" type="button" onClick={() => setExpandedItem(inputItem)}>View full input</button> : null}
+                  {comparison.task === "text_image2cad" ? (
+                    <button className="viewer-full-input" type="button" onClick={() => setExpandedItem(inputItem)}>View assembly annotation</button>
+                  ) : (
+                    <>
+                      <InputAnnotation task={comparison.task} text={comparison.input} compact />
+                      {hasExpandableInput(inputItem) ? <button className="viewer-full-input" type="button" onClick={() => setExpandedItem(inputItem)}>View full input</button> : null}
+                    </>
+                  )}
                 </div>
               </aside>
 
@@ -847,7 +795,16 @@ function RenderShowcase({ comparisons }: { comparisons: ShowcaseComparison[] }) 
                         </div>
                       </div>
                       <div className="compare-viewer">
-                        <StaticRenderImage src={variant.src} alt={`${variant.modelLabel} ${variant.formatLabel} render`} />
+                        <CadViewer
+                          item={{
+                            id: variant.id,
+                            task: variant.task,
+                            title: variant.modelLabel,
+                            subtitle: variant.formatLabel,
+                            src: variant.src,
+                            mesh: variant.mesh,
+                          }}
+                        />
                       </div>
                     </section>
                   );
@@ -872,40 +829,284 @@ function InputModal({ item, onClose }: { item: InputModalItem; onClose: () => vo
         </div>
         <h3 id="input-modal-title">{item.title}</h3>
         {item.inputImage ? <img className="input-modal-image" src={asset(item.inputImage)} alt="Input reference" /> : null}
-        <p>{item.input}</p>
+        <InputAnnotation task={item.task} text={item.input} />
         <em>{item.subtitle}</em>
       </div>
     </div>
   );
 }
 
-function StaticRenderImage({ src, alt }: { src?: string; alt: string }) {
-  if (!src) return <div className="render-missing">No render available.</div>;
-  return <img className="static-render" src={asset(src)} alt={alt} loading="lazy" decoding="async" />;
+function InputAnnotation({ task, text, compact = false }: { task?: string; text: string; compact?: boolean }) {
+  if (task !== "text_image2cad") {
+    return <p>{text}</p>;
+  }
+
+  const annotation = parseAssemblyAnnotation(text);
+  return (
+    <div className={compact ? "assembly-annotation compact" : "assembly-annotation"}>
+      {annotation.assembly ? (
+        <section>
+          <h4>assembly-level annotation</h4>
+          <p>{annotation.assembly}</p>
+        </section>
+      ) : null}
+      {annotation.parts.length ? (
+        <section>
+          <h4>part-level annotation</h4>
+          <ol>
+            {annotation.parts.map((part, index) => (
+              <li key={`${part.name}-${index}`}>
+                <strong>part {index + 1}</strong>
+                <span>{part.short || "No part-level annotation available; see annotation caveats."}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
+      {annotation.caveats ? (
+        <section>
+          <h4>annotation caveats</h4>
+          <p>{annotation.caveats}</p>
+        </section>
+      ) : null}
+    </div>
+  );
+}
+
+function parseAssemblyAnnotation(text: string) {
+  const normalized = (text || "").trim();
+  const partsMarker = "\nParts:";
+  const caveatMarker = "\nAnnotation Caveats:";
+  const partsIndex = normalized.indexOf(partsMarker);
+  const caveatIndex = normalized.indexOf(caveatMarker);
+  const assemblyEnd = [partsIndex, caveatIndex].filter((index) => index >= 0).sort((a, b) => a - b)[0] ?? normalized.length;
+  const assembly = normalized.slice(0, assemblyEnd).trim();
+  const partsStart = partsIndex >= 0 ? partsIndex + partsMarker.length : -1;
+  const partsEnd = caveatIndex >= 0 ? caveatIndex : normalized.length;
+  const partsText = partsStart >= 0 ? normalized.slice(partsStart, partsEnd).trim() : "";
+  const caveats = caveatIndex >= 0 ? normalized.slice(caveatIndex + caveatMarker.length).trim() : "";
+  const parts = partsText
+    .split(/\n(?=-\s+)/)
+    .map((line) => line.replace(/^-\s+/, "").trim())
+    .filter(Boolean)
+    .map((line) => {
+      const separator = line.indexOf(":");
+      if (separator < 0) return { name: "", short: line };
+      return {
+        name: line.slice(0, separator).trim(),
+        short: line.slice(separator + 1).trim(),
+      };
+    });
+
+  return { assembly, parts, caveats };
 }
 
 const tileColors = ["#337665", "#2f7a86", "#4f88a8", "#7aa08f"];
 
+const renderTaskStyles: Record<string, { body: number; edge: number; shadow: number; rim: number }> = {
+  text2cad: { body: 0xbfd9ec, edge: 0x316c92, shadow: 0x5a7382, rim: 0xd9efff },
+  image2cad: { body: 0xb5ddcf, edge: 0x2e7564, shadow: 0x4f786c, rim: 0xd9f4ea },
+  text_image2cad: { body: 0xbfdddf, edge: 0x4b7580, shadow: 0x5b747b, rim: 0xe1f5f6 },
+};
+
+function renderStyleForTask(task?: string) {
+  return renderTaskStyles[task || ""] || renderTaskStyles.text2cad;
+}
+
 function GroundTruthFigure({ run, title, subtitle }: { run?: Run; title: string; subtitle: string }) {
+  if (!run?.assets.gt_mesh) {
+    return <Figure title="Ground Truth" src={run?.assets.gt_render} />;
+  }
+
   return (
     <figure className="render-card result-viewer-card">
       <span>Ground Truth</span>
       <div className="result-viewer">
-        <StaticRenderImage src={run?.assets.gt_render} alt={`${title} ${subtitle}`} />
+        <CadViewer
+          item={{
+            id: `${run.case_id}-${run.spec}-ground-truth`,
+            task: run.task,
+            title,
+            subtitle,
+            src: run.assets.gt_render || "",
+            mesh: run.assets.gt_mesh,
+          }}
+          variant="result"
+        />
       </div>
     </figure>
   );
 }
 
 function PredictionFigure({ run, title, subtitle }: { run?: Run; title: string; subtitle: string }) {
+  if (!run?.assets.mesh) {
+    return <Figure title="Prediction" src={run?.assets.pred_render} />;
+  }
+
   return (
     <figure className="render-card result-viewer-card">
       <span>Prediction</span>
       <div className="result-viewer">
-        <StaticRenderImage src={run?.assets.pred_render} alt={`${title} ${subtitle}`} />
+        <CadViewer
+          item={{
+            id: run.id,
+            task: run.task,
+            title,
+            subtitle,
+            src: run.assets.pred_render || "",
+            mesh: run.assets.mesh,
+          }}
+          variant="result"
+        />
       </div>
     </figure>
   );
+}
+
+function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?: "showcase" | "result" }) {
+  const mountRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const mount = mountRef.current;
+    if (!mount || !item.mesh) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff);
+    scene.fog = new THREE.Fog(0xffffff, 6.8, 12.2);
+    const taskStyle = renderStyleForTask(item.task);
+    const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 100);
+    camera.position.set(3.6, 2.35, variant === "result" ? 4.35 : 4.7);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0xffffff, 1);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    mount.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 1.2;
+    controls.enablePan = false;
+    controls.minDistance = 2.2;
+    controls.maxDistance = 7.5;
+
+    scene.add(new THREE.HemisphereLight(0xfafffc, 0xb9cac2, 1.95));
+
+    const key = new THREE.DirectionalLight(0xffffff, 2.65);
+    key.position.set(3.8, 4.8, 3.5);
+    key.castShadow = true;
+    key.shadow.mapSize.set(1024, 1024);
+    scene.add(key);
+
+    const fill = new THREE.DirectionalLight(0xb7eadf, 0.86);
+    fill.position.set(-3.2, 2.2, -2.6);
+    scene.add(fill);
+
+    const rim = new THREE.DirectionalLight(0xc6e5ff, 0.62);
+    rim.position.set(-2.4, 3.4, 3.4);
+    scene.add(rim);
+
+    const shadowPlane = new THREE.Mesh(
+      new THREE.PlaneGeometry(6, 4),
+      new THREE.ShadowMaterial({ color: taskStyle.shadow, opacity: 0.09 })
+    );
+    shadowPlane.rotation.x = -Math.PI / 2;
+    shadowPlane.position.y = -1.06;
+    shadowPlane.receiveShadow = true;
+    scene.add(shadowPlane);
+
+    const group = new THREE.Group();
+    group.rotation.x = -Math.PI / 2;
+    scene.add(group);
+
+    let disposed = false;
+    let frame = 0;
+    let loadedGeometry: THREE.BufferGeometry | null = null;
+    let loadedMaterial: THREE.Material | null = null;
+    let edgeGeometry: THREE.BufferGeometry | null = null;
+    let edgeMaterial: THREE.Material | null = null;
+
+    const loader = new STLLoader();
+    loader.load(asset(item.mesh), (geometry) => {
+      if (disposed) {
+        geometry.dispose();
+        return;
+      }
+      geometry.computeVertexNormals();
+      geometry.computeBoundingBox();
+      geometry.center();
+      const box = geometry.boundingBox;
+      const size = new THREE.Vector3();
+      box?.getSize(size);
+      const maxAxis = Math.max(size.x, size.y, size.z) || 1;
+      const targetScale = variant === "result" ? 2.32 : 2.08;
+      geometry.scale(targetScale / maxAxis, targetScale / maxAxis, targetScale / maxAxis);
+      geometry.computeBoundingBox();
+      loadedGeometry = geometry;
+
+      const material = new THREE.MeshPhysicalMaterial({
+        color: taskStyle.body,
+        roughness: 0.58,
+        metalness: 0.02,
+        clearcoat: 0.1,
+        clearcoatRoughness: 0.68,
+        emissive: taskStyle.rim,
+        emissiveIntensity: 0.006,
+      });
+      loadedMaterial = material;
+
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      group.add(mesh);
+
+      edgeGeometry = new THREE.EdgesGeometry(geometry, 28);
+      edgeMaterial = new THREE.LineBasicMaterial({ color: taskStyle.edge, transparent: true, opacity: variant === "result" ? 0.24 : 0.28 });
+      group.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
+    });
+
+    const resize = () => {
+      const { clientWidth, clientHeight } = mount;
+      const width = Math.max(320, clientWidth);
+      const height = Math.max(360, clientHeight);
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    };
+
+    const observer = new ResizeObserver(resize);
+    observer.observe(mount);
+    resize();
+
+    const animate = () => {
+      frame = requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    return () => {
+      disposed = true;
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      controls.dispose();
+      loadedGeometry?.dispose();
+      loadedMaterial?.dispose();
+      edgeGeometry?.dispose();
+      edgeMaterial?.dispose();
+      shadowPlane.geometry.dispose();
+      (shadowPlane.material as THREE.Material).dispose();
+      renderer.dispose();
+      renderer.domElement.remove();
+    };
+  }, [item.id, item.mesh, variant]);
+
+  return <div className="cad-viewer" ref={mountRef} />;
 }
 
 function Select({ label, value, options, onChange }: { label: string; value: string; options: string[][]; onChange: (value: string) => void }) {

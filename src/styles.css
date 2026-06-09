@@ -263,7 +263,6 @@ h2 {
 
 @media (prefers-reduced-motion: no-preference) {
   .hero-copy,
-  .hero-visual,
   .abstract-panel,
   .task-strip,
   .section-heading,
@@ -274,38 +273,8 @@ h2 {
     animation: riseIn 640ms ease both;
   }
 
-  .hero-visual { animation-delay: 90ms; }
   .abstract-panel { animation-delay: 160ms; }
   .section-heading { animation-delay: 70ms; }
-}
-
-.hero-visual {
-  position: relative;
-  width: min(100%, 1160px);
-  margin: 8px auto 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-.hero-cad-scene {
-  height: clamp(280px, 28vw, 390px);
-  overflow: hidden;
-  border-radius: 0;
-  background: #ffffff;
-  box-shadow: none;
-}
-
-.hero-cad-canvas {
-  position: absolute;
-  inset: 0;
-}
-
-.hero-cad-canvas canvas {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
 }
 
 .task-strip {
@@ -393,7 +362,6 @@ h2 {
   padding-top: clamp(42px, 5vw, 66px);
 }
 
-#pipeline,
 #gallery {
   padding-top: clamp(42px, 5vw, 66px);
   padding-bottom: clamp(46px, 5.4vw, 72px);
@@ -551,6 +519,86 @@ select {
   line-height: 1.62;
 }
 
+.assembly-annotation {
+  display: grid;
+  gap: 14px;
+}
+
+.assembly-annotation section {
+  display: grid;
+  gap: 7px;
+}
+
+.assembly-annotation h4 {
+  margin: 0;
+  color: var(--blue);
+  font: 700 11px/1.1 var(--font-code);
+  text-transform: lowercase;
+}
+
+.assembly-annotation p {
+  margin: 0;
+  color: #30393b;
+  font-size: 14.5px;
+  line-height: 1.62;
+}
+
+.assembly-annotation ol {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.assembly-annotation li {
+  display: grid;
+  gap: 3px;
+  padding: 8px 9px;
+  border: 1px solid rgba(17, 22, 25, 0.08);
+  border-radius: 7px;
+  background: rgba(255, 255, 251, 0.64);
+}
+
+.assembly-annotation li strong {
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.2;
+  text-transform: lowercase;
+}
+
+.assembly-annotation li span {
+  color: #30393b;
+  font-size: 14px;
+  line-height: 1.48;
+}
+
+.assembly-annotation.compact {
+  gap: 9px;
+}
+
+.assembly-annotation.compact section {
+  gap: 5px;
+}
+
+.assembly-annotation.compact p,
+.assembly-annotation.compact li span {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 13.2px;
+  line-height: 1.38;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.assembly-annotation.compact ol {
+  gap: 6px;
+}
+
+.assembly-annotation.compact li {
+  padding: 7px 8px;
+}
+
 .condition-image {
   display: block;
   width: 100%;
@@ -635,21 +683,9 @@ select {
   background: var(--paper);
 }
 
-.static-render {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.result-viewer .static-render,
-.compare-viewer .static-render {
+.result-viewer .cad-viewer {
   position: absolute;
   inset: 0;
-  padding: 14px;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
 }
 
 .render-missing {
@@ -1083,6 +1119,27 @@ select {
   background: var(--paper);
 }
 
+.cad-viewer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  cursor: grab;
+}
+
+.cad-viewer:active {
+  cursor: grabbing;
+}
+
+.cad-viewer canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.viewer-stage > .cad-viewer {
+  left: clamp(260px, 39%, 430px);
+}
+
 .viewer-meta {
   position: absolute;
   left: 24px;
@@ -1395,6 +1452,10 @@ select {
   -webkit-line-clamp: 4;
 }
 
+.comparison-input .assembly-annotation p {
+  margin: 0;
+}
+
 .citation {
   max-width: 1260px;
   border: 0;
@@ -1522,6 +1583,10 @@ select {
   line-height: 1.62;
 }
 
+.input-modal .assembly-annotation p {
+  font-size: 15px;
+}
+
 .input-modal em {
   display: block;
   margin-top: 16px;
@@ -1550,8 +1615,6 @@ select {
     gap: 12px;
     padding: 22px 0;
   }
-
-  .hero-cad-scene { height: clamp(240px, 58vw, 340px); }
 
   .task-strip,
   .workbench,
@@ -1661,6 +1724,10 @@ select {
     min-height: 560px;
   }
 
+  .viewer-stage > .cad-viewer {
+    left: clamp(250px, 37%, 390px);
+  }
+
   .viewer-rail {
     display: grid;
     grid-auto-flow: column;
@@ -1728,8 +1795,6 @@ select {
     padding: 0 12px;
     font-size: 14px;
   }
-
-  .hero-cad-scene { border-radius: 12px; }
 
   .task-strip,
   .section {
@@ -1820,6 +1885,11 @@ select {
 
   .viewer-stage {
     min-height: 660px;
+  }
+
+  .viewer-stage > .cad-viewer {
+    top: 252px;
+    left: 0;
   }
 
   .viewer-meta {
