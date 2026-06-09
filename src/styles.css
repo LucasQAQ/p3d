@@ -688,6 +688,266 @@ select {
   inset: 0;
 }
 
+.complex-assembly-showcase {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 18px;
+  border: 1px solid rgba(17, 22, 25, 0.12);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255, 255, 251, 0.96), rgba(245, 248, 245, 0.94));
+  box-shadow: 0 18px 52px rgba(15, 30, 24, 0.07);
+}
+
+.complex-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 360px);
+  gap: 18px;
+  align-items: end;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(17, 22, 25, 0.1);
+}
+
+.complex-head span,
+.complex-card-head span,
+.complex-case-label span,
+.complex-stat span {
+  color: var(--blue);
+  font: 700 10.5px/1.1 var(--font-code);
+  text-transform: uppercase;
+}
+
+.complex-head h3 {
+  margin: 7px 0 0;
+  color: var(--ink);
+  font: 700 clamp(23px, 2.2vw, 32px)/1.08 var(--font-display);
+}
+
+.complex-layout {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.8fr) minmax(420px, 1.25fr) minmax(270px, 0.9fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.complex-summary,
+.complex-viewer-card,
+.part-inspector,
+.complex-reference-strip figure {
+  min-width: 0;
+  border: 1px solid rgba(17, 22, 25, 0.1);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.complex-summary {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 14px;
+}
+
+.complex-case-label {
+  display: grid;
+  gap: 4px;
+}
+
+.complex-case-label strong {
+  color: var(--ink);
+  font: 800 18px/1.1 var(--font-body);
+}
+
+.complex-case-label em {
+  color: var(--muted);
+  font: 700 12px/1.1 var(--font-code);
+  font-style: normal;
+}
+
+.complex-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.complex-stat {
+  position: relative;
+  min-height: 70px;
+  padding: 10px;
+  border: 1px solid rgba(51, 118, 101, 0.15);
+  border-radius: 6px;
+  background: #f8faf8;
+}
+
+.complex-stat strong {
+  display: block;
+  margin-top: 8px;
+  color: #152023;
+  font: 800 22px/1 var(--font-body);
+}
+
+.complex-stat em {
+  position: absolute;
+  right: 9px;
+  bottom: 9px;
+  color: var(--coral);
+  font: 800 11px/1 var(--font-code);
+  font-style: normal;
+}
+
+.complex-summary p,
+.part-inspector p {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: #4d5b57;
+  font-size: 13.2px;
+  font-weight: 500;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+}
+
+.complex-summary p {
+  -webkit-line-clamp: 8;
+}
+
+.part-inspector p {
+  -webkit-line-clamp: 5;
+}
+
+.complex-main-view {
+  display: grid;
+  grid-template-rows: minmax(390px, 1fr) 122px;
+  gap: 12px;
+  min-width: 0;
+}
+
+.complex-viewer-card,
+.part-inspector {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  padding: 12px;
+}
+
+.complex-card-head {
+  display: grid;
+  gap: 4px;
+}
+
+.complex-card-head strong {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink);
+  font: 800 15px/1.18 var(--font-body);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.complex-viewer,
+.part-viewer {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid rgba(17, 22, 25, 0.09);
+  border-radius: 5px;
+  background: white;
+}
+
+.complex-viewer .cad-viewer,
+.part-viewer .cad-viewer {
+  position: absolute;
+  inset: 0;
+}
+
+.complex-reference-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.complex-reference-strip figure {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 7px;
+  margin: 0;
+  padding: 9px;
+}
+
+.complex-reference-strip span {
+  color: var(--muted);
+  font: 800 11px/1 var(--font-code);
+  text-transform: uppercase;
+}
+
+.complex-reference-strip img {
+  width: 100%;
+  height: 72px;
+  object-fit: contain;
+}
+
+.part-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(178px, 1fr));
+  gap: 8px;
+  max-height: 236px;
+  overflow: auto;
+  padding: 2px;
+}
+
+.part-tile {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 5px;
+  min-height: 112px;
+  padding: 10px;
+  border: 1px solid rgba(17, 22, 25, 0.1);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.part-tile:hover {
+  transform: translateY(-1px);
+  border-color: rgba(51, 118, 101, 0.36);
+}
+
+.part-tile.active {
+  border-color: rgba(51, 118, 101, 0.62);
+  background: #fffdfa;
+  box-shadow: inset 3px 0 0 var(--teal);
+}
+
+.part-tile span {
+  color: var(--blue);
+  font: 800 10.5px/1 var(--font-code);
+  text-transform: uppercase;
+}
+
+.part-tile strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #182126;
+  font-size: 13.5px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.part-tile em {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #65716d;
+  font-size: 12.2px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 .render-missing {
   display: grid;
   place-items: center;
@@ -1749,6 +2009,19 @@ select {
   .viewer-case {
     margin-bottom: 0;
   }
+
+  .complex-head,
+  .complex-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .complex-main-view {
+    grid-template-rows: minmax(420px, 1fr) auto;
+  }
+
+  .part-inspector {
+    min-height: 430px;
+  }
 }
 
 @keyframes riseIn {
@@ -1922,5 +2195,31 @@ select {
   .viewer-case img {
     width: 74px;
     height: 62px;
+  }
+
+  .complex-assembly-showcase {
+    padding: 12px;
+  }
+
+  .complex-head {
+    gap: 12px;
+  }
+
+  .complex-stat-grid,
+  .complex-reference-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .complex-main-view {
+    grid-template-rows: minmax(340px, 1fr) auto;
+  }
+
+  .part-inspector {
+    min-height: 380px;
+  }
+
+  .part-tile-grid {
+    grid-template-columns: 1fr;
+    max-height: 300px;
   }
 }

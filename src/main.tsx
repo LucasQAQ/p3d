@@ -86,13 +86,37 @@ type LeaderboardRow = { model: string; family: string; score: number };
 type LeaderboardTask = { title: string; accent: string; rows: LeaderboardRow[] };
 type ModelFamilyStyle = { color: string; icon: string; tile?: string; filter?: string };
 type AvailabilitySummary = { invalidCount: number; caseCount: number; modelCount: number; formatCount: number };
+type ComplexAssemblyPart = {
+  index: number;
+  label: string;
+  name: string;
+  semantic: string;
+  mesh: string;
+  size_kb?: number;
+};
+type ComplexAssemblyItem = {
+  id: string;
+  case_id: string;
+  short_case_id: string;
+  title: string;
+  model: string;
+  model_label: string;
+  format: string;
+  format_label: string;
+  condition: string;
+  assets: { gt_render?: string; pred_render?: string; mesh?: string; stage2_mesh?: string };
+  metrics: Record<string, number | string | null>;
+  judge_reason?: string;
+  parts: ComplexAssemblyPart[];
+};
+type ComplexAssemblyData = { schema_version: number; items: ComplexAssemblyItem[] };
 
 const fallbackManifest: Manifest = {
   schema_version: 1,
   paper: {
     title: "P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning",
-    authors: ["Yikang Yang¹,²,*", "Zhanpeng Hu¹,*", "Youtian Lin¹", "Mengqi Zhou¹,²", "Jingxi Xu²", "Feihu Zhang²", "Jiaheng Liu¹", "Yao Yao¹"],
-    affiliations: ["¹Nanjing University", "²DreamTech", "*Equal contribution."],
+    authors: ["Yikang Yang¹,*", "Zhanpeng Hu¹,*", "Youtian Lin¹", "Mengqi Zhou¹", "Jingxi Xu²", "Feihu Zhang²", "Jiaheng Liu¹", "Yao Yao¹"],
+    affiliations: ["¹Nanjing University", "²Envision", "*Equal contribution."],
     abstract:
       "Multimodal large language models can write code to produce complex programs as well as use programs to do 3D modeling, which opens up a new avenue for 3D generation powered by their priors, world knowledge and reasoning. Yet existing benchmarks rarely evaluate 3D modeling through code. Such modeling demands more than runnable code: from a text or visual specification, a model must generate a parametric 3D program that is geometrically precise, semantically aligned and assembly-consistent. We introduce P3D-Bench, a benchmark for parametric 3D generation. Unlike a 3D mesh, a parametric 3D program exposes explicit dimensions, construction operations and part relations, revealing whether a model recovers a design's structure, not just its appearance. Under a unified protocol, P3D-Bench covers three task families (Text-to-3D, Image-to-3D and Assembly-3D) and scores each output for executability, geometric fidelity, topology, text-grounded constraints, multiview semantic alignment and part-level structure. We evaluate frontier MLLMs and text-only LLMs on 400 text cases, 400 image cases and 203 annotated assemblies, with domain-specific models as reference points. Our extensive evaluation yields three findings. First, assemblies are the hardest setting, where models still fail to compose multiple parts into a coherent structure. Second, models capture the overall shape of a semantically correct object, yet the parametric geometry they produce does not align precisely with the input specification. Third, part-level modeling remains weak on assemblies, where models recover neither the geometry of each part nor the right number of parts. These results establish P3D-Bench as a benchmark for measuring whether models produce correct parametric 3D and recover how an object is built from its parts, not just how it looks.",
     links: { code: "https://github.com/LucasQAQ/p3d" }
@@ -121,6 +145,7 @@ function asset(path?: string) {
 
 function App() {
   const [manifest, setManifest] = useState<Manifest>(fallbackManifest);
+  const [complexAssemblies, setComplexAssemblies] = useState<ComplexAssemblyItem[]>([]);
   const [task, setTask] = useState("text2cad");
   const [caseId, setCaseId] = useState("");
   const [model, setModel] = useState("");
@@ -133,6 +158,13 @@ function App() {
       .then((res) => (res.ok ? res.json() : fallbackManifest))
       .then((data) => setManifest(data))
       .catch(() => setManifest(fallbackManifest));
+  }, []);
+
+  useEffect(() => {
+    fetch(asset("complex_assemblies.json"))
+      .then((res) => (res.ok ? res.json() : { items: [] }))
+      .then((data: ComplexAssemblyData) => setComplexAssemblies(Array.isArray(data.items) ? data.items : []))
+      .catch(() => setComplexAssemblies([]));
   }, []);
 
   const completeTaskRuns = useMemo(() => manifest.runs.filter((run) => run.task === task && isCompleteDemoRun(run)), [manifest, task]);
@@ -309,6 +341,7 @@ function App() {
                   subtitle={`${selectedModel?.label || selectedRun?.model || ""}${selectedRun ? ` / ${outputFormatLabel(selectedRun.format)}` : ""}`}
                 />
               </div>
+              {task === "text_image2cad" ? <ComplexAssemblyShowcase items={complexAssemblies} /> : null}
             </div>
           </div>
         ) : (
@@ -817,6 +850,149 @@ function RenderShowcase({ comparisons }: { comparisons: ShowcaseComparison[] }) 
       {expandedItem ? <InputModal item={expandedItem} onClose={() => setExpandedItem(null)} /> : null}
     </div>
   );
+}
+
+function ComplexAssemblyShowcase({ items }: { items: ComplexAssemblyItem[] }) {
+  const [activeId, setActiveId] = useState("");
+  const [activePartIndex, setActivePartIndex] = useState(0);
+  const active = useMemo(() => items.find((item) => item.id === activeId) || items[0], [activeId, items]);
+  const selectedPart = active?.parts.find((part) => part.index === activePartIndex) || active?.parts[0];
+
+  useEffect(() => {
+    if (!active && activeId) setActiveId("");
+    if (!activeId && items[0]) setActiveId(items[0].id);
+  }, [active, activeId, items]);
+
+  useEffect(() => {
+    setActivePartIndex(active?.parts[0]?.index ?? 0);
+  }, [active?.id]);
+
+  if (!active) return null;
+
+  const metrics = active.metrics || {};
+  const partDelta = typeof metrics.gt_parts === "number" && typeof metrics.pred_parts === "number" ? metrics.pred_parts - metrics.gt_parts : null;
+
+  return (
+    <section className="complex-assembly-showcase">
+      <div className="complex-head">
+        <div>
+          <span>Part Generation</span>
+          <h3>Assembly decomposition on complex cases</h3>
+        </div>
+        <select value={active.id} onChange={(event) => setActiveId(event.target.value)} aria-label="Complex assembly case">
+          {items.map((item) => (
+            <option value={item.id} key={item.id}>
+              {item.model_label} / {item.format_label} / {item.short_case_id}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="complex-layout">
+        <aside className="complex-summary">
+          <div className="complex-case-label">
+            <span>{active.format_label}</span>
+            <strong>{active.model_label}</strong>
+            <em>{active.short_case_id}</em>
+          </div>
+          <div className="complex-stat-grid">
+            <MetricCell label="GT parts" value={formatMetric(metrics.gt_parts, 0)} />
+            <MetricCell label="Generated parts" value={formatMetric(metrics.pred_parts, 0)} delta={partDelta} />
+            <MetricCell label="Matched" value={formatMetric(metrics.matched_count, 0)} />
+            <MetricCell label="Part F1" value={formatMetric(metrics.match_f1, 3)} />
+            <MetricCell label="Per-part F" value={formatMetric(metrics.per_part_f_score, 3)} />
+            <MetricCell label="Judge" value={formatMetric(metrics.judge_avg, 1)} />
+          </div>
+          <p>{active.judge_reason || active.title}</p>
+        </aside>
+
+        <div className="complex-main-view">
+          <div className="complex-viewer-card">
+            <div className="complex-card-head">
+              <span>Generated assembly</span>
+              <strong>{active.parts.length} exported part meshes</strong>
+            </div>
+            <div className="complex-viewer">
+              <CadViewer
+                item={{
+                  id: `${active.id}-stage2-assembly`,
+                  task: "text_image2cad",
+                  title: active.short_case_id,
+                  subtitle: active.model_label,
+                  src: active.assets.pred_render || "",
+                  mesh: active.assets.mesh || active.assets.stage2_mesh || "",
+                }}
+                variant="result"
+              />
+            </div>
+          </div>
+
+          <div className="complex-reference-strip">
+            <figure>
+              <span>Reference render</span>
+              <img src={asset(active.assets.gt_render)} alt="" />
+            </figure>
+            <figure>
+              <span>Generated render</span>
+              <img src={asset(active.assets.pred_render)} alt="" />
+            </figure>
+          </div>
+        </div>
+
+        <aside className="part-inspector">
+          <div className="complex-card-head">
+            <span>Selected part</span>
+            <strong>{selectedPart?.name || "Part"}</strong>
+          </div>
+          <div className="part-viewer">
+            {selectedPart?.mesh ? (
+              <CadViewer
+                item={{
+                  id: `${active.id}-${selectedPart.index}`,
+                  task: "text_image2cad",
+                  title: selectedPart.name,
+                  subtitle: selectedPart.label,
+                  mesh: selectedPart.mesh,
+                }}
+              />
+            ) : null}
+          </div>
+          <p>{selectedPart?.semantic || "No part-level description available."}</p>
+        </aside>
+      </div>
+
+      <div className="part-tile-grid" aria-label="Generated assembly parts">
+        {active.parts.map((part) => (
+          <button
+            type="button"
+            className={part.index === selectedPart?.index ? "part-tile active" : "part-tile"}
+            key={`${active.id}-${part.index}`}
+            onClick={() => setActivePartIndex(part.index)}
+          >
+            <span>{part.label}</span>
+            <strong>{part.name}</strong>
+            <em>{part.semantic || "Generated mesh"}</em>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MetricCell({ label, value, delta }: { label: string; value: string; delta?: number | null }) {
+  return (
+    <div className="complex-stat">
+      <span>{label}</span>
+      <strong>{value}</strong>
+      {typeof delta === "number" && delta !== 0 ? <em>{delta > 0 ? `+${delta}` : delta}</em> : null}
+    </div>
+  );
+}
+
+function formatMetric(value: number | string | null | undefined, digits: number) {
+  if (typeof value === "number" && Number.isFinite(value)) return value.toFixed(digits);
+  if (typeof value === "string" && value) return value;
+  return "n/a";
 }
 
 function InputModal({ item, onClose }: { item: InputModalItem; onClose: () => void }) {
