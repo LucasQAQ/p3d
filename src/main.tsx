@@ -1,9 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { BookOpen, Braces, ChevronDown, ChevronUp, Code2, Github, Image as ImageIcon, Layers3, Play } from "lucide-react";
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 import "./styles.css";
 
 type AssetMap = {
@@ -85,7 +82,6 @@ type ShowcaseComparison = {
   variants: ShowcaseVariant[];
 };
 
-type CadViewItem = { id: string; task: string; title: string; subtitle: string; src?: string; mesh: string };
 type InputModalItem = Pick<ShowcaseItem, "title" | "taskLabel" | "specLabel" | "input" | "inputImage" | "subtitle">;
 type LeaderboardRow = { model: string; family: string; score: number };
 type LeaderboardTask = { title: string; accent: string; rows: LeaderboardRow[] };
@@ -174,9 +170,7 @@ function App() {
   const selectedCase = manifest.cases.find((item) => item.id === activeCaseId);
   const selectedModel = manifest.models.find((item) => item.id === activeModel);
   const selectedTask = manifest.tasks.find((item) => item.id === selectedRun?.task);
-  const showcaseItems = useMemo(() => buildShowcaseItems(manifest), [manifest]);
   const showcaseComparisons = useMemo(() => buildShowcaseComparisons(manifest), [manifest]);
-  const heroItems = useMemo(() => pickHeroSceneItems(showcaseItems), [showcaseItems]);
   const visibleTasks = useMemo(() => manifest.tasks.filter((item) => item.status === "interactive"), [manifest]);
   const caseUsesImagePicker = cases.some((item) => item.thumbnail);
   const selectedInput = selectedRun?.condition || selectedCase?.title || "No input.";
@@ -246,18 +240,11 @@ function App() {
             <a href="#citation"><Braces size={17} /> Citation</a>
           </div>
         </div>
-        <HeroCadScene items={heroItems} />
+        <MainFigures />
         <div className="abstract-panel">
           <p className="eyebrow">Abstract</p>
           <p className="abstract" dangerouslySetInnerHTML={{ __html: paper.abstract }} />
         </div>
-      </section>
-
-      <section id="pipeline" className="section">
-        <div className="section-heading">
-          <h2>Leaderboard</h2>
-        </div>
-        <MainFigures />
       </section>
 
       <section className="task-strip">
@@ -828,16 +815,7 @@ function RenderShowcase({ comparisons }: { comparisons: ShowcaseComparison[] }) 
                   </div>
                 </div>
                 <div className="compare-viewer gt-viewer">
-                  <CadViewer
-                    item={{
-                      id: `${comparison.id}-ground-truth`,
-                      task: comparison.task,
-                      title: comparison.title,
-                      subtitle: "Ground Truth",
-                      src: comparison.gtRender,
-                      mesh: comparison.gtMesh,
-                    }}
-                  />
+                  <StaticRenderImage src={comparison.gtRender} alt={`${comparison.title} ground truth render`} />
                 </div>
                 <div className="comparison-input">
                   {comparison.inputImage ? <img src={asset(comparison.inputImage)} alt="Input reference" /> : null}
@@ -869,16 +847,7 @@ function RenderShowcase({ comparisons }: { comparisons: ShowcaseComparison[] }) 
                         </div>
                       </div>
                       <div className="compare-viewer">
-                        <CadViewer
-                          item={{
-                            id: variant.id,
-                            task: variant.task,
-                            title: variant.modelLabel,
-                            subtitle: variant.formatLabel,
-                            src: variant.src,
-                            mesh: variant.mesh,
-                          }}
-                        />
+                        <StaticRenderImage src={variant.src} alt={`${variant.modelLabel} ${variant.formatLabel} render`} />
                       </div>
                     </section>
                   );
@@ -910,404 +879,33 @@ function InputModal({ item, onClose }: { item: InputModalItem; onClose: () => vo
   );
 }
 
+function StaticRenderImage({ src, alt }: { src?: string; alt: string }) {
+  if (!src) return <div className="render-missing">No render available.</div>;
+  return <img className="static-render" src={asset(src)} alt={alt} loading="lazy" decoding="async" />;
+}
+
 const tileColors = ["#337665", "#2f7a86", "#4f88a8", "#7aa08f"];
 
-const renderTaskStyles: Record<string, { body: number; edge: number; shadow: number; rim: number }> = {
-  text2cad: { body: 0xbfd9ec, edge: 0x316c92, shadow: 0x5a7382, rim: 0xd9efff },
-  image2cad: { body: 0xb5ddcf, edge: 0x2e7564, shadow: 0x4f786c, rim: 0xd9f4ea },
-  text_image2cad: { body: 0xbfdddf, edge: 0x4b7580, shadow: 0x5b747b, rim: 0xe1f5f6 },
-};
-
-function renderStyleForTask(task?: string) {
-  return renderTaskStyles[task || ""] || renderTaskStyles.text2cad;
-}
-
-function pickHeroSceneItems(items: ShowcaseItem[]) {
-  const taskOrder = ["text2cad", "image2cad", "text_image2cad"];
-  const perTask = 4;
-  const picked: ShowcaseItem[] = [];
-  const seen = new Set<string>();
-
-  for (const task of taskOrder) {
-    const taskItems = items.filter((item) => item.task === task).slice(0, perTask);
-    taskItems.forEach((item) => {
-      picked.push(item);
-      seen.add(item.id);
-    });
-  }
-
-  for (const item of items) {
-    if (picked.length >= taskOrder.length * perTask) break;
-    if (!seen.has(item.id)) picked.push(item);
-  }
-
-  return picked;
-}
-
-function HeroCadScene({ items }: { items: ShowcaseItem[] }) {
-  const mountRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const mount = mountRef.current;
-    if (!mount || !items.length) return;
-
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff);
-    scene.fog = new THREE.Fog(0xffffff, 9.2, 15.6);
-
-    const camera = new THREE.PerspectiveCamera(30, 1, 0.01, 100);
-    camera.position.set(0, 3.35, 6.55);
-    camera.lookAt(0, 0, 0);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0xffffff, 1);
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.0;
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    mount.appendChild(renderer.domElement);
-
-    scene.add(new THREE.HemisphereLight(0xf8fffb, 0xadc5bd, 1.9));
-
-    const key = new THREE.DirectionalLight(0xffffff, 2.55);
-    key.position.set(4.7, 6.6, 5.4);
-    key.castShadow = true;
-    key.shadow.mapSize.set(2048, 2048);
-    key.shadow.camera.near = 0.1;
-    key.shadow.camera.far = 16;
-    scene.add(key);
-
-    const fill = new THREE.DirectionalLight(0xb5eadf, 0.82);
-    fill.position.set(-5.0, 3.0, -3.0);
-    scene.add(fill);
-
-    const rim = new THREE.DirectionalLight(0xb7dcff, 0.68);
-    rim.position.set(-2.6, 4.6, 4.8);
-    scene.add(rim);
-
-    const stage = new THREE.Group();
-    stage.position.set(0, 0.16, -0.05);
-    scene.add(stage);
-
-    const shadowPlane = new THREE.Mesh(
-      new THREE.PlaneGeometry(7.4, 4.4),
-      new THREE.ShadowMaterial({ color: 0x4d6e67, opacity: 0.1 })
-    );
-    shadowPlane.rotation.x = -Math.PI / 2;
-    shadowPlane.position.y = -0.88;
-    shadowPlane.receiveShadow = true;
-    stage.add(shadowPlane);
-
-    const displayItems = items.slice(0, 12);
-    const loader = new STLLoader();
-    const geometries: THREE.BufferGeometry[] = [shadowPlane.geometry];
-    const materials: THREE.Material[] = [shadowPlane.material as THREE.Material];
-    const objectGroups: THREE.Group[] = [];
-    const baseY: number[] = [];
-    let disposed = false;
-
-    displayItems.forEach((item, index) => {
-      const column = index % 4;
-      const row = Math.floor(index / 4);
-      const rowZ = [-0.9, 0.02, 0.94][row] ?? 0;
-      const y = [0.22, 0.04, -0.1][row] ?? 0;
-      const shell = new THREE.Group();
-      shell.position.set((column - 1.5) * 1.32, y, rowZ);
-      shell.rotation.y = (column - 1.5) * 0.05 + (row - 1) * 0.035;
-      stage.add(shell);
-      objectGroups.push(shell);
-      baseY.push(y);
-
-      loader.load(asset(item.mesh), (geometry) => {
-        if (disposed) {
-          geometry.dispose();
-          return;
-        }
-
-        geometry.computeVertexNormals();
-        geometry.computeBoundingBox();
-        geometry.center();
-        const box = geometry.boundingBox;
-        const size = new THREE.Vector3();
-        box?.getSize(size);
-        const maxAxis = Math.max(size.x, size.y, size.z) || 1;
-        geometry.scale(0.93 / maxAxis, 0.93 / maxAxis, 0.93 / maxAxis);
-        geometries.push(geometry);
-
-        const taskStyle = renderStyleForTask(item.task);
-        const material = new THREE.MeshPhysicalMaterial({
-          color: taskStyle.body,
-          roughness: 0.58,
-          metalness: 0.02,
-          clearcoat: 0.1,
-          clearcoatRoughness: 0.64,
-          emissive: taskStyle.rim,
-          emissiveIntensity: 0.006,
-        });
-        materials.push(material);
-
-        const modelGroup = new THREE.Group();
-        modelGroup.rotation.x = -Math.PI / 2;
-        modelGroup.rotation.z = (index % 2 ? -1 : 1) * 0.12;
-
-        const mesh = new THREE.Mesh(geometry, material);
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-        modelGroup.add(mesh);
-
-        const edgeGeometry = new THREE.EdgesGeometry(geometry, 30);
-        const edgeMaterial = new THREE.LineBasicMaterial({ color: taskStyle.edge, transparent: true, opacity: 0.26 });
-        geometries.push(edgeGeometry);
-        materials.push(edgeMaterial);
-        modelGroup.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
-        shell.add(modelGroup);
-      });
-    });
-
-    const resize = () => {
-      const { clientWidth, clientHeight } = mount;
-      const width = Math.max(320, clientWidth);
-      const height = Math.max(360, clientHeight);
-      const layoutScale = width < 560 ? 0.68 : width < 760 ? 0.88 : 1.08;
-      stage.scale.setScalar(layoutScale);
-      camera.position.set(0, width < 560 ? 3.45 : 3.35, width < 560 ? 7.35 : width < 760 ? 6.85 : 6.55);
-      camera.lookAt(0, 0, 0);
-      renderer.setSize(width, height, false);
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-    };
-
-    const observer = new ResizeObserver(resize);
-    observer.observe(mount);
-    resize();
-
-    let frame = 0;
-    const clock = new THREE.Clock();
-    const animate = () => {
-      const t = clock.getElapsedTime();
-      frame = requestAnimationFrame(animate);
-      stage.rotation.y = Math.sin(t * 0.3) * 0.06;
-      objectGroups.forEach((group, index) => {
-        group.position.y = baseY[index] + Math.sin(t * 0.72 + index * 0.57) * 0.028;
-      });
-      renderer.render(scene, camera);
-    };
-    animate();
-
-    return () => {
-      disposed = true;
-      cancelAnimationFrame(frame);
-      observer.disconnect();
-      geometries.forEach((geometry) => geometry.dispose());
-      materials.forEach((material) => material.dispose());
-      renderer.dispose();
-      renderer.domElement.remove();
-    };
-  }, [items]);
-
-  return (
-    <div className="hero-visual hero-cad-scene">
-      <div className="hero-cad-canvas" ref={mountRef} />
-    </div>
-  );
-}
-
 function GroundTruthFigure({ run, title, subtitle }: { run?: Run; title: string; subtitle: string }) {
-  if (!run?.assets.gt_mesh) {
-    return <Figure title="Ground Truth" src={run?.assets.gt_render} />;
-  }
-
   return (
     <figure className="render-card result-viewer-card">
       <span>Ground Truth</span>
       <div className="result-viewer">
-        <CadViewer
-          item={{
-            id: `${run.case_id}-${run.spec}-ground-truth`,
-            task: run.task,
-            title,
-            subtitle,
-            src: run.assets.gt_render || "",
-            mesh: run.assets.gt_mesh,
-          }}
-          variant="result"
-        />
+        <StaticRenderImage src={run?.assets.gt_render} alt={`${title} ${subtitle}`} />
       </div>
     </figure>
   );
 }
 
 function PredictionFigure({ run, title, subtitle }: { run?: Run; title: string; subtitle: string }) {
-  if (!run?.assets.mesh) {
-    return <Figure title="Prediction" src={run?.assets.pred_render} />;
-  }
-
   return (
     <figure className="render-card result-viewer-card">
       <span>Prediction</span>
       <div className="result-viewer">
-        <CadViewer
-          item={{
-            id: run.id,
-            task: run.task,
-            title,
-            subtitle,
-            src: run.assets.pred_render || "",
-            mesh: run.assets.mesh,
-          }}
-          variant="result"
-        />
+        <StaticRenderImage src={run?.assets.pred_render} alt={`${title} ${subtitle}`} />
       </div>
     </figure>
   );
-}
-
-function CadViewer({ item, variant = "showcase" }: { item: CadViewItem; variant?: "showcase" | "result" }) {
-  const mountRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const mount = mountRef.current;
-    if (!mount || !item.mesh) return;
-
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff);
-    scene.fog = new THREE.Fog(0xffffff, 6.8, 12.2);
-    const taskStyle = renderStyleForTask(item.task);
-    const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 100);
-    camera.position.set(3.6, 2.35, variant === "result" ? 4.35 : 4.7);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0xffffff, 1);
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.0;
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    mount.appendChild(renderer.domElement);
-
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 1.2;
-    controls.enablePan = false;
-    controls.minDistance = 2.2;
-    controls.maxDistance = 7.5;
-
-    scene.add(new THREE.HemisphereLight(0xfafffc, 0xb9cac2, 1.95));
-
-    const key = new THREE.DirectionalLight(0xffffff, 2.65);
-    key.position.set(3.8, 4.8, 3.5);
-    key.castShadow = true;
-    key.shadow.mapSize.set(1024, 1024);
-    scene.add(key);
-
-    const fill = new THREE.DirectionalLight(0xb7eadf, 0.86);
-    fill.position.set(-3.2, 2.2, -2.6);
-    scene.add(fill);
-
-    const rim = new THREE.DirectionalLight(0xc6e5ff, 0.62);
-    rim.position.set(-2.4, 3.4, 3.4);
-    scene.add(rim);
-
-    const shadowPlane = new THREE.Mesh(
-      new THREE.PlaneGeometry(6, 4),
-      new THREE.ShadowMaterial({ color: taskStyle.shadow, opacity: 0.09 })
-    );
-    shadowPlane.rotation.x = -Math.PI / 2;
-    shadowPlane.position.y = -1.06;
-    shadowPlane.receiveShadow = true;
-    scene.add(shadowPlane);
-
-    const group = new THREE.Group();
-    group.rotation.x = -Math.PI / 2;
-    scene.add(group);
-
-    let disposed = false;
-    let frame = 0;
-    let loadedGeometry: THREE.BufferGeometry | null = null;
-    let loadedMaterial: THREE.Material | null = null;
-    let edgeGeometry: THREE.BufferGeometry | null = null;
-    let edgeMaterial: THREE.Material | null = null;
-
-    const loader = new STLLoader();
-    loader.load(asset(item.mesh), (geometry) => {
-      if (disposed) {
-        geometry.dispose();
-        return;
-      }
-      geometry.computeVertexNormals();
-      geometry.computeBoundingBox();
-      geometry.center();
-      const box = geometry.boundingBox;
-      const size = new THREE.Vector3();
-      box?.getSize(size);
-      const maxAxis = Math.max(size.x, size.y, size.z) || 1;
-      const targetScale = variant === "result" ? 2.32 : 2.08;
-      geometry.scale(targetScale / maxAxis, targetScale / maxAxis, targetScale / maxAxis);
-      geometry.computeBoundingBox();
-      loadedGeometry = geometry;
-
-      const material = new THREE.MeshPhysicalMaterial({
-        color: taskStyle.body,
-        roughness: 0.58,
-        metalness: 0.02,
-        clearcoat: 0.1,
-        clearcoatRoughness: 0.68,
-        emissive: taskStyle.rim,
-        emissiveIntensity: 0.006,
-      });
-      loadedMaterial = material;
-
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.castShadow = true;
-      mesh.receiveShadow = true;
-      group.add(mesh);
-
-      edgeGeometry = new THREE.EdgesGeometry(geometry, 28);
-      edgeMaterial = new THREE.LineBasicMaterial({ color: taskStyle.edge, transparent: true, opacity: variant === "result" ? 0.24 : 0.28 });
-      group.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
-    });
-
-    const resize = () => {
-      const { clientWidth, clientHeight } = mount;
-      const width = Math.max(320, clientWidth);
-      const height = Math.max(360, clientHeight);
-      renderer.setSize(width, height, false);
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-    };
-
-    const observer = new ResizeObserver(resize);
-    observer.observe(mount);
-    resize();
-
-    const animate = () => {
-      frame = requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
-    };
-    animate();
-
-    return () => {
-      disposed = true;
-      cancelAnimationFrame(frame);
-      observer.disconnect();
-      controls.dispose();
-      loadedGeometry?.dispose();
-      loadedMaterial?.dispose();
-      edgeGeometry?.dispose();
-      edgeMaterial?.dispose();
-      shadowPlane.geometry.dispose();
-      (shadowPlane.material as THREE.Material).dispose();
-      renderer.dispose();
-      renderer.domElement.remove();
-    };
-  }, [item.id, item.mesh, variant]);
-
-  return <div className="cad-viewer" ref={mountRef} />;
 }
 
 function Select({ label, value, options, onChange }: { label: string; value: string; options: string[][]; onChange: (value: string) => void }) {
