@@ -595,7 +595,7 @@ function MainFigures() {
     <div className="main-figures">
       <figure className="leaderboard-figure">
         <a href="./figures/fig_tasks_grouped_bars.pdf" aria-label="Open leaderboard figure PDF">
-          <img src="./figures/fig_tasks_grouped_bars.svg" alt="Task overview: grouped bar scores across text, image and assembly tasks" />
+          <img src="./figures/fig_tasks_grouped_bars.svg?v=vector-qwen-20260609" alt="Task overview: grouped bar scores across text, image and assembly tasks" />
         </a>
       </figure>
     </div>
