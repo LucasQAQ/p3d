@@ -94,6 +94,10 @@ type ComplexAssemblyPart = {
   mesh: string;
   size_kb?: number;
 };
+type DisplayPart = ComplexAssemblyPart & {
+  count: number;
+  displayName: string;
+};
 type ComplexAssemblyItem = {
   id: string;
   case_id: string;
@@ -341,7 +345,6 @@ function App() {
                   subtitle={`${selectedModel?.label || selectedRun?.model || ""}${selectedRun ? ` / ${outputFormatLabel(selectedRun.format)}` : ""}`}
                 />
               </div>
-              {task === "text_image2cad" ? <ComplexAssemblyShowcase items={complexAssemblies} run={selectedRun} /> : null}
             </div>
           </div>
         ) : (
@@ -354,6 +357,7 @@ function App() {
           <h2>Render Showcase</h2>
         </div>
         <RenderShowcase comparisons={showcaseComparisons} />
+        <GalleryPartShowcase items={complexAssemblies} />
       </section>
 
       <section id="citation" className="section citation">
@@ -371,7 +375,7 @@ function App() {
 }
 
 function buildShowcaseComparisons(manifest: Manifest): ShowcaseComparison[] {
-  const taskOrder = ["text2cad", "image2cad", "text_image2cad"];
+  const taskOrder = ["text2cad", "image2cad"];
   const formatPreference: Record<string, string[]> = {
     text2cad: ["openscad", "json"],
     image2cad: ["cadquery", "openscad", "threejs"],
@@ -547,6 +551,46 @@ function outputFormatLabel(formatName: string) {
 function outputFormatSummary(formatNames: string[]) {
   const unique = Array.from(new Set(formatNames)).sort((a, b) => formatPriority(a) - formatPriority(b));
   return unique.map(outputFormatLabel).join(" + ");
+}
+
+function pickGalleryPartItems(items: ComplexAssemblyItem[]) {
+  const preferred = ["textimage2cad/113856_e7484fa7", "textimage2cad/20260_4a01a99d"];
+  const selected = preferred
+    .map((caseId) => items.find((item) => item.case_id === caseId))
+    .filter((item): item is ComplexAssemblyItem => Boolean(item));
+  if (selected.length >= 2) return selected.slice(0, 2);
+  return [...selected, ...items.filter((item) => !selected.some((picked) => picked.id === item.id))].slice(0, 2);
+}
+
+function dedupeParts(parts: ComplexAssemblyPart[]): DisplayPart[] {
+  const groups = new Map<string, DisplayPart>();
+  for (const part of parts) {
+    const displayName = normalizePartName(part.name);
+    const current = groups.get(displayName);
+    if (current) {
+      current.count += 1;
+    } else {
+      groups.set(displayName, { ...part, count: 1, displayName });
+    }
+  }
+  return Array.from(groups.values()).sort((a, b) => a.index - b.index);
+}
+
+function normalizePartName(name: string) {
+  const normalized = name
+    .toLowerCase()
+    .replace(/\b\d+\b/g, " ")
+    .replace(/\b(left|right|upper|lower|top|bottom|front|back|center)\b/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (normalized.startsWith("barrel stave")) return "barrel stave";
+  if (normalized.startsWith("washer")) return "washer";
+  if (normalized.startsWith("large button cap")) return "large button cap";
+  if (normalized.startsWith("medium button cap")) return "medium button cap";
+  if (normalized.startsWith("small button cap")) return "small button cap";
+  if (normalized.startsWith("hex nut")) return "hex nut";
+  if (normalized.startsWith("grooved pin")) return "grooved pin";
+  return normalized || name;
 }
 
 function specPriority(spec: string) {
@@ -852,68 +896,62 @@ function RenderShowcase({ comparisons }: { comparisons: ShowcaseComparison[] }) 
   );
 }
 
-function ComplexAssemblyShowcase({ items, run }: { items: ComplexAssemblyItem[]; run?: Run }) {
-  const [activePartIndex, setActivePartIndex] = useState(0);
-  const active = useMemo(() => {
-    if (!run) return undefined;
-    return items.find((item) => item.case_id === run.case_id && item.model === run.model && item.format === run.format);
-  }, [items, run]);
-  const selectedPart = active?.parts.find((part) => part.index === activePartIndex) || active?.parts[0];
-
-  useEffect(() => {
-    setActivePartIndex(active?.parts[0]?.index ?? 0);
-  }, [active?.id]);
-
-  if (!active) {
-    return (
-      <section className="complex-assembly-showcase complex-empty">
-        <div className="complex-head">
-          <div>
-            <span>Part Generation</span>
-            <h3>Generated assembly and parts</h3>
-          </div>
-          <div className="complex-linked-case">
-            <span>Linked to current selection</span>
-            <strong>{run ? `${run.model_label || run.model} / ${outputFormatLabel(run.format)} / ${run.case_id.split("/").pop() || run.case_id}` : "No selection"}</strong>
-          </div>
-        </div>
-        <div className="complex-empty-state">
-          <strong>No part-level export for this exact selection.</strong>
-          <span>Part meshes are only shown when the selected assembly case, model, and format all match an exported part decomposition.</span>
-        </div>
-      </section>
-    );
-  }
+function GalleryPartShowcase({ items }: { items: ComplexAssemblyItem[] }) {
+  const selected = pickGalleryPartItems(items);
+  if (!selected.length) return null;
 
   return (
-    <section className="complex-assembly-showcase">
-      <div className="complex-head">
-        <div>
-          <span>Part Generation</span>
-          <h3>Generated assembly and parts</h3>
-        </div>
-        <div className="complex-linked-case">
-          <span>Linked to current selection</span>
-          <strong>{active.model_label} / {active.format_label} / {active.short_case_id}</strong>
-        </div>
-      </div>
+    <>
+      {selected.map((item) => (
+        <section className="gallery-part-showcase complex-assembly-showcase" key={item.id}>
+          <div className="complex-head">
+            <div>
+              <span>Assembly-3D</span>
+              <h3>Generated assembly and parts</h3>
+            </div>
+            <div className="complex-linked-case">
+              <span>{item.format_label}</span>
+              <strong>{item.model_label} / {item.short_case_id}</strong>
+            </div>
+          </div>
+          <PartDecompositionPanel item={item} />
+        </section>
+      ))}
+    </>
+  );
+}
 
+function PartDecompositionPanel({
+  item,
+}: {
+  item: ComplexAssemblyItem;
+}) {
+  const [localPartIndex, setLocalPartIndex] = useState(0);
+  const parts = useMemo(() => dedupeParts(item.parts), [item.parts]);
+  const activePart = parts.find((part) => part.index === localPartIndex) || parts[0];
+
+  useEffect(() => {
+    setLocalPartIndex(parts[0]?.index ?? 0);
+  }, [item.id]);
+
+  return (
+    <>
       <div className="complex-layout">
         <div className="complex-main-view">
           <div className="complex-viewer-card">
             <div className="complex-card-head">
               <span>Generated assembly</span>
-              <strong>{active.parts.length} exported part meshes</strong>
+              <strong>{parts.length} unique parts</strong>
             </div>
             <div className="complex-viewer">
               <CadViewer
                 item={{
-                  id: `${active.id}-stage2-assembly`,
+                  id: `${item.id}-stage2-assembly`,
                   task: "text_image2cad",
-                  title: active.short_case_id,
-                  subtitle: active.model_label,
-                  src: active.assets.pred_render || "",
-                  mesh: active.assets.mesh || active.assets.stage2_mesh || "",
+                  title: item.short_case_id,
+                  subtitle: item.model_label,
+                  src: item.assets.pred_render || "",
+                  mesh: item.assets.mesh || item.assets.stage2_mesh || "",
                 }}
                 variant="result"
               />
@@ -924,17 +962,17 @@ function ComplexAssemblyShowcase({ items, run }: { items: ComplexAssemblyItem[];
         <div className="part-inspector">
           <div className="complex-card-head">
             <span>Selected part</span>
-            <strong>{selectedPart?.name || "Part"}</strong>
+            <strong>{activePart?.displayName || activePart?.name || "Part"}</strong>
           </div>
           <div className="part-viewer">
-            {selectedPart?.mesh ? (
+            {activePart?.mesh ? (
               <CadViewer
                 item={{
-                  id: `${active.id}-${selectedPart.index}`,
+                  id: `${item.id}-${activePart.index}`,
                   task: "text_image2cad",
-                  title: selectedPart.name,
-                  subtitle: selectedPart.label,
-                  mesh: selectedPart.mesh,
+                  title: activePart.displayName || activePart.name,
+                  subtitle: activePart.count > 1 ? `x${activePart.count}` : activePart.label,
+                  mesh: activePart.mesh,
                 }}
               />
             ) : null}
@@ -943,19 +981,19 @@ function ComplexAssemblyShowcase({ items, run }: { items: ComplexAssemblyItem[];
       </div>
 
       <div className="part-tile-grid" aria-label="Generated assembly parts">
-        {active.parts.map((part) => (
+        {parts.map((part) => (
           <button
             type="button"
-            className={part.index === selectedPart?.index ? "part-tile active" : "part-tile"}
-            key={`${active.id}-${part.index}`}
-            onClick={() => setActivePartIndex(part.index)}
+            className={part.index === activePart?.index ? "part-tile active" : "part-tile"}
+            key={`${item.id}-${part.index}`}
+            onClick={() => setLocalPartIndex(part.index)}
           >
-            <span>{part.label}</span>
-            <strong>{part.name}</strong>
+            <span>{part.count > 1 ? `x${part.count}` : part.label.replace("Part ", "")}</span>
+            <strong>{part.displayName || part.name}</strong>
           </button>
         ))}
       </div>
-    </section>
+    </>
   );
 }
 
