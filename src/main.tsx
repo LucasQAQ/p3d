@@ -936,26 +936,34 @@ function PartDecompositionPanel({
 
   return (
     <>
-      <div className="complex-layout">
-        <div className="complex-main-view">
-          <div className="complex-viewer-card">
-            <div className="complex-card-head">
-              <span>Generated assembly</span>
-              <strong>{parts.length} unique parts</strong>
-            </div>
-            <div className="complex-viewer">
-              <CadViewer
-                item={{
-                  id: `${item.id}-stage2-assembly`,
-                  task: "text_image2cad",
-                  title: item.short_case_id,
-                  subtitle: item.model_label,
-                  src: item.assets.pred_render || "",
-                  mesh: item.assets.mesh || item.assets.stage2_mesh || "",
-                }}
-                variant="result"
-              />
-            </div>
+      <div className="assembly-part-layout">
+        <div className="complex-viewer-card">
+          <div className="complex-card-head">
+            <span>Reference assembly</span>
+            <strong>Ground truth</strong>
+          </div>
+          <div className="complex-viewer">
+            {item.assets.gt_render ? <img className="complex-reference-image" src={asset(item.assets.gt_render)} alt="Ground truth assembly" /> : null}
+          </div>
+        </div>
+
+        <div className="complex-viewer-card">
+          <div className="complex-card-head">
+            <span>Predicted assembly</span>
+            <strong>{item.model_label}</strong>
+          </div>
+          <div className="complex-viewer">
+            <CadViewer
+              item={{
+                id: `${item.id}-stage2-assembly`,
+                task: "text_image2cad",
+                title: item.short_case_id,
+                subtitle: item.model_label,
+                src: item.assets.pred_render || "",
+                mesh: item.assets.mesh || item.assets.stage2_mesh || "",
+              }}
+              variant="result"
+            />
           </div>
         </div>
 

@@ -756,6 +756,13 @@ select {
   align-items: stretch;
 }
 
+.assembly-part-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.95fr) minmax(330px, 1.1fr) minmax(270px, 0.85fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
 .complex-viewer-card,
 .part-inspector {
   min-width: 0;
@@ -794,6 +801,11 @@ select {
   min-width: 0;
 }
 
+.assembly-part-layout .complex-viewer-card,
+.assembly-part-layout .part-inspector {
+  min-height: 420px;
+}
+
 .complex-viewer-card,
 .part-inspector {
   display: grid;
@@ -830,6 +842,13 @@ select {
 .part-viewer .cad-viewer {
   position: absolute;
   inset: 0;
+}
+
+.complex-reference-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 16px;
 }
 
 .part-tile-grid {
@@ -1953,7 +1972,8 @@ select {
   }
 
   .complex-head,
-  .complex-layout {
+  .complex-layout,
+  .assembly-part-layout {
     grid-template-columns: 1fr;
   }
 
@@ -2158,6 +2178,11 @@ select {
 
   .part-inspector {
     min-height: 380px;
+  }
+
+  .assembly-part-layout .complex-viewer-card,
+  .assembly-part-layout .part-inspector {
+    min-height: 340px;
   }
 
   .part-tile-grid {
