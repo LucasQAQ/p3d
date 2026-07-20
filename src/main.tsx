@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { BookOpen, Braces, ChevronDown, ChevronUp, Code2, Github, Image as ImageIcon, Layers3, Play } from "lucide-react";
+import { ArrowUpDown, BookOpen, Braces, ChevronDown, ChevronUp, Code2, Github, Image as ImageIcon, Layers3, Play } from "lucide-react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 import "./styles.css";
+import { liveResultTables, paperResultTables, type ResultSubtable, type ResultTableRow } from "./resultsData";
 
 type AssetMap = {
   gt_render?: string;
@@ -281,6 +282,14 @@ function App() {
           <p className="eyebrow">Abstract</p>
           <p className="abstract" dangerouslySetInnerHTML={{ __html: paper.abstract }} />
         </div>
+      </section>
+
+      <section id="leaderboard" className="section leaderboard-section">
+        <div className="section-heading">
+          <h2>Leaderboard</h2>
+          <p>Per-task results by output format</p>
+        </div>
+        <ResultsTables />
       </section>
 
       <section className="task-strip">
@@ -612,6 +621,7 @@ const modelFamilies: Record<string, ModelFamilyStyle> = {
   openai: { color: "#202123", icon: "icons/src/openai.svg" },
   gemini: { color: "#14B86A", icon: "icons/src/gemini-color.svg" },
   claude: { color: "#D97757", icon: "icons/src/claude-color.svg" },
+  fable: { color: "#D97757", icon: "icons/src/claude-color.svg" },
   kimi: { color: "#1783FF", icon: "icons/src/kimi-color.svg", tile: "#111619" },
   zai: { color: "#8E5CFB", icon: "icons/src/zai.svg" },
   doubao: { color: "#00A6B8", icon: "icons/src/bytedance-color.svg" },
@@ -675,6 +685,170 @@ function MainFigures() {
           <img src="./figures/fig_tasks_grouped_bars.svg?v=vector-qwen-20260609" alt="Task overview: grouped bar scores across text, image and assembly tasks" />
         </a>
       </figure>
+    </div>
+  );
+}
+
+function metricGroupStarts(groups: ResultSubtable["groups"]) {
+  const starts = new Set<number>();
+  let offset = 0;
+  groups.forEach((group, index) => {
+    if (index > 0) starts.add(offset);
+    offset += group.span;
+  });
+  return starts;
+}
+
+function rankMetricRows(rows: ResultTableRow[], metricCount: number) {
+  const tokens = rows.map((row) => row.cells.trim().split(/\s+/).map((token) => token.replace(/[!^]$/, "")));
+  const ranks = Array.from({ length: metricCount }, (_, column) => {
+    const values = Array.from(new Set(tokens.map((row) => Number(row[column])).filter(Number.isFinite))).sort((a, b) => b - a);
+    return { best: values[0], second: values[1] };
+  });
+  return rows.map((row, rowIndex) => ({
+    ...row,
+    cells: tokens[rowIndex].map((token, column) => {
+      if (column >= metricCount) return token;
+      const value = Number(token);
+      if (!Number.isFinite(value)) return token;
+      if (value === ranks[column].best) return `${token}!`;
+      if (value === ranks[column].second) return `${token}^`;
+      return token;
+    }).join(" "),
+  }));
+}
+
+function ResultCell({ token, groupStart, cost }: { token: string; groupStart: boolean; cost: boolean }) {
+  const className = ["rt-cell", groupStart ? "group-start" : "", cost ? "rt-cost-col" : ""].filter(Boolean).join(" ");
+  if (token === "-") return <td className={`${className} na`}>—</td>;
+  if (token.endsWith("!")) return <td className={`${className} best`}>{token.slice(0, -1)}</td>;
+  if (token.endsWith("^")) return <td className={`${className} second`}>{token.slice(0, -1)}</td>;
+  return <td className={className}>{token}</td>;
+}
+
+function rowCost(row: ResultTableRow) {
+  const token = row.cells.trim().split(/\s+/).at(-1) || "";
+  const value = Number(token.replace(/[$,]/g, ""));
+  return Number.isFinite(value) ? value : Number.POSITIVE_INFINITY;
+}
+
+function ResultsTables() {
+  const [view, setView] = useState<"paper" | "live">("live");
+  const subtables = view === "paper" ? paperResultTables : liveResultTables;
+  return (
+    <div className="results-tables">
+      <div className="results-view-toggle" role="tablist" aria-label="Leaderboard version">
+        <button type="button" role="tab" aria-selected={view === "paper"} className={view === "paper" ? "rv-tab active" : "rv-tab"} onClick={() => setView("paper")}>Paper results</button>
+        <button type="button" role="tab" aria-selected={view === "live"} className={view === "live" ? "rv-tab active" : "rv-tab"} onClick={() => setView("live")}>Live leaderboard</button>
+      </div>
+      {subtables.map((subtable) => <ResultsSubtableTable subtable={subtable} key={`${view}-${subtable.key}`} />)}
+    </div>
+  );
+}
+
+function ResultsSubtableTable({ subtable }: { subtable: ResultSubtable }) {
+  const [costSort, setCostSort] = useState<"default" | "asc" | "desc">("default");
+  const groupStarts = metricGroupStarts(subtable.groups);
+  const headerRows = subtable.superGroups ? 3 : 2;
+  const hasCost = subtable.metrics.at(-1) === "USD";
+  const costColumn = hasCost ? subtable.metrics.length - 1 : -1;
+  const metricCount = hasCost ? costColumn : 0;
+  const rankedRows = metricCount ? rankMetricRows(subtable.rows, metricCount) : subtable.rows;
+  const rows = costSort === "default"
+    ? rankedRows
+    : [...rankedRows].sort((a, b) => (rowCost(a) - rowCost(b)) * (costSort === "asc" ? 1 : -1));
+  const nextCostSort = costSort === "default" ? "asc" : costSort === "asc" ? "desc" : "default";
+  const costSortLabel = costSort === "default"
+    ? "Sort cost low to high"
+    : costSort === "asc"
+      ? "Sort cost high to low"
+      : "Restore score order";
+  const renderRow = (row: ResultTableRow, domain: boolean) => {
+    const family = row.family ? modelFamilies[row.family] : undefined;
+    const tokens = row.cells.trim().split(/\s+/);
+    return (
+      <tr className={domain ? "rt-row rt-domain" : "rt-row"} key={row.model}>
+        <th scope="row" className="rt-model-col">
+          <span className="rt-model">
+            {family ? (
+              <span className="model-mark" style={{ "--model-tile": family.tile || "#fffdfa", "--icon-filter": family.filter || "none" } as React.CSSProperties}>
+                <img src={asset(family.icon)} alt="" aria-hidden="true" />
+              </span>
+            ) : <span className="model-mark rt-mark-empty" aria-hidden="true" />}
+            <strong>{row.model}</strong>
+          </span>
+        </th>
+        {tokens.map((token, column) => (
+          <ResultCell token={token} groupStart={groupStarts.has(column)} cost={column === costColumn} key={column} />
+        ))}
+      </tr>
+    );
+  };
+  return (
+    <div className="rt-block" style={{ "--rt-accent": subtable.accent } as React.CSSProperties}>
+      <div className="rt-block-head"><span className="rt-tag">{subtable.title}</span></div>
+      <div className="rt-scroll">
+        <table className="results-table">
+          <thead>
+            {subtable.superGroups ? (
+              <tr className="rt-superrow">
+                <th rowSpan={headerRows} className="rt-model-col rt-corner">Model</th>
+                {subtable.superGroups.map((group, index) => (
+                  <th
+                    colSpan={group.span}
+                    className={["rt-super", index > 0 ? "group-start" : "", hasCost && index === subtable.superGroups!.length - 1 ? "rt-cost-col" : ""].filter(Boolean).join(" ")}
+                    key={group.label}
+                  >
+                    {group.label}
+                  </th>
+                ))}
+              </tr>
+            ) : null}
+            <tr className="rt-grouprow">
+              {subtable.superGroups ? null : <th rowSpan={2} className="rt-model-col rt-corner">Model</th>}
+              {subtable.groups.map((group, index) => (
+                <th
+                  colSpan={group.span}
+                  className={["rt-group", index > 0 ? "group-start" : "", hasCost && index === subtable.groups.length - 1 ? "rt-cost-col" : ""].filter(Boolean).join(" ")}
+                  key={`${group.label}-${index}`}
+                >
+                  {group.label}
+                </th>
+              ))}
+            </tr>
+            <tr className="rt-metricrow">
+              {subtable.metrics.map((metric, index) => {
+                const cost = index === costColumn;
+                return (
+                  <th
+                    className={["rt-metric", groupStarts.has(index) ? "group-start" : "", cost ? "rt-cost-col" : ""].filter(Boolean).join(" ")}
+                    aria-sort={cost ? costSort === "asc" ? "ascending" : costSort === "desc" ? "descending" : "none" : undefined}
+                    key={`${metric}-${index}`}
+                  >
+                    {cost ? (
+                      <button
+                        type="button"
+                        className="rt-cost-sort"
+                        aria-label={costSortLabel}
+                        title={costSortLabel}
+                        onClick={() => setCostSort(nextCostSort)}
+                      >
+                        <span>USD</span>
+                        {costSort === "asc" ? <ChevronUp aria-hidden="true" /> : costSort === "desc" ? <ChevronDown aria-hidden="true" /> : <ArrowUpDown aria-hidden="true" />}
+                      </button>
+                    ) : metric}
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => renderRow(row, false))}
+            {subtable.domainRows?.map((row) => renderRow(row, true))}
+          </tbody>
+        </table>
+      </div>
+      {subtable.note ? <p className="rt-note">{subtable.note}</p> : null}
     </div>
   );
 }
