@@ -35,6 +35,8 @@ PRIVATE_TEXT_RE = re.compile(
 
 # These are the same representative cases used by the reviewed anonymous page.
 # Additional GPT runs are selected deterministically by incremental asset cost.
+# These task budgets are calibrated against the complete 50 MB review archive,
+# whose fixed evaluator/data contents are not represented by the values below.
 ANONYMOUS_SEED_RUN_IDS = frozenset(
     {
         "text2cad_0084_00847302_descriptive_json_gpt55-reason",
@@ -47,9 +49,9 @@ ANONYMOUS_SEED_RUN_IDS = frozenset(
     }
 )
 ANONYMOUS_TASK_BUDGETS = {
-    "text2cad": 10_000_000,
-    "image2cad": 18_000_000,
-    "text_image2cad": 14_000_000,
+    "text2cad": 17_000_000,
+    "image2cad": 45_000_000,
+    "text_image2cad": 28_000_000,
 }
 
 
