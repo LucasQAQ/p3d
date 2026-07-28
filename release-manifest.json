@@ -1,0 +1,63 @@
+{
+  "anonymous_transform": {
+    "allowlisted_differences": [],
+    "enabled": false
+  },
+  "demo": {
+    "cases": 54,
+    "models": 11,
+    "runs": 974,
+    "selected_run_ids_sha256": "fd8024da3ceae2d509f40ff40ea07996cb0e8814b6349088bff74a41160aee32"
+  },
+  "essential_files": {
+    ".nojekyll": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "assets/index-DU1R7tAN.css": {
+      "bytes": 36358,
+      "sha256": "1f56274df07d3d472ac976ab189caa84022a83638a2898e904777f4c46b185c3"
+    },
+    "assets/index-DjzRqcN8.js": {
+      "bytes": 768865,
+      "sha256": "7be2c623435f05e07721993957c929e8eb1dcb8c627904cdab54b7f19863ed4d"
+    },
+    "assets/resultsData-zPN66AGB.js": {
+      "bytes": 5624,
+      "sha256": "d58bb2ddc0ff67fc98b7f8ae9f62fc6eea2582af43d83274fb471011648d27b3"
+    },
+    "demo/data_audit.json": {
+      "bytes": 498,
+      "sha256": "10a3759a1bda60ed7de559e366de52afcbef78331f2fe4c2eddce5c53feaf6d7"
+    },
+    "demo/manifest.json": {
+      "bytes": 2733074,
+      "sha256": "b2d43a3b4c19b907ee1996bb99a9a833722cf963c9905b9132a64b6a09e634dc"
+    },
+    "index.html": {
+      "bytes": 488,
+      "sha256": "e2fe039456541781dd5b01945976304a4a235979560ec2cf39b82ecd2774d78d"
+    },
+    "release/paper-snapshot.json": {
+      "bytes": 66882,
+      "sha256": "ed0ba32cb8e8d75cda867b4a67217fadf223b362e95be5c04b23224d5e0a51d4"
+    },
+    "release/profile.json": {
+      "bytes": 170,
+      "sha256": "f8c6ec6eb0688d3b775ab8146b14390f1ca82c83d14bff010d979a15cd616274"
+    }
+  },
+  "file_count": 4008,
+  "generated_at": "2026-07-28T10:36:39.841420+00:00",
+  "includes_live": true,
+  "profile": "public",
+  "protocol_id": "p3d-aaai27-paper-protocol-v1",
+  "release_id": "p3d-aaai27-paper-current-v1",
+  "schema_version": 1,
+  "snapshot_content_sha256": "c413892ae23fbfbcf51e999e5eabb989a5c1260024bde6eaf57cdefaf9ddb7fb",
+  "snapshot_file_sha256": "ed0ba32cb8e8d75cda867b4a67217fadf223b362e95be5c04b23224d5e0a51d4",
+  "source_base_git_sha": "8230fcd935c1ffbaf447efb26b3feaae7a97cd98",
+  "source_commit_role": "consumer_base",
+  "total_bytes": 1791667274,
+  "tree_sha256": "43268501316db2592147b99a11dc8912aa2495e145ae8a3d13931dcbbdedb009"
+}

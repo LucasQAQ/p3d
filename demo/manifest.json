@@ -105,11 +105,6 @@
       "family": "mimo"
     },
     {
-      "id": "mimo-reason",
-      "label": "MiMo v2 Pro",
-      "family": "mimo"
-    },
-    {
       "id": "mimo_omni-reason",
       "label": "MiMo v2 Omni",
       "family": "mimo"
@@ -897,58 +892,6 @@
       }
     },
     {
-      "id": "text2cad_0001_00017063_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0001/00017063",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Use a main base declared size of length 0.75, width 0.21875, and height 0.28125, with main extrusion depth 0.2812. Form the base as one solid upper-side extrusion from the base datum, filling the footprint to the left, right, front, and back edges with offsets of 0, and keep the side outline arched rather than reducing it to a rectangular notch. Add one remove-material feature made only from 2 separate circular profiles, not a connected slot or rectangular pocket. Place one circular axis 0.0717 from the left edge and 0.0625 from the front edge, and place the other circular axis 0.6692 from the left edge and 0.0625 from the front edge; each circular profile has radius 0.0312. Cut from the upper side with the removed band running from 0.1081 to 0.1705 above the base underside, using cut depth 0.0625. Treat the 0.6599 by 0.0625 span only as the envelope of the circular pattern, leaving the surrounding and intervening material solid.",
-      "assets": {
-        "generated": "runs/text2cad_0001_00017063_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0001_00017063_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0001_00017063_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0001_00017063_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0001_00017063.stl",
-        "gt_render": "gt_renders/text2cad_0001_00017063.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.001485,
-        "hausdorff_distance": 0.118035,
-        "f_score_005": 0.6075,
-        "f_score_001": 0.215,
-        "normal_consistency": 0.5305,
-        "iou_csg": 0.394,
-        "iou_voxel": 0.4299,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0001_00017063_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0001/00017063",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The main piece is a single solid extrusion with a long flat top and a rounded arched lower outline, not a stack of separate blocks. The visible underside void should remain curved, with straight vertical solid portions at the ends and a continuous slab across the top. In addition to the arched body outline, there is a paired circular material-removal pattern placed on the upper side; those circular features are cuts or recesses, not raised bosses. The circular removals use a shallower depth than the main body, so the model has a stepped-depth relationship while the surrounding material stays solid.",
-      "assets": {
-        "generated": "runs/text2cad_0001_00017063_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0001_00017063_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0001_00017063_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0001_00017063_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0001_00017063.stl",
-        "gt_render": "gt_renders/text2cad_0001_00017063.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.2143,
-        "acc_param": 0.037,
-        "qa_overall": 0.75,
-        "qa_semantic": 0.75
-      }
-    },
-    {
       "id": "text2cad_0004_00040376_parametric_openscad_gpt55-reason",
       "task": "text2cad",
       "case_id": "0004/00040376",
@@ -1425,58 +1368,6 @@
         "acc_param": 0.0066,
         "qa_overall": 0.75,
         "qa_semantic": 0.75
-      }
-    },
-    {
-      "id": "text2cad_0004_00040376_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0004/00040376",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Use a main base reference span of length 0.75, width 0.421875, and height 0.191921, with the lower base extrusion extending 0.1919 upward from the base datum. Form this lower base from separate rounded profiles within the full 0.75 by 0.4218 span rather than as a filled rectangular plate: place one circular profile with its axis 0.2109 from the left edge and 0.2109 from the front edge, radius 0.2109, and place a second concentric circular group with its axis 0.6094 from the left edge and 0.2109 from the front edge, using radius 0.1406 with an inner radius of 0.1055 for the opening. Preserve the additional curved and slot-like profile portions in the lower sketch as rounded cut or boundary shapes, so the openings remain true voids rather than surface markings. Add the taller circular solid section over the left-side circular axis within a 0.4218 by 0.4218 footprint, offset 0 from the left edge, 0.3282 from the right edge, and 0 from both front and back edges; this upper-side material reaches 0.4424 from the same base datum, making it a taller continuation above the shallow base rather than an added segment stacked on top of the base height. Keep the upper circular section hollow/annular where the inner loop is present, including the rounded slot-like interruptions in the opening. Add a separate solid rectangular upright tab with length 0.041188, width 0.070313, and height 0.441346; position it with left offset 0.0703, right offset 0.6385, front offset 0.1758, and back offset 0.1757, and extrude it upward 0.4413 from the base datum.",
-      "assets": {
-        "generated": "runs/text2cad_0004_00040376_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0004_00040376_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0004_00040376_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0004_00040376_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0004_00040376.stl",
-        "gt_render": "gt_renders/text2cad_0004_00040376.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.003685,
-        "hausdorff_distance": 0.228272,
-        "f_score_005": 0.5497,
-        "f_score_001": 0.0822,
-        "normal_consistency": 0.675,
-        "iou_csg": 0.4098,
-        "iou_voxel": 0.4337,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0004_00040376_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0004/00040376",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The model is built from rounded circular sections with real central openings, so the visible collars should read as hollow/annular rather than solid disks. A lower rounded base links the larger and smaller circular areas, with curved outlines rather than a simple rectangular plate between them. The taller round section rises from one side of the lower form and has an inner opening with slot-like rounded interruptions at the top. A narrow solid rectangular upright tab is added beside the tall round body and reaches nearly the same height, while the lower base remains much shallower.",
-      "assets": {
-        "generated": "runs/text2cad_0004_00040376_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0004_00040376_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0004_00040376_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0004_00040376_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0004_00040376.stl",
-        "gt_render": "gt_renders/text2cad_0004_00040376.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.2286,
-        "acc_param": 0.0191,
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0
       }
     },
     {
@@ -1959,58 +1850,6 @@
       }
     },
     {
-      "id": "text2cad_0009_00099014_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0009/00099014",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Create a solid rectangular base as the reference body, length 0.75, width 0.669426, and height 0.150979, with main depth 0.151. Use the base plan edges as left, right, front, and back references. Add four solid rectangular pads to the underside, each starting at the base underside and extending 0.151 below it: one pad 0.156427 by 0.090313 with offsets left 0.5351, right 0.0585, front 0.109, back 0.4701; one pad 0.202932 by 0.128382 with offsets left 0.0568, right 0.4903, front 0.0294, back 0.5116; one pad 0.207237 by 0.111076 with offsets left 0.5157, right 0.0271, front 0.5131, back 0.0452; and one pad 0.235324 by 0.115862 with offsets left 0.0893, right 0.4254, front 0.5088, back 0.0447. Add a deeper solid rectangular continuation below each shallow pad with own depth 0.302; these deeper sections start 0.1509 below the base underside and reach 0.4529 below the base underside. The continuation below the 0.202932 by 0.128382 pad is 0.101466 by 0.128382, with offsets left 0.0568, right 0.5917, front 0.0294, back 0.5116, sharing the shallow pad left, front, and back edges. The continuation below the 0.156427 by 0.090313 pad is 0.078214 by 0.090313, with offsets left 0.6133, right 0.0585, front 0.109, back 0.4701, sharing the shallow pad right, front, and back edges. The continuation below the 0.207237 by 0.111076 pad is 0.103619 by 0.111076, with offsets left 0.6193, right 0.0271, front 0.5131, back 0.0452, sharing the shallow pad right, front, and back edges. The continuation below the 0.235324 by 0.115862 pad is 0.117662 by 0.115862, with offsets left 0.0893, right 0.543, front 0.5088, back 0.0447, sharing the shallow pad left, front, and back edges. All listed rectangular underside features are solid additions, with no internal loops, cutouts, recesses, or through openings.",
-      "assets": {
-        "generated": "runs/text2cad_0009_00099014_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0009_00099014_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0009_00099014_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0009_00099014_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0009_00099014.stl",
-        "gt_render": "gt_renders/text2cad_0009_00099014.png"
-      },
-      "metrics": {
-        "chamfer_distance": 8.7e-05,
-        "hausdorff_distance": 0.0301,
-        "f_score_005": 1.0,
-        "f_score_001": 0.4808,
-        "normal_consistency": 0.9436,
-        "iou_csg": 0.9965,
-        "iou_voxel": 0.99,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0009_00099014_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0009/00099014",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The model is a rectangular slab with only added rectangular solids attached to its underside. Four shallow underside pads sit near the perimeter, and each pad carries a narrower, deeper rectangular continuation below it, producing a two-tier underside protrusion pattern. The deeper continuation in each pair is contained within the shallow pad footprint and shares either the left or right vertical edge along with the front and back edges. Treat all of these underside features as solid added material; there are no holes, cut-throughs, recesses, or engraved top-face details.",
-      "assets": {
-        "generated": "runs/text2cad_0009_00099014_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0009_00099014_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0009_00099014_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0009_00099014_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0009_00099014.stl",
-        "gt_render": "gt_renders/text2cad_0009_00099014.png"
-      },
-      "metrics": {
-        "acc_cmd": 1.0,
-        "acc_param": 0.1049,
-        "qa_overall": 0.75,
-        "qa_semantic": 0.75
-      }
-    },
-    {
       "id": "text2cad_0013_00134405_parametric_openscad_gpt55-reason",
       "task": "text2cad",
       "case_id": "0013/00134405",
@@ -2488,58 +2327,6 @@
       }
     },
     {
-      "id": "text2cad_0013_00134405_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0013/00134405",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Use the main base declared size as the first reference: length 0.75, width 0.75, height 0.05625; main extrusion depth 0.0281. Build the main base as a concentric circular annulus, not as a rectangular plate: the outer circular profile has radius 0.375 and the inner circular opening has radius 0.3375, with the shared axis 0.375 from the left edge and 0.375 from the front edge; this base spans from -0.0281 to 0.0281 relative to the base underside reference. Add a centered solid annular collar within a 0.15 by 0.15 footprint, offset 0.3 from the left, right, front, and back edges, keeping its inner profile open as a real through void; this collar spans from -0.0234 to 0.0234 from the same underside reference. Add the rounded radial rib web as solid attached material inside the rim, using arc-based outlines and leaving the intervening elongated slot-like openings open; its bounding footprint is 0.6184 by 0.521 with edge offsets left 0.0658, right 0.0658, front 0.0387, and back 0.1903, and its modeled length, width, and height are 0.618448, 0.521035, and 0.028125. The rib web spans from -0.0141 to 0.0141 from the same underside reference, so these vertical values are shared-reach tiers rather than stacked segment heights. Keep all circular profiles coaxial and concentric with the main annulus and central collar.",
-      "assets": {
-        "generated": "runs/text2cad_0013_00134405_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0013_00134405_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0013_00134405_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0013_00134405_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0013_00134405.stl",
-        "gt_render": "gt_renders/text2cad_0013_00134405.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.000589,
-        "hausdorff_distance": 0.089597,
-        "f_score_005": 0.846,
-        "f_score_001": 0.26,
-        "normal_consistency": 0.7299,
-        "iou_csg": 0.3433,
-        "iou_voxel": 0.2873,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0013_00134405_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0013/00134405",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The object is a flat circular annular rim with an open center area, not a filled circular plate. A concentric hollow collar is added at the middle and shares the same axis as the outer ring, with its center left open. Solid radial ribs run from the collar toward the outer rim, leaving rounded slot-like window spaces between them rather than surface markings. The added collar and rib web use shallower depth tiers than the main outer ring, so the part has stepped faces and underside relief instead of one uniform thickness.",
-      "assets": {
-        "generated": "runs/text2cad_0013_00134405_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0013_00134405_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0013_00134405_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0013_00134405_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0013_00134405.stl",
-        "gt_render": "gt_renders/text2cad_0013_00134405.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.3333,
-        "acc_param": 0.0122,
-        "qa_overall": 0.25,
-        "qa_semantic": 0.25
-      }
-    },
-    {
       "id": "text2cad_0013_00135378_parametric_openscad_gpt55-reason",
       "task": "text2cad",
       "case_id": "0013/00135378",
@@ -3014,58 +2801,6 @@
         "acc_param": 0.0331,
         "qa_overall": 1.0,
         "qa_semantic": 1.0
-      }
-    },
-    {
-      "id": "text2cad_0013_00135378_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0013/00135378",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Start with a rounded, slot-like rectangular base footprint measuring length 0.75 and width 0.45, with base height 0.05625 and main depth 0.0562. Use a single central vertical axis located 0.375 from the left edge and 0.225 from the front edge for every circular feature. On that axis, include the base-level concentric circular profile set with radii 0.225, 0.1875, 0.1875, 0.0937, 0.0937, 0.0562, and 0.0562, using the paired inner loops as real openings or hollow boundaries rather than filled disks. Add a coaxial outer annular collar centered on the same axis, with outer radius 0.225 and inner radius 0.1875; it occupies the central 0.45 by 0.45 circular span of the base and reaches 0.1687 upward from the common shoulder datum. Add the smaller coaxial annular section with outer radius 0.0937 and inner radius 0.0562, positioned with offsets left 0.2812, right 0.2814, front 0.1312, and back 0.1314 to its circular span, and have it reach 0.0937 from the same shoulder datum. Add the innermost solid circular section with radius 0.0562, centered on the same axis, with circular span offsets left 0.3188, right 0.3188, front 0.1688, and back 0.1688; this solid round section has length 0.1125, width 0.1125, height 0.075, and reaches 0.075 from the same shoulder datum. Treat the coaxial reach depths 0.0562, 0.075, 0.0937, and 0.1687 as absolute distances from the shared shoulder face, not as stacked segment heights.",
-      "assets": {
-        "generated": "runs/text2cad_0013_00135378_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0013_00135378_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0013_00135378_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0013_00135378_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0013_00135378.stl",
-        "gt_render": "gt_renders/text2cad_0013_00135378.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.002921,
-        "hausdorff_distance": 0.242987,
-        "f_score_005": 0.6405,
-        "f_score_001": 0.0824,
-        "normal_consistency": 0.4843,
-        "iou_csg": 0.1878,
-        "iou_voxel": 0.2333,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0013_00135378_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0013/00135378",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The part is a low rounded rectangular base with a centered circular build-up. The upper center is made from concentric stepped round features: a taller outer annular wall surrounds a recessed circular area, with smaller coaxial annular and round sections inside. The circular sections with inner loops are hollow rather than solid disks, and the bore continues through the stepped ring areas; only the smallest central round section should be treated as solid material. The base outline uses rounded arc ends and slot-like openings, so it should not be simplified into a sharp rectangular plate.",
-      "assets": {
-        "generated": "runs/text2cad_0013_00135378_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0013_00135378_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0013_00135378_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0013_00135378_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0013_00135378.stl",
-        "gt_render": "gt_renders/text2cad_0013_00135378.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.3214,
-        "acc_param": 0.0185,
-        "qa_overall": 0.75,
-        "qa_semantic": 0.75
       }
     },
     {
@@ -3548,58 +3283,6 @@
       }
     },
     {
-      "id": "text2cad_0024_00249966_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0024/00249966",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Start with the main base as the reference body: overall bounding length 0.75, width 0.364251, and height 0.080711, with the main extrusion depth 0.0807. Use an upper-side solid base footprint spanning 0.75 by 0.3643 with zero left, right, front, and back edge offsets; keep the arc-based rounded outline and include the inner slot-like opening as a through void in the base rather than filling it. Add the base circular through opening on the base plane with its axis 0.4987 from the left edge and 0.1821 from the front edge, radius 0.0396.\n\nCreate the coaxial round stepped stack as solid added material. The lower circular collar has radius 0.1104, centered 0.1865 from the left edge and 0.1821 from the front edge, with a 0.220812 by 0.220812 footprint located 0.0761 from the left edge, 0.4531 from the right edge, 0.0717 from the front edge, and 0.0718 from the back edge; its own height above the base top is 0.0914. On the same axis, add the smaller solid cylinder with radius 0.0563 and footprint 0.1126 by 0.1126, offset 0.1302 from the left edge, 0.5072 from the right edge, 0.1258 from the front edge, and 0.1259 from the back edge; this upper post has its own height 0.2893 above the collar shoulder. Treat both circular profiles as individual solid cylinders, not as rectangular pads, and do not make the upper post hollow.\n\nAdd the raised rounded solid region on the right side of the base with a bounding footprint of 0.4584 by 0.3356, offset 0.2916 from the left edge, 0 from the right edge, 0.0144 from the front edge, and 0.0143 from the back edge. This rounded region is a solid upper-side continuation above the main base, with its own stepped height 0.0411 above the base top, and it includes the circular profile on its plane centered 0.4987 from the left edge and 0.1822 from the front edge with radius 0.0396. Add the rectangular solid rib or tab within that rounded footprint, sharing the right edge, with footprint 0.182741 by 0.094416, offsets 0.5673 from the left edge, 0 from the right edge, 0.1349 from the front edge, and 0.135 from the back edge. This rectangular raised feature has its own height 0.0305 above the rounded shoulder, so it is a shallow added tier rather than a through cut.",
-      "assets": {
-        "generated": "runs/text2cad_0024_00249966_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0024_00249966_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0024_00249966_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0024_00249966_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0024_00249966.stl",
-        "gt_render": "gt_renders/text2cad_0024_00249966.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.001289,
-        "hausdorff_distance": 0.128551,
-        "f_score_005": 0.7637,
-        "f_score_001": 0.3137,
-        "normal_consistency": 0.6133,
-        "iou_csg": 0.4879,
-        "iou_voxel": 0.4813,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0024_00249966_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0024/00249966",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The part is built from a flat rounded base with a straight arm-like extension, and the curved portions should remain rounded rather than simplified into sharp rectangular plates. The circular collar and the tall central cylinder are added solid material; the upright cylinder is solid, not a hollow tube. The small circular opening and the elongated slot-like feature in the base are real voids, not surface markings or raised strips. There is a stepped height relationship: the main base is the lowest broad tier, a raised rounded area and a round collar sit above it, and smaller solid features continue upward from those shoulders.",
-      "assets": {
-        "generated": "runs/text2cad_0024_00249966_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0024_00249966_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0024_00249966_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0024_00249966_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0024_00249966.stl",
-        "gt_render": "gt_renders/text2cad_0024_00249966.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.2308,
-        "acc_param": 0.0242,
-        "qa_overall": 0.5,
-        "qa_semantic": 0.5
-      }
-    },
-    {
       "id": "text2cad_0053_00531353_parametric_openscad_gpt55-reason",
       "task": "text2cad",
       "case_id": "0053/00531353",
@@ -4079,58 +3762,6 @@
       }
     },
     {
-      "id": "text2cad_0053_00531353_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0053/00531353",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Start with the main base as a 0.75 long, 0.25 wide, 0.1 thick solid obround slab with straight long sides and rounded ends. Put two vertical through openings through the base thickness, each with radius 0.05; their centers are 0.125 from the front edge and are positioned 0.125 and 0.625 from the left edge. On the upper face add a solid rectangular lower upright with a 0.35 by 0.2 footprint, offset 0.2 from both length ends and 0.025 from both front and back edges, rising 0.2 above the base top so its top is 0.3 above the base underside. Add a solid rounded cap directly over the same footprint, sharing the same left, right, front, and back edges; use a semicircular profile spanning the 0.2 width with 0.1 rise, extruded along the 0.35 length, bringing the crown to 0.4 above the base underside. Cut the horizontal circular through-passage in the upright along the length direction with radius 0.05, centered 0.125 from the base front edge and in the vertical band from 0.25 to 0.35 above the base underside; start the cut at the upright left face 0.2 from the base left edge and give it a 0.444 reach so it exits past the far side, leaving 0.106 to the base right edge. Also make the rounded upper relief as removed material starting from the front side of the upright: its lengthwise span is 0.24 with 0.255 clearance to both base ends, its transverse reach is 0.299 from the front position 0.025 from the base front and over-runs the back by 0.074, and its vertical band is 0.18 to 0.45 above the base underside.",
-      "assets": {
-        "generated": "runs/text2cad_0053_00531353_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0053_00531353_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0053_00531353_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0053_00531353_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0053_00531353.stl",
-        "gt_render": "gt_renders/text2cad_0053_00531353.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.00065,
-        "hausdorff_distance": 0.101451,
-        "f_score_005": 0.8679,
-        "f_score_001": 0.1936,
-        "normal_consistency": 0.6517,
-        "iou_csg": 0.5274,
-        "iou_voxel": 0.5557,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0053_00531353_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0053/00531353",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The base is an elongated rounded slab with through circular openings near its rounded ends. A solid upright body is inset on the base, with flat lower sides and a curved crown rather than a sharp rectangular top. The upright material is added as solid mass; the circular passage through it and the rounded relief in the upper body are removed material, not raised collars or pads. The base holes pass through the slab, while the upper cuts use different reach depths, giving the part stepped cut-depth behavior.",
-      "assets": {
-        "generated": "runs/text2cad_0053_00531353_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0053_00531353_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0053_00531353_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0053_00531353_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0053_00531353.stl",
-        "gt_render": "gt_renders/text2cad_0053_00531353.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.1154,
-        "acc_param": 0.0804,
-        "qa_overall": 0.5,
-        "qa_semantic": 0.5
-      }
-    },
-    {
       "id": "text2cad_0000_00001749_parametric_openscad_gpt55-reason",
       "task": "text2cad",
       "case_id": "0000/00001749",
@@ -4585,56 +4216,6 @@
       "metrics": {
         "acc_cmd": 0.1739,
         "acc_param": 0.0714,
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0
-      }
-    },
-    {
-      "id": "text2cad_0000_00001749_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0000/00001749",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Use the main base declared size as the first reference: length 0.395255, width 0.60219, height 0.109489, with a main extrusion depth of 0.1095. Form the primary body as a solid D-shaped frame contained in a 0.3953 by 0.6022 footprint, starting flush from the left, right, front, and back reference edges, with curved outer and inner outlines and one continuous inner through-opening. Keep the main frame as the full-depth solid, extending 0.1095 from the underside reference, with the straight rear and side portions tied into the rounded arc wall. Add a shallower solid round protrusion attached outside the frame: its overall added footprint is length 0.259658, width 0.197373, height 0.054745, with edge offsets left 0, right 0.1356, front -0.1478, and back 0.5526 relative to the main base footprint. The round portion of this added solid is a separate circular profile with its axis left-offset 0.0942 and front-offset -0.0821, radius 0.0657, and it extends only 0.0547 from the underside reference. Cut a concentric circular opening through that same shallow band, using the shared axis at left-offset 0.0942 and front-offset -0.0821 with radius 0.0285; the cut has a circular bounding span of length 0.056934 and width 0.056934 and removes material from vertical band 0 to 0.0547 relative to the underside reference. Keep all circular profiles coaxial, so the outer round tab and the smaller cut share one centerline rather than being offset from each other.",
-      "assets": {
-        "generated": "runs/text2cad_0000_00001749_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0000_00001749_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0000_00001749_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0000_00001749_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0000_00001749.stl",
-        "gt_render": "gt_renders/text2cad_0000_00001749.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.003276,
-        "hausdorff_distance": 0.193732,
-        "f_score_005": 0.5484,
-        "f_score_001": 0.12,
-        "normal_consistency": 0.5188,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0000_00001749_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0000/00001749",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The main body is a thick rounded D-shaped frame, with a broad curved outer wall wrapping around a real open center and returning into straighter side walls. The inner void is an opening through the base, not a shallow surface recess, and the curved portions should remain rounded rather than being squared off. A smaller solid round tab is attached outside one end of the frame, and a coaxial circular opening is cut through that tab. The tab and its hole occupy a shallower depth band than the main frame, giving the part a stepped thickness instead of one uniform slab.",
-      "assets": {
-        "generated": "runs/text2cad_0000_00001749_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0000_00001749_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0000_00001749_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0000_00001749_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0000_00001749.stl",
-        "gt_render": "gt_renders/text2cad_0000_00001749.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.1739,
-        "acc_param": 0.0408,
         "qa_overall": 1.0,
         "qa_semantic": 1.0
       }
@@ -5119,58 +4700,6 @@
       }
     },
     {
-      "id": "text2cad_0007_00073878_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0007/00073878",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Begin with the main reference size as length 0.375, width 0.375, and height 0.25, using a main extrusion depth of 0.25. Form the main annular cylinder as a circular upper-side solid centered 0.1875 from the left edge and 0.1875 from the front edge, with outer radius 0.1875 and a central through bore radius 0.075; its circular footprint occupies the 0.375 by 0.375 span and is not a rectangular plate. Add the shallow attached annular tab as an upper-side solid with bounding span 0.375 by 0.5625, edge offsets left 0, right 0, front -0.375, and back 0.1875 relative to the same reference. Its circular outer profile is centered 0.1875 from the left edge and -0.1875 from the front edge with radius 0.1875, and it has a centered through opening of radius 0.05; give this added section height 0.05 from the same underside datum so it remains lower than the 0.25 tall sleeve. The resulting radial wall thicknesses are 0.1125 for the main sleeve and 0.1375 for the shallow tab. Include a removed underside recess/cut associated with the main bore, with bounded footprint 0.2557 by 0.2884 and offsets left 0.0597, right 0.0596, front 0.0433, and back 0.0433. Center that circular cut profile on the main axis at 0.1875 from the left edge and 0.1875 from the front edge, use radius 0.075, and let the removed band run from 0 to 0.125 measured upward from the base underside.",
-      "assets": {
-        "generated": "runs/text2cad_0007_00073878_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0007_00073878_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0007_00073878_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0007_00073878_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0007_00073878.stl",
-        "gt_render": "gt_renders/text2cad_0007_00073878.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.003543,
-        "hausdorff_distance": 0.165586,
-        "f_score_005": 0.4677,
-        "f_score_001": 0.1349,
-        "normal_consistency": 0.6486,
-        "iou_csg": 0.2646,
-        "iou_voxel": 0.2769,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0007_00073878_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0007/00073878",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The shape is a stepped pair of overlapping annular round forms, with a tall circular sleeve joined to a much thinner rounded tab. Both visible round areas contain real vertical openings, not surface markings. The shallow tab is added solid material attached to the side of the taller body, while the central bores remain open through their respective sections. A hidden underside cut aligned with the main bore reaches only partway upward from the bottom, creating an internal stepped depth.",
-      "assets": {
-        "generated": "runs/text2cad_0007_00073878_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0007_00073878_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0007_00073878_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0007_00073878_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0007_00073878.stl",
-        "gt_render": "gt_renders/text2cad_0007_00073878.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.0312,
-        "acc_param": 0.0,
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0
-      }
-    },
-    {
       "id": "text2cad_0012_00126691_parametric_openscad_gpt55-reason",
       "task": "text2cad",
       "case_id": "0012/00126691",
@@ -5648,58 +5177,6 @@
       }
     },
     {
-      "id": "text2cad_0012_00126691_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0012/00126691",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Start with the main reference slab as a rectangular solid length 0.5, width 0.75, height 0.016667, with main extrusion depth 0.0167. Add an upper-side solid rectangular feature with footprint 0.5 by 0.5, flush to the left, right, and back edges of the base and offset 0.25 from the front edge; its reach from the base datum is 0.2334. Add two upper-side solid narrow rectangular edge strips over this rear region, each with footprint 0.0083 by 0.5 and main extrusion depth 0.0083; one strip is flush with the left edge and offset 0.4917 from the right edge, and the other is flush with the right edge and offset 0.4917 from the left edge, with both offset 0.25 from the front and flush with the back. Add the thin upper-side transverse solid feature with footprint 0.5 by 0.250819, flush to the left and right edges, offset 0.24922 from the front edge and 0.249961 from the back edge; its own thickness is 0.0021 and its total reach from the base datum is 0.335265. Preserve the closed internal profile in the added material as a real open void through that local solid. For the aligned stepped portion, treat the upper pad depth as 0.1 and the deeper continuation below it as a separate solid continuation with own depth 0.2167; the deeper footprint is contained within the shallow footprint, shares the left, front, and back edges, and its reach is measured from the same shoulder rather than added end-to-end.",
-      "assets": {
-        "generated": "runs/text2cad_0012_00126691_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0012_00126691_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0012_00126691_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0012_00126691_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0012_00126691.stl",
-        "gt_render": "gt_renders/text2cad_0012_00126691.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.000684,
-        "hausdorff_distance": 0.140628,
-        "f_score_005": 0.8949,
-        "f_score_001": 0.1639,
-        "normal_consistency": 0.867,
-        "iou_csg": 0.1044,
-        "iou_voxel": 0.1822,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0012_00126691_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0012/00126691",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The model is built from a thin rectangular base slab with all other visible features added as solid material rather than cut away from it. A larger raised rectangular portion occupies the rear area of the base, leaving a front strip of the base exposed. Narrow raised strips run along the left and right sides of that raised area, and a very thin transverse added feature spans across the width with a real internal opening rather than a surface mark. The vertical extents are stepped: some added material is shallow while one aligned continuation reaches deeper from the same shoulder, so the underside is not a single flat level.",
-      "assets": {
-        "generated": "runs/text2cad_0012_00126691_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0012_00126691_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0012_00126691_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0012_00126691_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0012_00126691.stl",
-        "gt_render": "gt_renders/text2cad_0012_00126691.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.6875,
-        "acc_param": 0.2581,
-        "qa_overall": 0.25,
-        "qa_semantic": 0.25
-      }
-    },
-    {
       "id": "text2cad_0019_00196835_parametric_openscad_gpt55-reason",
       "task": "text2cad",
       "case_id": "0019/00196835",
@@ -6174,58 +5651,6 @@
       "metrics": {
         "acc_cmd": 0.4286,
         "acc_param": 0.1392,
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0
-      }
-    },
-    {
-      "id": "text2cad_0019_00196835_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0019/00196835",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Start with the main reference body as a straight rectangular rail 0.748506 long, 0.024642 wide, and 0.018482 high, made as a solid extrusion of depth 0.0185 from the base datum. Add a second solid layer over the full same footprint of the rail, 0.748506 by 0.024642, with thickness 0.00462 and extrusion depth 0.0046, raising the upper surface to 0.0231 from the base datum. In the rail, cut a row of two separate circular recesses of radius 0.0043; use a common center offset of 0.0108 from the front edge, with the centers 0.0138 and 0.7346 from the left end. These circular cuts are removed material only, with their vertical band from 0.0062 to 0.0185 above the base underside and an own cut depth of 0.0123, leaving lower material rather than passing through the full rail height.\n\nAt the right end, add a solid equal-sided end block 0.030803 by 0.030803 with the same lower-body height 0.018482 and extrusion depth 0.0185. Position this block with its left edge 0.7192 from the rail left end, its right edge 0.0015 beyond the rail right end, its front edge 0.0361 in front of the rail front edge, and its back edge 0.0299 beyond the rail back edge. Add a matching shallow solid top layer over this end block, also 0.030803 by 0.030803, with thickness 0.00462 and extrusion depth 0.0046. In the end block, cut a circular recess of radius 0.0043 with its center 0.7361 from the rail left end and 0.0192 in front of the rail front edge; this removed circular band runs from 0.0062 to 0.0185 above the base underside with depth 0.0123.\n\nAlso remove an equal-sided rectangular cutout 0.027722 by 0.027722 in the end block, sharing the end block left edge and front edge. This cut is a deeper removed section, not an added pad, with a total reach of 0.077 from the upper lower-body shoulder: its vertical band runs from 0.0185 above the base underside down to 0.0585 below the underside. Preserve the stepped relationship between the shallow 0.0046 top layers, the 0.0123 circular recess bands, the 0.0185 lower solid body, and the deeper 0.077 end cutout.",
-      "assets": {
-        "generated": "runs/text2cad_0019_00196835_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0019_00196835_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0019_00196835_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0019_00196835_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0019_00196835.stl",
-        "gt_render": "gt_renders/text2cad_0019_00196835.png"
-      },
-      "metrics": {
-        "chamfer_distance": 3.6e-05,
-        "hausdorff_distance": 0.016999,
-        "f_score_005": 1.0,
-        "f_score_001": 0.6135,
-        "normal_consistency": 0.5623,
-        "iou_csg": 0.2698,
-        "iou_voxel": 0.3831,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0019_00196835_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0019/00196835",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The part is dominated by a very long, slim rectangular rail with a shallow full-length top layer, so it is not just a single-height strip. Small circular removed features sit near the rail ends along the same narrow band; these are recesses or cuts, not raised posts. One end has a wider block-like extension with its own matching shallow top layer and additional removed features. The end detailing includes both shallow circular recessing and a much deeper cutout, creating a stepped depth relationship through and below the lower body.",
-      "assets": {
-        "generated": "runs/text2cad_0019_00196835_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0019_00196835_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0019_00196835_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0019_00196835_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0019_00196835.stl",
-        "gt_render": "gt_renders/text2cad_0019_00196835.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.5238,
-        "acc_param": 0.0968,
         "qa_overall": 1.0,
         "qa_semantic": 1.0
       }
@@ -6710,58 +6135,6 @@
       }
     },
     {
-      "id": "text2cad_0023_00239752_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0023/00239752",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Start with a rectangular base solid of length 0.28896, width 0.75, and height 0.028846; use a main extrusion depth of 0.0288 from the base datum. On the upper face add two separate solid rectangular lengthwise ribs running the full 0.75 width direction; treat them as two ribs, not as one filled rectangular pad. The paired rib layout has an overall outside footprint of 0.162037 by 0.75, centered with left and right edge offsets of 0.0635, and the ribs rise 0.017308 above the base with extrusion depth 0.0173. Create three separate stepped circular removed features normal to the base, using axes offset from the left and front edges as follows: radius 0.013 at left offset 0.0352 and front offset 0.7072, radius 0.0173 at left offset 0.1433 and front offset 0.0577, and radius 0.013 at left offset 0.2538 and front offset 0.7072. These circular features are individual holes/recesses, not a rectangular pocket or plate; their pattern envelope is only a bounding span. Include an upper circular recess stage on the same axes occupying the vertical band from 0.0057 to 0.0288 above the base underside, with cut depth 0.0231. Include the deeper aligned circular cut stage on the same axes extending from 0.0288 down to -0.1154 relative to the base underside, with main cut depth 0.1442, so the deeper openings pass beyond the base underside while the shallow recesses stop above it.",
-      "assets": {
-        "generated": "runs/text2cad_0023_00239752_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0023_00239752_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0023_00239752_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0023_00239752_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0023_00239752.stl",
-        "gt_render": "gt_renders/text2cad_0023_00239752.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.000165,
-        "hausdorff_distance": 0.118193,
-        "f_score_005": 0.9815,
-        "f_score_001": 0.7979,
-        "normal_consistency": 0.8199,
-        "iou_csg": 0.8409,
-        "iou_voxel": 0.8302,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0023_00239752_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0023/00239752",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The part is a thin rectangular base with a pair of solid raised ribs running lengthwise along the top face. The ribs are added material, while the round features are removed cuts rather than bosses or pads. Three separate circular openings are laid out near the ends of the plate, with shallow upper recesses and deeper aligned openings below them. The lower portions of the circular cuts continue farther than the shallow top recesses, giving the holes a stepped-depth relationship through the base.",
-      "assets": {
-        "generated": "runs/text2cad_0023_00239752_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0023_00239752_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0023_00239752_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0023_00239752_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0023_00239752.stl",
-        "gt_render": "gt_renders/text2cad_0023_00239752.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.25,
-        "acc_param": 0.0662,
-        "qa_overall": 0.5,
-        "qa_semantic": 0.5
-      }
-    },
-    {
       "id": "text2cad_0026_00269090_parametric_openscad_gpt55-reason",
       "task": "text2cad",
       "case_id": "0026/00269090",
@@ -7216,56 +6589,6 @@
       "metrics": {
         "acc_cmd": 0.2258,
         "acc_param": 0.0143,
-        "qa_overall": 0.5,
-        "qa_semantic": 0.5
-      }
-    },
-    {
-      "id": "text2cad_0026_00269090_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0026/00269090",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Use the main base as the first reference: length 0.375, width 0.75, height 0.013393. Create the base as an upper-side solid with a rounded/arc footprint spanning 0.375 by 0.75, with left, right, front, and back edge offsets all 0, and extrude it 0.0134 from the base datum. Add a second upper-side solid on the same 0.375 by 0.75 footprint with the same zero edge offsets, extending to a reach of 0.2277 from the base datum; preserve the curved outline and keep the inner loop regions as real openings rather than capped material. Add the raised sleeve/post feature on a 0.067 by 0.1339 footprint, offset 0.308 from the left edge, 0 from the right edge, 0.308 from the front edge, and 0.3081 from the back edge; its declared size is length 0.066964, width 0.133929, height 0.214286, with an extrusion depth of 0.2143 and a total reach of 0.442 from the base datum. Treat this raised feature as solid attached material around its inner void or slot-like outlines, leaving the hollow/elongated openings open. Include the paired lower continuation beneath this feature: the deeper footprint is contained within the shallower footprint, shares the right edge, has its own depth of 0.2143, starts 0.2277 below the base underside, and reaches 0.0134 below the base underside, so these are reach relationships from shared shoulders rather than additive stacked heights. Cut two separate circular openings with radius 0.0067, each with its axis 0.3616 from the left edge; one axis is 0.6828 from the front edge and the other is 0.0672 from the front edge. These circular cuts occupy a narrow height band from 0.1674 to 0.1808 above the base underside, use a cut depth of 0.0134, and the 0.0134 by 0.629 span is only the pattern envelope for the two holes, not a rectangular pad or plate.",
-      "assets": {
-        "generated": "runs/text2cad_0026_00269090_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0026_00269090_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0026_00269090_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0026_00269090_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0026_00269090.stl",
-        "gt_render": "gt_renders/text2cad_0026_00269090.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.00605,
-        "hausdorff_distance": 0.294436,
-        "f_score_005": 0.3284,
-        "f_score_001": 0.0461,
-        "normal_consistency": 0.5999,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0026_00269090_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0026/00269090",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The part is a shallow, curved open body with arc-shaped outer sides and upright wall-like solid sections rather than a plain rectangular block. A hollow vertical sleeve rises near the middle, with its inner opening kept clear through the feature. The small circular marks on the side faces are removed openings, not raised bosses, and they repeat on separated side locations. The model has stepped depth behavior: a thinner rounded base/body is combined with deeper attached solid material and a lower continuation beneath the sleeve area.",
-      "assets": {
-        "generated": "runs/text2cad_0026_00269090_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0026_00269090_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0026_00269090_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0026_00269090_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0026_00269090.stl",
-        "gt_render": "gt_renders/text2cad_0026_00269090.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.0385,
-        "acc_param": 0.0254,
         "qa_overall": 0.5,
         "qa_semantic": 0.5
       }
@@ -7748,56 +7071,6 @@
       }
     },
     {
-      "id": "text2cad_0030_00309628_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0030/00309628",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Start with the main rectangular base as the reference: length 0.75, width 0.625, and height 0.00625, with the base solid extending 0.0062 upward from the base datum. Add one solid upright wall along the left edge of the base; its footprint is 0.0063 by 0.625, flush with the front and back edges, with left offset 0 and right offset 0.7437, and it rises 0.1875 above the plate as a solid strip with total reach 0.1938 from the base datum. Cut a lower rectangular opening through the wall thickness, spanning 0.081103 along the wall and 0.111891 high, with front offset 0.4447 and back offset 0.0992; its vertical band runs from 0 to 0.1119 relative to the base underside and its through reach is 0.0062. Cut a circular through-hole in the wall with radius 0.0432; place its axis on the wall plane at left offset 0 and front offset 0.2948, with the circular height band from 0.0631 to 0.1495 relative to the base underside, and use a cut reach of 0.0625. Cut a smaller rectangular through opening in the wall, 0.043521 along the wall by 0.044108 high, with front offset 0.091 and back offset 0.4905; its vertical band runs from 0.0992 to 0.1433 relative to the base underside and its cut reach is 0.0625. Cut the horizontal base with a rectangular through opening 0.264669 by 0.40625, offset 0.3125 from the left edge, 0.1728 from the right edge, 0.2073 from the front edge, and 0.0115 from the back edge; its removal band runs from -0.0562 to 0.0063 relative to the base underside, so it fully passes through the thin plate.",
-      "assets": {
-        "generated": "runs/text2cad_0030_00309628_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0030_00309628_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0030_00309628_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0030_00309628_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0030_00309628.stl",
-        "gt_render": "gt_renders/text2cad_0030_00309628.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.000367,
-        "hausdorff_distance": 0.132849,
-        "f_score_005": 0.9521,
-        "f_score_001": 0.745,
-        "normal_consistency": 0.8804,
-        "iou_csg": 0.5923,
-        "iou_voxel": 0.6902,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0030_00309628_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0030/00309628",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "A very thin rectangular base sheet carries a single solid upright wall along one full edge. All visible voids are removed material: rectangular cuts in the floor plate and wall, plus a round through-hole in the wall; they are not raised pads or surface markings. The wall is a narrow solid strip rising from the top face, with one lower rectangular wall opening starting near the bottom edge and another smaller opening sitting higher. The cuts use different reach depths, with the horizontal plate opening going through the sheet and the wall openings passing through the wall thickness at stepped height bands.",
-      "assets": {
-        "generated": "runs/text2cad_0030_00309628_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0030_00309628_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0030_00309628_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0030_00309628_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0030_00309628.stl",
-        "gt_render": "gt_renders/text2cad_0030_00309628.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.4878,
-        "acc_param": 0.2143
-      }
-    },
-    {
       "id": "text2cad_0037_00371278_parametric_openscad_gpt55-reason",
       "task": "text2cad",
       "case_id": "0037/00371278",
@@ -8274,58 +7547,6 @@
         "acc_param": 0.0314,
         "qa_overall": 1.0,
         "qa_semantic": 1.0
-      }
-    },
-    {
-      "id": "text2cad_0037_00371278_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0037/00371278",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Start with the main rectangular base as the reference: length 0.73913, width 0.543478, height 0.016304, made as an upper-side solid with extrusion depth 0.0163. Cut four separate circular through openings in the base plate, each radius 0.0163: centers offset 0.0272 from the left edge and 0.1848 from the front edge, 0.0272 from the left edge and 0.4565 from the front edge, 0.5761 from the left edge and 0.0272 from the front edge, and 0.587 from the left edge and 0.5163 from the front edge. Add the main raised rail group on the upper face as separate solid rectangular rib outlines, not as a filled rectangular pad; its overall occupied span is 0.5109 by 0.5217, with offsets 0.0435 from the left edge, 0.1847 from the right edge, 0.0109 from the front edge, and 0.0109 from the back edge, and its raised depth above the base tier is 0.0978. Add a shallow rectangular solid tab on the upper face with footprint 0.0435 by 0.0761, offsets 0.7065 from the left edge, -0.0109 from the right edge, 0.0978 from the front edge, and 0.3696 from the back edge, with extrusion depth 0.0163. Add the deeper side solid block with footprint 0.1413 by 0.087, offsets 0.5978 from the left edge, 0 from the right edge, 0.413 from the front edge, and 0.0435 from the back edge; use length 0.086957, width 0.125, height 0.141304, and extrusion depth 0.1413. This deeper block includes one circular through opening of radius 0.0326, centered on the same reference plane at left-edge offset 0.7391 and front-edge offset 0.4548; treat this as an opening through the block, not as a circular pad.",
-      "assets": {
-        "generated": "runs/text2cad_0037_00371278_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0037_00371278_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0037_00371278_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0037_00371278_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0037_00371278.stl",
-        "gt_render": "gt_renders/text2cad_0037_00371278.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.000297,
-        "hausdorff_distance": 0.09378,
-        "f_score_005": 0.954,
-        "f_score_001": 0.3986,
-        "normal_consistency": 0.8083,
-        "iou_csg": 0.4217,
-        "iou_voxel": 0.4952,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0037_00371278_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0037/00371278",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The main body is a flat rectangular solid plate with several real circular through openings, not surface markings. Raised rectangular material sits on the top face as separate solid ribs and small pads rather than as one continuous raised slab. One side has a deeper attached solid block or sleeve-like protrusion with a circular opening through it. The added features use stepped depths, with shallow top material, taller rail material, and a deeper side protrusion clearly distinct from the base thickness.",
-      "assets": {
-        "generated": "runs/text2cad_0037_00371278_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0037_00371278_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0037_00371278_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0037_00371278_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0037_00371278.stl",
-        "gt_render": "gt_renders/text2cad_0037_00371278.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.5,
-        "acc_param": 0.107,
-        "qa_overall": 0.5,
-        "qa_semantic": 0.5
       }
     },
     {
@@ -8808,58 +8029,6 @@
       }
     },
     {
-      "id": "text2cad_0046_00460772_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0046/00460772",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Use the main base as the first reference with length 0.341352, width 0.199422, height 0.065029, and main extrusion depth 0.065. Form this low rounded annular section on the upper side from concentric circular profiles centered 0.2416 from the left edge and 0.0997 from the front edge, with outer radius 0.0997 and inner radius 0.0434; keep the inner profile open through the 0.065 thickness. Add the taller hollow sleeve as a concentric annular cylinder with a 0.2602 by 0.2602 circular span, edge offsets left -0.2135, right 0.2946, front -0.0303, and back -0.0305; its center is offset -0.0834 from the left reference and 0.0998 from the front reference, with outer radius 0.1301, inner radius 0.0867, and upward reach 0.2601 from the base datum. Add the projecting straight-sided arm section with length 0.325145, width 0.260116, height 0.130058, edge offsets left -0.4086, right 0.4248, front -0.0303, and back -0.0304, extending upward 0.1301 from the base datum. In that same arm footprint, cut away the lower band from the underside over the vertical range 0 to 0.065 relative to the base underside, leaving the arm as a raised stepped tier rather than a full-depth solid. Add the narrow triangular web on the upper side with a plan run of 0.108382 and material thickness 0.0217, placed between left offsets 0.0466 and 0.1863 and front/back offsets 0.0781 and 0.0996; its side profile rises across a 0.195087 span and reaches toward the 0.2601 upper sleeve tier.",
-      "assets": {
-        "generated": "runs/text2cad_0046_00460772_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0046_00460772_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0046_00460772_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0046_00460772_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0046_00460772.stl",
-        "gt_render": "gt_renders/text2cad_0046_00460772.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.000859,
-        "hausdorff_distance": 0.144957,
-        "f_score_005": 0.7898,
-        "f_score_001": 0.3036,
-        "normal_consistency": 0.659,
-        "iou_csg": 0.4091,
-        "iou_voxel": 0.4115,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0046_00460772_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0046/00460772",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The model combines a low rounded base section, a tall annular sleeve, a projecting side arm, and a thin triangular rib on top. The upright sleeve is hollow, with the central bore continuing through the stepped circular portions rather than stopping as a shallow depression. The projecting arm has a stepped underside formed by a lower cutaway, so the visible outer portion sits on a higher tier instead of being full depth all the way down. The smaller rounded end includes a real rounded opening, and the thin rib runs from that end toward the sleeve as a raised web.",
-      "assets": {
-        "generated": "runs/text2cad_0046_00460772_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0046_00460772_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0046_00460772_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0046_00460772_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0046_00460772.stl",
-        "gt_render": "gt_renders/text2cad_0046_00460772.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.375,
-        "acc_param": 0.1111,
-        "qa_overall": 0.25,
-        "qa_semantic": 0.25
-      }
-    },
-    {
       "id": "text2cad_0052_00526555_parametric_openscad_gpt55-reason",
       "task": "text2cad",
       "case_id": "0052/00526555",
@@ -9332,58 +8501,6 @@
       "metrics": {
         "acc_cmd": 0.6667,
         "acc_param": 0.098,
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0
-      }
-    },
-    {
-      "id": "text2cad_0052_00526555_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0052/00526555",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Create the main solid as the shown stepped, line-profiled block within an overall length of 0.75, width of 0.714286, and height of 0.25, with the main extrusion depth 0.25 from the base datum. Include the upper through-opening as a circular inner profile with its axis 0.375 from the left edge and 0.5357 from the front edge, radius 0.0893, cutting through the main solid height. Add a pair of separate circular removed features on the front side face: one axis 0.0893 from the left edge and the other axis 0.6607 from the left edge, both starting at the front edge, each with radius 0.0491. These two side features are blind cylindrical cuts into the body with cut depth 0.1071, not a shared rectangular slot; their circular band runs from 0.0759 to 0.1741 above the base underside.",
-      "assets": {
-        "generated": "runs/text2cad_0052_00526555_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0052_00526555_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0052_00526555_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0052_00526555_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0052_00526555.stl",
-        "gt_render": "gt_renders/text2cad_0052_00526555.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.005538,
-        "hausdorff_distance": 0.215916,
-        "f_score_005": 0.6804,
-        "f_score_001": 0.2047,
-        "normal_consistency": 0.6312,
-        "iou_csg": 0.4425,
-        "iou_voxel": 0.4528,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0052_00526555_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0052/00526555",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The part is a solid stepped block with a broad rectangular main arm and a transverse end portion, giving it a T-like plan in the rendered view. A circular opening is cut through the upper body rather than being a raised round feature. Additional round cut features are present on a side face as a separated pair, and they should be treated as cuts or recesses into the solid, not as added cylinders or a rectangular pocket. The side cuts occupy only a middle height band, so the body remains solid above and below them.",
-      "assets": {
-        "generated": "runs/text2cad_0052_00526555_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0052_00526555_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0052_00526555_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0052_00526555_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0052_00526555.stl",
-        "gt_render": "gt_renders/text2cad_0052_00526555.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.6429,
-        "acc_param": 0.1633,
         "qa_overall": 1.0,
         "qa_semantic": 1.0
       }
@@ -9868,58 +8985,6 @@
       }
     },
     {
-      "id": "text2cad_0059_00590932_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0059/00590932",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Start with the main base as a rectangular solid 0.165891 long by 0.325401 wide by 0.408347 high, with the main extrusion depth 0.4083. From the top of this base, cut a square recess 0.089326 by 0.089326, centered across the length with 0.0383 left and right edge offsets, set 0.0191 from the front edge and 0.217 from the back edge; this recess occupies the vertical band from 0.319 to 0.4083, giving it a depth of 0.0893 from the top. Cut a lower rectangular opening 0.076565 by 0.132416 through the vertical band from 0 to 0.319, with 0.0447 left offset, 0.0446 right offset, a front offset of -0.0303 so it breaks out beyond the front face, and 0.2233 remaining to the back. Cut away the upper back strip across the full 0.165891 length and 0.114848 width, leaving 0.2106 in front of it; this removed band runs from 0.2807 to 0.4083 with a cut depth of 0.1276, forming the high-to-low step. Add a shallow solid base-level section extending 0.0383 high with a 0.4339 by 0.1148 plan span, projecting 0.134 beyond both left and right sides of the main base and occupying the front 0.1148 of the width. In that shallow added section, include two circular through openings of radius 0.0255, both on the same front offset line 0.0574 from the front edge, with axes at left offsets -0.069 and 0.2349 relative to the main base left edge.",
-      "assets": {
-        "generated": "runs/text2cad_0059_00590932_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0059_00590932_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0059_00590932_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0059_00590932_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0059_00590932.stl",
-        "gt_render": "gt_renders/text2cad_0059_00590932.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.00015,
-        "hausdorff_distance": 0.109848,
-        "f_score_005": 0.9706,
-        "f_score_001": 0.3545,
-        "normal_consistency": 0.8713,
-        "iou_csg": 0.9164,
-        "iou_voxel": 0.8985,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0059_00590932_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0059/00590932",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The main body is a tall rectangular solid with a lower stepped portion cut away along one upper side, so the rear/side area sits below the highest top face. A square recess is cut into the highest top face and does not continue through the full height. The lower front region includes a through cut that opens out past the front face, creating an undercut/slot below the upper mass rather than added material. A thin solid tab projects from the base level and contains circular openings; these are real voids through the shallow added section, not raised circular features.",
-      "assets": {
-        "generated": "runs/text2cad_0059_00590932_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0059_00590932_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0059_00590932_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0059_00590932_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0059_00590932.stl",
-        "gt_render": "gt_renders/text2cad_0059_00590932.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.5122,
-        "acc_param": 0.1935,
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0
-      }
-    },
-    {
       "id": "text2cad_0068_00683313_parametric_openscad_gpt55-reason",
       "task": "text2cad",
       "case_id": "0068/00683313",
@@ -10396,58 +9461,6 @@
         "acc_param": 0.1788,
         "qa_overall": 1.0,
         "qa_semantic": 1.0
-      }
-    },
-    {
-      "id": "text2cad_0068_00683313_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0068/00683313",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Start with the main rectangular base as the reference: length 0.5, width 0.4375, height 0.09375, with the main base extrusion depth 0.0938. In the base section, include the circular profile centered 0.25 from the left edge and 0.1875 from the front edge, radius 0.0938, as a true void/opening in the solid rather than added material. Add a full-length rectangular solid strip along the back edge with footprint 0.5 by 0.0625, flush to the left and right edges, front offset 0.375 and back offset 0; this underside solid starts at the base underside and reaches 0.25 below it. Add the other back-edge solid over the same 0.5 by 0.0625 footprint, spanning from 0.5 below the base underside to 0.25 above it, and include the coincident circular void profiles centered 0.125 from the left edge and 0.4375 from the front edge with radius 0.05; do not treat these circular profiles as a filled rectangular pad. On the upper side, add a concentric annular collar centered 0.2501 from the left edge and 0.1876 from the front edge, with outer radius 0.0938 and inner radius 0.05, extending 0.0625 from the base datum; its circular bounding span is 0.1876 by 0.1876 with offsets left 0.1563, right 0.1561, front 0.0938, and back 0.1561.",
-      "assets": {
-        "generated": "runs/text2cad_0068_00683313_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0068_00683313_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0068_00683313_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0068_00683313_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0068_00683313.stl",
-        "gt_render": "gt_renders/text2cad_0068_00683313.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.000489,
-        "hausdorff_distance": 0.083096,
-        "f_score_005": 0.8986,
-        "f_score_001": 0.18,
-        "normal_consistency": 0.7535,
-        "iou_csg": 0.6146,
-        "iou_voxel": 0.6352,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0068_00683313_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0068/00683313",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The part is built from a rectangular base slab with added solid material forming a stepped back strip and an upper raised area. The vertical and overhanging-looking sections are attached solids, not cutouts, and one deeper strip continues farther from the base than the shallower raised circular feature. The circular features are real openings or hollow profiles, including a small round opening near an edge and a concentric stepped circular opening in the raised top area. The top circular feature should be treated as an annular collar around a smaller void, not as a solid disk.",
-      "assets": {
-        "generated": "runs/text2cad_0068_00683313_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0068_00683313_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0068_00683313_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0068_00683313_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0068_00683313.stl",
-        "gt_render": "gt_renders/text2cad_0068_00683313.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.3171,
-        "acc_param": 0.1788,
-        "qa_overall": 0.5,
-        "qa_semantic": 0.5
       }
     },
     {
@@ -10930,58 +9943,6 @@
       }
     },
     {
-      "id": "text2cad_0072_00723748_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0072/00723748",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Start with the main rectangular base as the reference: length 0.703125, width 0.75, height 0.013125, with the base extrusion depth 0.0131. In this base plate, make one circular through-opening with its axis 0.075 from the left edge and 0.6562 from the front edge, radius 0.0328. Add the main rectangular block on the upper side of the base with length 0.646875, width 0.50625, and height 0.645; place its footprint with left offset 0.0563, right offset -0.0001, front offset 0.0844, and back offset 0.1594. On the block top, add two separate annular collars, not a connecting pad: each collar has outer radius 0.0656, inner radius 0.0328, and height 0.0375, with axes at left offset 0.2062 and front offsets 0.1968 and 0.4781. Cut two shallow rectangular recesses into the top face of the block; their combined bounding span is length 0.473437 by width 0.39375, positioned with left offset 0.1734, right offset 0.0563, front offset 0.1406, and back offset 0.2157. These rectangular recesses remove only the top band from 0.6581 down to 0.6544 relative to the base underside, giving a cut depth of 0.0037, so they are blind recesses rather than through-cuts. Also keep the collar centers open with circular cuts of radius 0.0328 at left offset 0.2062 and front offsets 0.1969 and 0.4781; these openings pass through the 0.0375 collar height and continue only through the same shallow top band, not through the full 0.645 block. The 0.0375 collar tier sits above the main block top, while the 0.645 rectangular block is the deeper continuation down to the top of the 0.0131 base plate.",
-      "assets": {
-        "generated": "runs/text2cad_0072_00723748_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0072_00723748_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0072_00723748_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0072_00723748_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0072_00723748.stl",
-        "gt_render": "gt_renders/text2cad_0072_00723748.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.000114,
-        "hausdorff_distance": 0.058818,
-        "f_score_005": 0.995,
-        "f_score_001": 0.4241,
-        "normal_consistency": 0.9453,
-        "iou_csg": 0.9879,
-        "iou_voxel": 0.9944,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0072_00723748_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0072/00723748",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "A thin rectangular base plate supports a taller rectangular solid that is set in from some edges and nearly flush to one side. The top face has shallow rectangular cuts, and the pair of round features are added annular collars with open centers rather than solid disks. The collar openings continue only into the shallow top band and should not be modeled as holes through the full height of the block. The base remains a thin slab with a separate round through-opening near the projecting end, while the taller block and collars create the stepped vertical form.",
-      "assets": {
-        "generated": "runs/text2cad_0072_00723748_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0072_00723748_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0072_00723748_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0072_00723748_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0072_00723748.stl",
-        "gt_render": "gt_renders/text2cad_0072_00723748.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.5,
-        "acc_param": 0.0376,
-        "qa_overall": 0.75,
-        "qa_semantic": 0.75
-      }
-    },
-    {
       "id": "text2cad_0075_00758810_parametric_openscad_gpt55-reason",
       "task": "text2cad",
       "case_id": "0075/00758810",
@@ -11459,58 +10420,6 @@
       }
     },
     {
-      "id": "text2cad_0075_00758810_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0075/00758810",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Begin with the main base as a rounded, arc-based solid footprint bounded by length 0.742363 and width 0.535615, with height 0.094385 and main extrusion depth 0.0944 from the base datum. Keep the base footprint flush to the reference bounds with left, right, front, and back offsets all 0, and include the base-plane circular void centered at left offset 0.1583 and front offset 0.3113 with radius 0.053. Add the upper annular cylindrical collar on the same axis; its circular profile has outer radius 0.0966 and inner radius 0.0748, spans 0.1932 by 0.1932, and is located with offsets left 0.0617, right 0.4875, front 0.2147, and back 0.1277. This added collar is hollow, rises 0.1452 above the base top, and reaches 0.2396 from the base datum rather than being a solid disk.\n\nCut the coaxial stepped bore/recess below the collar as circular removed material only, not as a rectangular pocket. Use the same axis at left offset 0.1583 and front offset 0.3113, with circular removed profiles of radius 0.0748 and radius 0.053; the main recessed band runs from 0.0218 to 0.0944 above the base underside with cut depth 0.0726 and a circular face envelope of 0.1496 by 0.1496. Treat the deeper post or bore continuation as contained inside the shallower annular collar footprint: it starts 0.0944 below the base underside and reaches 0.0218 below the base underside, with own depth 0.0726, so the internal opening remains stepped and hollow through these levels.\n\nAdd two small shallow circular side recesses near the front side of the base. The first has a circular profile centered at left offset 0.4487 and front offset 0.0472 with radius 0.0073, a footprint of 0.0073 by 0.0146, and offsets left 0.4487, right 0.2864, front 0.0399, and back 0.4811; place its vertical band from 0.0399 to 0.0545 above the base underside and cut it to depth 0.0073. The second matching side recess is centered at left offset 0.5939 and front offset 0.0472 with radius 0.0073, a footprint of 0.0073 by 0.0146, and offsets left 0.5866, right 0.1485, front 0.0399, and back 0.4811; give it the same vertical band from 0.0399 to 0.0545 and the same depth 0.0073.\n\nOn the underside, form a separate pattern of four shallow circular removed profiles, each radius 0.0221, without filling the rectangular envelope between them. Locate their axes by offsets from the left and front edges as follows: 0.0526 and 0.3108, 0.3248 and 0.4519, 0.3248 and 0.1717, and 0.7137 and 0.3112. These underside circular recesses occupy the vertical range from 0 to 0.0152 above the base underside and have main cut depth 0.0152; their overall circular-pattern envelope is 0.7053 by 0.3244 but should remain four separate round cuts.",
-      "assets": {
-        "generated": "runs/text2cad_0075_00758810_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0075_00758810_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0075_00758810_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0075_00758810_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0075_00758810.stl",
-        "gt_render": "gt_renders/text2cad_0075_00758810.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.001547,
-        "hausdorff_distance": 0.162463,
-        "f_score_005": 0.7421,
-        "f_score_001": 0.2387,
-        "normal_consistency": 0.541,
-        "iou_csg": 0.3809,
-        "iou_voxel": 0.3817,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0075_00758810_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0075/00758810",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The part is a thick rounded base with curved ends and a real through opening rather than a surface mark. A raised annular cylindrical collar is added on the upper face, with its internal bore continuing into the stepped cut below instead of becoming solid at the base. Several removed circular features are present: small shallow side recesses and a separate shallow underside pattern of circular cuts. The underside and the collar bore use different depth tiers, so the lower continuation is stepped and does not simply match the full height of the raised collar.",
-      "assets": {
-        "generated": "runs/text2cad_0075_00758810_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0075_00758810_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0075_00758810_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0075_00758810_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0075_00758810.stl",
-        "gt_render": "gt_renders/text2cad_0075_00758810.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.1379,
-        "acc_param": 0.0571,
-        "qa_overall": 0.25,
-        "qa_semantic": 0.25
-      }
-    },
-    {
       "id": "text2cad_0080_00806913_parametric_openscad_gpt55-reason",
       "task": "text2cad",
       "case_id": "0080/00806913",
@@ -11967,56 +10876,6 @@
         "acc_param": 0.0157,
         "qa_overall": 0.75,
         "qa_semantic": 0.75
-      }
-    },
-    {
-      "id": "text2cad_0080_00806913_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0080/00806913",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Build the part within an overall length of 0.75, width of 0.220587, and height of 0.147058, with the main solid thickness extruded 0.1471 upward from the underside datum. Form the base footprint as a rounded link: use two equal end lobes of radius 0.1103 with centers at 0.1103 from the left edge and 0.1103 from the front edge, and at 0.6397 from the left edge and 0.1103 from the front edge, joined by straight tangent side runs so the outer shape remains rounded at both ends. At each lobe center include the concentric circular layout with radius 0.1103 for the outside lobe, radius 0.0956 for the larger internal stepped circular boundary, and radius 0.0294 for the centered bore; treat these as circular/annular features at the two axes, not as one filled rectangular pad. Cut the centered bore at radius 0.0294 through the end lobe, and add the larger annular circular recess at radius 0.0956 from the underside/base plane up to a reach of 0.0882, leaving the full body height above that stepped lower cut. Add the middle rectangular slot as removed material on the side web: its length is 0.191175, its vertical opening height is 0.023529, its left and right offsets are both 0.2794, and its vertical band runs from 0.0618 to 0.0853 above the underside. Cut this slot from the front side through the body with a reach of 0.7353, starting at the front edge and overcutting past the back side so the opening passes fully through rather than forming a blind surface recess.",
-      "assets": {
-        "generated": "runs/text2cad_0080_00806913_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0080_00806913_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0080_00806913_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0080_00806913_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0080_00806913.stl",
-        "gt_render": "gt_renders/text2cad_0080_00806913.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.000403,
-        "hausdorff_distance": 0.084083,
-        "f_score_005": 0.9402,
-        "f_score_001": 0.4698,
-        "normal_consistency": 0.7644,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0080_00806913_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0080/00806913",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The main body is a single solid rounded bridge with circular lobes at both ends and straight side spans between the rounded portions. Both end lobes are annular, with centered bores and larger concentric internal circular steps rather than solid disks or surface markings. The circular removed areas form a shallower lower tier, so the hollow sections continue through stepped depth regions instead of ending at the top face. A narrow elongated rectangular slot is cut through the middle web at an elevated band above the underside; it is removed material, not a raised strip.",
-      "assets": {
-        "generated": "runs/text2cad_0080_00806913_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0080_00806913_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0080_00806913_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0080_00806913_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0080_00806913.stl",
-        "gt_render": "gt_renders/text2cad_0080_00806913.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.1613,
-        "acc_param": 0.0154,
-        "qa_overall": 0.5,
-        "qa_semantic": 0.5
       }
     },
     {
@@ -12499,58 +11358,6 @@
       }
     },
     {
-      "id": "text2cad_0084_00847302_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0084/00847302",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Use a 0.75 by 0.625 by 0.55 outside rectangular body as the main reference, with the main solid reach height set to 0.55 from the base datum. Form it as an open-top hollow rectangular enclosure with straight vertical walls and a rectangular inner void, not as a filled block. Treat the outer wall material as joined solid sections sharing the same 0.75 by 0.625 outer footprint and the same 0.55 height. On the front side, remove a horizontal rectangular wall cut that is 0.5 long, centered with 0.125 margin to the left and 0.125 margin to the right; it occupies the vertical band from 0.25 to 0.45 above the underside and cuts inward from the front face by 0.075. On the left side, remove a vertical rectangular side opening that cuts inward by 0.075 from the left face, leaves 0.675 to the right edge, spans 0.225 along the side with 0.2 front margin and 0.2 back margin, and runs vertically from the underside up to 0.5. Add or retain a thin internal rectangular ledge along the front inside region, 0.5 long by 0.1 wide with 0.125 side margins; make this ledge a solid shallow tier with 0.0125 thickness, distinct from the deeper 0.075 wall cuts.",
-      "assets": {
-        "generated": "runs/text2cad_0084_00847302_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0084_00847302_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0084_00847302_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0084_00847302_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0084_00847302.stl",
-        "gt_render": "gt_renders/text2cad_0084_00847302.png"
-      },
-      "metrics": {
-        "chamfer_distance": 0.002257,
-        "hausdorff_distance": 0.275192,
-        "f_score_005": 0.8015,
-        "f_score_001": 0.0968,
-        "normal_consistency": 0.7827,
-        "iou_csg": 0.3666,
-        "iou_voxel": 0.3981,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0084_00847302_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0084/00847302",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The part is a straight-sided rectangular enclosure with an open top and a visible wall rim around a hollow interior. The outer body remains full height, while the side features are removed material rather than raised panels. One side includes a centered horizontal rectangular recess or opening set above the lower edge, and an adjacent side has a taller vertical through opening rising from the underside region. Inside the box there is a very thin solid ledge or shelf-like rib along one wall, creating a shallow stepped tier compared with the deeper wall cuts.",
-      "assets": {
-        "generated": "runs/text2cad_0084_00847302_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0084_00847302_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0084_00847302_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0084_00847302_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0084_00847302.stl",
-        "gt_render": "gt_renders/text2cad_0084_00847302.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.5135,
-        "acc_param": 0.1549,
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0
-      }
-    },
-    {
       "id": "text2cad_0096_00965117_parametric_openscad_gpt55-reason",
       "task": "text2cad",
       "case_id": "0096/00965117",
@@ -13025,58 +11832,6 @@
       "metrics": {
         "acc_cmd": 0.3333,
         "acc_param": 0.0917,
-        "qa_overall": 1.0,
-        "qa_semantic": 1.0
-      }
-    },
-    {
-      "id": "text2cad_0096_00965117_parametric_openscad_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0096/00965117",
-      "spec": "parametric",
-      "format": "openscad",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "Use a main rectangular plate as the reference body, length 0.225, width 0.75, and thickness 0.0375. Through this thin plate, make two separate circular openings of radius 0.0281, centered at left-offset 0.1125 with front-offsets 0.0375 and 0.7125; these are individual through holes near the two ends, not a filled pad between them. Add a central upper rectangular solid over the full 0.225 length with a 0.5625 width, front offset 0.0938 and back offset 0.0937, rising 0.1125 from the base datum. Add the matching central underside rectangular solid on the same 0.225 by 0.5625 footprint, starting at the plate underside and extending 0.375 downward, giving an asymmetric total span of 0.4875 across that shared profile direction. On the upper central area, place a round stepped boss centered across the 0.225 length: the lower wide round section is annular, with outer radius 0.1078 and inner radius 0.0563, centered at left-offset 0.1125 and front-offset 0.4687, with its own height 0.0938 above the rectangular shoulder and a top reach of 0.2063 from the base datum. Add the upper solid circular pin on the same axis, using radius 0.0563, recorded at left-offset 0.1126 and front-offset 0.4688, with height 0.1594 above the same shoulder and top reach 0.2719 from the base datum. Keep the annular collar as a hollow ring section, with only the smaller upper pin treated as solid round material.",
-      "assets": {
-        "generated": "runs/text2cad_0096_00965117_parametric_openscad_mimo-reason/generated.scad",
-        "generated_json": "runs/text2cad_0096_00965117_parametric_openscad_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0096_00965117_parametric_openscad_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0096_00965117_parametric_openscad_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0096_00965117.stl",
-        "gt_render": "gt_renders/text2cad_0096_00965117.png"
-      },
-      "metrics": {
-        "chamfer_distance": 5.7e-05,
-        "hausdorff_distance": 0.050303,
-        "f_score_005": 0.9982,
-        "f_score_001": 0.6775,
-        "normal_consistency": 0.9407,
-        "iou_csg": 0.9931,
-        "iou_voxel": 0.9989,
-        "pred_open_edge_ratio": 0.0
-      }
-    },
-    {
-      "id": "text2cad_0096_00965117_descriptive_json_mimo-reason",
-      "task": "text2cad",
-      "case_id": "0096/00965117",
-      "spec": "descriptive",
-      "format": "json",
-      "model": "mimo-reason",
-      "valid": true,
-      "condition": "The part is based on a long thin rectangular plate with round openings near the two end portions. A central rectangular solid rises above the plate while a much deeper rectangular block continues downward from the underside on the same middle footprint, so the front and back ends remain thin tabs. The upper round feature is a coaxial stepped stack: the wider lower round section is annular with a real inner void, and the smaller upper round section is solid. The end openings are cuts through the thin plate, not added round bosses, and the underside block is solid rather than hollow.",
-      "assets": {
-        "generated": "runs/text2cad_0096_00965117_descriptive_json_mimo-reason/generated.json",
-        "generated_json": "runs/text2cad_0096_00965117_descriptive_json_mimo-reason/generated.json",
-        "mesh": "runs/text2cad_0096_00965117_descriptive_json_mimo-reason/model.stl",
-        "pred_render": "runs/text2cad_0096_00965117_descriptive_json_mimo-reason/pred_render.png",
-        "gt_mesh": "gt_meshes/text2cad_0096_00965117.stl",
-        "gt_render": "gt_renders/text2cad_0096_00965117.png"
-      },
-      "metrics": {
-        "acc_cmd": 0.4,
-        "acc_param": 0.1481,
         "qa_overall": 1.0,
         "qa_semantic": 1.0
       }

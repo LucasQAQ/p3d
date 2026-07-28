@@ -1,0 +1,1985 @@
+{
+  "affected_consumers": [
+    {
+      "action": "verify_or_update",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.main_results.text_descriptive_judge",
+      "kind": "table_cells",
+      "label": "tab:main-results",
+      "path": "sec/5_experiments.tex"
+    },
+    {
+      "action": "verify_or_update",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.judge_details.textdesc",
+      "kind": "table_cells_and_prose",
+      "label": "tab:judge-details",
+      "path": "sec/5_experiments.tex"
+    },
+    {
+      "action": "verify_or_update",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.appendix.text_full_desc_metrics",
+      "kind": "table_cells",
+      "label": "tab:text-full-desc-metrics",
+      "path": "sec/X_suppl.tex"
+    },
+    {
+      "action": "verify_or_update",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.appendix.text_full_param_json",
+      "kind": "table_cells",
+      "label": "tab:text-full-param-json",
+      "path": "sec/X_suppl.tex"
+    },
+    {
+      "action": "regenerate_or_hash_verify",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.figure.intro_leaderboard",
+      "kind": "figure",
+      "path": "figures/fig2_leaderboard_raster.jpg"
+    },
+    {
+      "action": "regenerate_or_hash_verify",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.figure.three_task_grouped_bars_1col_pdf",
+      "kind": "figure",
+      "path": "figures/fig_tasks_grouped_bars_1col.pdf"
+    },
+    {
+      "action": "regenerate_or_hash_verify",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.figure.three_task_grouped_bars_1col_svg",
+      "kind": "figure",
+      "path": "figures/fig_tasks_grouped_bars_1col.svg"
+    },
+    {
+      "action": "regenerate_or_hash_verify",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.figure.three_task_grouped_bars_1col_png",
+      "kind": "figure",
+      "path": "figures/fig_tasks_grouped_bars_1col.png"
+    },
+    {
+      "action": "regenerate_or_hash_verify",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.figure.three_task_grouped_bars_wide_pdf",
+      "kind": "figure",
+      "path": "figures/fig_tasks_grouped_bars.pdf"
+    },
+    {
+      "action": "regenerate_or_hash_verify",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.figure.three_task_grouped_bars_wide_svg",
+      "kind": "figure",
+      "path": "figures/fig_tasks_grouped_bars.svg"
+    },
+    {
+      "action": "regenerate_or_hash_verify",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.figure.three_task_grouped_bars_wide_png",
+      "kind": "figure",
+      "path": "figures/fig_tasks_grouped_bars.png"
+    },
+    {
+      "action": "regenerate_or_hash_verify",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.figure.task_format_buckets",
+      "kind": "figure",
+      "path": "figures/task_format_dim_effects.png"
+    },
+    {
+      "action": "regenerate_or_hash_verify",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.figure.text_cost_vs_score",
+      "kind": "figure",
+      "path": "figures/openrouter_score_cost_text.pdf"
+    },
+    {
+      "action": "regenerate_or_hash_verify",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.figure.judge_detail",
+      "kind": "figure",
+      "path": "figures/paper_judge_combined_stacked.jpg"
+    },
+    {
+      "action": "regenerate_or_hash_verify",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.figure.main_qualitative_text_labels",
+      "kind": "per_case_scored_figure",
+      "path": "figures/qualitative_combined_select_transposed_openscad.png"
+    },
+    {
+      "action": "regenerate_or_hash_verify",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "paper.figure.appendix_text_qualitative_labels",
+      "kind": "per_case_scored_figure",
+      "path": "figures/qualitative_text2cad_6x6_with_scores_openscad.png"
+    },
+    {
+      "action": "sync_after_paper_promotion",
+      "dependency": "TextDesc fixed-400 QA, normalized J-Sem, Judge, or per-case semantic-only Judge labels",
+      "id": "project_page.text_results",
+      "kind": "external_release_consumer",
+      "path": "p3d-gh-pages"
+    }
+  ],
+  "assets": {
+    "figures/fig_tasks_grouped_bars.pdf": "c6df210d369c4a4426b16fc4a9b0b30f5d52b603bb0a2734dda008760ac38ae8",
+    "figures/fig_tasks_grouped_bars.svg": "bc442d5c794838e492c9491df1d1836ad18fa2b17926898842c919b56ead59b8"
+  },
+  "baselines": {
+    "Text2CAD": {
+      "descriptive": {
+        "counts": {
+          "judge": 378,
+          "qa": 378,
+          "total": 400,
+          "valid": 378
+        },
+        "judge_bucket": 0.051944445,
+        "llm_judge": 1.57500037,
+        "native_format": "json",
+        "normalized_judge": 0.06388893,
+        "qa": 0.03999996,
+        "valid": 0.945
+      },
+      "parametric": {
+        "counts": {
+          "qa": 386,
+          "total": 400,
+          "valid": 386
+        },
+        "f_score_001_evidence": {
+          "aggregation_result": {
+            "applicable_metric_gap_count": 0,
+            "applicable_metric_gap_uids": [],
+            "applicable_metric_gaps": {
+              "chamfer_distance": [],
+              "f_score_001": [],
+              "f_score_005": [],
+              "iou_csg": [],
+              "normal_consistency": [],
+              "pred_inverted_normal_ratio": [],
+              "pred_no_open_edge_rate": [],
+              "pred_non_manifold_edge_ratio": [],
+              "pred_open_edge_ratio": []
+            },
+            "case_count": 400,
+            "fixed_means": {
+              "chamfer_distance_mean_filled": 0.00810431,
+              "f_score_001_mean_filled": 0.09327175,
+              "f_score_005_mean_filled": 0.4239835,
+              "iou_csg_mean_filled": 0.15936814404432134,
+              "normal_consistency_mean_filled": 0.47404725,
+              "pred_inverted_normal_ratio_mean_filled": 0.035,
+              "pred_no_open_edge_rate": 0.9974093264248705,
+              "pred_no_open_edge_rate_mean_filled": 0.9625,
+              "pred_non_manifold_edge_ratio_mean_filled": 0.0387115025,
+              "pred_open_edge_ratio_mean_filled": 0.03611111
+            },
+            "invalid_cases": 14,
+            "iou_csg": {
+              "applicable_gap_count": 0,
+              "applicable_gap_uids": [],
+              "fixed_denominator": 361,
+              "inapplicable_count": 39,
+              "inapplicable_uids": [
+                "0000/00001749",
+                "0007/00073282",
+                "0009/00098726",
+                "0013/00139444",
+                "0016/00164556",
+                "0019/00199917",
+                "0023/00231267",
+                "0024/00242128",
+                "0026/00269090",
+                "0030/00301122",
+                "0037/00370485",
+                "0039/00396861",
+                "0039/00398997",
+                "0043/00437520",
+                "0049/00497058",
+                "0052/00522179",
+                "0054/00541109",
+                "0054/00543657",
+                "0058/00580877",
+                "0063/00632896",
+                "0066/00666181",
+                "0066/00666187",
+                "0067/00673369",
+                "0070/00703137",
+                "0070/00704447",
+                "0071/00714935",
+                "0071/00719357",
+                "0072/00723126",
+                "0072/00724192",
+                "0072/00725542",
+                "0076/00768770",
+                "0078/00789364",
+                "0080/00806913",
+                "0080/00808089",
+                "0081/00818875",
+                "0083/00839405",
+                "0084/00843852",
+                "0084/00843879",
+                "0093/00934405"
+              ],
+              "invalid_fill_count": 14,
+              "mean_filled": 0.15936814404432134,
+              "metric_success": 347
+            },
+            "metric_success": {
+              "chamfer_distance": 386,
+              "f_score_001": 386,
+              "f_score_005": 386,
+              "iou_csg": 347,
+              "normal_consistency": 386,
+              "pred_inverted_normal_ratio": 386,
+              "pred_no_open_edge_rate": 386,
+              "pred_non_manifold_edge_ratio": 386,
+              "pred_open_edge_ratio": 386
+            },
+            "schema_version": "p3d-aaai27-text2cad-baseline-aggregate-v1",
+            "topology_bucket_score": 0.9629294991666667,
+            "valid_cases": 386
+          },
+          "applicable_metric_gap_count": 0,
+          "applicable_metric_gap_uids": [],
+          "case_count": 400,
+          "fixed400_from_stored_cases": 0.09327175,
+          "invalid_without_metric": 14,
+          "metric_patch": {
+            "applicability": {
+              "iou_csg": {
+                "reason": "ground_truth_open_edges",
+                "status": "inapplicable"
+              }
+            },
+            "case_id": "0049/00497058",
+            "config": {
+              "align_method": "pca+discrete",
+              "compute_iou": true,
+              "compute_iou_csg": true,
+              "n_points": 8192,
+              "random_seed": 42,
+              "sampling_mode": "surface",
+              "skip_normalize_and_scale": true
+            },
+            "content_sha256": "c0025a69bdeca81f12d588407da0075e760c2d890006818ee3060c8ee3f16e88",
+            "evaluator": {
+              "entrypoint": "metrics.geometry_metrics.compute_all_metrics",
+              "git_sha": "bf20b37b6d5aa351aba4c2e4a4feb9076ff3c4e1",
+              "source_file": {
+                "path": "metrics/geometry_metrics.py",
+                "sha256": "383ed13465c5b374270787db1346a8cb01afddae9e20b9ba5f8cdababc525a1f"
+              }
+            },
+            "format": "json",
+            "inputs": {
+              "ground_truth_stl": {
+                "artifact_id": "text2cad-0049-repaired-gt-v1",
+                "bytes": 218684,
+                "sha256": "77ca5b3c8a5ef346b6098382b41c4f651109ffc5bab2aba3eb025a6774515722"
+              },
+              "prediction_stl": {
+                "artifact_id": "text2cad-json-0049-pred-v65",
+                "bytes": 68484,
+                "sha256": "efd499d089e7931181438beac176a591946922751b5c4950074317ecb34bd9d6"
+              }
+            },
+            "metrics": {
+              "chamfer_distance": 0.003878,
+              "f_score_001": 0.0777,
+              "f_score_005": 0.5694,
+              "gt_inverted_normal_ratio": 0.025738,
+              "gt_non_manifold_edge_ratio": 0.019416,
+              "gt_open_edge_ratio": 0.063817,
+              "normal_consistency": 0.4316,
+              "pred_inverted_normal_ratio": 0.0,
+              "pred_non_manifold_edge_ratio": 0.0,
+              "pred_open_edge_ratio": 0.0
+            },
+            "mode": "parametric_detail",
+            "protocol_id": "p3d-aaai27-paper-protocol-v1",
+            "result_mutation": false,
+            "schema_version": "cadbenchmark-paper-case-metrics-v1",
+            "source_results": {
+              "case_count": 400,
+              "format": "json",
+              "model": "text2cad",
+              "ordered_uid_sha256": "7ad8debe1e0d4955ed21294636cb5ac4493837c93b285c1fdc1c21412b0b8baa",
+              "sha256": "a0c141ebd8ac436b9fdcb342844f886c006b728dc5bc3fcc5959e914059c25b8",
+              "target_case_id": "0049/00497058",
+              "target_case_index": 204,
+              "target_case_sha256": "dcce0b8133f075bec21cbc45739807f93b3164359547b6547025c0bc02fc92a4",
+              "task": "text2cad"
+            },
+            "task": "text2cad"
+          },
+          "metric_success": 386,
+          "note": "The archived result is immutable. The formal sidecar supplies the missing raw UID0049 measurement, then all required geometry and topology fields are recomputed under the fixed-400 contract. IoU-CSG remains N/A because GT has open edges and is excluded from its applicable denominator.",
+          "runner_aggregate_mean_filled": 0.0933,
+          "schema": "text2cad-parametric-fixed400-patched-audit-v1",
+          "source_id": "archived-text2cad-parametric-json-paper400-v1",
+          "source_results_sha256": "a0c141ebd8ac436b9fdcb342844f886c006b728dc5bc3fcc5959e914059c25b8",
+          "summary_fields": {
+            "chamfer_distance_mean_filled": 0.00810431,
+            "f_score_005_mean_filled": 0.4239835,
+            "iou_csg_mean_filled": 0.15936814404432134,
+            "normal_consistency_mean_filled": 0.47404725,
+            "pred_inverted_normal_ratio_mean_filled": 0.035,
+            "pred_no_open_edge_rate_mean_filled": 0.9625,
+            "pred_non_manifold_edge_ratio_mean_filled": 0.0387115025
+          },
+          "valid_cases": 386
+        },
+        "geometry": 0.268047928,
+        "geometry_metrics": {
+          "chamfer_distance": 0.00810431,
+          "chamfer_distance_score": 0.189569,
+          "f_score_001": 0.09327175,
+          "f_score_005": 0.4239835,
+          "iou_csg": 0.15936814,
+          "normal_consistency": 0.47404725
+        },
+        "judge": 0.05520833333333333,
+        "native_format": "json",
+        "qa_micro": 0.05520833333333333,
+        "qa_p": 0.0621875,
+        "qa_s": 0.04125,
+        "topology": 0.9629295,
+        "topology_metrics": {
+          "inverted_normal_error": 0.035,
+          "inverted_normal_score": 0.965,
+          "no_open_edge": 0.9625,
+          "non_manifold_edge_error": 0.0387115,
+          "non_manifold_edge_score": 0.9612885
+        },
+        "valid": 0.965
+      }
+    }
+  },
+  "consumer_assets": [
+    {
+      "bytes": 10880,
+      "id": "paper.main_results.text_descriptive_judge",
+      "kind": "table_cells",
+      "path": "sec/5_experiments.tex",
+      "sha256": "34972f47a685c8dffb177bd067462a2a36e917a8ff438bbaf8956493ca235e4a"
+    },
+    {
+      "bytes": 10880,
+      "id": "paper.judge_details.textdesc",
+      "kind": "table_cells_and_prose",
+      "path": "sec/5_experiments.tex",
+      "sha256": "34972f47a685c8dffb177bd067462a2a36e917a8ff438bbaf8956493ca235e4a"
+    },
+    {
+      "bytes": 60448,
+      "id": "paper.appendix.text_full_desc_metrics",
+      "kind": "table_cells",
+      "path": "sec/X_suppl.tex",
+      "sha256": "4c6ffd93b876cc892e8971d4a8b91d625c4decbef752f8d6be1a6be49b3bcba2"
+    },
+    {
+      "bytes": 60448,
+      "id": "paper.appendix.text_full_param_json",
+      "kind": "table_cells",
+      "path": "sec/X_suppl.tex",
+      "sha256": "4c6ffd93b876cc892e8971d4a8b91d625c4decbef752f8d6be1a6be49b3bcba2"
+    },
+    {
+      "bytes": 516591,
+      "id": "paper.figure.intro_leaderboard",
+      "kind": "figure",
+      "path": "figures/fig2_leaderboard_raster.jpg",
+      "sha256": "f7ef767ad750ed91a3cce9d6af7472750322b05aba7136795f7504c71f25356f"
+    },
+    {
+      "bytes": 53661,
+      "id": "paper.figure.three_task_grouped_bars_1col_pdf",
+      "kind": "figure",
+      "path": "figures/fig_tasks_grouped_bars_1col.pdf",
+      "sha256": "a204b156721d5b4d40ac0e9cfb3e7fb414011cfc5ebc7f6a1563e1ed5095b1b7"
+    },
+    {
+      "bytes": 51091,
+      "id": "paper.figure.three_task_grouped_bars_1col_svg",
+      "kind": "figure",
+      "path": "figures/fig_tasks_grouped_bars_1col.svg",
+      "sha256": "213a517cdece5d9b1316de5b3b5e8691612888344973af322f69b4007a175227"
+    },
+    {
+      "bytes": 232058,
+      "id": "paper.figure.three_task_grouped_bars_1col_png",
+      "kind": "figure",
+      "path": "figures/fig_tasks_grouped_bars_1col.png",
+      "sha256": "6cc796552c819bcc536a5b11933970b4093ebca464f9ef11120ae0b4e07cfcd0"
+    },
+    {
+      "bytes": 56826,
+      "id": "paper.figure.three_task_grouped_bars_wide_pdf",
+      "kind": "figure",
+      "path": "figures/fig_tasks_grouped_bars.pdf",
+      "sha256": "c6df210d369c4a4426b16fc4a9b0b30f5d52b603bb0a2734dda008760ac38ae8"
+    },
+    {
+      "bytes": 52186,
+      "id": "paper.figure.three_task_grouped_bars_wide_svg",
+      "kind": "figure",
+      "path": "figures/fig_tasks_grouped_bars.svg",
+      "sha256": "bc442d5c794838e492c9491df1d1836ad18fa2b17926898842c919b56ead59b8"
+    },
+    {
+      "bytes": 159193,
+      "id": "paper.figure.three_task_grouped_bars_wide_png",
+      "kind": "figure",
+      "path": "figures/fig_tasks_grouped_bars.png",
+      "sha256": "190262690529a3bf93f1b6271af737e465b024f0b4393698235ea36e20cc9363"
+    },
+    {
+      "bytes": 171933,
+      "id": "paper.figure.task_format_buckets",
+      "kind": "figure",
+      "path": "figures/task_format_dim_effects.png",
+      "sha256": "161cbdabaa550577accd218952c3035f3ef83b9b1f6d1138748d81434b7c414a"
+    },
+    {
+      "bytes": 19533,
+      "id": "paper.figure.text_cost_vs_score",
+      "kind": "figure",
+      "path": "figures/openrouter_score_cost_text.pdf",
+      "sha256": "74ccf9434bee7d54beacbb9ee4bee749fff63b44238638f0789be69251b1721e"
+    },
+    {
+      "bytes": 579106,
+      "id": "paper.figure.judge_detail",
+      "kind": "figure",
+      "path": "figures/paper_judge_combined_stacked.jpg",
+      "sha256": "99661edbed595ff1ba6c68b7aec52b940ac3c8749fc15bf43b38e4440c6ef886"
+    },
+    {
+      "bytes": 4373134,
+      "id": "paper.figure.main_qualitative_text_labels",
+      "kind": "per_case_scored_figure",
+      "path": "figures/qualitative_combined_select_transposed_openscad.png",
+      "sha256": "ebc8a61594f63ff78d76fa02db7962b56fdf1d5adebae3e6f8779971df3baa9e"
+    },
+    {
+      "bytes": 9371421,
+      "id": "paper.figure.appendix_text_qualitative_labels",
+      "kind": "per_case_scored_figure",
+      "path": "figures/qualitative_text2cad_6x6_with_scores_openscad.png",
+      "sha256": "c458a21df0404a03a10f4d610fb61bfe9b1fe8a18cd696670e40b5f2cfb112bd"
+    }
+  ],
+  "content_sha256": "c413892ae23fbfbcf51e999e5eabb989a5c1260024bde6eaf57cdefaf9ddb7fb",
+  "formatted": {
+    "main_buckets": {
+      "descriptive": {
+        "Claude Opus 4.6": {
+          "judge": "0.889",
+          "valid": "0.995"
+        },
+        "DeepSeek V4 Pro": {
+          "judge": "0.758",
+          "valid": "0.949"
+        },
+        "Doubao Seed 2.0 Pro": {
+          "judge": "0.724",
+          "valid": "0.974"
+        },
+        "GLM-5.1": {
+          "judge": "0.815",
+          "valid": "0.941"
+        },
+        "GPT-5.5": {
+          "judge": "0.905",
+          "valid": "0.998"
+        },
+        "Gemini 3.1 Pro": {
+          "judge": "0.897",
+          "valid": "0.999"
+        },
+        "Kimi K2.6": {
+          "judge": "0.829",
+          "valid": "0.949"
+        },
+        "MiMo v2.5 Pro": {
+          "judge": "0.709",
+          "valid": "0.985"
+        },
+        "Qwen3.6-Plus": {
+          "judge": "0.700",
+          "valid": "0.988"
+        }
+      },
+      "parametric": {
+        "Claude Opus 4.6": {
+          "geometry": "0.691",
+          "judge": "0.788",
+          "topology": "0.993",
+          "valid": "0.995"
+        },
+        "DeepSeek V4 Pro": {
+          "geometry": "0.645",
+          "judge": "0.738",
+          "topology": "0.966",
+          "valid": "0.968"
+        },
+        "Doubao Seed 2.0 Pro": {
+          "geometry": "0.623",
+          "judge": "0.710",
+          "topology": "0.987",
+          "valid": "0.988"
+        },
+        "GLM-5.1": {
+          "geometry": "0.664",
+          "judge": "0.761",
+          "topology": "0.964",
+          "valid": "0.966"
+        },
+        "GPT-5.5": {
+          "geometry": "0.703",
+          "judge": "0.813",
+          "topology": "0.997",
+          "valid": "0.999"
+        },
+        "Gemini 3.1 Pro": {
+          "geometry": "0.698",
+          "judge": "0.778",
+          "topology": "0.998",
+          "valid": "1.000"
+        },
+        "Kimi K2.6": {
+          "geometry": "0.678",
+          "judge": "0.766",
+          "topology": "0.987",
+          "valid": "0.988"
+        },
+        "MiMo v2.5 Pro": {
+          "geometry": "0.629",
+          "judge": "0.688",
+          "topology": "0.984",
+          "valid": "0.986"
+        },
+        "Qwen3.6-Plus": {
+          "geometry": "0.649",
+          "judge": "0.681",
+          "topology": "0.992",
+          "valid": "0.994"
+        }
+      }
+    },
+    "text2cad_baseline": {
+      "descriptive": {
+        "j_sem": "1.58",
+        "judge": "0.052",
+        "qa_s": "0.040",
+        "valid": "0.945"
+      },
+      "parametric": {
+        "geometry": "0.268",
+        "judge": "0.055",
+        "qa_p": "0.062",
+        "qa_s": "0.041",
+        "topology": "0.963",
+        "valid": "0.965"
+      }
+    }
+  },
+  "generated_at": "2026-07-28T10:36:39.841420+00:00",
+  "main_buckets": {
+    "descriptive": {
+      "Claude Opus 4.6": {
+        "judge": 0.8891818333333334,
+        "valid": 0.9950000000000001
+      },
+      "DeepSeek V4 Pro": {
+        "judge": 0.7583287430555555,
+        "valid": 0.94875
+      },
+      "Doubao Seed 2.0 Pro": {
+        "judge": 0.7240732916666666,
+        "valid": 0.97375
+      },
+      "GLM-5.1": {
+        "judge": 0.8145138611111111,
+        "valid": 0.9412499999999999
+      },
+      "GPT-5.5": {
+        "judge": 0.9046457499999999,
+        "valid": 0.9975
+      },
+      "Gemini 3.1 Pro": {
+        "judge": 0.8967289861111112,
+        "valid": 0.99875
+      },
+      "Kimi K2.6": {
+        "judge": 0.8290179652777777,
+        "valid": 0.94875
+      },
+      "MiMo v2.5 Pro": {
+        "judge": 0.709358625,
+        "valid": 0.9850000000000001
+      },
+      "Qwen3.6-Plus": {
+        "judge": 0.6996516666666668,
+        "valid": 0.9875
+      }
+    },
+    "parametric": {
+      "Claude Opus 4.6": {
+        "geometry": 0.6914281358379748,
+        "judge": 0.7879166666666666,
+        "topology": 0.9933364731115939,
+        "valid": 0.995
+      },
+      "DeepSeek V4 Pro": {
+        "geometry": 0.6447322084433003,
+        "judge": 0.7382291666666667,
+        "topology": 0.9656686604860596,
+        "valid": 0.9675
+      },
+      "Doubao Seed 2.0 Pro": {
+        "geometry": 0.623182808886505,
+        "judge": 0.7102083333333333,
+        "topology": 0.9868182190590717,
+        "valid": 0.9875
+      },
+      "GLM-5.1": {
+        "geometry": 0.6635577990374664,
+        "judge": 0.7605208333333333,
+        "topology": 0.9644260417057664,
+        "valid": 0.96625
+      },
+      "GPT-5.5": {
+        "geometry": 0.7027528149847153,
+        "judge": 0.8128124999999999,
+        "topology": 0.9971391071733668,
+        "valid": 0.99875
+      },
+      "Gemini 3.1 Pro": {
+        "geometry": 0.6983203702128387,
+        "judge": 0.7781250000000001,
+        "topology": 0.9982396634325765,
+        "valid": 1.0
+      },
+      "Kimi K2.6": {
+        "geometry": 0.6779218443239106,
+        "judge": 0.7658333333333334,
+        "topology": 0.9868005042926544,
+        "valid": 0.9875
+      },
+      "MiMo v2.5 Pro": {
+        "geometry": 0.6289292295676414,
+        "judge": 0.6876041666666666,
+        "topology": 0.983916512328898,
+        "valid": 0.9862500000000001
+      },
+      "Qwen3.6-Plus": {
+        "geometry": 0.6487344720816184,
+        "judge": 0.6807291666666666,
+        "topology": 0.9922084862312386,
+        "valid": 0.99375
+      }
+    }
+  },
+  "metric_contract": {
+    "cd_worst": 0.01,
+    "cross_format": "equal mean over JSON and OpenSCAD",
+    "descriptive_judge": "mean(fixed400_qa, fixed400((j_sem-1)/9))",
+    "excluded_geometry_metrics": [
+      "iou_voxel"
+    ],
+    "excluded_topology_metrics": [
+      "open_edge",
+      "open_edge_score"
+    ],
+    "geometry_metric_count": 5,
+    "geometry_metrics": [
+      "chamfer_distance_score",
+      "iou_csg",
+      "f_score_005",
+      "f_score_001",
+      "normal_consistency"
+    ],
+    "parametric_judge_per_format": "(qa_s + 2*qa_p)/3",
+    "topology_metric_count": 3,
+    "topology_metrics": [
+      "no_open_edge",
+      "inverted_normal_score",
+      "non_manifold_edge_score"
+    ]
+  },
+  "model_ids": {
+    "Claude Opus 4.6": "claude-reason",
+    "DeepSeek V4 Pro": "deepseek_v4pro-reason",
+    "Doubao Seed 2.0 Pro": "doubao-reason",
+    "GLM-5.1": "glm-reason",
+    "GPT-5.5": "gpt55-reason",
+    "Gemini 3.1 Pro": "gemini-reason",
+    "Kimi K2.6": "kimi_k26-reason",
+    "MiMo v2.5 Pro": "mimo_v25-reason",
+    "Qwen3.6-Plus": "qwen-reason"
+  },
+  "model_order": [
+    "gpt55-reason",
+    "gemini-reason",
+    "claude-reason",
+    "kimi_k26-reason",
+    "glm-reason",
+    "doubao-reason",
+    "deepseek_v4pro-reason",
+    "qwen-reason",
+    "mimo_v25-reason",
+    "glm_5v_turbo-reason",
+    "mimo_omni-reason"
+  ],
+  "model_orders": {
+    "assembly": [
+      "gpt55-reason",
+      "gemini-reason",
+      "claude-reason",
+      "kimi_k26-reason",
+      "mimo_omni-reason",
+      "qwen-reason",
+      "glm_5v_turbo-reason",
+      "doubao-reason"
+    ],
+    "image": [
+      "gpt55-reason",
+      "gemini-reason",
+      "claude-reason",
+      "kimi_k26-reason",
+      "glm_5v_turbo-reason",
+      "qwen-reason",
+      "mimo_omni-reason",
+      "doubao-reason"
+    ],
+    "text": [
+      "gpt55-reason",
+      "gemini-reason",
+      "claude-reason",
+      "kimi_k26-reason",
+      "glm-reason",
+      "doubao-reason",
+      "deepseek_v4pro-reason",
+      "qwen-reason",
+      "mimo_v25-reason"
+    ]
+  },
+  "paper_assets": [
+    {
+      "bytes": 187762,
+      "path": "paper_assets/charts/detailed_json_heatmap.png",
+      "sha256": "1d5deb906415c69dcb3755bf21b6f4cc3aaffb288994388ec79155a5fb251cae"
+    },
+    {
+      "bytes": 168751,
+      "path": "paper_assets/charts/detailed_json_metric_panels.png",
+      "sha256": "91b6c5e6cfcb4aad08e7fd8147b167a17066f0761c83fcd3906cf2a0ef50fed6"
+    },
+    {
+      "bytes": 557963,
+      "path": "paper_assets/charts/detailed_json_radar_grid.png",
+      "sha256": "ea41a7aa73e343bde87419a551967b540ab01343b1f18e289a0eaeb8f2e792ea"
+    },
+    {
+      "bytes": 442282,
+      "path": "paper_assets/charts/detailed_json_radar_overlay.png",
+      "sha256": "a8cafce14256e953195f3f5c4870e8cb68c590f0fad79fd23646c0bffb3c7f50"
+    },
+    {
+      "bytes": 88055,
+      "path": "paper_assets/charts/detailed_json_vs_openscad_bars.png",
+      "sha256": "ba004fb20f1511c4f1652835dc0a1e6d4ad693daba98b9a705a53de31da434c1"
+    },
+    {
+      "bytes": 192242,
+      "path": "paper_assets/charts/detailed_openscad_heatmap.png",
+      "sha256": "b04b47b43326940716ede34933332d299a62f1117f039f2066376353183c9cbb"
+    },
+    {
+      "bytes": 172810,
+      "path": "paper_assets/charts/detailed_openscad_metric_panels.png",
+      "sha256": "83103ed118b4c611ef32688140aded5a631103a737e41d785f6ac727dd787341"
+    },
+    {
+      "bytes": 543186,
+      "path": "paper_assets/charts/detailed_openscad_radar_grid.png",
+      "sha256": "39eeddcbfa94ba35c207b02bf02acaa9613c3eb8ea39152f2ef86161137a114f"
+    },
+    {
+      "bytes": 432478,
+      "path": "paper_assets/charts/detailed_openscad_radar_overlay.png",
+      "sha256": "5182a7ff7819cd6ff7a43a835464573d934c0518cbcf633a25b40c0da559e2ec"
+    },
+    {
+      "bytes": 12096,
+      "path": "paper_assets/charts/final_penalized_metrics.json",
+      "sha256": "88a4a4bd57d5b6566bd7b6d8b9b3eacde43ab3b30e64b8102b85c6f5a49e3dfc"
+    },
+    {
+      "bytes": 457043,
+      "path": "paper_assets/charts/json_vs_openscad_delta.png",
+      "sha256": "e9d2b62e15c8ccbe9a3a1aa74e3a91d13f97f4ffe98b61e21551d5e5bb019371"
+    },
+    {
+      "bytes": 363726,
+      "path": "paper_assets/charts/parametric_detail_json_heatmap.png",
+      "sha256": "6fc24198408919d1cfc9d827844d02f18fce19dd8ab25e5039ebf6b2c9b9d7db"
+    },
+    {
+      "bytes": 400079,
+      "path": "paper_assets/charts/parametric_detail_json_metric_panels.png",
+      "sha256": "3c521d2dafd76ca9ceec99bd47bd19a2792fa57fb758677f10662dd31b042794"
+    },
+    {
+      "bytes": 658333,
+      "path": "paper_assets/charts/parametric_detail_json_radar_grid.png",
+      "sha256": "bf233bf090b0e91cd72ff23e1d382f6ad497e06cb01169a94ff7f15322f869fc"
+    },
+    {
+      "bytes": 593186,
+      "path": "paper_assets/charts/parametric_detail_json_radar_overlay.png",
+      "sha256": "0c8186b7fa2b714dc4aeb91107e50776dda89f94e1bdcad2928a28f16ea9800e"
+    },
+    {
+      "bytes": 362008,
+      "path": "paper_assets/charts/parametric_detail_openscad_heatmap.png",
+      "sha256": "fdaf581935f417d76b9115a1b6416ff85e0cb55ce824e59a189d341a52a0a6dd"
+    },
+    {
+      "bytes": 401723,
+      "path": "paper_assets/charts/parametric_detail_openscad_metric_panels.png",
+      "sha256": "34377a3bb040c028b7c27a42ddc46d174b6a5f632097108089ec6df2eed4e3c5"
+    },
+    {
+      "bytes": 666326,
+      "path": "paper_assets/charts/parametric_detail_openscad_radar_grid.png",
+      "sha256": "360ecdb1abf79d8db2a8fe282655f74b3609e558f18ec25e357f86b6550b4e12"
+    },
+    {
+      "bytes": 618206,
+      "path": "paper_assets/charts/parametric_detail_openscad_radar_overlay.png",
+      "sha256": "9c5379ec6239729aac7a613e885efc0961c4e79f3163bb3b70d3af06fdd27d54"
+    },
+    {
+      "bytes": 347236,
+      "path": "paper_assets/charts/text2cad_source_profile.png",
+      "sha256": "b88d96ecc9e8f5a4472f207104d72ea1bde7817b3b022d264bd2f3e112afa3c8"
+    },
+    {
+      "bytes": 158228,
+      "path": "paper_assets/charts/third_party_native_geometry_snapshot.png",
+      "sha256": "b8c75c0b4c7ba62dced90c612a9af9c7c1f8b71bff5149214c9fa0f5763e603f"
+    },
+    {
+      "bytes": 175661,
+      "path": "paper_assets/charts/third_party_native_validity_quality.png",
+      "sha256": "c7240e1e7cefdbb2aba0f13549fd3dfb25d6a95cdf71f43be82049f93ad97880"
+    }
+  ],
+  "per_format": {
+    "descriptive": {
+      "json": {
+        "Claude Opus 4.6": {
+          "judge_bucket": 0.8540484166666668,
+          "llm_judge": 8.4475345,
+          "normalized_judge": 0.8275038333333334,
+          "qa": 0.8805930000000001,
+          "valid": 0.9975
+        },
+        "DeepSeek V4 Pro": {
+          "judge_bucket": 0.7460647222222222,
+          "llm_judge": 7.460006,
+          "normalized_judge": 0.7177784444444444,
+          "qa": 0.774351,
+          "valid": 0.97
+        },
+        "Doubao Seed 2.0 Pro": {
+          "judge_bucket": 0.7056345833333333,
+          "llm_judge": 7.209992499999999,
+          "normalized_judge": 0.6899991666666666,
+          "qa": 0.7212700000000001,
+          "valid": 0.9875
+        },
+        "GLM-5.1": {
+          "judge_bucket": 0.8040060555555555,
+          "llm_judge": 8.052482,
+          "normalized_judge": 0.7836091111111111,
+          "qa": 0.8244029999999999,
+          "valid": 0.97
+        },
+        "GPT-5.5": {
+          "judge_bucket": 0.8601388888888888,
+          "llm_judge": 8.54,
+          "normalized_judge": 0.8377777777777777,
+          "qa": 0.8825,
+          "valid": 1.0
+        },
+        "Gemini 3.1 Pro": {
+          "judge_bucket": 0.8434722222222222,
+          "llm_judge": 8.5325,
+          "normalized_judge": 0.8369444444444444,
+          "qa": 0.85,
+          "valid": 1.0
+        },
+        "Kimi K2.6": {
+          "judge_bucket": 0.7490560416666666,
+          "llm_judge": 7.435041249999999,
+          "normalized_judge": 0.7150045833333333,
+          "qa": 0.7831075,
+          "valid": 0.9125
+        },
+        "MiMo v2.5 Pro": {
+          "judge_bucket": 0.673069388888889,
+          "llm_judge": 6.9500375,
+          "normalized_judge": 0.6611152777777778,
+          "qa": 0.6850235000000001,
+          "valid": 0.9925
+        },
+        "Qwen3.6-Plus": {
+          "judge_bucket": 0.5885703333333334,
+          "llm_judge": 6.492458500000001,
+          "normalized_judge": 0.6102731666666668,
+          "qa": 0.5668675000000001,
+          "valid": 0.985
+        }
+      },
+      "openscad": {
+        "Claude Opus 4.6": {
+          "judge_bucket": 0.92431525,
+          "llm_judge": 9.0374635,
+          "normalized_judge": 0.8930515,
+          "qa": 0.9555790000000001,
+          "valid": 0.9925
+        },
+        "DeepSeek V4 Pro": {
+          "judge_bucket": 0.7705927638888889,
+          "llm_judge": 7.620031249999999,
+          "normalized_judge": 0.7355590277777777,
+          "qa": 0.8056265,
+          "valid": 0.9275
+        },
+        "Doubao Seed 2.0 Pro": {
+          "judge_bucket": 0.742512,
+          "llm_judge": 7.362496,
+          "normalized_judge": 0.706944,
+          "qa": 0.7780799999999999,
+          "valid": 0.96
+        },
+        "GLM-5.1": {
+          "judge_bucket": 0.8250216666666668,
+          "llm_judge": 8.17252375,
+          "normalized_judge": 0.7969470833333334,
+          "qa": 0.85309625,
+          "valid": 0.9125
+        },
+        "GPT-5.5": {
+          "judge_bucket": 0.949152611111111,
+          "llm_judge": 9.337503,
+          "normalized_judge": 0.9263892222222222,
+          "qa": 0.9719159999999999,
+          "valid": 0.995
+        },
+        "Gemini 3.1 Pro": {
+          "judge_bucket": 0.9499857500000001,
+          "llm_judge": 9.3700225,
+          "normalized_judge": 0.9300025000000001,
+          "qa": 0.9699690000000001,
+          "valid": 0.9975
+        },
+        "Kimi K2.6": {
+          "judge_bucket": 0.9089798888888888,
+          "llm_judge": 8.8450325,
+          "normalized_judge": 0.8716702777777776,
+          "qa": 0.9462895,
+          "valid": 0.985
+        },
+        "MiMo v2.5 Pro": {
+          "judge_bucket": 0.745647861111111,
+          "llm_judge": 7.520022749999999,
+          "normalized_judge": 0.7244469722222222,
+          "qa": 0.7668487499999999,
+          "valid": 0.9775
+        },
+        "Qwen3.6-Plus": {
+          "judge_bucket": 0.810733,
+          "llm_judge": 7.959997,
+          "normalized_judge": 0.773333,
+          "qa": 0.848133,
+          "valid": 0.99
+        }
+      }
+    },
+    "parametric": {
+      "json": {
+        "Claude Opus 4.6": {
+          "counts": {
+            "metric_success": 395,
+            "total": 400,
+            "valid": 396
+          },
+          "geometry": 0.6805059168414952,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0016466547906091372,
+            "chamfer_distance_score": 0.8353345209390863,
+            "f_score_001": 0.418566913071066,
+            "f_score_005": 0.8173309422588833,
+            "iou_csg": 0.5894744255780346,
+            "normal_consistency": 0.741822782360406
+          },
+          "judge": 0.7527083333333332,
+          "qa_micro": 0.7527083333333333,
+          "qa_p": 0.7725,
+          "qa_s": 0.713125,
+          "topology": 0.9867792344437394,
+          "topology_metrics": {
+            "inverted_normal_error": 0.0125,
+            "inverted_normal_score": 0.9875,
+            "no_open_edge": 0.9859148218908629,
+            "non_manifold_edge_error": 0.01307711855964467,
+            "non_manifold_edge_score": 0.9869228814403553
+          },
+          "valid": 0.99
+        },
+        "DeepSeek V4 Pro": {
+          "counts": {
+            "metric_success": 383,
+            "total": 400,
+            "valid": 384
+          },
+          "geometry": 0.6343458992532457,
+          "geometry_metrics": {
+            "chamfer_distance": 0.002352369797120419,
+            "chamfer_distance_score": 0.7647630202879581,
+            "f_score_001": 0.3790995660994764,
+            "f_score_005": 0.773299057591623,
+            "iou_csg": 0.5487482312138728,
+            "normal_consistency": 0.7058196210732984
+          },
+          "judge": 0.7012499999999999,
+          "qa_micro": 0.70125,
+          "qa_p": 0.723125,
+          "qa_s": 0.6575,
+          "topology": 0.9565333711649214,
+          "topology_metrics": {
+            "inverted_normal_error": 0.0425,
+            "inverted_normal_score": 0.9575,
+            "no_open_edge": 0.9569488484620419,
+            "non_manifold_edge_error": 0.04484873496727749,
+            "non_manifold_edge_score": 0.9551512650327225
+          },
+          "valid": 0.96
+        },
+        "Doubao Seed 2.0 Pro": {
+          "counts": {
+            "metric_success": 396,
+            "total": 400,
+            "valid": 396
+          },
+          "geometry": 0.6062041177730101,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0032215401772151897,
+            "chamfer_distance_score": 0.677845982278481,
+            "f_score_001": 0.3576418860759494,
+            "f_score_005": 0.7651995721518987,
+            "iou_csg": 0.5256561610169491,
+            "normal_consistency": 0.7046769873417722
+          },
+          "judge": 0.6810416666666667,
+          "qa_micro": 0.6810416666666667,
+          "qa_p": 0.7065625,
+          "qa_s": 0.63,
+          "topology": 0.9888478847848101,
+          "topology_metrics": {
+            "inverted_normal_error": 0.010119348886075949,
+            "inverted_normal_score": 0.9898806511139241,
+            "no_open_edge": 0.9897708588607596,
+            "non_manifold_edge_error": 0.013107855620253166,
+            "non_manifold_edge_score": 0.9868921443797468
+          },
+          "valid": 0.99
+        },
+        "GLM-5.1": {
+          "counts": {
+            "metric_success": 396,
+            "total": 400,
+            "valid": 397
+          },
+          "geometry": 0.6735315267302601,
+          "geometry_metrics": {
+            "chamfer_distance": 0.001785205569620253,
+            "chamfer_distance_score": 0.8214794430379747,
+            "f_score_001": 0.40598521518987346,
+            "f_score_005": 0.8150161215189873,
+            "iou_csg": 0.5857847020057306,
+            "normal_consistency": 0.7393921518987341
+          },
+          "judge": 0.74125,
+          "qa_micro": 0.74125,
+          "qa_p": 0.7640625,
+          "qa_s": 0.695625,
+          "topology": 0.9890715253670885,
+          "topology_metrics": {
+            "inverted_normal_error": 0.01,
+            "inverted_normal_score": 0.99,
+            "no_open_edge": 0.988518431164557,
+            "non_manifold_edge_error": 0.01130385506329114,
+            "non_manifold_edge_score": 0.9886961449367089
+          },
+          "valid": 0.9925
+        },
+        "GPT-5.5": {
+          "counts": {
+            "metric_success": 399,
+            "total": 400,
+            "valid": 400
+          },
+          "geometry": 0.6908386961608041,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0017637352324120603,
+            "chamfer_distance_score": 0.823626476758794,
+            "f_score_001": 0.42863076256281407,
+            "f_score_005": 0.8306839145728644,
+            "iou_csg": 0.61115457,
+            "normal_consistency": 0.7600977569095477
+          },
+          "judge": 0.7758333333333333,
+          "qa_micro": 0.7758333333333334,
+          "qa_p": 0.793125,
+          "qa_s": 0.74125,
+          "topology": 0.9968266641080402,
+          "topology_metrics": {
+            "inverted_normal_error": 0.002526824729899497,
+            "inverted_normal_score": 0.9974731752701005,
+            "no_open_edge": 0.9960815900879397,
+            "non_manifold_edge_error": 0.003074773033919598,
+            "non_manifold_edge_score": 0.9969252269660804
+          },
+          "valid": 1.0
+        },
+        "Gemini 3.1 Pro": {
+          "counts": {
+            "metric_success": 399,
+            "total": 400,
+            "valid": 400
+          },
+          "geometry": 0.6854630804863552,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0015470521670854272,
+            "chamfer_distance_score": 0.8452947832914572,
+            "f_score_001": 0.42188485552763816,
+            "f_score_005": 0.8246031746231155,
+            "iou_csg": 0.5871208703966004,
+            "normal_consistency": 0.7484117185929648
+          },
+          "judge": 0.7258333333333334,
+          "qa_micro": 0.7258333333333333,
+          "qa_p": 0.7478125,
+          "qa_s": 0.681875,
+          "topology": 0.99660325919598,
+          "topology_metrics": {
+            "inverted_normal_error": 0.0025,
+            "inverted_normal_score": 0.9975,
+            "no_open_edge": 0.9961370566017588,
+            "non_manifold_edge_error": 0.0038272790138190954,
+            "non_manifold_edge_score": 0.9961727209861809
+          },
+          "valid": 1.0
+        },
+        "Kimi K2.6": {
+          "counts": {
+            "metric_success": 391,
+            "total": 400,
+            "valid": 391
+          },
+          "geometry": 0.6646007426867657,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0018607409807692304,
+            "chamfer_distance_score": 0.8139259019230769,
+            "f_score_001": 0.40167505192307684,
+            "f_score_005": 0.8019317262820512,
+            "iou_csg": 0.5765475288184438,
+            "normal_consistency": 0.7289235044871794
+          },
+          "judge": 0.7258333333333334,
+          "qa_micro": 0.7258333333333333,
+          "qa_p": 0.75,
+          "qa_s": 0.6775,
+          "topology": 0.9763103557649573,
+          "topology_metrics": {
+            "inverted_normal_error": 0.0225,
+            "inverted_normal_score": 0.9775,
+            "no_open_edge": 0.9763161146602564,
+            "non_manifold_edge_error": 0.024885047365384615,
+            "non_manifold_edge_score": 0.9751149526346153
+          },
+          "valid": 0.9775
+        },
+        "MiMo v2.5 Pro": {
+          "counts": {
+            "metric_success": 391,
+            "total": 400,
+            "valid": 392
+          },
+          "geometry": 0.6246112385897437,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0023585691987179484,
+            "chamfer_distance_score": 0.7641430801282052,
+            "f_score_001": 0.3572311346153846,
+            "f_score_005": 0.7650769685897437,
+            "iou_csg": 0.5328403500000001,
+            "normal_consistency": 0.7037646596153847
+          },
+          "judge": 0.6445833333333333,
+          "qa_micro": 0.6445833333333333,
+          "qa_p": 0.6746875,
+          "qa_s": 0.584375,
+          "topology": 0.9754441211645299,
+          "topology_metrics": {
+            "inverted_normal_error": 0.022504213275641026,
+            "inverted_normal_score": 0.977495786724359,
+            "no_open_edge": 0.9760978313910258,
+            "non_manifold_edge_error": 0.02726125462179487,
+            "non_manifold_edge_score": 0.9727387453782051
+          },
+          "valid": 0.98
+        },
+        "Qwen3.6-Plus": {
+          "counts": {
+            "metric_success": 396,
+            "total": 400,
+            "valid": 397
+          },
+          "geometry": 0.6354371543917614,
+          "geometry_metrics": {
+            "chamfer_distance": 0.002079238075949367,
+            "chamfer_distance_score": 0.7920761924050632,
+            "f_score_001": 0.3545525848101266,
+            "f_score_005": 0.7855607392405062,
+            "iou_csg": 0.5334827542372882,
+            "normal_consistency": 0.7115135012658229
+          },
+          "judge": 0.5897916666666666,
+          "qa_micro": 0.5897916666666667,
+          "qa_p": 0.62125,
+          "qa_s": 0.526875,
+          "topology": 0.9895946154683544,
+          "topology_metrics": {
+            "inverted_normal_error": 0.01,
+            "inverted_normal_score": 0.99,
+            "no_open_edge": 0.9895893379746835,
+            "non_manifold_edge_error": 0.010805491569620254,
+            "non_manifold_edge_score": 0.9891945084303797
+          },
+          "valid": 0.9925
+        }
+      },
+      "openscad": {
+        "Claude Opus 4.6": {
+          "counts": {
+            "metric_success": 400,
+            "total": 400,
+            "valid": 400
+          },
+          "geometry": 0.7023503548344545,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0012780250626566415,
+            "chamfer_distance_score": 0.8721974937343359,
+            "f_score_001": 0.4159375939849624,
+            "f_score_005": 0.8518791979949875,
+            "iou_csg": 0.6106252077562326,
+            "normal_consistency": 0.7611122807017544
+          },
+          "judge": 0.823125,
+          "qa_micro": 0.823125,
+          "qa_p": 0.8228125,
+          "qa_s": 0.82375,
+          "topology": 0.9998937117794485,
+          "topology_metrics": {
+            "inverted_normal_error": 1.1278195488721805e-06,
+            "inverted_normal_score": 0.9999988721804511,
+            "no_open_edge": 1.0,
+            "non_manifold_edge_error": 0.0003177368421052632,
+            "non_manifold_edge_score": 0.9996822631578948
+          },
+          "valid": 1.0
+        },
+        "DeepSeek V4 Pro": {
+          "counts": {
+            "metric_success": 390,
+            "total": 400,
+            "valid": 390
+          },
+          "geometry": 0.6551185176333547,
+          "geometry_metrics": {
+            "chamfer_distance": 0.001756971529562982,
+            "chamfer_distance_score": 0.8243028470437018,
+            "f_score_001": 0.3682592544987146,
+            "f_score_005": 0.8013547557840617,
+            "iou_csg": 0.564320859375,
+            "normal_consistency": 0.7173548714652956
+          },
+          "judge": 0.7752083333333334,
+          "qa_micro": 0.7752083333333334,
+          "qa_p": 0.785625,
+          "qa_s": 0.754375,
+          "topology": 0.9748039498071979,
+          "topology_metrics": {
+            "inverted_normal_error": 0.025,
+            "inverted_normal_score": 0.975,
+            "no_open_edge": 0.975,
+            "non_manifold_edge_error": 0.025588150578406167,
+            "non_manifold_edge_score": 0.9744118494215939
+          },
+          "valid": 0.975
+        },
+        "Doubao Seed 2.0 Pro": {
+          "counts": {
+            "metric_success": 394,
+            "total": 400,
+            "valid": 394
+          },
+          "geometry": 0.6401614999999999,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0019254549999999997,
+            "chamfer_distance_score": 0.8074545,
+            "f_score_001": 0.35735799999999995,
+            "f_score_005": 0.7824840000000001,
+            "iou_csg": 0.5444095,
+            "normal_consistency": 0.7091015
+          },
+          "judge": 0.739375,
+          "qa_micro": 0.739375,
+          "qa_p": 0.754375,
+          "qa_s": 0.709375,
+          "topology": 0.9847885533333334,
+          "topology_metrics": {
+            "inverted_normal_error": 0.015,
+            "inverted_normal_score": 0.985,
+            "no_open_edge": 0.985,
+            "non_manifold_edge_error": 0.01563434,
+            "non_manifold_edge_score": 0.98436566
+          },
+          "valid": 0.985
+        },
+        "GLM-5.1": {
+          "counts": {
+            "metric_success": 376,
+            "total": 400,
+            "valid": 376
+          },
+          "geometry": 0.6535840713446726,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0018597203199999998,
+            "chamfer_distance_score": 0.814027968,
+            "f_score_001": 0.38093863466666666,
+            "f_score_005": 0.793650272,
+            "iou_csg": 0.5729142873900294,
+            "normal_consistency": 0.7063891946666668
+          },
+          "judge": 0.7797916666666667,
+          "qa_micro": 0.7797916666666667,
+          "qa_p": 0.784375,
+          "qa_s": 0.770625,
+          "topology": 0.9397805580444444,
+          "topology_metrics": {
+            "inverted_normal_error": 0.06,
+            "inverted_normal_score": 0.94,
+            "no_open_edge": 0.94,
+            "non_manifold_edge_error": 0.06065832586666667,
+            "non_manifold_edge_score": 0.9393416741333334
+          },
+          "valid": 0.94
+        },
+        "GPT-5.5": {
+          "counts": {
+            "metric_success": 399,
+            "total": 400,
+            "valid": 399
+          },
+          "geometry": 0.7146669338086264,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0011915411620603015,
+            "chamfer_distance_score": 0.8808458837939699,
+            "f_score_001": 0.43014931846733667,
+            "f_score_005": 0.85838083040201,
+            "iou_csg": 0.6371367770833334,
+            "normal_consistency": 0.7668218592964824
+          },
+          "judge": 0.8497916666666666,
+          "qa_micro": 0.8497916666666666,
+          "qa_p": 0.844375,
+          "qa_s": 0.860625,
+          "topology": 0.9974515502386936,
+          "topology_metrics": {
+            "inverted_normal_error": 0.0025,
+            "inverted_normal_score": 0.9975,
+            "no_open_edge": 0.9975,
+            "non_manifold_edge_error": 0.002645349283919598,
+            "non_manifold_edge_score": 0.9973546507160804
+          },
+          "valid": 0.9975
+        },
+        "Gemini 3.1 Pro": {
+          "counts": {
+            "metric_success": 400,
+            "total": 400,
+            "valid": 400
+          },
+          "geometry": 0.711177659939322,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0012116566416040101,
+            "chamfer_distance_score": 0.878834335839599,
+            "f_score_001": 0.4265606516290727,
+            "f_score_005": 0.8565040100250626,
+            "iou_csg": 0.6291850415512465,
+            "normal_consistency": 0.7648042606516292
+          },
+          "judge": 0.8304166666666667,
+          "qa_micro": 0.8304166666666667,
+          "qa_p": 0.8303125,
+          "qa_s": 0.830625,
+          "topology": 0.9998760676691729,
+          "topology_metrics": {
+            "inverted_normal_error": 0.0,
+            "inverted_normal_score": 1.0,
+            "no_open_edge": 1.0,
+            "non_manifold_edge_error": 0.000371796992481203,
+            "non_manifold_edge_score": 0.9996282030075188
+          },
+          "valid": 1.0
+        },
+        "Kimi K2.6": {
+          "counts": {
+            "metric_success": 399,
+            "total": 400,
+            "valid": 399
+          },
+          "geometry": 0.6912429459610553,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0013789658982412058,
+            "chamfer_distance_score": 0.8621034101758794,
+            "f_score_001": 0.39978346356783917,
+            "f_score_005": 0.8397977562814072,
+            "iou_csg": 0.60188401875,
+            "normal_consistency": 0.7526460810301507
+          },
+          "judge": 0.8058333333333333,
+          "qa_micro": 0.8058333333333333,
+          "qa_p": 0.808125,
+          "qa_s": 0.80125,
+          "topology": 0.9972906528203517,
+          "topology_metrics": {
+            "inverted_normal_error": 0.0025,
+            "inverted_normal_score": 0.9975,
+            "no_open_edge": 0.9975,
+            "non_manifold_edge_error": 0.0031280415389447237,
+            "non_manifold_edge_score": 0.9968719584610553
+          },
+          "valid": 0.9975
+        },
+        "MiMo v2.5 Pro": {
+          "counts": {
+            "metric_success": 397,
+            "total": 400,
+            "valid": 397
+          },
+          "geometry": 0.6332472205455392,
+          "geometry_metrics": {
+            "chamfer_distance": 0.002031154842171717,
+            "chamfer_distance_score": 0.7968845157828283,
+            "f_score_001": 0.3447496369949495,
+            "f_score_005": 0.7819037809343434,
+            "iou_csg": 0.5355028205307262,
+            "normal_consistency": 0.7071953484848484
+          },
+          "judge": 0.730625,
+          "qa_micro": 0.730625,
+          "qa_p": 0.7515625,
+          "qa_s": 0.68875,
+          "topology": 0.992388903493266,
+          "topology_metrics": {
+            "inverted_normal_error": 0.0075,
+            "inverted_normal_score": 0.9925,
+            "no_open_edge": 0.9925,
+            "non_manifold_edge_error": 0.00783328952020202,
+            "non_manifold_edge_score": 0.992166710479798
+          },
+          "valid": 0.9925
+        },
+        "Qwen3.6-Plus": {
+          "counts": {
+            "metric_success": 398,
+            "total": 400,
+            "valid": 398
+          },
+          "geometry": 0.6620317897714754,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0016412380856423172,
+            "chamfer_distance_score": 0.8358761914357683,
+            "f_score_001": 0.3701096738035264,
+            "f_score_005": 0.8086876284634761,
+            "iou_csg": 0.5680818077994428,
+            "normal_consistency": 0.7274036473551636
+          },
+          "judge": 0.7716666666666666,
+          "qa_micro": 0.7716666666666666,
+          "qa_p": 0.77875,
+          "qa_s": 0.7575,
+          "topology": 0.9948223569941227,
+          "topology_metrics": {
+            "inverted_normal_error": 0.005,
+            "inverted_normal_score": 0.995,
+            "no_open_edge": 0.995,
+            "non_manifold_edge_error": 0.005532929017632242,
+            "non_manifold_edge_score": 0.9944670709823678
+          },
+          "valid": 0.995
+        }
+      }
+    }
+  },
+  "pinned_inputs": [
+    {
+      "path": "code/configs/p3d_aaai27_pinned_nontext_tables.json",
+      "sha256": "ae00775b05e70c05e5804efec23827366f3c220f204cb35b280501d5b57e6ff6",
+      "source_git_sha": "8689e1650d2f07174f7052db794c0c162d3e7f69",
+      "source_id": "p3d-paper-result-tables-image-assembly-v1",
+      "table_sha256": {
+        "assembly": "7324dd6d03773c01c8bca399cc0f3327309e40fa3a8ca742a553631d78e9d7b4",
+        "image": "55756a17cfab1735a3ab61104957f8d5df6eda8b83ada18e73e2f893029a267e"
+      }
+    }
+  ],
+  "profiles": {
+    "paper": {
+      "task_sources": {
+        "assembly": {
+          "artifact_sha256": "7324dd6d03773c01c8bca399cc0f3327309e40fa3a8ca742a553631d78e9d7b4",
+          "git_sha": "8689e1650d2f07174f7052db794c0c162d3e7f69",
+          "pinned": true,
+          "source_id": "p3d-paper-result-tables-image-assembly-v1:assembly"
+        },
+        "image": {
+          "artifact_sha256": "55756a17cfab1735a3ab61104957f8d5df6eda8b83ada18e73e2f893029a267e",
+          "git_sha": "8689e1650d2f07174f7052db794c0c162d3e7f69",
+          "pinned": true,
+          "source_id": "p3d-paper-result-tables-image-assembly-v1:image"
+        },
+        "text": {
+          "artifact_sha256": "c0cc1c9910b53ae2dd53044ffe9f9815cc497e5e3064767a8c1aed1a351c93be",
+          "git_sha": "205a32fad310381682128691040243d175b758cc",
+          "pinned": true,
+          "profile": "paper_current",
+          "source_id": "workbench-paper-current-text-v1"
+        }
+      }
+    }
+  },
+  "protocol_id": "p3d-aaai27-paper-protocol-v1",
+  "provenance": {
+    "evaluator_git_sha": "bf20b37b6d5aa351aba4c2e4a4feb9076ff3c4e1",
+    "paper_consumer_base_git_sha": "9744c00d6821935e1ba9269be534a7940ef28583",
+    "project_page_consumer_base_git_sha": "8230fcd935c1ffbaf447efb26b3feaae7a97cd98",
+    "workbench_git_sha": "205a32fad310381682128691040243d175b758cc"
+  },
+  "release_id": "p3d-aaai27-paper-current-v1",
+  "result_tables": [
+    {
+      "accent": "var(--blue)",
+      "domainRows": [
+        {
+          "cells": "0.052 0.945 - - 0.052 0.945 0.268 0.963 0.055 0.965 - - - - 0.268 0.963 0.055 0.965",
+          "model": "Text2CAD"
+        }
+      ],
+      "groups": [
+        {
+          "label": "JSON",
+          "span": 2
+        },
+        {
+          "label": "OpenSCAD",
+          "span": 2
+        },
+        {
+          "label": "Average",
+          "span": 2
+        },
+        {
+          "label": "JSON",
+          "span": 4
+        },
+        {
+          "label": "OpenSCAD",
+          "span": 4
+        },
+        {
+          "label": "Average",
+          "span": 4
+        }
+      ],
+      "key": "text",
+      "metrics": [
+        "Judge",
+        "Valid",
+        "Judge",
+        "Valid",
+        "Judge",
+        "Valid",
+        "Geo",
+        "Topo",
+        "Judge",
+        "Valid",
+        "Geo",
+        "Topo",
+        "Judge",
+        "Valid",
+        "Geo",
+        "Topo",
+        "Judge",
+        "Valid"
+      ],
+      "rows": [
+        {
+          "cells": "0.860! 1.000! 0.949^ 0.995^ 0.905! 0.998^ 0.691! 0.997! 0.776! 1.000! 0.715! 0.997 0.850! 0.998^ 0.703! 0.997^ 0.813! 0.999^",
+          "family": "openai",
+          "model": "GPT-5.5",
+          "model_id": "gpt55-reason"
+        },
+        {
+          "cells": "0.843 1.000! 0.950! 0.998! 0.897^ 0.999! 0.685^ 0.997^ 0.726 1.000! 0.711^ 1.000^ 0.830^ 1.000! 0.698^ 0.998! 0.778 1.000!",
+          "family": "gemini",
+          "model": "Gemini 3.1 Pro",
+          "model_id": "gemini-reason"
+        },
+        {
+          "cells": "0.854^ 0.998^ 0.924 0.993 0.889 0.995 0.681 0.987 0.753^ 0.990 0.702 1.000! 0.823 1.000! 0.691 0.993 0.788^ 0.995",
+          "family": "claude",
+          "model": "Claude Opus 4.6",
+          "model_id": "claude-reason"
+        },
+        {
+          "cells": "0.749 0.912 0.909 0.985 0.829 0.949 0.665 0.976 0.726 0.978 0.691 0.997 0.806 0.998^ 0.678 0.987 0.766 0.988",
+          "family": "kimi",
+          "model": "Kimi K2.6",
+          "model_id": "kimi_k26-reason"
+        },
+        {
+          "cells": "0.804 0.970 0.825 0.912 0.815 0.941 0.674 0.989 0.741 0.993^ 0.654 0.940 0.780 0.940 0.664 0.964 0.761 0.966",
+          "family": "zai",
+          "model": "GLM-5.1",
+          "model_id": "glm-reason"
+        },
+        {
+          "cells": "0.706 0.988 0.743 0.960 0.724 0.974 0.606 0.989 0.681 0.990 0.640 0.985 0.739 0.985 0.623 0.987 0.710 0.988",
+          "family": "doubao",
+          "model": "Doubao Seed 2.0 Pro",
+          "model_id": "doubao-reason"
+        },
+        {
+          "cells": "0.746 0.970 0.771 0.927 0.758 0.949 0.634 0.957 0.701 0.960 0.655 0.975 0.775 0.975 0.645 0.966 0.738 0.968",
+          "family": "deepseek",
+          "model": "DeepSeek V4 Pro",
+          "model_id": "deepseek_v4pro-reason"
+        },
+        {
+          "cells": "0.589 0.985 0.811 0.990 0.700 0.988 0.635 0.990 0.590 0.993^ 0.662 0.995 0.772 0.995 0.649 0.992 0.681 0.994",
+          "family": "qwen",
+          "model": "Qwen3.6-Plus",
+          "model_id": "qwen-reason"
+        },
+        {
+          "cells": "0.673 0.993 0.746 0.978 0.709 0.985 0.625 0.975 0.645 0.980 0.633 0.992 0.731 0.993 0.629 0.984 0.688 0.986",
+          "family": "mimo",
+          "model": "MiMo v2.5 Pro",
+          "model_id": "mimo_v25-reason"
+        }
+      ],
+      "superGroups": [
+        {
+          "label": "Descriptive",
+          "span": 6
+        },
+        {
+          "label": "Parametric",
+          "span": 12
+        }
+      ],
+      "title": "Text-to-3D"
+    },
+    {
+      "accent": "var(--teal)",
+      "domainRows": [
+        {
+          "cells": "0.235 0.789 0.010 0.820 - - - - - - - - 0.235 0.789 0.010 0.820",
+          "model": "Cadrille"
+        },
+        {
+          "cells": "0.133 0.361 0.014 0.370 - - - - - - - - 0.133 0.361 0.014 0.370",
+          "model": "CAD-Coder"
+        }
+      ],
+      "groups": [
+        {
+          "label": "CadQuery",
+          "span": 4
+        },
+        {
+          "label": "OpenSCAD",
+          "span": 4
+        },
+        {
+          "label": "Three.js",
+          "span": 4
+        },
+        {
+          "label": "Average",
+          "span": 4
+        }
+      ],
+      "key": "image",
+      "metrics": [
+        "Geo",
+        "Topo",
+        "Judge",
+        "Valid",
+        "Geo",
+        "Topo",
+        "Judge",
+        "Valid",
+        "Geo",
+        "Topo",
+        "Judge",
+        "Valid",
+        "Geo",
+        "Topo",
+        "Judge",
+        "Valid"
+      ],
+      "rows": [
+        {
+          "cells": "0.524! 0.914! 0.526! 0.937! 0.567^ 1.000! 0.592! 1.000! 0.556^ 0.828 0.569^ 1.000! 0.549^ 0.914! 0.562! 0.979!",
+          "family": "openai",
+          "model": "GPT-5.5",
+          "model_id": "gpt55-reason"
+        },
+        {
+          "cells": "0.507^ 0.878 0.469^ 0.911 0.569! 0.999^ 0.576^ 1.000! 0.581! 0.853! 0.576! 0.998^ 0.552! 0.910^ 0.540^ 0.970",
+          "family": "gemini",
+          "model": "Gemini 3.1 Pro",
+          "model_id": "gemini-reason"
+        },
+        {
+          "cells": "0.497 0.908^ 0.383 0.926^ 0.536 1.000! 0.463 1.000! 0.541 0.802 0.447 0.998^ 0.525 0.903 0.431 0.975^",
+          "family": "claude",
+          "model": "Claude Opus 4.6",
+          "model_id": "claude-reason"
+        },
+        {
+          "cells": "0.432 0.846 0.299 0.881 0.517 1.000! 0.421 1.000! 0.541 0.849^ 0.427 1.000! 0.497 0.898 0.382 0.960",
+          "family": "kimi",
+          "model": "Kimi K2.6",
+          "model_id": "kimi_k26-reason"
+        },
+        {
+          "cells": "0.307 0.694 0.147 0.705 0.458 0.977 0.249 0.977 0.493 0.802 0.296 1.000! 0.419 0.824 0.230 0.894",
+          "family": "zai",
+          "model": "GLM 5V Turbo",
+          "model_id": "glm_5v_turbo-reason"
+        },
+        {
+          "cells": "0.221 0.470 0.130 0.493 0.466 0.995 0.287 0.995 0.507 0.844 0.350 0.998^ 0.398 0.770 0.256 0.828",
+          "family": "qwen",
+          "model": "Qwen3.6-Plus",
+          "model_id": "qwen-reason"
+        },
+        {
+          "cells": "0.205 0.551 0.080 0.565 0.455 0.997 0.218 0.998^ 0.474 0.846 0.240 0.998^ 0.378 0.798 0.180 0.853",
+          "family": "mimo",
+          "model": "MiMo v2 Omni",
+          "model_id": "mimo_omni-reason"
+        },
+        {
+          "cells": "0.143 0.323 0.085 0.335 0.461 0.990 0.245 0.990 0.518 0.849^ 0.318 1.000! 0.374 0.721 0.216 0.775",
+          "family": "doubao",
+          "model": "Doubao Seed 2.0 Pro",
+          "model_id": "doubao-reason"
+        }
+      ],
+      "title": "Image-to-3D"
+    },
+    {
+      "accent": "var(--coral)",
+      "groups": [
+        {
+          "label": "CadQuery",
+          "span": 5
+        },
+        {
+          "label": "OpenSCAD",
+          "span": 5
+        },
+        {
+          "label": "Average",
+          "span": 5
+        }
+      ],
+      "key": "assembly",
+      "metrics": [
+        "Geo",
+        "Topo",
+        "Judge",
+        "Part",
+        "Valid",
+        "Geo",
+        "Topo",
+        "Judge",
+        "Part",
+        "Valid",
+        "Geo",
+        "Topo",
+        "Judge",
+        "Part",
+        "Valid"
+      ],
+      "rows": [
+        {
+          "cells": "0.570! 0.948! 0.527! 0.610! 0.985! 0.603! 0.985 0.555! 0.649! 0.985 0.586! 0.966! 0.541! 0.629! 0.985!",
+          "family": "openai",
+          "model": "GPT-5.5",
+          "model_id": "gpt55-reason"
+        },
+        {
+          "cells": "0.532^ 0.899^ 0.461^ 0.595^ 0.931^ 0.600^ 0.989^ 0.553^ 0.641^ 0.989^ 0.566^ 0.944^ 0.507^ 0.618^ 0.960^",
+          "family": "gemini",
+          "model": "Gemini 3.1 Pro",
+          "model_id": "gemini-reason"
+        },
+        {
+          "cells": "0.508 0.890 0.330 0.564 0.925 0.542 0.962 0.423 0.582 0.963 0.525 0.926 0.376 0.573 0.944",
+          "family": "claude",
+          "model": "Claude Opus 4.6",
+          "model_id": "claude-reason"
+        },
+        {
+          "cells": "0.411 0.796 0.260 0.494 0.844 0.517 0.990! 0.343 0.603 0.990! 0.464 0.893 0.302 0.548 0.917",
+          "family": "kimi",
+          "model": "Kimi K2.6",
+          "model_id": "kimi_k26-reason"
+        },
+        {
+          "cells": "0.174 0.414 0.065 0.234 0.430 0.438 0.990! 0.175 0.542 0.990! 0.306 0.702 0.120 0.388 0.710",
+          "family": "mimo",
+          "model": "MiMo v2 Omni",
+          "model_id": "mimo_omni-reason"
+        },
+        {
+          "cells": "0.142 0.287 0.087 0.166 0.308 0.485 0.985 0.238 0.536 0.985 0.314 0.636 0.163 0.351 0.647",
+          "family": "qwen",
+          "model": "Qwen3.6-Plus",
+          "model_id": "qwen-reason"
+        },
+        {
+          "cells": "0.138 0.288 0.061 0.166 0.293 0.430 0.941 0.197 0.509 0.941 0.284 0.615 0.129 0.338 0.617",
+          "family": "zai",
+          "model": "GLM 5V Turbo",
+          "model_id": "glm_5v_turbo-reason"
+        },
+        {
+          "cells": "0.101 0.217 0.054 0.128 0.224 0.434 0.963 0.203 0.515 0.964 0.267 0.590 0.129 0.322 0.594",
+          "family": "doubao",
+          "model": "Doubao Seed 2.0 Pro",
+          "model_id": "doubao-reason"
+        }
+      ],
+      "title": "Assembly-3D"
+    }
+  ],
+  "schema": "p3d-aaai27-paper-current-v1",
+  "schema_version": 1,
+  "source_commits": {
+    "cadbenchmark": "bf20b37b6d5aa351aba4c2e4a4feb9076ff3c4e1",
+    "evaluator": "bf20b37b6d5aa351aba4c2e4a4feb9076ff3c4e1",
+    "p3d_bench_fresh": "4f795ff5f37c9e984ded47cce95a687ae04af429",
+    "paper": {
+      "input_base_git_sha": "9744c00d6821935e1ba9269be534a7940ef28583",
+      "role": "consumer_base"
+    },
+    "project_page": {
+      "input_base_git_sha": "8230fcd935c1ffbaf447efb26b3feaae7a97cd98",
+      "role": "consumer_base"
+    },
+    "workbench": "205a32fad310381682128691040243d175b758cc"
+  },
+  "source_files": [
+    {
+      "bytes": 40181,
+      "path": "manifest.json",
+      "sha256": "efcdd4b1c80fb57b1c790e6fff6edc5f7ca998870cd919618d78f28d0fcee883"
+    },
+    {
+      "bytes": 951,
+      "path": "text_to_3d/descriptive/json/tables/model_summary.csv",
+      "sha256": "611b3b4aec2a64c4ce3ebbae4823a352668b1297d461589d14f94fad4a289290"
+    },
+    {
+      "bytes": 919,
+      "path": "text_to_3d/descriptive/openscad/tables/model_summary.csv",
+      "sha256": "eec4af259cae1500cd240b0759f828aac4cbbf3669dfbac3f8b9e2523b16fb0a"
+    },
+    {
+      "bytes": 4045,
+      "path": "text_to_3d/parametric/json/tables/model_summary.csv",
+      "sha256": "8e543f118068f3f7b1ccbd5186b905ac81e2798d53e574b384ec431f77b56b55"
+    },
+    {
+      "bytes": 4009,
+      "path": "text_to_3d/parametric/json/qa/per_category.json",
+      "sha256": "70a5fa08f7f1311116fd5e966146838221d0a2e1097c11889f6842d7e2c5318d"
+    },
+    {
+      "bytes": 3373,
+      "path": "text_to_3d/parametric/openscad/tables/model_summary.csv",
+      "sha256": "7cfecf2c12f8c85c6565ca87d99c8ef03d12a52973ccfdc63481b3be939a9b50"
+    },
+    {
+      "bytes": 4011,
+      "path": "text_to_3d/parametric/openscad/qa/per_category.json",
+      "sha256": "9b1738505aac89e5de65e699460f81d9b31157d5da860abf5787e97d0f8da399"
+    },
+    {
+      "bytes": 4377,
+      "path": "baselines/third_party_native/model_summary.csv",
+      "sha256": "9fc2a8241df0786d8bddce4a4a6df12a261294ddb4622ae761d0b234cd803924"
+    }
+  ],
+  "source_model_ids": {
+    "Claude Opus 4.6": "claude",
+    "DeepSeek V4 Pro": "deepseek_v4pro",
+    "Doubao Seed 2.0 Pro": "doubao",
+    "GLM-5.1": "glm",
+    "GPT-5.5": "gpt55",
+    "Gemini 3.1 Pro": "gemini",
+    "Kimi K2.6": "kimi_k26",
+    "MiMo v2.5 Pro": "mimo_v25",
+    "Qwen3.6-Plus": "qwen"
+  },
+  "source_tree_state": {
+    "cadbenchmark": {
+      "clean": true
+    },
+    "p3d_bench_fresh": {
+      "clean": true
+    },
+    "workbench": {
+      "clean": true
+    }
+  },
+  "total_cases": 400
+}
