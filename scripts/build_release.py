@@ -19,6 +19,7 @@ from release_snapshot import (
     EXPECTED_PROTOCOL_ID,
     EXPECTED_RELEASE_ID,
     GPT_MODEL_IDS,
+    MODEL_FAMILY_ICONS,
     PRIVATE_TEXT_RE,
     SnapshotError,
     file_sha256,
@@ -346,6 +347,27 @@ def _verify_built_profile(root: Path, profile: str) -> None:
     source_manifest = json.loads(
         (REPO / "public" / "demo" / "manifest.json").read_text(encoding="utf-8")
     )
+    icon_models = (
+        source_manifest.get("models", [])
+        if profile == "anonymous"
+        else manifest.get("models", [])
+    )
+    expected_icons = {
+        icon
+        for model in icon_models
+        if isinstance(model, dict)
+        for icon in [MODEL_FAMILY_ICONS.get(model.get("family"))]
+        if icon
+    }
+    missing_icons = sorted(
+        icon
+        for icon in expected_icons
+        if not (root / "demo" / "icons" / "src" / icon).is_file()
+    )
+    if missing_icons:
+        raise SnapshotError(
+            f"{profile} release lacks model UI icons: {missing_icons}"
+        )
     expected_live = profile == "public"
     if release_manifest.get("profile") != profile:
         raise SnapshotError("release manifest profile does not match build profile")

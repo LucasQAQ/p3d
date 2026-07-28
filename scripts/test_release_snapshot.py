@@ -366,6 +366,8 @@ class ReleaseProfileTransformTests(unittest.TestCase):
                 ["mimo-reason"],
             )
             self.assertEqual(audit["retired_model_count_excluded"], 1)
+            self.assertTrue((target / "icons/src/openai.svg").is_file())
+            self.assertTrue((target / "icons/src/xiaomimimo.svg").is_file())
             self.assertEqual(
                 hashlib.sha256(
                     "\n".join(sorted(run_ids)).encode("utf-8")

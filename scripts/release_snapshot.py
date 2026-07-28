@@ -25,6 +25,18 @@ REQUIRED_PROJECT_PAGE_ASSETS = frozenset(
 RELEASE_PROFILES = frozenset({"public", "paper", "anonymous"})
 RETIRED_MODEL_IDS = frozenset({"mimo-reason"})
 GPT_MODEL_IDS = frozenset({"gpt55-reason"})
+MODEL_FAMILY_ICONS = {
+    "openai": "openai.svg",
+    "gemini": "gemini-color.svg",
+    "claude": "claude-color.svg",
+    "fable": "claude-color.svg",
+    "kimi": "kimi-color.svg",
+    "zai": "zai.svg",
+    "doubao": "bytedance-color.svg",
+    "deepseek": "deepseek-color.svg",
+    "qwen": "qwen-color.svg",
+    "mimo": "xiaomimimo.svg",
+}
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 GIT_SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 EXTERNAL_URL_RE = re.compile(r"https?://", re.IGNORECASE)
@@ -525,7 +537,11 @@ def prepare_demo(
 
     target_demo.mkdir(parents=True, exist_ok=True)
     _copy_manifest_assets(source_demo, target_demo, runs, cases)
-    _copy_model_icons(source_demo, target_demo, models)
+    # The interactive anonymous demo is GPT-only, but the paper leaderboard
+    # still renders every paper model. Keep those tiny local UI dependencies
+    # without retaining non-GPT runs or model metadata in the demo manifest.
+    icon_models = source.get("models", []) if profile == "anonymous" else models
+    _copy_model_icons(source_demo, target_demo, icon_models)
     source_complex_assembly_count = _complex_assembly_count(source_demo)
     complex_assembly_count = 0
     if profile != "anonymous":
@@ -695,20 +711,8 @@ def _copy_model_icons(
     target_demo: Path,
     models: list[dict[str, Any]],
 ) -> None:
-    family_icons = {
-        "openai": "openai.svg",
-        "gemini": "gemini-color.svg",
-        "claude": "claude-color.svg",
-        "fable": "claude-color.svg",
-        "kimi": "kimi-color.svg",
-        "zai": "zai.svg",
-        "doubao": "bytedance-color.svg",
-        "deepseek": "deepseek-color.svg",
-        "qwen": "qwen-color.svg",
-        "mimo": "xiaomimimo.svg",
-    }
     for model in models:
-        icon = family_icons.get(model.get("family"))
+        icon = MODEL_FAMILY_ICONS.get(model.get("family"))
         if icon:
             _copy_relative_file(
                 source_demo,
