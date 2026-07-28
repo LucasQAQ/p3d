@@ -52,8 +52,9 @@ Release profiles are deliberately separate:
 
 The builder fails closed unless the snapshot has the exact release and protocol
 IDs, a valid canonical content hash, ordered Text/Image/Assembly result tables,
-canonical-ID model order, `model_id` on every evaluated row, source commits,
-hashed assets, and pinned task provenance. Text
+a global canonical model-ID set plus a fixed order for each task table,
+`model_id` on every evaluated row, source commits, hashed assets, and pinned
+task provenance. Text
 must name `paper_current`; Image and Assembly must identify explicit pinned
 sources. Workbench and evaluator SHAs are exact inputs. Because the paper and
 project page consume the snapshot, their entries are explicitly

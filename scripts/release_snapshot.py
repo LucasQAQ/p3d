@@ -146,6 +146,27 @@ def validate_snapshot(
         or len(model_order) != len(set(model_order))
     ):
         raise SnapshotError("model_order must be a non-empty list of unique strings")
+    model_orders = snapshot.get("model_orders")
+    if (
+        not isinstance(model_orders, dict)
+        or set(model_orders) != set(EXPECTED_TABLE_KEYS)
+    ):
+        raise SnapshotError(
+            f"model_orders keys must be exactly {EXPECTED_TABLE_KEYS}"
+        )
+    for table_key in EXPECTED_TABLE_KEYS:
+        order = model_orders[table_key]
+        if (
+            not isinstance(order, list)
+            or not order
+            or not all(isinstance(item, str) and item for item in order)
+            or len(order) != len(set(order))
+            or any(item not in model_order for item in order)
+        ):
+            raise SnapshotError(
+                f"model_orders.{table_key} must be a non-empty unique "
+                "subset of model_order"
+            )
 
     commits = snapshot.get("source_commits")
     if not isinstance(commits, dict):
@@ -198,6 +219,7 @@ def validate_snapshot(
     _validate_result_tables(
         result_tables,
         model_order,
+        model_orders,
         require_model_ids=not allow_legacy_model_labels,
     )
     _validate_no_private_text(snapshot)
@@ -298,6 +320,7 @@ def _validate_task_source(
 def _validate_result_tables(
     raw_tables: Any,
     model_order: list[str],
+    model_orders: dict[str, list[str]],
     *,
     require_model_ids: bool,
 ) -> None:
@@ -308,18 +331,20 @@ def _validate_result_tables(
         raise SnapshotError(
             f"result_tables keys must be exactly {EXPECTED_TABLE_KEYS}, got {tuple(keys)}"
         )
-    order_index = {model: index for index, model in enumerate(model_order)}
+    known_models = set(model_order)
     for table in raw_tables:
         _validate_result_table(
             table,
-            order_index,
+            known_models,
+            model_orders[table["key"]],
             require_model_ids=require_model_ids,
         )
 
 
 def _validate_result_table(
     table: dict[str, Any],
-    order_index: dict[str, int],
+    known_models: set[str],
+    expected_order: list[str],
     *,
     require_model_ids: bool,
 ) -> None:
@@ -341,7 +366,7 @@ def _validate_result_table(
         raise SnapshotError(f"result table {key} must contain rows")
 
     seen_models: set[str] = set()
-    ordered_positions: list[int] = []
+    actual_order: list[str] = []
     for row in rows:
         model = _validate_result_row(key, row, len(metrics))
         model_id = row.get("model_id")
@@ -354,14 +379,16 @@ def _validate_result_table(
             raise SnapshotError(f"result table {key} row {model} has invalid model_id")
         if identity in seen_models:
             raise SnapshotError(f"result table {key} repeats model {identity}")
-        if identity not in order_index:
+        if identity not in known_models:
             raise SnapshotError(
                 f"result table {key} model absent from model_order: {identity}"
             )
         seen_models.add(identity)
-        ordered_positions.append(order_index[identity])
-    if ordered_positions != sorted(ordered_positions):
-        raise SnapshotError(f"result table {key} rows do not follow model_order")
+        actual_order.append(identity)
+    if actual_order != expected_order:
+        raise SnapshotError(
+            f"result table {key} rows do not follow model_orders.{key}"
+        )
 
     for row in table.get("domainRows", []):
         _validate_result_row(key, row, len(metrics))

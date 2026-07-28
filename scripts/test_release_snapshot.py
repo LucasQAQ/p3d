@@ -57,6 +57,11 @@ def synthetic_snapshot() -> dict:
         "protocol_id": EXPECTED_PROTOCOL_ID,
         "generated_at": "2026-07-28T00:00:00Z",
         "model_order": ["model-a"],
+        "model_orders": {
+            "text": ["model-a"],
+            "image": ["model-a"],
+            "assembly": ["model-a"],
+        },
         "source_commits": {
             "workbench": "1" * 40,
             "evaluator": "2" * 40,
@@ -110,10 +115,37 @@ class SnapshotValidationTests(unittest.TestCase):
         for table in snapshot["result_tables"]:
             table["rows"][0].pop("model_id", None)
         snapshot["model_order"] = ["Model A"]
+        snapshot["model_orders"] = {
+            "text": ["Model A"],
+            "image": ["Model A"],
+            "assembly": ["Model A"],
+        }
         snapshot["content_sha256"] = computed_content_sha256(snapshot)
         with self.assertRaisesRegex(SnapshotError, "canonical model_id"):
             validate_snapshot(snapshot)
         validate_snapshot(snapshot, allow_legacy_model_labels=True)
+
+    def test_each_table_has_its_own_fixed_model_order(self) -> None:
+        snapshot = synthetic_snapshot()
+        snapshot["model_order"] = ["model-a", "model-b"]
+        snapshot["model_orders"]["image"] = ["model-b", "model-a"]
+        image = snapshot["result_tables"][1]
+        image["rows"] = [
+            {
+                "model": "Model B",
+                "model_id": "model-b",
+                "family": "other",
+                "cells": "0.400",
+            },
+            image["rows"][0],
+        ]
+        snapshot["content_sha256"] = computed_content_sha256(snapshot)
+        validate_snapshot(snapshot)
+
+        image["rows"].reverse()
+        snapshot["content_sha256"] = computed_content_sha256(snapshot)
+        with self.assertRaisesRegex(SnapshotError, "model_orders.image"):
+            validate_snapshot(snapshot)
 
     def test_rejects_final_commit_semantics_for_consumers(self) -> None:
         snapshot = synthetic_snapshot()
