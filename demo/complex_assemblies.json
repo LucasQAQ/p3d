@@ -2,6 +2,136 @@
   "schema_version": 1,
   "items": [
     {
+      "id": "24893_b2906d17__gpt55_ctok_threejs",
+      "case_id": "textimage2cad/24893_b2906d17",
+      "short_case_id": "24893_b2906d17",
+      "title": "Viewed at an oblique angle, the rendered image shows a disc-shaped assembly dominated by a large toothed ring...",
+      "model": "gpt55_ctok-reason",
+      "model_label": "GPT-5.5",
+      "format": "threejs",
+      "format_label": "Three.js",
+      "condition": "Viewed at an oblique angle, the rendered image shows a disc-shaped assembly dominated by a large toothed ring at the outer boundary, three medium-sized spur gears evenly spaced inside it, and a flat three-lobed carrier linking them, with a cylindrical shaft extending axially. The grounded count is zero, and the tree depth is 1 (flat hierarchy with no sub-assemblies). The internal ring gear (ef30f3a4, 1 instance) measures 108 × 108 × 9.5 mm with an aspect ratio of 11.37, carries 60 internal teeth with conical flanks at ±20° inclination, and provides 3 cylinder-on-plane contacts where its outer rim seats against mating flat faces. Three 24-tooth spur gears (ef338bc2, 3 instances, each ~33.1 × 33.1 × 14.0 mm) serve as planet gears, each containing a central bore of ~7.7 mm diameter and six shallow blind recesses (diameter 22.5 mm, depth ~1.4–1.5 mm) forming hub regions; they contribute 3 mating-plane and 3 cylinder-on-plane contacts collectively. The tri-lobe carrier (ef333dca, 1 instance, ~63.8 × 57.5 × 6.0 mm thick) has three convex lobe tips at radius 25.0 mm blended by concave arcs at radius 8.5 mm, creating three pockets for the planet gears, and contributes 3 plane-on-plane contacts. Three solid cylindrical spacers (ef796e7a, 3 instances, diameter 12.5 mm × 5.5 mm tall) appear to serve as planet axle bushings or plugs seated in the carrier's lobe centers. Two straight bevel gears (ef5d820a and ef6b64ba, 1 instance each, ~29.79 × 29.79 × 8.87 mm, 24 teeth each) with conical tooth profiles and elliptical edge intersections appear to engage with the planet gears or provide input/output axes; one (ef6b64ba) has a blind bore of diameter 19.0 mm × 3.87 mm deep. Two plain cylindrical pins (ef7a58d8, diameter 11.0 mm × 49.0 mm; ef307ea4, diameter 10.0 mm × 49.0 mm) serve as shafts or locating dowels; the larger pin shows one plane-on-plane contact. Layout tags confirm a 3-fold rotational arrangement for both the planet gears and the spacers, both sharing an axis along [1, 0, 0].\n\nParts:\n- gear (×3): A 24-tooth spur gear approximately 33.1 mm in outer diameter and 14 mm in face width (aspect ratio ≈ 2.37). Involute tooth profiles are represented by 288 B-spline surfaces with root fillets at 0.425 mm radius, while the root circle lies at radius 12.92 mm. A central bore of approximately 7.7 mm diameter appears to permit shaft mounting, and shallow 22.5 mm-diameter blind recesses on both axial faces create a raised hub. Three instances exist in the assembly, each participating in one plane-on-plane and one cylinder-on-plane contact, suggesting the gear likely seats axially against adjacent components while its bore engages a shaft.\n- bevel_gear: A disc-shaped solid roughly 29.8 mm in diameter and 8.87 mm thick (aspect ratio 3.36) featuring 24 periodically spaced conical teeth, whose flanks are defined by 288 B-spline surfaces and whose root transitions carry small fillets at radius 0.3825 mm. A single Plane/Plane contact pair indicates one flat end face likely mates against an adjacent planar surface such as a shaft shoulder. The overall conical tooth geometry, elliptical edge profiles, and evenly distributed tooth-root fillets are consistent with a straight bevel gear that could transmit rotational motion between non-parallel shafts.\n- bevel_gear: A straight bevel gear approximately 29.8 mm in outer diameter and 8.9 mm in face width (aspect ratio 3.36) with 24 teeth confirmed by the 24-fold periodicity of plane normals and 24 cylindrical root-segment faces at radius 11.63 mm. Tooth flanks are formed by 288 BSplineSurface faces on a conical pitch surface, and 144 elliptical edges arise from cone-cylinder intersections. A central blind bore of Ø 19.0 mm (depth 3.87 mm) along the gear axis, with a possible smaller Ø 8.0 mm pilot bore at its bottom, appears to permit shaft mounting. This part likely serves as a bevel gear that could mesh with a mating gear at an intersecting axis angle.\n- cylindrical_spacer (×3): A plain solid cylinder 12.5 mm in diameter and 5.5 mm tall (aspect ratio ~2.27), comprising two flat end faces and one cylindrical lateral surface with a radius of 6.25 mm. It has no holes, chamfers, or internal features; its volume of ~675 mm³ matches a fully solid disc. Three instances exist in the assembly with no recorded contact pairs. The simple puck-like geometry suggests this part likely serves as a spacer, plug, or cap.\n- internal_ring_gear: A thin annular ring (108 mm outer diameter, 9.5 mm thick, aspect ratio ~11.4) with approximately 60 internal teeth characterized by inclined planar flanks (±20° from radial), cylindrical root arcs at R = 41 mm, 122 conical tooth surfaces, and 120 small 0.625 mm fillets at tooth transitions. The smooth outer rim at R = 54 mm participates in 3 cylinder-on-plane assembly contacts, suggesting it seats in a flat-faced housing. This part likely serves as an internal ring gear or face gear that could mesh with a mating pinion or planet gears.\n- pin: A simple solid cylinder approximately 11.0 mm in diameter (radius 5.5 mm) and 49.0 mm long, with an aspect ratio of about 4.5. It has just three faces — one cylindrical barrel and two flat circular end caps — with no holes, grooves, or stepped features. In the assembly it makes one plane-on-plane contact at an end face, suggesting it seats against a flat surface. The part likely serves as a locating pin or dowel, with its cylindrical surface permitting insertion into a matching bore.\n- tri_lobe_knob: A thin three-lobed (tri-arm) solid knob approximately 64 mm across and 6 mm thick (aspect ratio ~10.6). Three convex lobe tips are formed by cylindrical faces of radius 25 mm, with concave inter-lobe blends at radius 8.5 mm, and chamfered perimeter edges (6 conical faces). It has two flat planar deck faces and no holes; in its assembly it participates in 3 plane-on-plane contacts via its flat surfaces. The ergonomic tri-lobe profile and flat mating faces suggest it likely serves as a hand-operated grip or adjustment knob.\n- pin: A simple solid cylinder with a diameter of 10.0 mm (radius 5.0 mm) and an axial length of 49.0 mm, yielding an aspect ratio of approximately 4.9. The body has only three faces — one cylindrical outer surface and two flat, parallel end faces — with no holes, steps, or chamfers. No assembly contact pairs are recorded. Given its unadorned cylindrical form, this part likely serves as a dowel pin or locating pin that could be inserted into a matching bore.\n\nAnnotation Caveats:\nNo hole-edge inferences were detected despite the presence of bores on the planet gears (Ø7.7 mm) and bevel gear (Ø19 mm) and shaft pins (Ø10, Ø11 mm), suggesting clearance gaps or non-coincident placement in the captured configuration. The cylindrical spacers (ef796e7a) record no contact-surface pairs, so their precise seating location is inferred from the 3-fold layout tag rather than direct contact evidence. The pin ef307ea4 also shows no contacts. The two bevel gears are geometrically nearly identical (same bbox, same tooth count) but are stored as separate unique parts — whether they differ in bore configuration or tooth-hand is unclear from the data alone.",
+      "assets": {
+        "gt_render": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/gt_render.png",
+        "pred_render": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/pred_render.png",
+        "mesh": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/model.stl",
+        "stage2_mesh": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/model.stl"
+      },
+      "metrics": {
+        "gt_parts": 8,
+        "pred_parts": 8,
+        "matched_count": 8,
+        "match_f1": 1.0,
+        "match_precision": 1.0,
+        "match_recall": 1.0,
+        "per_part_f_score": 0.969,
+        "chamfer_distance": 0.000725,
+        "judge_avg": 7.5,
+        "judge_geometry": 6,
+        "judge_aesthetics": 8,
+        "judge_semantic": 9
+      },
+      "judge_reason": "In views 2 and 3, PRED incorrectly features two parallel cylindrical shafts extending from the central sun gear area, whereas GT has only a single central shaft. In views 1 and 4, PRED's tri-lobe carrier has a circular recess/boss in the center, while GT's carrier has a smooth, solid center. Otherwise, the complex planetary gear arrangement, ring gear, and planet gears are well-replicated. The misplaced second shaft is a noticeable structural error.",
+      "parts": [
+        {
+          "index": 0,
+          "label": "Part 01",
+          "name": "ring gear",
+          "semantic": "Internal ring gear with face lips",
+          "mesh": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/parts/part_00.stl",
+          "size_kb": 2355.9
+        },
+        {
+          "index": 1,
+          "label": "Part 02",
+          "name": "planet gear 1",
+          "semantic": "External planet gear with hubs and recess rings",
+          "mesh": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/parts/part_01.stl",
+          "size_kb": 2945.8
+        },
+        {
+          "index": 2,
+          "label": "Part 03",
+          "name": "planet gear 2",
+          "semantic": "External planet gear with hubs and recess rings",
+          "mesh": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/parts/part_02.stl",
+          "size_kb": 2966.6
+        },
+        {
+          "index": 3,
+          "label": "Part 04",
+          "name": "planet gear 3",
+          "semantic": "External planet gear with hubs and recess rings",
+          "mesh": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/parts/part_03.stl",
+          "size_kb": 3003.8
+        },
+        {
+          "index": 4,
+          "label": "Part 05",
+          "name": "bevel gear upper",
+          "semantic": "Bevel gear with teeth facing positive X, with blind bore",
+          "mesh": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/parts/part_04.stl",
+          "size_kb": 1198.9
+        },
+        {
+          "index": 5,
+          "label": "Part 06",
+          "name": "bevel gear lower",
+          "semantic": "Bevel gear with teeth facing negative X",
+          "mesh": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/parts/part_05.stl",
+          "size_kb": 1072.7
+        },
+        {
+          "index": 6,
+          "label": "Part 07",
+          "name": "central shaft",
+          "semantic": "Central cylindrical shaft/pin",
+          "mesh": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/parts/part_06.stl",
+          "size_kb": 61.2
+        },
+        {
+          "index": 7,
+          "label": "Part 08",
+          "name": "planet shaft",
+          "semantic": "Planet carrier pin shaft",
+          "mesh": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/parts/part_07.stl",
+          "size_kb": 57.6
+        },
+        {
+          "index": 8,
+          "label": "Part 09",
+          "name": "carrier plate",
+          "semantic": "Tri-lobed planet carrier plate",
+          "mesh": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/parts/part_08.stl",
+          "size_kb": 816.1
+        },
+        {
+          "index": 9,
+          "label": "Part 10",
+          "name": "spacer 1",
+          "semantic": "Cylindrical spacer with face rings at planet position 1",
+          "mesh": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/parts/part_09.stl",
+          "size_kb": 918.9
+        },
+        {
+          "index": 10,
+          "label": "Part 11",
+          "name": "spacer 2",
+          "semantic": "Cylindrical spacer with face rings at planet position 2",
+          "mesh": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/parts/part_10.stl",
+          "size_kb": 932.3
+        },
+        {
+          "index": 11,
+          "label": "Part 12",
+          "name": "spacer 3",
+          "semantic": "Cylindrical spacer with face rings at planet position 3",
+          "mesh": "complex_assemblies/24893_b2906d17__gpt55_ctok_threejs/parts/part_11.stl",
+          "size_kb": 939.6
+        }
+      ]
+    },
+    {
       "id": "24584_a13ef50c__claude_cadquery",
       "case_id": "textimage2cad/24584_a13ef50c",
       "short_case_id": "24584_a13ef50c",

@@ -10,12 +10,20 @@
     "glm_5v_turbo-reason",
     "gpt55-reason",
     "kimi_k26-reason",
+    "mimo-reason",
     "mimo_omni-reason",
     "mimo_v25-reason",
     "qwen-reason"
   ],
+  "source_model_count": 12,
+  "source_case_count": 54,
+  "source_run_count": 1022,
+  "source_complex_assembly_count": 8,
+  "model_count": 12,
   "case_count": 54,
-  "run_count": 974,
-  "retired_model_count_excluded": 1,
-  "selected_run_ids_sha256": "fd8024da3ceae2d509f40ff40ea07996cb0e8814b6349088bff74a41160aee32"
+  "run_count": 1022,
+  "complex_assembly_count": 8,
+  "retired_model_ids_excluded": [],
+  "retired_model_count_excluded": 0,
+  "selected_run_ids_sha256": "965aa24327e150b568f28f91b3226622c17ad4e4b931e50a87c5296f021ab7ae"
 }
