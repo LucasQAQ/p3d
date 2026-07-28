@@ -5,7 +5,15 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 import "./styles.css";
-import { liveResultTables, paperResultTables, type ResultSubtable, type ResultTableRow } from "./resultsData";
+import type { ResultSubtable, ResultTableRow } from "./resultsData";
+import { loadPaperResultTables } from "./paperSnapshot";
+
+const RELEASE_PROFILE = import.meta.env.VITE_P3D_RELEASE_PROFILE || "development";
+const IS_ANONYMOUS = RELEASE_PROFILE === "anonymous";
+const INCLUDE_LIVE = RELEASE_PROFILE === "development"
+  ? true
+  : import.meta.env.VITE_P3D_INCLUDE_LIVE === "true";
+const HAS_PAPER_SNAPSHOT = Boolean(import.meta.env.VITE_P3D_SNAPSHOT_SHA256);
 
 type AssetMap = {
   gt_render?: string;
@@ -83,8 +91,6 @@ type InputModalItem = {
   inputImage?: string;
   subtitle: string;
 };
-type LeaderboardRow = { model: string; family: string; score: number };
-type LeaderboardTask = { title: string; accent: string; rows: LeaderboardRow[] };
 type ModelFamilyStyle = { color: string; icon: string; tile?: string; filter?: string };
 type AvailabilitySummary = { invalidCount: number; caseCount: number; modelCount: number; formatCount: number };
 type ComplexAssemblyPart = {
@@ -120,11 +126,14 @@ const fallbackManifest: Manifest = {
   schema_version: 1,
   paper: {
     title: "P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning",
-    authors: ["Yikang Yang¹,*", "Zhanpeng Hu¹,*", "Youtian Lin¹", "Mengqi Zhou¹", "Jingxi Xu²", "Feihu Zhang²", "Jiaheng Liu¹", "Yao Yao¹"],
-    affiliations: ["¹Nanjing University", "²Envision", "*Equal contribution."],
+    authors: IS_ANONYMOUS
+      ? ["Anonymous authors"]
+      : ["Yikang Yang¹,*", "Zhanpeng Hu¹,*", "Youtian Lin¹", "Mengqi Zhou¹", "Jingxi Xu²", "Feihu Zhang²", "Jiaheng Liu¹", "Yao Yao¹"],
+    affiliations: IS_ANONYMOUS
+      ? ["Anonymous submission"]
+      : ["¹Nanjing University", "²Envision", "*Equal contribution."],
     abstract:
-      "Multimodal large language models can write code to produce complex programs as well as use programs to do 3D modeling, which opens up a new avenue for 3D generation powered by their priors, world knowledge and reasoning. Yet existing benchmarks rarely evaluate 3D modeling through code. Such modeling demands more than runnable code: from a text or visual specification, a model must generate a parametric 3D program that is geometrically precise, semantically aligned and assembly-consistent. We introduce P3D-Bench, a benchmark for parametric 3D generation. Unlike a 3D mesh, a parametric 3D program exposes explicit dimensions, construction operations and part relations, revealing whether a model recovers a design's structure, not just its appearance. Under a unified protocol, P3D-Bench covers three task families (Text-to-3D, Image-to-3D and Assembly-3D) and scores each output for executability, geometric fidelity, topology, text-grounded constraints, multiview semantic alignment and part-level structure. We evaluate frontier MLLMs and text-only LLMs on 400 text cases, 400 image cases and 203 annotated assemblies, with domain-specific models as reference points. Our extensive evaluation yields three findings. First, assemblies are the hardest setting, where models still fail to compose multiple parts into a coherent structure. Second, models can often recover the global shape and semantic identity of the target object, yet fail to reproduce the precise parametric geometry specified by the input. Third, part-level modeling remains weak on assemblies, where models recover neither the geometry of each part nor the right number of parts. These results position P3D-Bench as a benchmark for evaluating precise parametric geometry and part-level structure in parametric 3D generation. Project page: https://lucasqaq.github.io/p3d/.",
-    links: { code: "https://github.com/SpatiaOS/P3D-Bench" }
+      "P3D-Bench evaluates parametric 3D generation and structural reasoning across text, image, and assembly conditions."
   },
   tasks: [
     { id: "text2cad", label: "Text-to-3D", formats: ["JSON", "OpenSCAD"], status: "interactive" },
@@ -148,6 +157,11 @@ function asset(path?: string) {
   return `${base}demo/${path}`;
 }
 
+function releaseAsset(path: string) {
+  const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+  return `${base}release/${path}`;
+}
+
 function App() {
   const [manifest, setManifest] = useState<Manifest>(fallbackManifest);
   const [complexAssemblies, setComplexAssemblies] = useState<ComplexAssemblyItem[]>([]);
@@ -166,6 +180,10 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (IS_ANONYMOUS) {
+      setComplexAssemblies([]);
+      return;
+    }
     fetch(asset("complex_assemblies.json"))
       .then((res) => (res.ok ? res.json() : { items: [] }))
       .then((data: ComplexAssemblyData) => setComplexAssemblies(Array.isArray(data.items) ? data.items : []))
@@ -254,7 +272,7 @@ function App() {
         <a className="brand" href="#top">P3D-Bench</a>
         <div>
           <a href="#results">Results</a>
-          <a href="#gallery">Viewer</a>
+          {!IS_ANONYMOUS ? <a href="#gallery">Viewer</a> : null}
         </div>
       </nav>
 
@@ -271,8 +289,8 @@ function App() {
             {paper.affiliations?.map((affiliation) => <span className="affiliation-item" key={affiliation}>{renderAffiliation(affiliation)}</span>)}
           </div>
           <div className="actions">
-            <a href={paper.links?.paper || "#top"}><BookOpen size={17} /> Paper</a>
-            <a href={paper.links?.code || "https://github.com/SpatiaOS/P3D-Bench"}><Github size={17} /> Code</a>
+            {!IS_ANONYMOUS && paper.links?.paper ? <a href={paper.links.paper}><BookOpen size={17} /> Paper</a> : null}
+            {!IS_ANONYMOUS && paper.links?.code ? <a href={paper.links.code}><Github size={17} /> Code</a> : null}
             <a href="#results"><Play size={17} /> Demo</a>
             <a href="#citation"><Braces size={17} /> Citation</a>
           </div>
@@ -361,19 +379,25 @@ function App() {
         )}
       </section>
 
-      <section id="gallery" className="section">
-        <div className="section-heading">
-          <h2>Render Showcase</h2>
-        </div>
-        <RenderShowcase comparisons={showcaseComparisons} />
-        <GalleryPartShowcase items={complexAssemblies} />
-      </section>
+      {!IS_ANONYMOUS ? (
+        <section id="gallery" className="section">
+          <div className="section-heading">
+            <h2>Render Showcase</h2>
+          </div>
+          <RenderShowcase comparisons={showcaseComparisons} />
+          <GalleryPartShowcase items={complexAssemblies} />
+        </section>
+      ) : null}
 
       <section id="citation" className="section citation">
         <div className="citation-heading">
           <h2>Citation</h2>
         </div>
-        <pre><code>{`@article{p3dbench2026,
+        <pre><code>{IS_ANONYMOUS ? `@article{anonymous2027,
+  title={P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning},
+  author={Anonymous Authors},
+  year={2027}
+}` : `@article{p3dbench2026,
   title={P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning},
   author={Yang, Yikang and Hu, Zhanpeng and Lin, Youtian and Zhou, Mengqi and Xu, Jingxi and Zhang, Feihu and Liu, Jiaheng and Yao, Yao},
   year={2026}
@@ -466,7 +490,6 @@ const modelComparisonPreference = [
   "glm_5v_turbo-reason",
   "glm-reason",
   "mimo_v25-reason",
-  "mimo-reason",
 ];
 
 const showcaseCasePreference: Record<string, string[]> = {
@@ -630,59 +653,12 @@ const modelFamilies: Record<string, ModelFamilyStyle> = {
   mimo: { color: "#FF6900", icon: "icons/src/xiaomimimo.svg", tile: "#111619", filter: "invert(1)" },
 };
 
-const leaderboardTasks: LeaderboardTask[] = [
-  {
-    title: "Text-to-3D",
-    accent: "#285c8f",
-    rows: [
-      { model: "GPT-5.5", family: "openai", score: 0.848 },
-      { model: "Gemini 3.1 Pro", family: "gemini", score: 0.835 },
-      { model: "Claude Opus 4.6", family: "claude", score: 0.831 },
-      { model: "Kimi K2.6", family: "kimi", score: 0.796 },
-      { model: "GLM-5.1", family: "zai", score: 0.782 },
-      { model: "Doubao Seed 2.0 Pro", family: "doubao", score: 0.762 },
-      { model: "DeepSeek V4 Pro", family: "deepseek", score: 0.762 },
-      { model: "Qwen3.6-Plus", family: "qwen", score: 0.748 },
-      { model: "MiMo v2.5 Pro", family: "mimo", score: 0.744 },
-      { model: "MiMo v2 Pro", family: "mimo", score: 0.741 },
-    ],
-  },
-  {
-    title: "Image-to-3D",
-    accent: "#b46e4c",
-    rows: [
-      { model: "GPT-5.5", family: "openai", score: 0.675 },
-      { model: "Gemini 3.1 Pro", family: "gemini", score: 0.667 },
-      { model: "Claude Opus 4.6", family: "claude", score: 0.620 },
-      { model: "Kimi K2.6", family: "kimi", score: 0.592 },
-      { model: "GLM 5V Turbo", family: "zai", score: 0.491 },
-      { model: "Qwen3.6-Plus", family: "qwen", score: 0.475 },
-      { model: "MiMo v2 Omni", family: "mimo", score: 0.452 },
-      { model: "Doubao Seed 2.0 Pro", family: "doubao", score: 0.437 },
-    ],
-  },
-  {
-    title: "Assembly-3D",
-    accent: "#337665",
-    rows: [
-      { model: "Gemini 3.1 Pro", family: "gemini", score: 0.659 },
-      { model: "GPT-5.5", family: "openai", score: 0.657 },
-      { model: "Claude Opus 4.6", family: "claude", score: 0.594 },
-      { model: "Kimi K2.6", family: "kimi", score: 0.538 },
-      { model: "MiMo v2 Omni", family: "mimo", score: 0.359 },
-      { model: "Qwen3.6-Plus", family: "qwen", score: 0.353 },
-      { model: "GLM 5V Turbo", family: "zai", score: 0.330 },
-      { model: "Doubao Seed 2.0 Pro", family: "doubao", score: 0.316 },
-    ],
-  },
-];
-
 function MainFigures() {
   return (
     <div className="main-figures">
       <figure className="leaderboard-figure">
         <a href="./figures/fig_tasks_grouped_bars.pdf" aria-label="Open leaderboard figure PDF">
-          <img src="./figures/fig_tasks_grouped_bars.svg?v=vector-qwen-20260609" alt="Task overview: grouped bar scores across text, image and assembly tasks" />
+          <img src="./figures/fig_tasks_grouped_bars.svg" alt="Task overview: grouped bar scores across text, image and assembly tasks" />
         </a>
       </figure>
     </div>
@@ -733,15 +709,42 @@ function rowCost(row: ResultTableRow) {
 }
 
 function ResultsTables() {
-  const [view, setView] = useState<"paper" | "live">("live");
-  const subtables = view === "paper" ? paperResultTables : liveResultTables;
+  const [view, setView] = useState<"paper" | "live">(HAS_PAPER_SNAPSHOT ? "paper" : "live");
+  const [paperTables, setPaperTables] = useState<ResultSubtable[] | null>(null);
+  const [liveTables, setLiveTables] = useState<ResultSubtable[] | null>(null);
+  const [paperError, setPaperError] = useState("");
+
+  useEffect(() => {
+    if (INCLUDE_LIVE) {
+      import("./resultsData").then((module) => setLiveTables(module.liveResultTables));
+    }
+    if (!HAS_PAPER_SNAPSHOT) {
+      setPaperError("This build does not contain a verified paper snapshot.");
+      return;
+    }
+    loadPaperResultTables(releaseAsset("paper-snapshot.json"))
+      .then((tables) => {
+        setPaperTables(tables);
+        setPaperError("");
+      })
+      .catch((error: unknown) => {
+        setPaperTables(null);
+        setPaperError(error instanceof Error ? error.message : "Paper snapshot validation failed.");
+      });
+  }, []);
+
+  const subtables = view === "paper" ? paperTables : liveTables;
   return (
     <div className="results-tables">
-      <div className="results-view-toggle" role="tablist" aria-label="Leaderboard version">
-        <button type="button" role="tab" aria-selected={view === "paper"} className={view === "paper" ? "rv-tab active" : "rv-tab"} onClick={() => setView("paper")}>Paper results</button>
-        <button type="button" role="tab" aria-selected={view === "live"} className={view === "live" ? "rv-tab active" : "rv-tab"} onClick={() => setView("live")}>Live leaderboard</button>
-      </div>
-      {subtables.map((subtable) => <ResultsSubtableTable subtable={subtable} key={`${view}-${subtable.key}`} />)}
+      {INCLUDE_LIVE ? (
+        <div className="results-view-toggle" role="tablist" aria-label="Leaderboard version">
+          <button type="button" role="tab" aria-selected={view === "paper"} className={view === "paper" ? "rv-tab active" : "rv-tab"} onClick={() => setView("paper")}>Paper results</button>
+          <button type="button" role="tab" aria-selected={view === "live"} className={view === "live" ? "rv-tab active" : "rv-tab"} onClick={() => setView("live")}>Live leaderboard</button>
+        </div>
+      ) : null}
+      {subtables
+        ? subtables.map((subtable) => <ResultsSubtableTable subtable={subtable} key={`${view}-${subtable.key}`} />)
+        : <Placeholder title="Paper results unavailable" text={paperError || "Verifying the paper snapshot…"} />}
     </div>
   );
 }
@@ -850,83 +853,6 @@ function ResultsSubtableTable({ subtable }: { subtable: ResultSubtable }) {
       </div>
       {subtable.note ? <p className="rt-note">{subtable.note}</p> : null}
     </div>
-  );
-}
-
-function PipelinePlaceholder() {
-  return (
-    <article className="pipeline-placeholder">
-      <div className="pipeline-copy">
-        <span>Pipeline</span>
-        <h3>Placeholder</h3>
-      </div>
-      <div className="pipeline-skeleton" aria-hidden="true">
-        <div className="skeleton-node wide" />
-        <div className="skeleton-arrow" />
-        <div className="skeleton-node" />
-        <div className="skeleton-arrow" />
-        <div className="skeleton-node accent" />
-      </div>
-    </article>
-  );
-}
-
-function LeaderboardFigure() {
-  return (
-    <article className="leaderboard-card">
-      <div className="leaderboard-head">
-        <div>
-          <span>Leaderboard</span>
-          <h3>Model Ranking</h3>
-        </div>
-      </div>
-      <div className="leaderboard-axis" aria-hidden="true">
-        <span>0.0</span>
-        <span>0.3</span>
-        <span>0.6</span>
-        <span>0.9</span>
-      </div>
-      <div className="leaderboard-panels">
-        {leaderboardTasks.map((task) => <LeaderboardPanel task={task} key={task.title} />)}
-      </div>
-    </article>
-  );
-}
-
-function LeaderboardPanel({ task }: { task: LeaderboardTask }) {
-  return (
-    <section className="leaderboard-panel" style={{ "--task-accent": task.accent } as React.CSSProperties}>
-      <div className="leaderboard-task">
-        <h4>{task.title}</h4>
-      </div>
-      <div className="leaderboard-rows">
-        {task.rows.map((row, index) => {
-          const family = modelFamilies[row.family] || { color: task.accent, icon: "icons/src/openai.svg" };
-          const width = `${Math.max(2, (row.score / 0.9) * 100)}%`;
-          return (
-            <div className="leaderboard-row" key={`${task.title}-${row.model}`}>
-              <div className="model-label">
-                <span className="model-rank">{index + 1}</span>
-                <span
-                  className="model-mark"
-                  style={{
-                    "--model-tile": family.tile || "#fffdfa",
-                    "--icon-filter": family.filter || "none",
-                  } as React.CSSProperties}
-                >
-                  <img src={asset(family.icon)} alt="" aria-hidden="true" />
-                </span>
-                <strong>{row.model}</strong>
-              </div>
-              <div className="bar-track">
-                <span className="bar-fill" style={{ "--bar-color": family.color, "--bar-width": width } as React.CSSProperties} />
-              </div>
-              <em>{row.score.toFixed(3)}</em>
-            </div>
-          );
-        })}
-      </div>
-    </section>
   );
 }
 

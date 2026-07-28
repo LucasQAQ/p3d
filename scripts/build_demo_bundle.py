@@ -12,14 +12,18 @@ from typing import Any
 
 REPO = Path(__file__).resolve().parents[1]
 OUT = REPO / "public" / "demo"
-WORKBENCH = Path(os.environ.get("P3D_TEXT2CAD_WORKBENCH", REPO.parent / "text2cad-workbench")).expanduser()
-
-PARAM_OPENSCAD_ROOT = WORKBENCH / "artifacts/relabel_eval/v65_eval400_current_paramdetail_openscad_local_eval_merged400"
-PARAM_JSON_ROOT = WORKBENCH / "artifacts/relabel_eval/v65_eval400_current_paramdetail_json_local_eval_merged400"
-DOUBAO_PARAM_OPENSCAD_ROOT = WORKBENCH / "artifacts/relabel_eval/doubao_textp3d_canary_20260512_local/parametric_detail/openscad"
-DOUBAO_PARAM_JSON_ROOT = WORKBENCH / "artifacts/relabel_eval/doubao_textp3d_canary_20260512_local/parametric_detail/json"
-DETAILED_JSON_ROOT = WORKBENCH / "artifacts/relabel_eval/v65_eval400_current_detailed_json_local_eval"
-DOUBAO_DETAILED_JSON_ROOT = WORKBENCH / "artifacts/relabel_eval/doubao_textp3d_canary_20260512_local/detailed/json"
+PARAM_OPENSCAD_ROOT = Path(
+    os.environ.get(
+        "P3D_TEXT_PARAM_OPENSCAD_ROOT",
+        REPO / "local/text_parametric_openscad",
+    )
+).expanduser()
+DETAILED_JSON_ROOT = Path(
+    os.environ.get(
+        "P3D_TEXT_DESC_JSON_ROOT",
+        REPO / "local/text_descriptive_json",
+    )
+).expanduser()
 ARTICRAFT_ALL_MODELS_ROOT = Path(
     os.environ.get("P3D_ARTICRAFT_ALL_MODELS_ROOT", REPO / "local/articraft_all_models")
 ).expanduser()
@@ -37,7 +41,6 @@ TEXT_MODELS = [
     "deepseek_v4pro-reason",
     "qwen-reason",
     "mimo_v25-reason",
-    "mimo-reason",
 ]
 
 MODEL_INFO: dict[str, dict[str, str]] = {
@@ -52,7 +55,6 @@ MODEL_INFO: dict[str, dict[str, str]] = {
     "deepseek_v4pro-reason": {"label": "DeepSeek V4 Pro", "family": "deepseek"},
     "qwen-reason": {"label": "Qwen3.6-Plus", "family": "qwen"},
     "mimo_v25-reason": {"label": "MiMo v2.5 Pro", "family": "mimo"},
-    "mimo-reason": {"label": "MiMo v2 Pro", "family": "mimo"},
     "mimo_omni-reason": {"label": "MiMo v2 Omni", "family": "mimo"},
 }
 
@@ -102,6 +104,7 @@ AUDIT: dict[str, Any] = {
 
 
 def main() -> None:
+    validate_text_demo_sources()
     reset_public_demo()
     manifest = make_manifest()
 
@@ -134,6 +137,52 @@ def main() -> None:
     print(f"image2cad: {sum(1 for c in all_cases if c['task'] == 'image2cad')} cases")
     print(f"text_image2cad: {sum(1 for c in all_cases if c['task'] == 'text_image2cad')} cases")
     print("wrote public/demo/data_audit.json")
+
+
+def validate_text_demo_sources() -> None:
+    text_sources = [
+        ("parametric", "openscad", PARAM_OPENSCAD_ROOT),
+        ("descriptive", "json", DETAILED_JSON_ROOT),
+    ]
+    errors: list[str] = []
+    for spec, fmt, root in text_sources:
+        if not root.exists():
+            errors.append(f"missing {spec}/{fmt} root: {root}")
+            continue
+        full_results = root / "full_results.json"
+        if full_results.is_file():
+            try:
+                payload = json.loads(full_results.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError) as exc:
+                errors.append(f"invalid {full_results}: {exc}")
+                continue
+            missing_keys = [
+                f"text2cad/{model}/{fmt}"
+                for model in TEXT_MODELS
+                if f"text2cad/{model}/{fmt}" not in payload
+            ]
+            if missing_keys:
+                errors.append(
+                    f"{full_results} missing combinations: {', '.join(missing_keys)}"
+                )
+            continue
+        missing_files = [
+            root / "text2cad" / model / fmt / "results.json"
+            for model in TEXT_MODELS
+            if not (root / "text2cad" / model / fmt / "results.json").is_file()
+        ]
+        if missing_files:
+            errors.append(
+                f"{root} missing per-model results: "
+                + ", ".join(str(path.relative_to(root)) for path in missing_files)
+            )
+    if errors:
+        raise RuntimeError(
+            "Text demo preflight failed before changing public/demo. Set "
+            "P3D_TEXT_PARAM_OPENSCAD_ROOT and P3D_TEXT_DESC_JSON_ROOT to "
+            "approved, complete exports.\n- "
+            + "\n- ".join(errors)
+        )
 
 
 def reset_public_demo() -> None:
@@ -203,15 +252,14 @@ def make_manifest() -> dict[str, Any]:
 
 def build_text_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     text_sources = [
-        ("parametric", "openscad", PARAM_OPENSCAD_ROOT, DOUBAO_PARAM_OPENSCAD_ROOT),
-        ("descriptive", "json", DETAILED_JSON_ROOT, DOUBAO_DETAILED_JSON_ROOT),
+        ("parametric", "openscad", PARAM_OPENSCAD_ROOT),
+        ("descriptive", "json", DETAILED_JSON_ROOT),
     ]
     combos: dict[tuple[str, str, str], dict[str, dict[str, Any]]] = {}
     roots: dict[tuple[str, str, str], Path] = {}
 
-    for spec, fmt, base_root, doubao_root in text_sources:
+    for spec, fmt, root in text_sources:
         for model in TEXT_MODELS:
-            root = doubao_root if model == "doubao-reason" else base_root
             combos[(spec, model, fmt)] = load_combo_cases(root, "text2cad", model, fmt)
             roots[(spec, model, fmt)] = root
 
@@ -238,7 +286,7 @@ def build_text_runs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
         cases.append({"id": case_id, "title": title, "task": "text2cad"})
 
         for model in TEXT_MODELS:
-            for spec, fmt, _, _ in text_sources:
+            for spec, fmt, _ in text_sources:
                 root = roots[(spec, model, fmt)]
                 case = combos[(spec, model, fmt)][case_id]
                 run = make_run_from_case(
