@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -14,8 +15,11 @@ from pathlib import Path
 from typing import Any
 
 from release_snapshot import (
+    EXTERNAL_URL_RE,
     EXPECTED_PROTOCOL_ID,
     EXPECTED_RELEASE_ID,
+    GPT_MODEL_IDS,
+    PRIVATE_TEXT_RE,
     SnapshotError,
     file_sha256,
     load_and_validate_snapshot,
@@ -242,15 +246,7 @@ def _make_release_manifest(
     profile: str,
     demo_summary: dict[str, Any],
 ) -> dict[str, Any]:
-    entries: list[tuple[str, str, int]] = []
-    for path in sorted(item for item in root.rglob("*") if item.is_file()):
-        relative = path.relative_to(root).as_posix()
-        if relative == "release-manifest.json":
-            continue
-        entries.append((relative, file_sha256(path), path.stat().st_size))
-    tree_digest = hashlib.sha256()
-    for relative, digest, size in entries:
-        tree_digest.update(f"{relative}\0{digest}\0{size}\n".encode("utf-8"))
+    entries = _release_tree_entries(root)
 
     essential_names = {
         ".nojekyll",
@@ -286,9 +282,10 @@ def _make_release_manifest(
         "snapshot_content_sha256": snapshot["content_sha256"],
         "file_count": len(entries),
         "total_bytes": sum(size for _, _, size in entries),
-        "tree_sha256": tree_digest.hexdigest(),
+        "tree_sha256": _release_tree_sha256(entries),
         "essential_files": essential,
         "demo": demo_summary,
+        "profile_contract": _profile_contract(profile),
         "anonymous_transform": {
             "enabled": profile == "anonymous",
             "allowlisted_differences": [
@@ -304,7 +301,130 @@ def _make_release_manifest(
     }
 
 
+def _release_tree_entries(root: Path) -> list[tuple[str, str, int]]:
+    entries: list[tuple[str, str, int]] = []
+    for path in sorted(item for item in root.rglob("*") if item.is_file()):
+        relative = path.relative_to(root).as_posix()
+        if relative == "release-manifest.json":
+            continue
+        entries.append((relative, file_sha256(path), path.stat().st_size))
+    return entries
+
+
+def _release_tree_sha256(entries: list[tuple[str, str, int]]) -> str:
+    tree_digest = hashlib.sha256()
+    for relative, digest, size in entries:
+        tree_digest.update(f"{relative}\0{digest}\0{size}\n".encode("utf-8"))
+    return tree_digest.hexdigest()
+
+
+def _profile_contract(profile: str) -> dict[str, bool]:
+    return {
+        "includes_live": profile == "public",
+        "preserves_source_demo": profile in {"public", "paper"},
+        "includes_render_showcase": profile in {"public", "paper"},
+        "includes_paper_code_links": profile in {"public", "paper"},
+        "anonymous_metadata": profile == "anonymous",
+        "gpt_only_demo": profile == "anonymous",
+        "size_bounded_media": profile == "anonymous",
+    }
+
+
 def _verify_built_profile(root: Path, profile: str) -> None:
+    release_manifest = json.loads(
+        (root / "release-manifest.json").read_text(encoding="utf-8")
+    )
+    release_profile = json.loads(
+        (root / "release" / "profile.json").read_text(encoding="utf-8")
+    )
+    manifest = json.loads(
+        (root / "demo" / "manifest.json").read_text(encoding="utf-8")
+    )
+    audit = json.loads(
+        (root / "demo" / "data_audit.json").read_text(encoding="utf-8")
+    )
+    source_manifest = json.loads(
+        (REPO / "public" / "demo" / "manifest.json").read_text(encoding="utf-8")
+    )
+    expected_live = profile == "public"
+    if release_manifest.get("profile") != profile:
+        raise SnapshotError("release manifest profile does not match build profile")
+    if release_manifest.get("includes_live") is not expected_live:
+        raise SnapshotError("release manifest live flag does not match build profile")
+    if release_manifest.get("profile_contract") != _profile_contract(profile):
+        raise SnapshotError("release manifest profile contract is inconsistent")
+    if release_profile.get("profile") != profile:
+        raise SnapshotError("release/profile.json does not match build profile")
+    if release_profile.get("includes_live") is not expected_live:
+        raise SnapshotError("release/profile.json live flag does not match build profile")
+
+    entries = _release_tree_entries(root)
+    if release_manifest.get("file_count") != len(entries):
+        raise SnapshotError("release manifest file count does not match build tree")
+    if release_manifest.get("total_bytes") != sum(
+        size for _, _, size in entries
+    ):
+        raise SnapshotError("release manifest byte count does not match build tree")
+    if release_manifest.get("tree_sha256") != _release_tree_sha256(entries):
+        raise SnapshotError("release manifest tree hash does not match build tree")
+    entry_by_path = {
+        relative: {"sha256": digest, "bytes": size}
+        for relative, digest, size in entries
+    }
+    expected_essential = {
+        relative: metadata
+        for relative, metadata in entry_by_path.items()
+        if relative
+        in {
+            ".nojekyll",
+            "index.html",
+            "demo/manifest.json",
+            "demo/data_audit.json",
+            "release/paper-snapshot.json",
+            "release/profile.json",
+        }
+        or (
+            relative.startswith("assets/")
+            and relative.endswith((".js", ".css"))
+        )
+    }
+    if release_manifest.get("essential_files") != expected_essential:
+        raise SnapshotError("release manifest essential file hashes do not match build tree")
+
+    complex_path = root / "demo" / "complex_assemblies.json"
+    complex_count = 0
+    if complex_path.is_file():
+        complex_payload = json.loads(complex_path.read_text(encoding="utf-8"))
+        complex_count = len(complex_payload.get("items", []))
+    actual_demo_counts = {
+        "models": len(manifest.get("models", [])),
+        "cases": len(manifest.get("cases", [])),
+        "runs": len(manifest.get("runs", [])),
+        "complex_assemblies": complex_count,
+    }
+    demo_summary = release_manifest.get("demo", {})
+    for key, count in actual_demo_counts.items():
+        if demo_summary.get(key) != count:
+            raise SnapshotError(f"release demo {key} count does not match files")
+    for key, count in (
+        ("model_count", actual_demo_counts["models"]),
+        ("case_count", actual_demo_counts["cases"]),
+        ("run_count", actual_demo_counts["runs"]),
+        ("complex_assembly_count", actual_demo_counts["complex_assemblies"]),
+    ):
+        if audit.get(key) != count:
+            raise SnapshotError(f"release demo audit {key} does not match files")
+    for summary_key, audit_key in (
+        ("source_models", "source_model_count"),
+        ("source_cases", "source_case_count"),
+        ("source_runs", "source_run_count"),
+        ("source_complex_assemblies", "source_complex_assembly_count"),
+    ):
+        if demo_summary.get(summary_key) != audit.get(audit_key):
+            raise SnapshotError(
+                f"release demo source count {summary_key} does not match audit"
+            )
+
     index = (root / "index.html").read_text(encoding="utf-8")
     if "http://" in index or "https://" in index:
         raise SnapshotError("built index.html contains an external URL")
@@ -316,6 +436,10 @@ def _verify_built_profile(root: Path, profile: str) -> None:
     bundle_text = "\n".join(
         path.read_text(encoding="utf-8", errors="replace") for path in bundles
     )
+    if PRIVATE_TEXT_RE.search(index) or PRIVATE_TEXT_RE.search(bundle_text):
+        raise SnapshotError("built page contains a private or host-local path")
+    if profile == "public" and "Live leaderboard" not in bundle_text:
+        raise SnapshotError("public bundle does not contain the live leaderboard")
     if profile != "public" and any(
         token in bundle_text
         for token in (
@@ -325,19 +449,75 @@ def _verify_built_profile(root: Path, profile: str) -> None:
         )
     ):
         raise SnapshotError(f"{profile} bundle contains live leaderboard data")
+
+    if profile in {"public", "paper"}:
+        if manifest != source_manifest:
+            raise SnapshotError(
+                f"{profile} release does not preserve the complete source demo manifest"
+            )
+        for selected_key, source_key in (
+            ("models", "source_models"),
+            ("cases", "source_cases"),
+            ("runs", "source_runs"),
+            ("complex_assemblies", "source_complex_assemblies"),
+        ):
+            if demo_summary.get(selected_key) != demo_summary.get(source_key):
+                raise SnapshotError(
+                    f"{profile} release does not preserve source demo {selected_key}"
+                )
+        if demo_summary.get("retired_model_ids_excluded"):
+            raise SnapshotError(f"{profile} release excludes a source demo model")
+        if manifest.get("paper", {}).get("authors") == ["Anonymous authors"]:
+            raise SnapshotError(f"{profile} release contains anonymous metadata")
+
     if profile == "anonymous":
-        manifest = json.loads((root / "demo" / "manifest.json").read_text())
-        if {model["id"] for model in manifest["models"]} - {"gpt55-reason"}:
-            raise SnapshotError("anonymous demo contains a non-GPT model")
+        model_ids = {model.get("id") for model in manifest.get("models", [])}
+        run_model_ids = {run.get("model") for run in manifest.get("runs", [])}
+        if (
+            len(manifest.get("models", [])) != 1
+            or model_ids != GPT_MODEL_IDS
+            or run_model_ids != GPT_MODEL_IDS
+        ):
+            raise SnapshotError("anonymous demo must contain exactly one GPT model")
+        paper = manifest.get("paper", {})
+        if paper.get("authors") != ["Anonymous authors"]:
+            raise SnapshotError("anonymous demo contains named author metadata")
+        if "links" in paper:
+            raise SnapshotError("anonymous demo contains Paper or Code links")
+        if manifest.get("gallery"):
+            raise SnapshotError("anonymous demo contains Render Showcase metadata")
+        if complex_path.exists():
+            raise SnapshotError("anonymous demo contains complex showcase media")
+        _verify_anonymous_demo_text(root / "demo")
+        source_authors = [
+            re.sub(r"[¹²³⁴⁵⁶⁷⁸⁹⁰,*†‡]+", "", author).strip()
+            for author in source_manifest.get("paper", {}).get("authors", [])
+            if isinstance(author, str)
+        ]
         forbidden_ui = (
             "Render Showcase",
             "> Paper<",
             "> Code<",
-            "Yikang Yang",
             "Yang, Yikang",
+            *source_authors,
         )
         if any(token in bundle_text for token in forbidden_ui):
             raise SnapshotError("anonymous bundle contains forbidden release UI")
+
+
+def _verify_anonymous_demo_text(demo_root: Path) -> None:
+    text_suffixes = {".html", ".js", ".json", ".md", ".py", ".scad", ".txt"}
+    for path in sorted(item for item in demo_root.rglob("*") if item.is_file()):
+        if path.suffix.lower() not in text_suffixes:
+            continue
+        text = path.read_text(encoding="utf-8", errors="replace")
+        relative = path.relative_to(demo_root).as_posix()
+        if PRIVATE_TEXT_RE.search(text):
+            raise SnapshotError(
+                f"anonymous demo contains private or host-local text: {relative}"
+            )
+        if EXTERNAL_URL_RE.search(text):
+            raise SnapshotError(f"anonymous demo contains an external URL: {relative}")
 
 
 def _validate_output_target(path: Path, *, syncing_gh_pages: bool) -> None:
@@ -411,7 +591,7 @@ def _verify_source_checkout(
         check=True,
     ).stdout.strip()
     expected = snapshot["source_commits"]["project_page"]["input_base_git_sha"]
-    if not allow_source_mismatch and not head.startswith(expected):
+    if not allow_source_mismatch and head != expected:
         raise SnapshotError(
             f"snapshot project_page input_base_git_sha {expected} "
             f"does not match p3d source HEAD {head}"

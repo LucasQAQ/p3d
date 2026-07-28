@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Unit tests for the paper-release contract and anonymous transform."""
+"""Unit tests for the paper-release contract and all release profiles."""
 
 from __future__ import annotations
 
@@ -9,7 +9,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from build_release import _validate_output_target
+from build_release import (
+    _make_release_manifest,
+    _profile_contract,
+    _validate_output_target,
+)
 from release_snapshot import (
     EXPECTED_PROTOCOL_ID,
     EXPECTED_RELEASE_ID,
@@ -168,105 +172,310 @@ class SnapshotValidationTests(unittest.TestCase):
             validate_snapshot(snapshot)
 
 
-class AnonymousTransformTests(unittest.TestCase):
+class ReleaseProfileTransformTests(unittest.TestCase):
+    def _write_demo_fixture(self, root: Path) -> tuple[Path, list[str]]:
+        source = root / "source"
+        source.mkdir()
+        run_ids = [
+            "text2cad_0084_00847302_descriptive_json_gpt55-reason",
+            "text2cad_0084_00847302_parametric_openscad_gpt55-reason",
+            "image2cad_articraft_clock_21133_image_cadquery_gpt55-reason",
+            "image2cad_articraft_clock_21133_image_openscad_gpt55-reason",
+            "image2cad_articraft_clock_21133_image_threejs_gpt55-reason",
+            "text_image2cad_textimage2cad_111151_7c7f89f6_image_text_cadquery_gpt55-reason",
+            "text_image2cad_textimage2cad_117698_aca36590_image_text_openscad_gpt55-reason",
+        ]
+        runs = []
+        task_by_prefix = {
+            "text2cad_": "text2cad",
+            "image2cad_": "image2cad",
+            "text_image2cad_": "text_image2cad",
+        }
+        for index, run_id in enumerate(run_ids):
+            task = next(
+                task
+                for prefix, task in task_by_prefix.items()
+                if run_id.startswith(prefix)
+            )
+            relative = f"runs/{index}/generated.json"
+            path = source / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("{}\n", encoding="utf-8")
+            runs.append(
+                {
+                    "id": run_id,
+                    "task": task,
+                    "case_id": f"case-{index}",
+                    "model": "gpt55-reason",
+                    "valid": True,
+                    "assets": {"generated": relative},
+                }
+            )
+        retired_path = source / "runs/retired/generated.json"
+        retired_path.parent.mkdir(parents=True)
+        retired_path.write_text("{}\n", encoding="utf-8")
+        runs.append(
+            {
+                "id": "retired",
+                "task": "text2cad",
+                "case_id": "retired-case",
+                "model": "mimo-reason",
+                "valid": True,
+                "assets": {"generated": "runs/retired/generated.json"},
+            }
+        )
+        for relative in (
+            "icons/src/openai.svg",
+            "icons/src/xiaomimimo.svg",
+            "complex/pred.png",
+            "complex/model.stl",
+            "complex/part.stl",
+        ):
+            path = source / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(f"fixture {relative}\n", encoding="utf-8")
+        manifest = {
+            "schema_version": 2,
+            "paper": {
+                "authors": ["Named Author"],
+                "affiliations": ["Named Lab"],
+                "abstract": "Abstract. Project page: https://example.invalid/.",
+                "links": {
+                    "paper": "https://example.invalid/paper",
+                    "code": "https://example.invalid/code",
+                },
+            },
+            "tasks": [],
+            "models": [
+                {"id": "gpt55-reason", "family": "openai"},
+                {"id": "mimo-reason", "family": "mimo"},
+            ],
+            "cases": [
+                {"id": run["case_id"], "task": run["task"]}
+                for run in runs
+            ],
+            "runs": runs,
+            "figures": [],
+            "gallery": [{"id": "showcase"}],
+        }
+        (source / "manifest.json").write_text(
+            json.dumps(manifest),
+            encoding="utf-8",
+        )
+        complex_assemblies = {
+            "schema_version": 1,
+            "items": [
+                {
+                    "id": "complex-outside-model-list",
+                    "model": "gpt55_ctok-reason",
+                    "assets": {
+                        "pred_render": "complex/pred.png",
+                        "mesh": "complex/model.stl",
+                    },
+                    "parts": [{"mesh": "complex/part.stl"}],
+                }
+            ],
+        }
+        (source / "complex_assemblies.json").write_text(
+            json.dumps(complex_assemblies),
+            encoding="utf-8",
+        )
+        return source, run_ids
+
+    def test_public_and_paper_preserve_complete_source_demo(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_name:
+            root = Path(temp_name)
+            source, _ = self._write_demo_fixture(root)
+            source_manifest = json.loads(
+                (source / "manifest.json").read_text(encoding="utf-8")
+            )
+
+            for profile in ("public", "paper"):
+                with self.subTest(profile=profile):
+                    target = root / profile
+                    summary = prepare_demo(source, target, profile=profile)
+                    output = json.loads(
+                        (target / "manifest.json").read_text(encoding="utf-8")
+                    )
+                    audit = json.loads(
+                        (target / "data_audit.json").read_text(encoding="utf-8")
+                    )
+                    complex_output = json.loads(
+                        (target / "complex_assemblies.json").read_text(
+                            encoding="utf-8"
+                        )
+                    )
+                    source_complex = json.loads(
+                        (source / "complex_assemblies.json").read_text(
+                            encoding="utf-8"
+                        )
+                    )
+
+                    self.assertEqual(output, source_manifest)
+                    self.assertEqual(
+                        (summary["models"], summary["cases"], summary["runs"]),
+                        (2, 8, 8),
+                    )
+                    self.assertEqual(summary["complex_assemblies"], 1)
+                    self.assertEqual(
+                        summary["source_complex_assemblies"],
+                        summary["complex_assemblies"],
+                    )
+                    self.assertEqual(summary["retired_model_ids_excluded"], [])
+                    self.assertEqual(audit["retired_model_count_excluded"], 0)
+                    self.assertEqual(complex_output, source_complex)
+                    self.assertTrue(
+                        (target / "runs/retired/generated.json").is_file()
+                    )
+                    self.assertTrue((target / "complex/pred.png").is_file())
+                    self.assertTrue((target / "complex/model.stl").is_file())
+                    self.assertTrue((target / "complex/part.stl").is_file())
+
     def test_anonymous_transform_keeps_only_gpt_and_scrubs_links(self) -> None:
         with tempfile.TemporaryDirectory() as temp_name:
             root = Path(temp_name)
-            source = root / "source"
-            target = root / "target"
-            source.mkdir()
-            run_ids = [
-                "text2cad_0084_00847302_descriptive_json_gpt55-reason",
-                "text2cad_0084_00847302_parametric_openscad_gpt55-reason",
-                "image2cad_articraft_clock_21133_image_cadquery_gpt55-reason",
-                "image2cad_articraft_clock_21133_image_openscad_gpt55-reason",
-                "image2cad_articraft_clock_21133_image_threejs_gpt55-reason",
-                "text_image2cad_textimage2cad_111151_7c7f89f6_image_text_cadquery_gpt55-reason",
-                "text_image2cad_textimage2cad_117698_aca36590_image_text_openscad_gpt55-reason",
-            ]
-            runs = []
-            task_by_prefix = {
-                "text2cad_": "text2cad",
-                "image2cad_": "image2cad",
-                "text_image2cad_": "text_image2cad",
-            }
-            for index, run_id in enumerate(run_ids):
-                task = next(
-                    task
-                    for prefix, task in task_by_prefix.items()
-                    if run_id.startswith(prefix)
-                )
-                relative = f"runs/{index}/generated.json"
-                path = source / relative
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text("{}\n")
-                runs.append(
-                    {
-                        "id": run_id,
-                        "task": task,
-                        "case_id": f"case-{index}",
-                        "model": "gpt55-reason",
-                        "valid": True,
-                        "assets": {"generated": relative},
-                    }
-                )
-            retired_path = source / "runs/retired/generated.json"
-            retired_path.parent.mkdir(parents=True)
-            retired_path.write_text("{}\n")
-            runs.append(
-                {
-                    "id": "retired",
-                    "task": "text2cad",
-                    "case_id": "retired-case",
-                    "model": "mimo-reason",
-                    "valid": True,
-                    "assets": {"generated": "runs/retired/generated.json"},
-                }
-            )
-            icon = source / "icons/src/openai.svg"
-            icon.parent.mkdir(parents=True)
-            icon.write_text("<svg/>")
-            manifest = {
-                "schema_version": 2,
-                "paper": {
-                    "authors": ["Named Author"],
-                    "affiliations": ["Named Lab"],
-                    "abstract": "Abstract. Project page: https://example.invalid/.",
-                    "links": {"paper": "https://example.invalid/paper"},
-                },
-                "tasks": [],
-                "models": [
-                    {"id": "gpt55-reason", "family": "openai"},
-                    {"id": "mimo-reason", "family": "mimo"},
-                ],
-                "cases": [
-                    {"id": run["case_id"], "task": run["task"]}
-                    for run in runs
-                ],
-                "runs": runs,
-                "figures": [],
-                "gallery": [{"id": "showcase"}],
-            }
-            (source / "manifest.json").write_text(json.dumps(manifest))
+            source, run_ids = self._write_demo_fixture(root)
+            target = root / "anonymous"
 
             summary = prepare_demo(source, target, profile="anonymous")
-            output = json.loads((target / "manifest.json").read_text())
+            output = json.loads(
+                (target / "manifest.json").read_text(encoding="utf-8")
+            )
+            audit = json.loads(
+                (target / "data_audit.json").read_text(encoding="utf-8")
+            )
 
             self.assertEqual(summary["models"], 1)
             self.assertEqual(
                 {model["id"] for model in output["models"]},
                 {"gpt55-reason"},
             )
+            self.assertEqual(
+                {run["model"] for run in output["runs"]},
+                {"gpt55-reason"},
+            )
             self.assertEqual(output["paper"]["authors"], ["Anonymous authors"])
             self.assertNotIn("links", output["paper"])
             self.assertEqual(output["gallery"], [])
             self.assertFalse((target / "runs/retired/generated.json").exists())
+            self.assertFalse((target / "complex_assemblies.json").exists())
+            self.assertEqual(summary["complex_assemblies"], 0)
+            self.assertEqual(summary["source_complex_assemblies"], 1)
+            self.assertEqual(
+                summary["retired_model_ids_excluded"],
+                ["mimo-reason"],
+            )
+            self.assertEqual(audit["retired_model_count_excluded"], 1)
             self.assertEqual(
                 hashlib.sha256(
                     "\n".join(sorted(run_ids)).encode("utf-8")
                 ).hexdigest(),
                 summary["selected_run_ids_sha256"],
             )
+
+    def test_rejects_unknown_profile_and_anonymous_metadata_leaks(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_name:
+            root = Path(temp_name)
+            source, _ = self._write_demo_fixture(root)
+            with self.assertRaisesRegex(SnapshotError, "unknown release profile"):
+                prepare_demo(source, root / "invalid", profile="invalid")
+            manifest_path = source / "manifest.json"
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest["paper"]["abstract"] = "Leaked https://example.invalid/page"
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            with self.assertRaisesRegex(SnapshotError, "external URL"):
+                prepare_demo(source, root / "external", profile="anonymous")
+            manifest["paper"]["abstract"] = "Leaked /home/researcher/private/data"
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            with self.assertRaisesRegex(SnapshotError, "private or host-local"):
+                prepare_demo(source, root / "private", profile="anonymous")
+
+
+class ReleaseManifestTests(unittest.TestCase):
+    def test_tree_hash_and_contract_cover_all_profiles(self) -> None:
+        snapshot = synthetic_snapshot()
+        tree_hashes: set[str] = set()
+        with tempfile.TemporaryDirectory() as temp_name:
+            root = Path(temp_name)
+            for profile in ("public", "paper", "anonymous"):
+                with self.subTest(profile=profile):
+                    release = root / profile
+                    (release / "demo").mkdir(parents=True)
+                    (release / "release").mkdir()
+                    (release / "index.html").write_text(
+                        f"<html>{profile}</html>\n",
+                        encoding="utf-8",
+                    )
+                    (release / "demo" / "manifest.json").write_text(
+                        "{}\n",
+                        encoding="utf-8",
+                    )
+                    (release / "demo" / "data_audit.json").write_text(
+                        "{}\n",
+                        encoding="utf-8",
+                    )
+                    (release / "release" / "paper-snapshot.json").write_text(
+                        "{}\n",
+                        encoding="utf-8",
+                    )
+                    (release / "release" / "profile.json").write_text(
+                        json.dumps({"profile": profile}) + "\n",
+                        encoding="utf-8",
+                    )
+                    summary = {
+                        "source_models": 2,
+                        "source_cases": 8,
+                        "source_runs": 8,
+                        "source_complex_assemblies": 1,
+                        "models": 1 if profile == "anonymous" else 2,
+                        "cases": 7 if profile == "anonymous" else 8,
+                        "runs": 7 if profile == "anonymous" else 8,
+                        "complex_assemblies": 0 if profile == "anonymous" else 1,
+                        "retired_model_ids_excluded": (
+                            ["mimo-reason"] if profile == "anonymous" else []
+                        ),
+                    }
+                    manifest = _make_release_manifest(
+                        release,
+                        snapshot=snapshot,
+                        snapshot_file_hash="2" * 64,
+                        profile=profile,
+                        demo_summary=summary,
+                    )
+                    expected_entries = []
+                    for path in sorted(
+                        item for item in release.rglob("*") if item.is_file()
+                    ):
+                        relative = path.relative_to(release).as_posix()
+                        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+                        expected_entries.append(
+                            (relative, digest, path.stat().st_size)
+                        )
+                    digest = hashlib.sha256()
+                    for relative, file_digest, size in expected_entries:
+                        digest.update(
+                            f"{relative}\0{file_digest}\0{size}\n".encode(
+                                "utf-8"
+                            )
+                        )
+
+                    self.assertEqual(manifest["profile"], profile)
+                    self.assertEqual(
+                        manifest["includes_live"],
+                        profile == "public",
+                    )
+                    self.assertEqual(
+                        manifest["profile_contract"],
+                        _profile_contract(profile),
+                    )
+                    self.assertEqual(manifest["tree_sha256"], digest.hexdigest())
+                    self.assertEqual(manifest["file_count"], len(expected_entries))
+                    self.assertEqual(
+                        manifest["total_bytes"],
+                        sum(size for _, _, size in expected_entries),
+                    )
+                    tree_hashes.add(manifest["tree_sha256"])
+        self.assertEqual(len(tree_hashes), 3)
 
 
 class OutputTargetSafetyTests(unittest.TestCase):

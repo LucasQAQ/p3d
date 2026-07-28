@@ -44,8 +44,9 @@ second hand-edited results source.
 Release profiles are deliberately separate:
 
 - `public` shows snapshot-backed paper results and the independently maintained
-  live leaderboard.
-- `paper` contains snapshot-backed paper results and no live leaderboard.
+  live leaderboard while preserving the complete checked-in demo and showcase.
+- `paper` contains snapshot-backed paper results, the same complete checked-in
+  demo and showcase, and no live leaderboard.
 - `anonymous` is a deterministic transform of the same source: anonymous
   metadata, no live leaderboard, no Render Showcase, a size-bounded GPT-only
   demo, and no Paper/Code links.
@@ -125,9 +126,9 @@ The rebuild also writes `public/demo/data_audit.json`, which records source
 coverage and any case/model subsets used for the lightweight public demo without
 including private absolute paths.
 
-The retired `mimo-reason` demo is excluded from new bundles. Release builds also
-filter it from pre-existing static manifests, so an old asset bundle cannot
-silently reintroduce it.
+The anonymous profile excludes the retired `mimo-reason` demo as part of its
+GPT-only transform. Public and paper profiles preserve the complete checked-in
+demo manifest and all referenced showcase assets.
 
 Every bundled run includes the native generated program in `assets.generated`.
 For auditability, non-JSON outputs also include `assets.generated_json`, a

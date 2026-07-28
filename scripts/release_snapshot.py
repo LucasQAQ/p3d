@@ -22,10 +22,12 @@ REQUIRED_PROJECT_PAGE_ASSETS = frozenset(
         "figures/fig_tasks_grouped_bars.svg",
     }
 )
+RELEASE_PROFILES = frozenset({"public", "paper", "anonymous"})
 RETIRED_MODEL_IDS = frozenset({"mimo-reason"})
 GPT_MODEL_IDS = frozenset({"gpt55-reason"})
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 GIT_SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+EXTERNAL_URL_RE = re.compile(r"https?://", re.IGNORECASE)
 PRIVATE_TEXT_RE = re.compile(
     r"(?:file://|/(?:home|data\d*|mnt|share|tmp)/[^/\s]+/|"
     r"[A-Za-z]:[\\/](?:Users|Documents and Settings)[\\/]|"
@@ -459,19 +461,40 @@ def prepare_demo(
 ) -> dict[str, Any]:
     """Copy only manifest-referenced demo files and apply the release profile."""
 
+    if profile not in RELEASE_PROFILES:
+        raise SnapshotError(f"unknown release profile: {profile}")
     source = json.loads((source_demo / "manifest.json").read_text(encoding="utf-8"))
-    runs = [
-        run
-        for run in source.get("runs", [])
-        if run.get("model") not in RETIRED_MODEL_IDS
-    ]
+    source_runs = list(source.get("runs", []))
+    runs = source_runs
     if profile == "anonymous":
+        runs = [
+            run
+            for run in runs
+            if run.get("model") not in RETIRED_MODEL_IDS
+        ]
         runs = _select_anonymous_runs(source_demo, runs)
     selected_run_ids = {run["id"] for run in runs}
-    model_ids = {run["model"] for run in runs}
+    run_model_ids = {run["model"] for run in runs}
     case_ids = {run["case_id"] for run in runs}
-    models = [model for model in source.get("models", []) if model.get("id") in model_ids]
-    cases = [case for case in source.get("cases", []) if case.get("id") in case_ids]
+    if profile == "anonymous":
+        models = [
+            model
+            for model in source.get("models", [])
+            if model.get("id") in run_model_ids
+        ]
+        cases = [
+            case
+            for case in source.get("cases", [])
+            if case.get("id") in case_ids
+        ]
+    else:
+        models = list(source.get("models", []))
+        cases = list(source.get("cases", []))
+    model_ids = {
+        model.get("id")
+        for model in models
+        if isinstance(model.get("id"), str)
+    }
 
     paper = dict(source.get("paper", {}))
     if profile == "anonymous":
@@ -482,42 +505,60 @@ def prepare_demo(
         if isinstance(abstract, str):
             paper["abstract"] = abstract.split(" Project page:")[0]
 
-    output = {
-        "schema_version": source.get("schema_version"),
-        "paper": paper,
-        "tasks": source.get("tasks", []),
-        "models": models,
-        "cases": cases,
-        "runs": runs,
-        "figures": source.get("figures", []),
-        "gallery": [] if profile == "anonymous" else source.get("gallery", []),
-    }
+    output = dict(source)
+    output.update(
+        {
+            "paper": paper,
+            "models": models,
+            "cases": cases,
+            "runs": runs,
+            "gallery": [] if profile == "anonymous" else source.get("gallery", []),
+        }
+    )
     if profile == "anonymous":
         output["review_subset_note"] = (
             "The original page source and styling are preserved. Only anonymous "
             "metadata and a deterministic, size-bounded GPT demo subset are used."
         )
+        _validate_no_private_text(output)
+        _validate_no_external_urls(output)
 
     target_demo.mkdir(parents=True, exist_ok=True)
     _copy_manifest_assets(source_demo, target_demo, runs, cases)
     _copy_model_icons(source_demo, target_demo, models)
+    source_complex_assembly_count = _complex_assembly_count(source_demo)
+    complex_assembly_count = 0
     if profile != "anonymous":
-        _copy_complex_assemblies(
+        complex_assembly_count = _copy_complex_assemblies(
             source_demo,
             target_demo,
-            allowed_models=model_ids,
         )
     (target_demo / "manifest.json").write_text(
         json.dumps(output, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
+    source_model_ids = {
+        model.get("id")
+        for model in source.get("models", [])
+        if isinstance(model.get("id"), str)
+    }
+    retired_model_ids_excluded = sorted(
+        (source_model_ids - model_ids) & RETIRED_MODEL_IDS
+    )
     audit = {
         "schema_version": 1,
         "release_profile": profile,
         "model_ids": sorted(model_ids),
+        "source_model_count": len(source.get("models", [])),
+        "source_case_count": len(source.get("cases", [])),
+        "source_run_count": len(source_runs),
+        "source_complex_assembly_count": source_complex_assembly_count,
+        "model_count": len(models),
         "case_count": len(cases),
         "run_count": len(runs),
-        "retired_model_count_excluded": len(RETIRED_MODEL_IDS),
+        "complex_assembly_count": complex_assembly_count,
+        "retired_model_ids_excluded": retired_model_ids_excluded,
+        "retired_model_count_excluded": len(retired_model_ids_excluded),
         "selected_run_ids_sha256": hashlib.sha256(
             "\n".join(sorted(selected_run_ids)).encode("utf-8")
         ).hexdigest(),
@@ -527,9 +568,15 @@ def prepare_demo(
         encoding="utf-8",
     )
     return {
+        "source_models": len(source.get("models", [])),
+        "source_cases": len(source.get("cases", [])),
+        "source_runs": len(source_runs),
+        "source_complex_assemblies": source_complex_assembly_count,
         "models": len(models),
         "cases": len(cases),
         "runs": len(runs),
+        "complex_assemblies": complex_assembly_count,
+        "retired_model_ids_excluded": retired_model_ids_excluded,
         "selected_run_ids_sha256": audit["selected_run_ids_sha256"],
     }
 
@@ -674,16 +721,16 @@ def _copy_complex_assemblies(
     source_demo: Path,
     target_demo: Path,
     *,
-    allowed_models: set[str],
-) -> None:
+    allowed_models: set[str] | None = None,
+) -> int:
     source_path = source_demo / "complex_assemblies.json"
     if not source_path.is_file():
-        return
+        return 0
     payload = json.loads(source_path.read_text(encoding="utf-8"))
     items = [
         item
         for item in payload.get("items", [])
-        if item.get("model") in allowed_models
+        if allowed_models is None or item.get("model") in allowed_models
     ]
     paths: set[str] = set()
     for item in items:
@@ -698,6 +745,26 @@ def _copy_complex_assemblies(
         json.dumps(output, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
+    return len(items)
+
+
+def _complex_assembly_count(source_demo: Path) -> int:
+    source_path = source_demo / "complex_assemblies.json"
+    if not source_path.is_file():
+        return 0
+    payload = json.loads(source_path.read_text(encoding="utf-8"))
+    return len(payload.get("items", []))
+
+
+def _validate_no_external_urls(value: Any, path: str = "$") -> None:
+    if isinstance(value, dict):
+        for key, item in value.items():
+            _validate_no_external_urls(item, f"{path}.{key}")
+    elif isinstance(value, list):
+        for index, item in enumerate(value):
+            _validate_no_external_urls(item, f"{path}[{index}]")
+    elif isinstance(value, str) and EXTERNAL_URL_RE.search(value):
+        raise SnapshotError(f"external URL in anonymous demo metadata at {path}")
 
 
 def _nested_asset_paths(value: Any) -> set[str]:
