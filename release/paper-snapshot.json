@@ -1551,7 +1551,7 @@
       "sha256": "7aa8b982dd24a0ac2aaba6be2d96e053945347913db974d8996a3564fb00841d"
     }
   ],
-  "content_sha256": "a19ee69d2002d4d66a46515a34f032e13cf64a06df0cf6c02a49fe90c804184f",
+  "content_sha256": "2739c6f62e5834e70284da3bff77422fcdcbc2cd0d8d27e8f5ef52fc36ab998e",
   "evidence_controls": {
     "jsem_direct_verification": {
       "file_sha256": "b7a57cf9e0b42810a172473998b9fc1ea5c3df092053d3c56f7d3a0c1cb3e710",
@@ -3886,7 +3886,7 @@
         },
         "text": {
           "artifact_sha256": "bf7e95a242784577a088664016fcdd1700e1bbbe885b7e0c5205b972838a5f38",
-          "git_sha": "5ef81919f4d5b81b52039380a043c185a16f01d9",
+          "git_sha": "73ea5558f73475cd18865a9295497c8a89f3febb",
           "pinned": true,
           "profile": "paper_current",
           "source_id": "workbench-paper-current-text-v1"
@@ -4909,8 +4909,8 @@
     "dataset_revision": "f2032df7f8ec45e8e5c2f0035f6dddc87d051703",
     "evaluator_git_sha": "56e62ec0506076f048b7067e281fe162e0da2a2c",
     "paper_consumer_base_git_sha": "0e95bf6466441424776237bcc1a06cc91130646f",
-    "project_page_consumer_base_git_sha": "9c4453915b56c5e060d754b90cf307e77ac02a25",
-    "workbench_git_sha": "5ef81919f4d5b81b52039380a043c185a16f01d9"
+    "project_page_consumer_base_git_sha": "de66ad5b7ed8b33bd5ec89a1bb4182ffc585dd5b",
+    "workbench_git_sha": "73ea5558f73475cd18865a9295497c8a89f3febb"
   },
   "release_id": "p3d-aaai27-paper-current-v1",
   "result_tables": [
@@ -5237,7 +5237,7 @@
     },
     "project_page": {
       "canonical_source_manifest_sha256": "2218d38f166ddc20b429e60a24830687a5b11da60bb85224d939b64496ca1ba9",
-      "input_base_git_sha": "9c4453915b56c5e060d754b90cf307e77ac02a25",
+      "input_base_git_sha": "de66ad5b7ed8b33bd5ec89a1bb4182ffc585dd5b",
       "release_validation": "current_head_equal_or_descendant_and_source_hashes_match",
       "roles": [
         "consumer_base"
@@ -5245,7 +5245,7 @@
     },
     "workbench": {
       "canonical_source_manifest_sha256": "2f2d95ab33dba395c0d86d89d63c585f93fbd803af9e688318090fe8d5686df7",
-      "input_base_git_sha": "5ef81919f4d5b81b52039380a043c185a16f01d9",
+      "input_base_git_sha": "73ea5558f73475cd18865a9295497c8a89f3febb",
       "release_validation": "current_head_equal_or_descendant_and_source_hashes_match",
       "roles": [
         "canonical_source",
@@ -5263,10 +5263,10 @@
       "role": "consumer_base"
     },
     "project_page": {
-      "input_base_git_sha": "9c4453915b56c5e060d754b90cf307e77ac02a25",
+      "input_base_git_sha": "de66ad5b7ed8b33bd5ec89a1bb4182ffc585dd5b",
       "role": "consumer_base"
     },
-    "workbench": "5ef81919f4d5b81b52039380a043c185a16f01d9"
+    "workbench": "73ea5558f73475cd18865a9295497c8a89f3febb"
   },
   "source_files": [
     {
