@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { ArrowUpDown, BookOpen, Braces, ChevronDown, ChevronUp, Code2, Github, Image as ImageIcon, Layers3, Play } from "lucide-react";
+import { BookOpen, ChevronDown, ChevronUp, Code2, Github, Image as ImageIcon, Layers3, Play } from "lucide-react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
@@ -292,7 +292,7 @@ function App() {
             {!IS_ANONYMOUS && paper.links?.paper ? <a href={paper.links.paper}><BookOpen size={17} /> Paper</a> : null}
             {!IS_ANONYMOUS && paper.links?.code ? <a href={paper.links.code}><Github size={17} /> Code</a> : null}
             <a href="#results"><Play size={17} /> Demo</a>
-            <a href="#citation"><Braces size={17} /> Citation</a>
+            {!IS_ANONYMOUS ? <a href="#citation">Citation</a> : null}
           </div>
         </div>
         <MainFigures />
@@ -389,20 +389,18 @@ function App() {
         </section>
       ) : null}
 
-      <section id="citation" className="section citation">
-        <div className="citation-heading">
-          <h2>Citation</h2>
-        </div>
-        <pre><code>{IS_ANONYMOUS ? `@article{anonymous2027,
-  title={P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning},
-  author={Anonymous Authors},
-  year={2027}
-}` : `@article{p3dbench2026,
+      {!IS_ANONYMOUS ? (
+        <section id="citation" className="section citation">
+          <div className="citation-heading">
+            <h2>Citation</h2>
+          </div>
+          <pre><code>{`@article{p3dbench2026,
   title={P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning},
   author={Yang, Yikang and Hu, Zhanpeng and Lin, Youtian and Zhou, Mengqi and Xu, Jingxi and Zhang, Feihu and Liu, Jiaheng and Yao, Yao},
   year={2026}
 }`}</code></pre>
-      </section>
+        </section>
+      ) : null}
     </main>
   );
 }
@@ -694,18 +692,17 @@ function rankMetricRows(rows: ResultTableRow[], metricCount: number) {
   }));
 }
 
-function ResultCell({ token, groupStart, cost }: { token: string; groupStart: boolean; cost: boolean }) {
-  const className = ["rt-cell", groupStart ? "group-start" : "", cost ? "rt-cost-col" : ""].filter(Boolean).join(" ");
+function parseSortableValue(token: string) {
+  const value = Number(token.replace(/[$,!^]/g, ""));
+  return Number.isFinite(value) ? value : Number.POSITIVE_INFINITY;
+}
+
+function ResultCell({ token, groupStart, summary }: { token: string; groupStart: boolean; summary?: "score" | "cost" }) {
+  const className = ["rt-cell", groupStart ? "group-start" : "", summary ? `rt-summary-${summary}` : ""].filter(Boolean).join(" ");
   if (token === "-") return <td className={`${className} na`}>—</td>;
   if (token.endsWith("!")) return <td className={`${className} best`}>{token.slice(0, -1)}</td>;
   if (token.endsWith("^")) return <td className={`${className} second`}>{token.slice(0, -1)}</td>;
   return <td className={className}>{token}</td>;
-}
-
-function rowCost(row: ResultTableRow) {
-  const token = row.cells.trim().split(/\s+/).at(-1) || "";
-  const value = Number(token.replace(/[$,]/g, ""));
-  return Number.isFinite(value) ? value : Number.POSITIVE_INFINITY;
 }
 
 function ResultsTables() {
@@ -750,22 +747,42 @@ function ResultsTables() {
 }
 
 function ResultsSubtableTable({ subtable }: { subtable: ResultSubtable }) {
-  const [costSort, setCostSort] = useState<"default" | "asc" | "desc">("default");
   const groupStarts = metricGroupStarts(subtable.groups);
   const headerRows = subtable.superGroups ? 3 : 2;
-  const hasCost = subtable.metrics.at(-1) === "USD";
-  const costColumn = hasCost ? subtable.metrics.length - 1 : -1;
-  const metricCount = hasCost ? costColumn : 0;
-  const rankedRows = metricCount ? rankMetricRows(subtable.rows, metricCount) : subtable.rows;
-  const rows = costSort === "default"
-    ? rankedRows
-    : [...rankedRows].sort((a, b) => (rowCost(a) - rowCost(b)) * (costSort === "asc" ? 1 : -1));
-  const nextCostSort = costSort === "default" ? "asc" : costSort === "asc" ? "desc" : "default";
-  const costSortLabel = costSort === "default"
-    ? "Sort cost low to high"
-    : costSort === "asc"
-      ? "Sort cost high to low"
-      : "Restore score order";
+  const scoreIndex = subtable.metrics.indexOf("Score");
+  const costIndex = subtable.metrics.findIndex((metric) => metric.startsWith("USD"));
+  const rankedRows = scoreIndex >= 0 ? rankMetricRows(subtable.rows, scoreIndex) : subtable.rows;
+  const [sort, setSort] = useState(scoreIndex >= 0 ? "score-desc" : "default");
+  const sortIndex = sort.startsWith("score") ? scoreIndex : sort.startsWith("cost") ? costIndex : -1;
+  const rows = sortIndex < 0 ? rankedRows : [...rankedRows]
+    .map((row, index) => ({ row, index }))
+    .sort((left, right) => {
+      const leftValue = parseSortableValue(left.row.cells.trim().split(/\s+/)[sortIndex]);
+      const rightValue = parseSortableValue(right.row.cells.trim().split(/\s+/)[sortIndex]);
+      const difference = sort.endsWith("asc") ? leftValue - rightValue : rightValue - leftValue;
+      return difference || left.index - right.index;
+    })
+    .map((item) => item.row);
+  const sortState = (index: number): React.AriaAttributes["aria-sort"] => {
+    if (index === scoreIndex) return sort.startsWith("score") ? sort.endsWith("asc") ? "ascending" : "descending" : "none";
+    if (index === costIndex) return sort.startsWith("cost") ? sort.endsWith("asc") ? "ascending" : "descending" : "none";
+    return undefined;
+  };
+  const toggleSort = (index: number) => {
+    const kind = index === scoreIndex ? "score" : "cost";
+    if (!sort.startsWith(kind)) {
+      setSort(kind === "score" ? "score-desc" : "cost-asc");
+      return;
+    }
+    setSort(sort.endsWith("asc") ? `${kind}-desc` : `${kind}-asc`);
+  };
+  const sortLabel = (index: number) => {
+    const label = index === scoreIndex ? "overall score" : "cost";
+    const state = sortState(index);
+    const direction = state === "ascending" ? "high to low" : state === "descending" ? "low to high" : index === scoreIndex ? "high to low" : "low to high";
+    return `Sort ${label} ${direction}`;
+  };
+  const sortIndicator = (index: number) => sortState(index) === "ascending" ? "↑" : sortState(index) === "descending" ? "↓" : "↕";
   const renderRow = (row: ResultTableRow, domain: boolean) => {
     const family = row.family ? modelFamilies[row.family] : undefined;
     const tokens = row.cells.trim().split(/\s+/);
@@ -782,7 +799,12 @@ function ResultsSubtableTable({ subtable }: { subtable: ResultSubtable }) {
           </span>
         </th>
         {tokens.map((token, column) => (
-          <ResultCell token={token} groupStart={groupStarts.has(column)} cost={column === costColumn} key={column} />
+          <ResultCell
+            token={token}
+            groupStart={groupStarts.has(column)}
+            summary={column === scoreIndex ? "score" : column === costIndex ? "cost" : undefined}
+            key={column}
+          />
         ))}
       </tr>
     );
@@ -790,8 +812,8 @@ function ResultsSubtableTable({ subtable }: { subtable: ResultSubtable }) {
   return (
     <div className="rt-block" style={{ "--rt-accent": subtable.accent } as React.CSSProperties}>
       <div className="rt-block-head"><span className="rt-tag">{subtable.title}</span></div>
-      <div className="rt-scroll">
-        <table className="results-table">
+      <div className={`rt-scroll ${scoreIndex >= 0 ? "has-summary" : ""}`}>
+        <table className={`results-table ${scoreIndex >= 0 ? "has-summary" : ""}`}>
           <thead>
             {subtable.superGroups ? (
               <tr className="rt-superrow">
@@ -799,7 +821,7 @@ function ResultsSubtableTable({ subtable }: { subtable: ResultSubtable }) {
                 {subtable.superGroups.map((group, index) => (
                   <th
                     colSpan={group.span}
-                    className={["rt-super", index > 0 ? "group-start" : "", hasCost && index === subtable.superGroups!.length - 1 ? "rt-cost-col" : ""].filter(Boolean).join(" ")}
+                    className={["rt-super", index > 0 ? "group-start" : "", scoreIndex >= 0 && index === subtable.superGroups!.length - 1 ? "rt-summary-group" : ""].filter(Boolean).join(" ")}
                     key={group.label}
                   >
                     {group.label}
@@ -812,7 +834,7 @@ function ResultsSubtableTable({ subtable }: { subtable: ResultSubtable }) {
               {subtable.groups.map((group, index) => (
                 <th
                   colSpan={group.span}
-                  className={["rt-group", index > 0 ? "group-start" : "", hasCost && index === subtable.groups.length - 1 ? "rt-cost-col" : ""].filter(Boolean).join(" ")}
+                  className={["rt-group", index > 0 ? "group-start" : "", scoreIndex >= 0 && index === subtable.groups.length - 1 ? "rt-summary-group" : ""].filter(Boolean).join(" ")}
                   key={`${group.label}-${index}`}
                 >
                   {group.label}
@@ -821,23 +843,23 @@ function ResultsSubtableTable({ subtable }: { subtable: ResultSubtable }) {
             </tr>
             <tr className="rt-metricrow">
               {subtable.metrics.map((metric, index) => {
-                const cost = index === costColumn;
+                const summary = index === scoreIndex ? "score" : index === costIndex ? "cost" : undefined;
                 return (
                   <th
-                    className={["rt-metric", groupStarts.has(index) ? "group-start" : "", cost ? "rt-cost-col" : ""].filter(Boolean).join(" ")}
-                    aria-sort={cost ? costSort === "asc" ? "ascending" : costSort === "desc" ? "descending" : "none" : undefined}
+                    className={["rt-metric", groupStarts.has(index) ? "group-start" : "", summary ? `rt-summary-${summary}` : ""].filter(Boolean).join(" ")}
+                    aria-sort={sortState(index)}
                     key={`${metric}-${index}`}
                   >
-                    {cost ? (
+                    {summary ? (
                       <button
                         type="button"
-                        className="rt-cost-sort"
-                        aria-label={costSortLabel}
-                        title={costSortLabel}
-                        onClick={() => setCostSort(nextCostSort)}
+                        className="rt-summary-sort"
+                        aria-label={sortLabel(index)}
+                        title={sortLabel(index)}
+                        onClick={() => toggleSort(index)}
                       >
-                        <span>USD</span>
-                        {costSort === "asc" ? <ChevronUp aria-hidden="true" /> : costSort === "desc" ? <ChevronDown aria-hidden="true" /> : <ArrowUpDown aria-hidden="true" />}
+                        <span>{metric}</span>
+                        <span className="rt-sort-indicator" aria-hidden="true">{sortIndicator(index)}</span>
                       </button>
                     ) : metric}
                   </th>
