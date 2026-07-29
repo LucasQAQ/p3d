@@ -20,9 +20,9 @@
       "bytes": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
-    "assets/index-Bk69f6um.js": {
+    "assets/index-B9tQKqXK.js": {
       "bytes": 768865,
-      "sha256": "474791a075292ec639d7db4721d57d3c605da9736a097f6f1b2e8e5640d04805"
+      "sha256": "fbc27404aaece14a0db7fab99fc36567279f01368359918ca7ab17e26a43453a"
     },
     "assets/index-DU1R7tAN.css": {
       "bytes": 36358,
@@ -42,11 +42,11 @@
     },
     "index.html": {
       "bytes": 488,
-      "sha256": "be33cf4504e6702fe9df26c482804c191e8ac62ff881199c52e53df590f11744"
+      "sha256": "284b2ea5ebdadd2fc62470f5583f55cb1973ed80279cfaa1cf73f166d10f66ef"
     },
     "release/paper-snapshot.json": {
       "bytes": 219066,
-      "sha256": "bf17f4864e5c426a8f45955faed6f009b8a85f3c1ef65890ce584d6d8cf5c9e9"
+      "sha256": "dbf0a605c382bbf61d3085fb9394b2240960f7fc7b1d21b28c8630394af1933f"
     },
     "release/profile.json": {
       "bytes": 170,
@@ -69,10 +69,10 @@
   "protocol_id": "p3d-aaai27-paper-protocol-v1",
   "release_id": "p3d-aaai27-paper-current-v1",
   "schema_version": 1,
-  "snapshot_content_sha256": "ee2ea057b4138d6e09f2dbcc39bf6740cc7323f3a218ce1627649101e2449baf",
-  "snapshot_file_sha256": "bf17f4864e5c426a8f45955faed6f009b8a85f3c1ef65890ce584d6d8cf5c9e9",
-  "source_base_git_sha": "912b91129579fa03f682dacf41114a805ce417fc",
+  "snapshot_content_sha256": "a19ee69d2002d4d66a46515a34f032e13cf64a06df0cf6c02a49fe90c804184f",
+  "snapshot_file_sha256": "dbf0a605c382bbf61d3085fb9394b2240960f7fc7b1d21b28c8630394af1933f",
+  "source_base_git_sha": "9c4453915b56c5e060d754b90cf307e77ac02a25",
   "source_commit_role": "consumer_base",
-  "total_bytes": 1824214521,
-  "tree_sha256": "1a95b09958fbaec599a9cad2c4803ef4082a089060abfa57227454de7af68ada"
+  "total_bytes": 1824195829,
+  "tree_sha256": "4cfe993454e96dc220bef0999b2a12b83f803d3cf81b20f71aefd2dfae375726"
 }
