@@ -145,9 +145,6 @@
         "valid": 0.945
       },
       "parametric": {
-        "appendix_metrics": {
-          "no_open_edge": 0.9974
-        },
         "counts": {
           "qa": 386,
           "total": 400,
@@ -374,10 +371,10 @@
       "sha256": "054627e8c5a0971881ca94769d07eef10869fdb6cb37dc2d7fb5ea06cab1d8b2"
     },
     {
-      "bytes": 188167,
+      "bytes": 188047,
       "path": "code/scripts/build_p3d_aaai27_paper_snapshot.py",
       "repository": "workbench",
-      "sha256": "bfa05cea26b5dfef432c8365ba9fab2774e3fd07dc6ca8adeef1c8d512c66668"
+      "sha256": "3a1d88b905dc547f3ca87f9d85e014c1e29e58572ead718e5374f292afb3a11a"
     },
     {
       "bytes": 23993,
@@ -871,7 +868,7 @@
     "p3d_bench_dataset": "1bc40b6136a79b545a0acf36fda66e80d5ebeae35288776a1c3620168f24f620",
     "p3d_bench_fresh": "749e2191a720a896933fcc86d54136b0d4e6448a610dca84c161943355a98b3c",
     "project_page": "2218d38f166ddc20b429e60a24830687a5b11da60bb85224d939b64496ca1ba9",
-    "workbench": "953a38ae6116756d4842084732294221eb9c9711e0270276dac17c3e90dc6b83"
+    "workbench": "2f2d95ab33dba395c0d86d89d63c585f93fbd803af9e688318090fe8d5686df7"
   },
   "case_source_files": [
     {
@@ -1285,7 +1282,7 @@
       "id": "paper.appendix.text_full_desc_metrics",
       "kind": "table_cells",
       "path": "sec/X_suppl.tex",
-      "sha256": "5c13777844d43746b287fb19da42f947c419129cb93da056632ed589e97df186"
+      "sha256": "2e4e2d44de70e9f8a6ce0454482bca66add19751b27f3fb742c85ae9efd66f2a"
     },
     {
       "bytes": 516591,
@@ -1554,7 +1551,7 @@
       "sha256": "c1a5a229c843a140506b1e992e1cda8554018e9598ca795778b551fa445601c8"
     }
   ],
-  "content_sha256": "5ff607160512af7e4bae7da3dc95d0c537e74a3fdb33618f615ae3e6e762f910",
+  "content_sha256": "ee2ea057b4138d6e09f2dbcc39bf6740cc7323f3a218ce1627649101e2449baf",
   "evidence_controls": {
     "jsem_direct_verification": {
       "file_sha256": "b7a57cf9e0b42810a172473998b9fc1ea5c3df092053d3c56f7d3a0c1cb3e710",
@@ -3889,7 +3886,7 @@
         },
         "text": {
           "artifact_sha256": "bf7e95a242784577a088664016fcdd1700e1bbbe885b7e0c5205b972838a5f38",
-          "git_sha": "079cfb85111a10811750e7d1b6b9a37a4e9c1a14",
+          "git_sha": "861f5c41bec94bf0df77aa80ee8112e5753ca433",
           "pinned": true,
           "profile": "paper_current",
           "source_id": "workbench-paper-current-text-v1"
@@ -4911,9 +4908,9 @@
   "provenance": {
     "dataset_revision": "f2032df7f8ec45e8e5c2f0035f6dddc87d051703",
     "evaluator_git_sha": "60641bfc09efd61859aa70593ee44ee0926a0707",
-    "paper_consumer_base_git_sha": "983b65dee58a6ee0b407aa01df6aa6c9ac122f00",
+    "paper_consumer_base_git_sha": "89ae2bb7e52e0a8e935034876185f225df21b5a5",
     "project_page_consumer_base_git_sha": "912b91129579fa03f682dacf41114a805ce417fc",
-    "workbench_git_sha": "079cfb85111a10811750e7d1b6b9a37a4e9c1a14"
+    "workbench_git_sha": "861f5c41bec94bf0df77aa80ee8112e5753ca433"
   },
   "release_id": "p3d-aaai27-paper-current-v1",
   "result_tables": [
@@ -5232,7 +5229,7 @@
   "schema_version": 1,
   "source_commit_roles": {
     "paper": {
-      "input_base_git_sha": "983b65dee58a6ee0b407aa01df6aa6c9ac122f00",
+      "input_base_git_sha": "89ae2bb7e52e0a8e935034876185f225df21b5a5",
       "release_validation": "current_head_equal_or_descendant",
       "roles": [
         "consumer_base"
@@ -5247,8 +5244,8 @@
       ]
     },
     "workbench": {
-      "canonical_source_manifest_sha256": "953a38ae6116756d4842084732294221eb9c9711e0270276dac17c3e90dc6b83",
-      "input_base_git_sha": "079cfb85111a10811750e7d1b6b9a37a4e9c1a14",
+      "canonical_source_manifest_sha256": "2f2d95ab33dba395c0d86d89d63c585f93fbd803af9e688318090fe8d5686df7",
+      "input_base_git_sha": "861f5c41bec94bf0df77aa80ee8112e5753ca433",
       "release_validation": "current_head_equal_or_descendant_and_source_hashes_match",
       "roles": [
         "canonical_source",
@@ -5262,14 +5259,14 @@
     "p3d_bench_dataset": "f2032df7f8ec45e8e5c2f0035f6dddc87d051703",
     "p3d_bench_fresh": "f2faf9258c0dd2022b939a380169c7bd8136dd70",
     "paper": {
-      "input_base_git_sha": "983b65dee58a6ee0b407aa01df6aa6c9ac122f00",
+      "input_base_git_sha": "89ae2bb7e52e0a8e935034876185f225df21b5a5",
       "role": "consumer_base"
     },
     "project_page": {
       "input_base_git_sha": "912b91129579fa03f682dacf41114a805ce417fc",
       "role": "consumer_base"
     },
-    "workbench": "079cfb85111a10811750e7d1b6b9a37a4e9c1a14"
+    "workbench": "861f5c41bec94bf0df77aa80ee8112e5753ca433"
   },
   "source_files": [
     {
