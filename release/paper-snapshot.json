@@ -125,8 +125,8 @@
     }
   ],
   "assets": {
-    "figures/fig_tasks_grouped_bars.pdf": "6d67558980329a5eac211993cd9e5491e8613f9e4df6981deba842939da31f01",
-    "figures/fig_tasks_grouped_bars.svg": "c5cbd521bee69382e7e73f0493d57947876090f38b6387c5ca4886f41f877aac"
+    "figures/fig_tasks_grouped_bars.pdf": "c1fdbf9bf76c17e86e23e871cad7ac6eea5f384d30d333685e0715975dcc81d4",
+    "figures/fig_tasks_grouped_bars.svg": "e6894f2bc8e007701a5493c5efc71c8db1f54253eb7338681d35ddb64442ab90"
   },
   "baselines": {
     "Text2CAD": {
@@ -137,134 +137,23 @@
           "total": 400,
           "valid": 378
         },
-        "judge_bucket": 0.051944445,
-        "llm_judge": 1.57500037,
+        "judge_bucket": 0.054967666666666665,
+        "llm_judge": 1.608466,
         "native_format": "json",
-        "normalized_judge": 0.06388893,
-        "qa": 0.03999996,
+        "normalized_judge": 0.06760733333333332,
+        "qa": 0.042328,
         "valid": 0.945
       },
       "parametric": {
+        "appendix_metrics": {
+          "no_open_edge": 0.9974
+        },
         "counts": {
           "qa": 386,
           "total": 400,
           "valid": 386
         },
         "f_score_001_evidence": {
-          "aggregation_result": {
-            "applicable_metric_gap_count": 1,
-            "applicable_metric_gap_uids": [
-              "0049/00497058"
-            ],
-            "applicable_metric_gaps": {
-              "chamfer_distance": [
-                "0049/00497058"
-              ],
-              "f_score_001": [
-                "0049/00497058"
-              ],
-              "f_score_005": [
-                "0049/00497058"
-              ],
-              "iou_csg": [
-                "0049/00497058"
-              ],
-              "normal_consistency": [
-                "0049/00497058"
-              ],
-              "pred_inverted_normal_ratio": [
-                "0049/00497058"
-              ],
-              "pred_no_open_edge_rate": [
-                "0049/00497058"
-              ],
-              "pred_non_manifold_edge_ratio": [
-                "0049/00497058"
-              ],
-              "pred_open_edge_ratio": [
-                "0049/00497058"
-              ]
-            },
-            "case_count": 400,
-            "fixed_means": {
-              "chamfer_distance_mean_filled": 0.00589865,
-              "f_score_001_mean_filled": 0.09307750000000001,
-              "f_score_005_mean_filled": 0.42256,
-              "iou_csg_mean_filled": 0.14382975,
-              "normal_consistency_mean_filled": 0.47296825,
-              "pred_inverted_normal_ratio_mean_filled": 0.0375,
-              "pred_no_open_edge_rate": 0.9974025974025974,
-              "pred_no_open_edge_rate_mean_filled": 0.96,
-              "pred_non_manifold_edge_ratio_mean_filled": 0.0412115025,
-              "pred_open_edge_ratio_mean_filled": 0.038611110000000004
-            },
-            "invalid_cases": 14,
-            "iou_csg": {
-              "applicable_gap_count": 1,
-              "applicable_gap_uids": [
-                "0049/00497058"
-              ],
-              "fixed_denominator": 400,
-              "inapplicable_count": 38,
-              "inapplicable_uids": [
-                "0000/00001749",
-                "0007/00073282",
-                "0009/00098726",
-                "0013/00139444",
-                "0016/00164556",
-                "0019/00199917",
-                "0023/00231267",
-                "0024/00242128",
-                "0026/00269090",
-                "0030/00301122",
-                "0037/00370485",
-                "0039/00396861",
-                "0039/00398997",
-                "0043/00437520",
-                "0052/00522179",
-                "0054/00541109",
-                "0054/00543657",
-                "0058/00580877",
-                "0063/00632896",
-                "0066/00666181",
-                "0066/00666187",
-                "0067/00673369",
-                "0070/00703137",
-                "0070/00704447",
-                "0071/00714935",
-                "0071/00719357",
-                "0072/00723126",
-                "0072/00724192",
-                "0072/00725542",
-                "0076/00768770",
-                "0078/00789364",
-                "0080/00806913",
-                "0080/00808089",
-                "0081/00818875",
-                "0083/00839405",
-                "0084/00843852",
-                "0084/00843879",
-                "0093/00934405"
-              ],
-              "invalid_fill_count": 14,
-              "mean_filled": 0.14382975,
-              "metric_success": 347
-            },
-            "metric_success": {
-              "chamfer_distance": 385,
-              "f_score_001": 385,
-              "f_score_005": 385,
-              "iou_csg": 347,
-              "normal_consistency": 385,
-              "pred_inverted_normal_ratio": 385,
-              "pred_no_open_edge_rate": 385,
-              "pred_non_manifold_edge_ratio": 385,
-              "pred_open_edge_ratio": 385
-            },
-            "schema_version": "p3d-aaai27-text2cad-baseline-aggregate-v1",
-            "topology_bucket_score": 0.9604294991666666,
-            "valid_cases": 386
-          },
           "applicable_metric_gap_count": 1,
           "applicable_metric_gap_uids": [
             "0049/00497058"
@@ -289,27 +178,30 @@
           "source_id": "archived-text2cad-parametric-json-paper400-v1",
           "source_results_sha256": "a0c141ebd8ac436b9fdcb342844f886c006b728dc5bc3fcc5959e914059c25b8",
           "summary_fields": {
-            "chamfer_distance_mean_filled": 0.00589865,
-            "f_score_005_mean_filled": 0.42256,
-            "iou_csg_mean_filled": 0.14382975,
-            "normal_consistency_mean_filled": 0.47296825
+            "chamfer_distance_mean_filled": 0.008115,
+            "f_score_005_mean_filled": 0.4236,
+            "iou_csg_mean_filled": 0.1594,
+            "normal_consistency_mean_filled": 0.4742,
+            "pred_inverted_normal_ratio_mean_filled": 0.035088,
+            "pred_no_open_edge_rate_mean_filled": 0.9624,
+            "pred_non_manifold_edge_ratio_mean_filled": 0.038809
           },
           "valid_cases": 386
         },
-        "geometry": 0.3085141,
+        "geometry": 0.2677555,
         "geometry_metrics": {
-          "chamfer_distance": 0.00589865,
-          "chamfer_distance_score": 0.410135,
+          "chamfer_distance": 0.008115,
+          "chamfer_distance_score": 0.1885,
           "f_score_001": 0.09307750000000001,
-          "f_score_005": 0.42256,
-          "iou_csg": 0.14382975,
-          "normal_consistency": 0.47296825
+          "f_score_005": 0.4236,
+          "iou_csg": 0.1594,
+          "normal_consistency": 0.4742
         },
-        "judge": 0.05520833333333333,
+        "judge": 0.05721066666666667,
         "native_format": "json",
-        "qa_micro": 0.05520833333333333,
-        "qa_p": 0.0621875,
-        "qa_s": 0.04125,
+        "qa_micro": 0.05721066666666667,
+        "qa_p": 0.064443,
+        "qa_s": 0.042746,
         "topology": 0.9628343333333333,
         "topology_gap_exception": {
           "case_id": "0049/00497058",
@@ -482,10 +374,10 @@
       "sha256": "054627e8c5a0971881ca94769d07eef10869fdb6cb37dc2d7fb5ea06cab1d8b2"
     },
     {
-      "bytes": 185097,
+      "bytes": 188167,
       "path": "code/scripts/build_p3d_aaai27_paper_snapshot.py",
       "repository": "workbench",
-      "sha256": "a62e9fc6d23aeefd2d2966bd75066022dea1b16cb538d16f53feef458e670a2b"
+      "sha256": "bfa05cea26b5dfef432c8365ba9fab2774e3fd07dc6ca8adeef1c8d512c66668"
     },
     {
       "bytes": 23993,
@@ -506,10 +398,10 @@
       "sha256": "423acb2c37692d696cba6d9a66f43f9e14e8783e73671708bdf355578da36e7b"
     },
     {
-      "bytes": 8096,
+      "bytes": 8177,
       "path": "code/scripts/promote_p3d_aaai27_paper_metrics.py",
       "repository": "workbench",
-      "sha256": "ba240f3e49203fd88b15ca9cf52ea55283dae1470c863c7a8901415782fec52b"
+      "sha256": "9453f50e5ed7056cf778d4689c25542da596a7ed7553adea4855413d1535cc6a"
     },
     {
       "bytes": 19442,
@@ -536,10 +428,10 @@
       "sha256": "3a51e3229566a2c45d42d0f120ddb555f9671ca702dc340f08304cf46469717b"
     },
     {
-      "bytes": 4052,
+      "bytes": 4041,
       "path": "results/final/paper_current/baselines/third_party_native/model_summary.csv",
       "repository": "workbench",
-      "sha256": "666fc1c43f907470559ec8c083e03d77caace2f3eff3216b044bd3df87892404"
+      "sha256": "7f1a2ac59dc77ea4bbbbfd8f69bfa16ce4976235310f99a25a178b78257c1bc5"
     },
     {
       "bytes": 39963,
@@ -548,10 +440,10 @@
       "sha256": "73c73a92d50ca5d75b36eda933a7251543d15954ae0253c33a14659dc67a65af"
     },
     {
-      "bytes": 98778,
+      "bytes": 66002,
       "path": "results/final/paper_current/paper_assets/charts/final_penalized_metrics.json",
       "repository": "workbench",
-      "sha256": "b9bd67dfdec9e28ea2a3485344fd7d50fe0f6d03db8659086bde110e9f42a229"
+      "sha256": "96d5161ecdc5dca9bcd997ac58acfa55fbc4317d9fda6fb90c66598e49e9c9a9"
     },
     {
       "bytes": 951,
@@ -590,10 +482,10 @@
       "sha256": "7cfecf2c12f8c85c6565ca87d99c8ef03d12a52973ccfdc63481b3be939a9b50"
     },
     {
-      "bytes": 98778,
+      "bytes": 66002,
       "path": "results/final/paper_current/text_to_3d/shared/metrics/final_penalized_metrics.json",
       "repository": "workbench",
-      "sha256": "b9bd67dfdec9e28ea2a3485344fd7d50fe0f6d03db8659086bde110e9f42a229"
+      "sha256": "96d5161ecdc5dca9bcd997ac58acfa55fbc4317d9fda6fb90c66598e49e9c9a9"
     },
     {
       "bytes": 3157727,
@@ -971,7 +863,7 @@
       "bytes": 971,
       "path": "results/registry/p3d_aaai27_text_metric_promotion_receipt.json",
       "repository": "workbench",
-      "sha256": "902a0177c5d439873d7d1918d35d3d6581149818c934875f9ca9066eaea13d52"
+      "sha256": "fd5010e3592e0bf9ddb99a1ef371271d217ca48bccf6fc27d566f63767da8839"
     }
   ],
   "canonical_source_manifests": {
@@ -979,7 +871,7 @@
     "p3d_bench_dataset": "1bc40b6136a79b545a0acf36fda66e80d5ebeae35288776a1c3620168f24f620",
     "p3d_bench_fresh": "749e2191a720a896933fcc86d54136b0d4e6448a610dca84c161943355a98b3c",
     "project_page": "2218d38f166ddc20b429e60a24830687a5b11da60bb85224d939b64496ca1ba9",
-    "workbench": "a46759a3bd9ad5a270f1f38c89988b1eea344fefde0c0d75fd71a5cbde0be852"
+    "workbench": "953a38ae6116756d4842084732294221eb9c9711e0270276dac17c3e90dc6b83"
   },
   "case_source_files": [
     {
@@ -1182,7 +1074,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "938e0124467a6f4eff9eab709318a79cf64689c3fa4b824e8271537c17991fc6",
+      "compact_contributions_sha256": "39084cda98e1a0a89e93f341bf46095cfa933b09bf0606d3cac26900520e4981",
       "format": "json",
       "mode": "parametric",
       "model": "claude",
@@ -1193,7 +1085,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "625934bb29c937fc90184135689a51d33ea006759903c339f69de86fbc205d8a",
+      "compact_contributions_sha256": "0b9a5c1e06e71d24377004ab86e4717247e028947a577063b31a97b521443d8c",
       "format": "json",
       "mode": "parametric",
       "model": "deepseek_v4pro",
@@ -1204,7 +1096,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "e2da719770680893247397fda5b7bebd9e91fe13ec7b4bad36e60a69e03d741b",
+      "compact_contributions_sha256": "ddc4ddc5991a357e7a0be4ce07542403c6b942642db272dfb8b83ee91549658c",
       "format": "json",
       "mode": "parametric",
       "model": "doubao",
@@ -1215,7 +1107,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "200544e0329e961a28af6f7b4cb73e2a2439ebe641b85f61f5020cbd921c4a32",
+      "compact_contributions_sha256": "4337056215bd2f8dcc6ef18139d54218207162355566c8ac97bf3df4ddd297af",
       "format": "json",
       "mode": "parametric",
       "model": "gemini",
@@ -1226,7 +1118,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "365d4c888d4dc63efb4c1aa46d53270a3238955efa342934d78a2514ca102dee",
+      "compact_contributions_sha256": "9a14c618f842d8fa00895d7070873075d4333eefe24e16bf415a1d7bce43139c",
       "format": "json",
       "mode": "parametric",
       "model": "glm",
@@ -1237,7 +1129,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "1c3cfc0a01591f5b96c79fc6f61913d656a219dc8a7284e4c9fba1e574764eae",
+      "compact_contributions_sha256": "4337056215bd2f8dcc6ef18139d54218207162355566c8ac97bf3df4ddd297af",
       "format": "json",
       "mode": "parametric",
       "model": "gpt55",
@@ -1248,7 +1140,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "ee2e3c472934897a427ea6e92381d599cef4eeb8d96c9567ddbb2dcd12e86bd8",
+      "compact_contributions_sha256": "09b56db9aefa6e0902aaefba666a0585e264c504cf778fafa99ff38032969f4a",
       "format": "json",
       "mode": "parametric",
       "model": "kimi_k26",
@@ -1259,7 +1151,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "8c76d10f7b0f741ae816422bbccb6cddabefdc45f98350ac5321893bb017b6e1",
+      "compact_contributions_sha256": "f1c324c2d9f9555c352b714424da22fbe0a9b34833333271bc63002dfb48ab04",
       "format": "json",
       "mode": "parametric",
       "model": "mimo_v25",
@@ -1270,7 +1162,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "f5d7be0f657e9e9195bfb2cc07562de3607d9c1cd82fe9663c32867c90917ca5",
+      "compact_contributions_sha256": "4af193b494e37e383a6fc7e85a355b905193f0c224b555ad3981176cdcaffe27",
       "format": "json",
       "mode": "parametric",
       "model": "qwen",
@@ -1281,7 +1173,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "6b655ffa3916614ddc113ef012e9ff0d10fb4ddb70d3441d15e4d2e15aef5a4a",
+      "compact_contributions_sha256": "4337056215bd2f8dcc6ef18139d54218207162355566c8ac97bf3df4ddd297af",
       "format": "openscad",
       "mode": "parametric",
       "model": "claude",
@@ -1292,7 +1184,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "189cb3f7a3455c881ce14dc170c2e8688bbc912000ed49804a8c186e85d09a4e",
+      "compact_contributions_sha256": "02763a901a395f1aa8d3a80658137887ee59d3749817b5c2f1dd157afa2de824",
       "format": "openscad",
       "mode": "parametric",
       "model": "deepseek_v4pro",
@@ -1303,7 +1195,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "3aebe78793e369d6ce7412e1f7ba1ae9465d85057b7ad508dc311c34726970cb",
+      "compact_contributions_sha256": "8f59ab180557f9c88edbbc71340421050fee5e23aafc521d8d264592609c6d3c",
       "format": "openscad",
       "mode": "parametric",
       "model": "doubao",
@@ -1314,7 +1206,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "598bf44fe978663a5324eb745a6d552a43bcce43f449f0b843f483dca551ac39",
+      "compact_contributions_sha256": "4337056215bd2f8dcc6ef18139d54218207162355566c8ac97bf3df4ddd297af",
       "format": "openscad",
       "mode": "parametric",
       "model": "gemini",
@@ -1325,7 +1217,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "b701bf90b4c72eadff39c92682b97fcbe0b7239523a32fd5636c94fa1961fb0c",
+      "compact_contributions_sha256": "70405504551ce50f66573d297be659880c3b589503409453bbb2c4dea9ee6059",
       "format": "openscad",
       "mode": "parametric",
       "model": "glm",
@@ -1336,7 +1228,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "30cc2913884ba3d792556afeb16f59ab805f29bc34f6b0ea39a5fe638ebcc096",
+      "compact_contributions_sha256": "765ad9768a2c3b12e016ca21ec5e6993a5fd3870bbb165cbf4ce2ad7efbd7154",
       "format": "openscad",
       "mode": "parametric",
       "model": "gpt55",
@@ -1347,7 +1239,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "057c6a3a537935f223d115ca68122182762638af58f9a81f19ff5faf40c80b74",
+      "compact_contributions_sha256": "6a15ee26c95c8d1e3ed3d0c627b2c00c5c8a51618b76616b5838333bd229c049",
       "format": "openscad",
       "mode": "parametric",
       "model": "kimi_k26",
@@ -1358,7 +1250,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "e5a00e2712573c9c1e5fe9d78a93df0f406f43e1c947cfdf9b383dc7a6b2b47e",
+      "compact_contributions_sha256": "06a5b43950485a2b2395b561a507a976af92337406f50bdb7ca3b2a10e7fba17",
       "format": "openscad",
       "mode": "parametric",
       "model": "mimo_v25",
@@ -1369,7 +1261,7 @@
     },
     {
       "case_count": 400,
-      "compact_contributions_sha256": "55ba616ec63fe105981c88aaa124060057baefec145fa90955807b6d90535332",
+      "compact_contributions_sha256": "9bdf4b3610656a3983be44c2e35539882606e80449a325ea10c0988e32f1a775",
       "format": "openscad",
       "mode": "parametric",
       "model": "qwen",
@@ -1379,84 +1271,84 @@
       "unclassified_required_gap_count": 0
     }
   ],
-  "case_source_manifest_sha256": "f4038ce07d74e93ad9c572f78d340877949224094f3d96b82993b2ef0f4f0729",
+  "case_source_manifest_sha256": "5e6e5c4d8f4bafeab08390fa4e6b568b395db2a7e93950992e458941c0c68d09",
   "consumer_assets": [
     {
-      "bytes": 12018,
+      "bytes": 13234,
       "id": "paper.main_results.text_descriptive_judge",
       "kind": "table_cells",
       "path": "sec/5_experiments.tex",
-      "sha256": "b5b063d699c30e0482ef7d3b6b88b6ced87219d00a01e79c8ce4f5725f2c15e6"
+      "sha256": "91c0f18d520d35c2052d6f035f0c87f3777134149c64c46fdbbcbc7f12f9a69e"
     },
     {
-      "bytes": 72592,
+      "bytes": 69314,
       "id": "paper.appendix.text_full_desc_metrics",
       "kind": "table_cells",
       "path": "sec/X_suppl.tex",
-      "sha256": "91645223790bfa821c9177369971a083816ffa761d35c8177f96d36773af5080"
+      "sha256": "5c13777844d43746b287fb19da42f947c419129cb93da056632ed589e97df186"
     },
     {
-      "bytes": 568949,
+      "bytes": 516591,
       "id": "paper.figure.intro_leaderboard",
       "kind": "figure",
       "path": "figures/fig2_leaderboard_raster.jpg",
-      "sha256": "73045c5660020aef38803255ca55cd0796bb2ce4486f5fe69d344dea0bf9c7e7"
+      "sha256": "f7ef767ad750ed91a3cce9d6af7472750322b05aba7136795f7504c71f25356f"
     },
     {
-      "bytes": 52993,
+      "bytes": 71907,
       "id": "paper.figure.three_task_grouped_bars_1col_pdf",
       "kind": "figure",
       "path": "figures/fig_tasks_grouped_bars_1col.pdf",
-      "sha256": "b23df78917a090b3fd57d9faf34ebb4ea08ab6526f6c6e1d8736c34ba7fd0f2c"
+      "sha256": "b1bd177924ef6b9917e143782ced35d0f8f333b6513a306c5cf1ca064c7ff5d2"
     },
     {
-      "bytes": 51011,
+      "bytes": 51091,
       "id": "paper.figure.three_task_grouped_bars_1col_svg",
       "kind": "figure",
       "path": "figures/fig_tasks_grouped_bars_1col.svg",
-      "sha256": "7f5cf7f11f7576c5d1629745908e047f48412db24885651f7c4520ab6f995e9b"
+      "sha256": "fe557003dec079a9089791882b882955811fa113f798a2af1d57454606297fcd"
     },
     {
-      "bytes": 295345,
+      "bytes": 254259,
       "id": "paper.figure.three_task_grouped_bars_1col_png",
       "kind": "figure",
       "path": "figures/fig_tasks_grouped_bars_1col.png",
-      "sha256": "0103839bc63d86529a33b629977e2c593034fa0e911fb204af53e695ed6668f6"
+      "sha256": "d95ec5921ece390d876e9c3c6e71fd6ac35ba2640faa9a2ee0d746d6411e8a48"
     },
     {
-      "bytes": 56829,
+      "bytes": 75514,
       "id": "paper.figure.three_task_grouped_bars_wide_pdf",
       "kind": "figure",
       "path": "figures/fig_tasks_grouped_bars.pdf",
-      "sha256": "6d67558980329a5eac211993cd9e5491e8613f9e4df6981deba842939da31f01"
+      "sha256": "c1fdbf9bf76c17e86e23e871cad7ac6eea5f384d30d333685e0715975dcc81d4"
     },
     {
-      "bytes": 52183,
+      "bytes": 52186,
       "id": "paper.figure.three_task_grouped_bars_wide_svg",
       "kind": "figure",
       "path": "figures/fig_tasks_grouped_bars.svg",
-      "sha256": "c5cbd521bee69382e7e73f0493d57947876090f38b6387c5ca4886f41f877aac"
+      "sha256": "e6894f2bc8e007701a5493c5efc71c8db1f54253eb7338681d35ddb64442ab90"
     },
     {
-      "bytes": 173498,
+      "bytes": 171822,
       "id": "paper.figure.three_task_grouped_bars_wide_png",
       "kind": "figure",
       "path": "figures/fig_tasks_grouped_bars.png",
-      "sha256": "66cec06662b418b47c2664ff1dd9f9623c4d67475cdf49b3186746872b8c7b9a"
+      "sha256": "74ec05d358124aa2c1c0c2d2c0d3c4f87cc19c4099561b430ca199eada225f1e"
     },
     {
-      "bytes": 202429,
+      "bytes": 150958,
       "id": "paper.figure.task_format_buckets",
       "kind": "figure",
       "path": "figures/task_format_dim_effects.png",
-      "sha256": "6b6525a12d985c1827fd7180f53ef6ed1562a23144364d6e18e5b4b138bddb92"
+      "sha256": "eb5d90f3bcb6c6bae8a8b8482f761d058c946adcd09ee440b90c36749230076d"
     },
     {
-      "bytes": 18586,
+      "bytes": 34793,
       "id": "paper.figure.text_cost_vs_score",
       "kind": "figure",
       "path": "figures/openrouter_score_cost_text.pdf",
-      "sha256": "568a99d95f7bd8fbb2a81194aae2da2b551ed1523a9451e82728394846457b38"
+      "sha256": "969c6bcec6f5132f61f7efec0a246f3d8922f42c8dd86f118fc29ac63c043b8e"
     },
     {
       "bytes": 621516,
@@ -1466,11 +1358,11 @@
       "sha256": "cd95c466107b9314f80ad3fc0eae8a2395e54b3e3a2449b032acbf6591fd4479"
     },
     {
-      "bytes": 3269282,
+      "bytes": 4373134,
       "id": "paper.figure.main_qualitative_text_labels",
       "kind": "per_case_scored_figure",
       "path": "figures/qualitative_combined_select_transposed_openscad.png",
-      "sha256": "851fc2e7d072c392dd7e3c905b4f772a9993d6365a8b8356f4799de59a4a3e48"
+      "sha256": "ebc8a61594f63ff78d76fa02db7962b56fdf1d5adebae3e6f8779971df3baa9e"
     },
     {
       "bytes": 9371421,
@@ -1494,11 +1386,11 @@
       "sha256": "4d97c4ed5464cef07dd20f484b2480d0ba4f991845c30d72320e8b8eade8b52e"
     },
     {
-      "bytes": 8097,
+      "bytes": 8076,
       "id": "paper.tex.ReproducibilityChecklist.tex",
       "kind": "paper_source",
       "path": "ReproducibilityChecklist.tex",
-      "sha256": "ea1cc9e13a10d2cfb9a6eb58d60a247961b1c6d7b0d27aa023c2e8c736f18fad"
+      "sha256": "2acf908fc7f80e5861ad25fb778da12bbdac6a843e5043c1d4b8b145b45e5a68"
     },
     {
       "bytes": 3112,
@@ -1515,11 +1407,11 @@
       "sha256": "ba5a14e404177284629d8d23e19f31784121398e2690bf88bcfefad56ca8a948"
     },
     {
-      "bytes": 9025,
+      "bytes": 9029,
       "id": "paper.tex.sec/1_intro.tex",
       "kind": "paper_source",
       "path": "sec/1_intro.tex",
-      "sha256": "74107fe9227e5413b9bb178af339b3e0f270f03653ee41ae53655ae0ad5d7ddd"
+      "sha256": "a6575f6a4104483fb2a38f2e523c5e2f94f5d358cf2256e7feb3feab45e92f3a"
     },
     {
       "bytes": 3757,
@@ -1536,434 +1428,133 @@
       "sha256": "cd8978c831f42e80d56ec6dea11de067c6952f81355cfb98c493075c9524a5ea"
     },
     {
-      "bytes": 10191,
+      "bytes": 11269,
       "id": "paper.tex.sec/4_method.tex",
       "kind": "paper_source",
       "path": "sec/4_method.tex",
-      "sha256": "d6e8b48bc604de6170bf549a2ac03eac5af40672197141260d8472bd5218cf35"
+      "sha256": "908e443bc77e26335d3ce55bcc05ca43e5ab7776c156109b6f9cbb576489f3ac"
     },
     {
-      "bytes": 659,
+      "bytes": 967,
       "id": "paper.tex.sec/6_conclusion.tex",
       "kind": "paper_source",
       "path": "sec/6_conclusion.tex",
-      "sha256": "5edede02481e1e613f942967d225c7f657e4768788df0a5e94a7c300d6197962"
+      "sha256": "e5afc0a5b4ddae83f27f44758bb9a5f6a38fa5e62a4f2f78afdd00a2173797ba"
     },
     {
-      "bytes": 972343,
+      "bytes": 566928,
       "id": "paper.tex_asset.figures/cad_gallery_combined_axis.jpg",
       "kind": "tex_figure_asset",
       "path": "figures/cad_gallery_combined_axis.jpg",
-      "sha256": "0f66fcbc25cde06897a78d9114af93dd63147b73419904dec9e8f24bb11cee24"
+      "sha256": "9e7a70e33880f690b8dfd7e918ecef8a6a08a48669001fcbe7ea93f7c9af5380"
     },
     {
-      "bytes": 174936,
-      "id": "paper.tex_asset.figures/dataset_category_image_readable.pdf",
+      "bytes": 569931,
+      "id": "paper.tex_asset.figures/dataset_category_distribution.pdf",
       "kind": "tex_figure_asset",
-      "path": "figures/dataset_category_image_readable.pdf",
-      "sha256": "12787be046bbc4f5d2159970b46c270d0db6838a7469aa20e4153bf7b795e8aa"
+      "path": "figures/dataset_category_distribution.pdf",
+      "sha256": "02b6d9cbf4c81d79c9e1814197e55582e4e0c1a3415351cebf415fae45b868f8"
     },
     {
-      "bytes": 111189,
-      "id": "paper.tex_asset.figures/dataset_category_text_readable.pdf",
-      "kind": "tex_figure_asset",
-      "path": "figures/dataset_category_text_readable.pdf",
-      "sha256": "50354800884dcf1f2813fc1492aa86a6f0ccc911519a3531697963be8641ea5d"
-    },
-    {
-      "bytes": 436902,
+      "bytes": 1948324,
       "id": "paper.tex_asset.figures/fig3_judge_part_raster.jpg",
       "kind": "tex_figure_asset",
       "path": "figures/fig3_judge_part_raster.jpg",
-      "sha256": "2ae0e72d718aecdd286ee690926f98c6339a0c7dacf302e76b1ba6d4a5e78c3e"
+      "sha256": "f2938a5394a71fbe9689cc368b20f7ed648d995752cea6f8d02f6654bea3ff09"
     },
     {
-      "bytes": 255456,
-      "id": "paper.tex_asset.figures/fig4_annotation_examples_assembly_readable.pdf",
+      "bytes": 309436,
+      "id": "paper.tex_asset.figures/fig4_annotation_examples.pdf",
       "kind": "tex_figure_asset",
-      "path": "figures/fig4_annotation_examples_assembly_readable.pdf",
-      "sha256": "dce0ddfdd3c33ed027f90c468d01790415d56c0076c0a61f26f942e1f48d400c"
+      "path": "figures/fig4_annotation_examples.pdf",
+      "sha256": "3dc2b62f8968653e962e6493619b547adf3817de59d891b10ab14e9208aab675"
     },
     {
-      "bytes": 25740,
-      "id": "paper.tex_asset.figures/fig4_annotation_examples_parts_readable.pdf",
+      "bytes": 686381,
+      "id": "paper.tex_asset.figures/invalid_error_types_bars.png",
       "kind": "tex_figure_asset",
-      "path": "figures/fig4_annotation_examples_parts_readable.pdf",
-      "sha256": "cf42646e89855aae3e5d413f66ee04458711f7a153aa92c9e5435f77c1b6f41a"
+      "path": "figures/invalid_error_types_bars.png",
+      "sha256": "5750a4fcba07bd563440a661e4c710ada24ca4ad805c2e9a06bf2efa89faaa71"
     },
     {
-      "bytes": 39087,
-      "id": "paper.tex_asset.figures/fig4_annotation_examples_text_readable.pdf",
-      "kind": "tex_figure_asset",
-      "path": "figures/fig4_annotation_examples_text_readable.pdf",
-      "sha256": "29427fc7e76a8681c4ea79b0e56f62a44fe608fd85c1b57eaecab1785dfa4aad"
-    },
-    {
-      "bytes": 234888,
-      "id": "paper.tex_asset.figures/invalid_assembly_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/invalid_assembly_readable.png",
-      "sha256": "afec76923705b39f933b97546b463f2529e89a4a87f244de55c982f80b414dd5"
-    },
-    {
-      "bytes": 262081,
-      "id": "paper.tex_asset.figures/invalid_image_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/invalid_image_readable.png",
-      "sha256": "de4d190bbb1d736b47a20de1d2b94a0843568a12159c54b018fb15bb23ad6f87"
-    },
-    {
-      "bytes": 22036,
-      "id": "paper.tex_asset.figures/invalid_legend_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/invalid_legend_readable.png",
-      "sha256": "c47f6bba097a10178dbe802501c884bcd8afafece47557f3d78cf2d681a5f258"
-    },
-    {
-      "bytes": 250287,
-      "id": "paper.tex_asset.figures/invalid_text_description_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/invalid_text_description_readable.png",
-      "sha256": "6b6eaf435eb9b97a6713beff3fbb2f18ce5b236677eb912a731196d154d3312a"
-    },
-    {
-      "bytes": 257361,
-      "id": "paper.tex_asset.figures/invalid_text_parametric_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/invalid_text_parametric_readable.png",
-      "sha256": "c69a17255af0305fadfa603884b392faaa07ceae59573ac4e5c63aba342ec755"
-    },
-    {
-      "bytes": 18125,
+      "bytes": 34198,
       "id": "paper.tex_asset.figures/openrouter_score_cost_assembly.pdf",
       "kind": "tex_figure_asset",
       "path": "figures/openrouter_score_cost_assembly.pdf",
-      "sha256": "71961b6beae6bae88997bbe5a56ea55d836645cf947194e92231983c4ae4cfba"
+      "sha256": "1966a90ff7bcff50514c89f43e268be5c7493d88a5e06bbf47730a1a814abb16"
     },
     {
-      "bytes": 17651,
+      "bytes": 33310,
       "id": "paper.tex_asset.figures/openrouter_score_cost_image.pdf",
       "kind": "tex_figure_asset",
       "path": "figures/openrouter_score_cost_image.pdf",
-      "sha256": "1190357fc5947971e3336a8687b1f23a6313f205783e767d31aa70ceee189100"
+      "sha256": "365c2947c4f1898e4169afa699aac596c5f11604cc37083debaaa35af8e1489f"
     },
     {
-      "bytes": 2224704,
-      "id": "paper.tex_asset.figures/p3d_dataset_pipeline_core_readable.png",
+      "bytes": 729063,
+      "id": "paper.tex_asset.figures/p3d_dataset_pipeline.jpg",
       "kind": "tex_figure_asset",
-      "path": "figures/p3d_dataset_pipeline_core_readable.png",
-      "sha256": "9d0e016191ef37b587272c3fb23a130a3e64097745ace3dadf2a417ce28b861f"
+      "path": "figures/p3d_dataset_pipeline.jpg",
+      "sha256": "dbb22d4c89ff94afa4df784d5056f27308e61581bce7b10bafddf883c5b7abaf"
     },
     {
-      "bytes": 519065,
-      "id": "paper.tex_asset.figures/p3d_dataset_summary_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/p3d_dataset_summary_readable.png",
-      "sha256": "0eac2f1a4685a2a8931ebcbc4648bf51e59772ec88e5fa78b1a4dd2f54b52626"
-    },
-    {
-      "bytes": 276513,
-      "id": "paper.tex_asset.figures/paper_judge_image_case1_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/paper_judge_image_case1_readable.png",
-      "sha256": "a1cb93c884571f52cddaf49cabc2ed4c35062e9f484699412eca3cdbb8e07f36"
-    },
-    {
-      "bytes": 260215,
-      "id": "paper.tex_asset.figures/paper_judge_image_case2_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/paper_judge_image_case2_readable.png",
-      "sha256": "6c27e8939065d46a45a7dfae133dd0ff4fe2f5007ecbcd7dac06bd97c119ed47"
-    },
-    {
-      "bytes": 1210933,
-      "id": "paper.tex_asset.figures/paper_judge_text_qa_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/paper_judge_text_qa_readable.png",
-      "sha256": "d8b92ca0a2f1c436b379b908fea73987b2715aeaad8f4ee6a6c846baed447584"
-    },
-    {
-      "bytes": 300188,
-      "id": "paper.tex_asset.figures/paper_judge_text_visual_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/paper_judge_text_visual_readable.png",
-      "sha256": "8192e3e3dcb30b0fb1ec1ebd8a89c12e9d15079c29f028e5b1444bdf7f4515ea"
-    },
-    {
-      "bytes": 636266,
+      "bytes": 367579,
       "id": "paper.tex_asset.figures/partmatch_only.jpg",
       "kind": "tex_figure_asset",
       "path": "figures/partmatch_only.jpg",
-      "sha256": "aa949a404d4028943ddc8c7d87c7b0b575cda1b960cb00457fbac30cfc5828ce"
+      "sha256": "a764d27df78b883f2bc0dbe8560f3f132752ecab8f20125ee51750746e88a189"
     },
     {
-      "bytes": 455071,
-      "id": "paper.tex_asset.figures/qualitative_image2cad_header_01_readable.png",
+      "bytes": 6801255,
+      "id": "paper.tex_asset.figures/qualitative_image2cad_6x6_with_scores_openscad.png",
       "kind": "tex_figure_asset",
-      "path": "figures/qualitative_image2cad_header_01_readable.png",
-      "sha256": "101f77f5bd2400a342562a604498e3573c09a053c42b3f66df9c1e5df8156991"
+      "path": "figures/qualitative_image2cad_6x6_with_scores_openscad.png",
+      "sha256": "567fe1adee31f22fb1e106d6c1ccc7ec1545fb44fbc2586ef702e86091a0c0da"
     },
     {
-      "bytes": 359740,
-      "id": "paper.tex_asset.figures/qualitative_image2cad_header_02_readable.png",
+      "bytes": 5908873,
+      "id": "paper.tex_asset.figures/qualitative_textimage2cad_6x6_with_scores_openscad.png",
       "kind": "tex_figure_asset",
-      "path": "figures/qualitative_image2cad_header_02_readable.png",
-      "sha256": "599900ef21fd6a9560b624f1b92451fd32401d93751eaf48456684ba903015db"
+      "path": "figures/qualitative_textimage2cad_6x6_with_scores_openscad.png",
+      "sha256": "cad5ce825087f1f61012d3db54b0d418791ff2aebda48dfbcc02fcd0b7b56084"
     },
     {
-      "bytes": 460680,
-      "id": "paper.tex_asset.figures/qualitative_image2cad_header_03_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_image2cad_header_03_readable.png",
-      "sha256": "5f3356cb67106c7c85d8703fa7ce394c7fb56b489586e08d88fb72facb368fc7"
-    },
-    {
-      "bytes": 1551155,
-      "id": "paper.tex_asset.figures/qualitative_image2cad_models_01_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_image2cad_models_01_readable.png",
-      "sha256": "5392a4e1ab1fb67591fddda78424acd9856e31fc4ebadee7dd92baba8668c66b"
-    },
-    {
-      "bytes": 1444163,
-      "id": "paper.tex_asset.figures/qualitative_image2cad_models_02_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_image2cad_models_02_readable.png",
-      "sha256": "c82b00e08e51b0f97e833740b94951f02039ede95576becd430cd6df8dcdcc58"
-    },
-    {
-      "bytes": 1439143,
-      "id": "paper.tex_asset.figures/qualitative_image2cad_models_03_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_image2cad_models_03_readable.png",
-      "sha256": "58ca8197b5001db8d586e80e84eedd7489502905def547c9ed678fb46cb09738"
-    },
-    {
-      "bytes": 1429365,
-      "id": "paper.tex_asset.figures/qualitative_image2cad_models_04_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_image2cad_models_04_readable.png",
-      "sha256": "597db0298c98495cedaf49f03798713cd2708227f26a355b3bf8f15dc03b1de1"
-    },
-    {
-      "bytes": 1037842,
-      "id": "paper.tex_asset.figures/qualitative_image2cad_models_05_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_image2cad_models_05_readable.png",
-      "sha256": "fd425c0f0a0646731d6f9dfc9f3e08ec6e9aee17fd96ca0fe1d1097254921e35"
-    },
-    {
-      "bytes": 459655,
-      "id": "paper.tex_asset.figures/qualitative_text2cad_header_01_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_text2cad_header_01_readable.png",
-      "sha256": "c589bbb1b3352adbe24e9f0bf4f2ca4c1d7d4487acbff04be42b8d329390da91"
-    },
-    {
-      "bytes": 478567,
-      "id": "paper.tex_asset.figures/qualitative_text2cad_header_02_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_text2cad_header_02_readable.png",
-      "sha256": "d7c112a3b4eb24a27ef6f5215eef5709af8cfff0b4ba7493fb15ba8f7601f855"
-    },
-    {
-      "bytes": 473068,
-      "id": "paper.tex_asset.figures/qualitative_text2cad_header_03_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_text2cad_header_03_readable.png",
-      "sha256": "4a970afdd0efc554f4d00b0b85747305b37cd3e2ea28ab17e286605d52415dfd"
-    },
-    {
-      "bytes": 1792976,
-      "id": "paper.tex_asset.figures/qualitative_text2cad_models_01_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_text2cad_models_01_readable.png",
-      "sha256": "d04a693a10d54dcca41949ee6b885789b1066083285df146f7cbbc7889a15d48"
-    },
-    {
-      "bytes": 1866608,
-      "id": "paper.tex_asset.figures/qualitative_text2cad_models_02_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_text2cad_models_02_readable.png",
-      "sha256": "19e87a9ade0ec510d9bd93770ee94ff35f31725c818ef5f029ee3fcdd6a93993"
-    },
-    {
-      "bytes": 1443776,
-      "id": "paper.tex_asset.figures/qualitative_text2cad_models_03_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_text2cad_models_03_readable.png",
-      "sha256": "ca11dec5283a2430c36b5199d0e297b029c68589873ba8d164c5b3a625a95dff"
-    },
-    {
-      "bytes": 1727110,
-      "id": "paper.tex_asset.figures/qualitative_text2cad_models_04_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_text2cad_models_04_readable.png",
-      "sha256": "bf7ec299879eb9e3c74e7c3e5377253ef6494a8e860dbbe6f526eaf017ca43c4"
-    },
-    {
-      "bytes": 1617721,
-      "id": "paper.tex_asset.figures/qualitative_text2cad_models_05_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_text2cad_models_05_readable.png",
-      "sha256": "395a1c06d0c8a9aa1baec8dae7ab6ab2208a1836e68961712f889c0f749572d5"
-    },
-    {
-      "bytes": 511915,
-      "id": "paper.tex_asset.figures/qualitative_textimage2cad_header_01_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_textimage2cad_header_01_readable.png",
-      "sha256": "ad0739dac6548e06f8636e3f157120b0da707718cb1a2b4c4246329f97c518e8"
-    },
-    {
-      "bytes": 563959,
-      "id": "paper.tex_asset.figures/qualitative_textimage2cad_header_02_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_textimage2cad_header_02_readable.png",
-      "sha256": "03921f5591c6193d84e74e779f948cdf7a07d9c7e6167dbc052844faa90ca09e"
-    },
-    {
-      "bytes": 470592,
-      "id": "paper.tex_asset.figures/qualitative_textimage2cad_header_03_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_textimage2cad_header_03_readable.png",
-      "sha256": "7f24de8734025207bd09579682e4654e7d3445fc54014c3d687221f341a68cda"
-    },
-    {
-      "bytes": 1502819,
-      "id": "paper.tex_asset.figures/qualitative_textimage2cad_models_01_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_textimage2cad_models_01_readable.png",
-      "sha256": "12f835fb79c5ffc1ee611cb7b1c118a20c2dc50c331424cc8b913ee6b89c83db"
-    },
-    {
-      "bytes": 1432897,
-      "id": "paper.tex_asset.figures/qualitative_textimage2cad_models_02_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_textimage2cad_models_02_readable.png",
-      "sha256": "972cfbad97209539119f68cef3f7afc4a563bfddf99dd487494f4078ddf1754b"
-    },
-    {
-      "bytes": 1409326,
-      "id": "paper.tex_asset.figures/qualitative_textimage2cad_models_03_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_textimage2cad_models_03_readable.png",
-      "sha256": "72268c684fda1b4f51ed59c5a6cf302f06baeeb2b8bae05d3679bab226bfb8ae"
-    },
-    {
-      "bytes": 1461183,
-      "id": "paper.tex_asset.figures/qualitative_textimage2cad_models_04_readable.png",
-      "kind": "tex_figure_asset",
-      "path": "figures/qualitative_textimage2cad_models_04_readable.png",
-      "sha256": "3e9e06c1d72f29d278df1340e139f48ac544779ba6b27a5a70a7a5c80ad10ed1"
-    },
-    {
-      "bytes": 72908,
+      "bytes": 95348,
       "id": "paper.tex_asset.figures/textimage_part_detail.png",
       "kind": "tex_figure_asset",
       "path": "figures/textimage_part_detail.png",
-      "sha256": "afba9d9ae1214801daea484f7939d2196ee6e7c5c7a29b87390822117c93c07c"
+      "sha256": "645f07431c12864d1ef451336e49334fd9787061d88a752907512407d5d9234e"
     },
     {
-      "bytes": 7509,
-      "id": "paper.generator.scripts/paper_snapshot.py",
-      "kind": "snapshot_figure_generator",
-      "path": "scripts/paper_snapshot.py",
-      "sha256": "b46dc03a252fac851a23531359e78ed5953d4f84f1bac92673a832b01c9f0cd5"
-    },
-    {
-      "bytes": 6384,
-      "id": "paper.generator.scripts/paper_figure_svg.py",
-      "kind": "snapshot_figure_generator",
-      "path": "scripts/paper_figure_svg.py",
-      "sha256": "59d6b7c862d4abadf80338a80bc381b140a2924d69df8bb8d24c63e99f91d548"
-    },
-    {
-      "bytes": 1261,
-      "id": "paper.generator.scripts/paper_static_source.py",
-      "kind": "snapshot_figure_generator",
-      "path": "scripts/paper_static_source.py",
-      "sha256": "55c658e4647806223c6090d63d89e83852d4f3a8b20ec66e66c29b1d02b4533a"
-    },
-    {
-      "bytes": 26748,
+      "bytes": 25909,
       "id": "paper.generator.scripts/make_fig_tasks_grouped.py",
       "kind": "snapshot_figure_generator",
       "path": "scripts/make_fig_tasks_grouped.py",
-      "sha256": "7cb59f4ca07cc12094b9ffc166cc07ea4566983e913a4d7dc219f89442138437"
+      "sha256": "6dc25c30766caff62b46ed093016e1e7339d0f5d707579f53f648291b2cf4ccd"
     },
     {
-      "bytes": 13159,
-      "id": "paper.generator.scripts/make_fig2_overview_readable.py",
-      "kind": "snapshot_figure_generator",
-      "path": "scripts/make_fig2_overview_readable.py",
-      "sha256": "4179edad0ffc653687bc009a16844fe5ffc9d50ae55f2b59371aab57a0861085"
-    },
-    {
-      "bytes": 12939,
-      "id": "paper.generator.scripts/make_fig3_judge_part_readable.py",
-      "kind": "snapshot_figure_generator",
-      "path": "scripts/make_fig3_judge_part_readable.py",
-      "sha256": "d3e0dd862e0b9e149abda1bdd95e738cc9871bf52fca1d8fc975bf06f2f44514"
-    },
-    {
-      "bytes": 14882,
-      "id": "paper.generator.scripts/make_fig4_qualitative_readable.py",
-      "kind": "snapshot_figure_generator",
-      "path": "scripts/make_fig4_qualitative_readable.py",
-      "sha256": "d20e28e67d9d1e2a4013501d7abd58c1637c5ec58b0e805fc93c53125457166c"
-    },
-    {
-      "bytes": 8996,
+      "bytes": 11803,
       "id": "paper.generator.scripts/make_fig8_format_dim_effects.py",
       "kind": "snapshot_figure_generator",
       "path": "scripts/make_fig8_format_dim_effects.py",
-      "sha256": "1f5f6d8f9b19e9cd380604f111323a9cc446ec7bf8b7150389a1eba046e0aa67"
+      "sha256": "894640f146ff22a90dbdabce6e12566a120acedd823b3f8c20124a565a8539ab"
     },
     {
-      "bytes": 18140,
+      "bytes": 16926,
       "id": "paper.generator.scripts/make_fig_part_detail.py",
       "kind": "snapshot_figure_generator",
       "path": "scripts/make_fig_part_detail.py",
-      "sha256": "f7401259478875be3f008326393aaecd6e71a6c163aedebd52d1905e47160f29"
+      "sha256": "64f6fd7dfb9519431f4309b99ebc3dd4320d0bb89aae6b103a3818958948f084"
     },
     {
-      "bytes": 17530,
+      "bytes": 14614,
       "id": "paper.generator.scripts/make_fig_openrouter_score_cost.py",
       "kind": "snapshot_figure_generator",
       "path": "scripts/make_fig_openrouter_score_cost.py",
-      "sha256": "e36f0a8fffa30e2a9087c517eedde8ccc3bbf63fa0373ce2b4b159e16df7ed7b"
-    },
-    {
-      "bytes": 17160,
-      "id": "paper.generator.scripts/make_supp_static_readable.py",
-      "kind": "snapshot_figure_generator",
-      "path": "scripts/make_supp_static_readable.py",
-      "sha256": "3723345ca84946e6c26c353fb2a38b50f468d8bea8f4fafc4c2f1b33237b0395"
-    },
-    {
-      "bytes": 3905,
-      "id": "paper.generator.scripts/make_supp_category_readable.py",
-      "kind": "snapshot_figure_generator",
-      "path": "scripts/make_supp_category_readable.py",
-      "sha256": "c6d1ab310ddc3765d544693d77a5ae189d135851d074920bc56a8ce4c4a7ca41"
-    },
-    {
-      "bytes": 5560,
-      "id": "paper.generator.scripts/make_supp_annotation_readable.py",
-      "kind": "snapshot_figure_generator",
-      "path": "scripts/make_supp_annotation_readable.py",
-      "sha256": "6a2ee1f47a5fb6244a8c34219caecc4f93ffcf1b148b72f037cf1613cb96935c"
-    },
-    {
-      "bytes": 1486,
-      "id": "paper.generator.scripts/regenerate_snapshot_figures.py",
-      "kind": "snapshot_figure_generator",
-      "path": "scripts/regenerate_snapshot_figures.py",
-      "sha256": "948dff290ac60405157fa1e96ecdf449e9823404eb132944d4d29e35eda073e5"
+      "sha256": "c1a5a229c843a140506b1e992e1cda8554018e9598ca795778b551fa445601c8"
     }
   ],
-  "content_sha256": "70ae9963aed0a32a81dfb5e467b539cf75dac8228ff274713a4524d92ace4d61",
+  "content_sha256": "5ff607160512af7e4bae7da3dc95d0c537e74a3fdb33618f615ae3e6e762f910",
   "evidence_controls": {
     "jsem_direct_verification": {
       "file_sha256": "b7a57cf9e0b42810a172473998b9fc1ea5c3df092053d3c56f7d3a0c1cb3e710",
@@ -2631,73 +2222,73 @@
       },
       "parametric": {
         "Claude Opus 4.6": {
-          "geometry": "0.678",
+          "geometry": "0.691",
           "judge": "0.788",
-          "topology": "0.983",
+          "topology": "0.993",
           "valid": "0.995"
         },
         "DeepSeek V4 Pro": {
-          "geometry": "0.635",
+          "geometry": "0.645",
           "judge": "0.738",
-          "topology": "0.962",
+          "topology": "0.966",
           "valid": "0.968"
         },
         "Doubao Seed 2.0 Pro": {
-          "geometry": "0.621",
+          "geometry": "0.623",
           "judge": "0.710",
-          "topology": "0.981",
+          "topology": "0.987",
           "valid": "0.988"
         },
         "GLM-5.1": {
-          "geometry": "0.652",
+          "geometry": "0.664",
           "judge": "0.761",
-          "topology": "0.957",
+          "topology": "0.964",
           "valid": "0.966"
         },
         "GPT-5.5": {
-          "geometry": "0.690",
+          "geometry": "0.703",
           "judge": "0.813",
-          "topology": "0.987",
+          "topology": "0.997",
           "valid": "0.999"
         },
         "Gemini 3.1 Pro": {
-          "geometry": "0.684",
+          "geometry": "0.698",
           "judge": "0.778",
-          "topology": "0.991",
+          "topology": "0.998",
           "valid": "1.000"
         },
         "Kimi K2.6": {
-          "geometry": "0.665",
+          "geometry": "0.678",
           "judge": "0.766",
-          "topology": "0.980",
+          "topology": "0.987",
           "valid": "0.988"
         },
         "MiMo v2.5 Pro": {
-          "geometry": "0.618",
+          "geometry": "0.629",
           "judge": "0.688",
-          "topology": "0.976",
+          "topology": "0.984",
           "valid": "0.986"
         },
         "Qwen3.6-Plus": {
-          "geometry": "0.638",
+          "geometry": "0.649",
           "judge": "0.681",
-          "topology": "0.987",
+          "topology": "0.992",
           "valid": "0.994"
         }
       }
     },
     "text2cad_baseline": {
       "descriptive": {
-        "j_sem": "1.58",
-        "judge": "0.052",
-        "qa_s": "0.040",
+        "j_sem": "0.068",
+        "judge": "0.055",
+        "qa_s": "0.042",
         "valid": "0.945"
       },
       "parametric": {
-        "geometry": "0.309",
-        "judge": "0.055",
-        "qa_p": "0.062",
-        "qa_s": "0.041",
+        "geometry": "0.268",
+        "judge": "0.057",
+        "qa_p": "0.064",
+        "qa_s": "0.043",
         "topology": "0.963",
         "valid": "0.965"
       }
@@ -2884,57 +2475,57 @@
     },
     "parametric": {
       "Claude Opus 4.6": {
-        "geometry": 0.6775080500000001,
+        "geometry": 0.6914281358379748,
         "judge": 0.7879166666666666,
-        "topology": 0.9831843791666668,
+        "topology": 0.9933364731115939,
         "valid": 0.995
       },
       "DeepSeek V4 Pro": {
-        "geometry": 0.6351305,
+        "geometry": 0.6447322084433003,
         "judge": 0.7382291666666667,
-        "topology": 0.9615951258333333,
+        "topology": 0.9656686604860596,
         "valid": 0.9675
       },
       "Doubao Seed 2.0 Pro": {
-        "geometry": 0.6207802249999999,
+        "geometry": 0.623182808886505,
         "judge": 0.7103125,
-        "topology": 0.9810247620833334,
+        "topology": 0.9868182190590717,
         "valid": 0.9875
       },
       "GLM-5.1": {
-        "geometry": 0.6519552999999998,
+        "geometry": 0.6635577990374664,
         "judge": 0.7605208333333333,
-        "topology": 0.9567571437500001,
+        "topology": 0.9644260417057664,
         "valid": 0.96625
       },
       "GPT-5.5": {
-        "geometry": 0.69034025,
+        "geometry": 0.7027528149847153,
         "judge": 0.8128124999999999,
-        "topology": 0.9873758208333332,
+        "topology": 0.9971391071733668,
         "valid": 0.99875
       },
       "Gemini 3.1 Pro": {
-        "geometry": 0.6843142500000001,
+        "geometry": 0.6983203702128387,
         "judge": 0.7781250000000001,
-        "topology": 0.9905508633333334,
+        "topology": 0.9982396634325765,
         "valid": 1.0
       },
       "Kimi K2.6": {
-        "geometry": 0.664758875,
+        "geometry": 0.6779218443239106,
         "judge": 0.7658333333333334,
-        "topology": 0.9799157641666667,
+        "topology": 0.9868005042926544,
         "valid": 0.9875
       },
       "MiMo v2.5 Pro": {
-        "geometry": 0.6182392999999998,
+        "geometry": 0.6289292295676414,
         "judge": 0.6876041666666666,
-        "topology": 0.9758190449999999,
+        "topology": 0.983916512328898,
         "valid": 0.9862500000000001
       },
       "Qwen3.6-Plus": {
-        "geometry": 0.6375902,
+        "geometry": 0.6487344720816184,
         "judge": 0.6807291666666666,
-        "topology": 0.9868608254166666,
+        "topology": 0.9922084862312386,
         "valid": 0.99375
       }
     }
@@ -2945,9 +2536,9 @@
     },
     "case_fill_policy": {
       "chamfer_zero_score_value": 0.01,
-      "classified_evaluator_gap": "zero_score",
-      "inapplicable_iou_csg": "zero_score",
+      "descriptive_missing_normalized_j_sem": "zero_score",
       "invalid_generation": "zero_score",
+      "parametric_aggregation": "frozen_common_metric_success_summary",
       "unclassified_required_metric_gap": "block_release"
     },
     "cd_worst": 0.01,
@@ -3044,9 +2635,9 @@
     "text": {
       "aggregate_recomputation": true,
       "case_contribution_digests_embedded": true,
-      "case_level_evidence_directly_validated": true,
       "case_level_evidence_embedded": false,
-      "direct_validation_scope": "snapshot_build_and_strict_release_environment",
+      "descriptive_case_evidence_directly_validated": true,
+      "parametric_aggregation_source": "frozen_paper_current_summary",
       "portable_archive_raw_case_evidence": false,
       "rounding": "display_only_in_formatted_and_result_tables",
       "storage": "full_precision_source_values"
@@ -3099,9 +2690,9 @@
       "sha256": "5182a7ff7819cd6ff7a43a835464573d934c0518cbcf633a25b40c0da559e2ec"
     },
     {
-      "bytes": 98778,
+      "bytes": 66002,
       "path": "paper_assets/charts/final_penalized_metrics.json",
-      "sha256": "b9bd67dfdec9e28ea2a3485344fd7d50fe0f6d03db8659086bde110e9f42a229"
+      "sha256": "96d5161ecdc5dca9bcd997ac58acfa55fbc4317d9fda6fb90c66598e49e9c9a9"
     },
     {
       "bytes": 457043,
@@ -3571,1591 +3162,126 @@
       "json": {
         "Claude Opus 4.6": {
           "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/json/tables/model_summary.csv",
             "case_count": 400,
-            "compact_contributions_sha256": "938e0124467a6f4eff9eab709318a79cf64689c3fa4b824e8271537c17991fc6",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 4,
-                "measured": 394,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 4,
-                "measured": 394,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 4,
-                "measured": 394,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 48,
-                "invalid_fill": 4,
-                "measured": 346,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 4,
-                "measured": 394,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 4,
-                "measured": 394,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 4,
-                "measured": 394,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 4,
-                "measured": 394,
-                "unclassified_gap": 0
-              }
-            },
+            "compact_contributions_sha256": "39084cda98e1a0a89e93f341bf46095cfa933b09bf0606d3cac26900520e4981",
             "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
             "source_path": "results/raw/evals/text_to_3d/parametric/json/local_eval/claude/results.json",
             "source_sha256": "67cd3e89b213b83879b131b391eecbdaf1ce503cc7f92a833c9e147eef96207f",
             "unclassified_required_gap_count": 0
           },
           "counts": {
-            "metric_success": 394,
+            "metric_success": 395,
             "total": 400,
             "valid": 396
           },
-          "geometry": 0.6660235,
+          "geometry": 0.6805059168414952,
           "geometry_metrics": {
-            "chamfer_distance": 0.0015894600000000017,
-            "chamfer_distance_score": 0.8410539999999999,
-            "f_score_001": 0.41750724999999994,
-            "f_score_005": 0.8152617499999997,
-            "iou_csg": 0.5163497499999997,
-            "normal_consistency": 0.7399447500000007
+            "chamfer_distance": 0.0016466547906091372,
+            "chamfer_distance_score": 0.8353345209390863,
+            "f_score_001": 0.418566913071066,
+            "f_score_005": 0.8173309422588833,
+            "iou_csg": 0.5894744255780346,
+            "normal_consistency": 0.741822782360406
           },
           "judge": 0.7527083333333332,
           "qa_micro": 0.7527083333333333,
           "qa_p": 0.7725,
           "qa_s": 0.713125,
-          "topology": 0.9689747808333333,
+          "topology": 0.9867792344437394,
           "topology_metrics": {
-            "inverted_normal_error": 0.015,
-            "inverted_normal_score": 0.985,
-            "no_open_edge": 0.9375,
-            "non_manifold_edge_error": 0.015575657500000005,
-            "non_manifold_edge_score": 0.9844243425
+            "inverted_normal_error": 0.0125,
+            "inverted_normal_score": 0.9875,
+            "no_open_edge": 0.9859148218908629,
+            "non_manifold_edge_error": 0.01307711855964467,
+            "non_manifold_edge_score": 0.9869228814403553
           },
           "valid": 0.99
         },
         "DeepSeek V4 Pro": {
           "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/json/tables/model_summary.csv",
             "case_count": 400,
-            "compact_contributions_sha256": "625934bb29c937fc90184135689a51d33ea006759903c339f69de86fbc205d8a",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 16,
-                "measured": 382,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 16,
-                "measured": 382,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 16,
-                "measured": 382,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 36,
-                "invalid_fill": 16,
-                "measured": 346,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 16,
-                "measured": 382,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 16,
-                "measured": 382,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 16,
-                "measured": 382,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 16,
-                "measured": 382,
-                "unclassified_gap": 0
-              }
-            },
+            "compact_contributions_sha256": "0b9a5c1e06e71d24377004ab86e4717247e028947a577063b31a97b521443d8c",
             "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
             "source_path": "results/raw/evals/text_to_3d/parametric/json/local_eval/deepseek_v4pro/results.json",
             "source_sha256": "5113ce86313274b67ee7333bf113640ba25b55bd8af6a8d050541adb67ab85ff",
             "unclassified_required_gap_count": 0
           },
           "counts": {
-            "metric_success": 382,
+            "metric_success": 383,
             "total": 400,
             "valid": 384
           },
-          "geometry": 0.6275299000000001,
+          "geometry": 0.6343458992532457,
           "geometry_metrics": {
-            "chamfer_distance": 0.0021145299999999994,
-            "chamfer_distance_score": 0.7885470000000001,
-            "f_score_001": 0.37810974999999986,
-            "f_score_005": 0.7712799999999995,
-            "iou_csg": 0.4957359999999999,
-            "normal_consistency": 0.7039767500000006
+            "chamfer_distance": 0.002352369797120419,
+            "chamfer_distance_score": 0.7647630202879581,
+            "f_score_001": 0.3790995660994764,
+            "f_score_005": 0.773299057591623,
+            "iou_csg": 0.5487482312138728,
+            "normal_consistency": 0.7058196210732984
           },
           "judge": 0.7012499999999999,
           "qa_micro": 0.70125,
           "qa_p": 0.723125,
           "qa_s": 0.6575,
-          "topology": 0.9508857991666666,
+          "topology": 0.9565333711649214,
           "topology_metrics": {
-            "inverted_normal_error": 0.045,
-            "inverted_normal_score": 0.955,
-            "no_open_edge": 0.945,
-            "non_manifold_edge_error": 0.04734260249999999,
-            "non_manifold_edge_score": 0.9526573975
+            "inverted_normal_error": 0.0425,
+            "inverted_normal_score": 0.9575,
+            "no_open_edge": 0.9569488484620419,
+            "non_manifold_edge_error": 0.04484873496727749,
+            "non_manifold_edge_score": 0.9551512650327225
           },
           "valid": 0.96
         },
         "Doubao Seed 2.0 Pro": {
           "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/json/tables/model_summary.csv",
             "case_count": 400,
-            "compact_contributions_sha256": "e2da719770680893247397fda5b7bebd9e91fe13ec7b4bad36e60a69e03d741b",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 4,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 4,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 4,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 41,
-                "invalid_fill": 4,
-                "measured": 354,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 4,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 4,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 4,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 4,
-                "measured": 395,
-                "unclassified_gap": 0
-              }
-            },
+            "compact_contributions_sha256": "ddc4ddc5991a357e7a0be4ce07542403c6b942642db272dfb8b83ee91549658c",
             "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
             "source_path": "results/raw/evals/text_to_3d/parametric/json/local_eval/doubao/results.json",
             "source_sha256": "f9d14512eb205bda773e2aecc028538f0c74545648976905e359039fe089912c",
             "unclassified_required_gap_count": 0
           },
           "counts": {
-            "metric_success": 395,
+            "metric_success": 396,
             "total": 400,
             "valid": 396
           },
-          "geometry": 0.6131212999999999,
+          "geometry": 0.6062041177730101,
           "geometry_metrics": {
-            "chamfer_distance": 0.0022720174999999983,
-            "chamfer_distance_score": 0.7727982500000001,
-            "f_score_001": 0.3567387500000001,
-            "f_score_005": 0.7632672500000001,
-            "iou_csg": 0.46990474999999937,
-            "normal_consistency": 0.7028974999999998
+            "chamfer_distance": 0.0032215401772151897,
+            "chamfer_distance_score": 0.677845982278481,
+            "f_score_001": 0.3576418860759494,
+            "f_score_005": 0.7651995721518987,
+            "iou_csg": 0.5256561610169491,
+            "normal_consistency": 0.7046769873417722
           },
           "judge": 0.68125,
           "qa_micro": 0.68125,
           "qa_p": 0.706875,
           "qa_s": 0.63,
-          "topology": 0.979760315,
+          "topology": 0.9888478847848101,
           "topology_metrics": {
-            "inverted_normal_error": 0.012619047500000001,
-            "inverted_normal_score": 0.9873809525,
-            "no_open_edge": 0.9675,
-            "non_manifold_edge_error": 0.015600007499999997,
-            "non_manifold_edge_score": 0.9843999925
+            "inverted_normal_error": 0.010119348886075949,
+            "inverted_normal_score": 0.9898806511139241,
+            "no_open_edge": 0.9897708588607596,
+            "non_manifold_edge_error": 0.013107855620253166,
+            "non_manifold_edge_score": 0.9868921443797468
           },
           "valid": 0.99
         },
         "GLM-5.1": {
           "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/json/tables/model_summary.csv",
             "case_count": 400,
-            "compact_contributions_sha256": "365d4c888d4dc63efb4c1aa46d53270a3238955efa342934d78a2514ca102dee",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 46,
-                "invalid_fill": 3,
-                "measured": 349,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 395,
-                "unclassified_gap": 0
-              }
-            },
+            "compact_contributions_sha256": "9a14c618f842d8fa00895d7070873075d4333eefe24e16bf415a1d7bce43139c",
             "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
             "source_path": "results/raw/evals/text_to_3d/parametric/json/local_eval/glm/results.json",
             "source_sha256": "7cdc6b69dd5e50e4116b8f695dca6405767d9d584ed492c55147a3a43c74a0b1",
-            "unclassified_required_gap_count": 0
-          },
-          "counts": {
-            "metric_success": 395,
-            "total": 400,
-            "valid": 397
-          },
-          "geometry": 0.6624259999999998,
-          "geometry_metrics": {
-            "chamfer_distance": 0.0015957275000000012,
-            "chamfer_distance_score": 0.8404272499999998,
-            "f_score_001": 0.40495999999999993,
-            "f_score_005": 0.8129579999999998,
-            "iou_csg": 0.5162597500000001,
-            "normal_consistency": 0.7375249999999997
-          },
-          "judge": 0.74125,
-          "qa_micro": 0.74125,
-          "qa_p": 0.7640625,
-          "qa_s": 0.695625,
-          "topology": 0.9762331458333334,
-          "topology_metrics": {
-            "inverted_normal_error": 0.0125,
-            "inverted_normal_score": 0.9875,
-            "no_open_edge": 0.955,
-            "non_manifold_edge_error": 0.013800562500000002,
-            "non_manifold_edge_score": 0.9861994375
-          },
-          "valid": 0.9925
-        },
-        "GPT-5.5": {
-          "case_evidence": {
-            "case_count": 400,
-            "compact_contributions_sha256": "1c3cfc0a01591f5b96c79fc6f61913d656a219dc8a7284e4c9fba1e574764eae",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 48,
-                "invalid_fill": 0,
-                "measured": 350,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 398,
-                "unclassified_gap": 0
-              }
-            },
-            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
-            "source_path": "results/raw/evals/text_to_3d/parametric/json/local_eval/gpt55/results.json",
-            "source_sha256": "8bacbdd71770bbda9214130b96387ef2ce1aff684031c6c1085744092e7b89de",
-            "unclassified_required_gap_count": 0
-          },
-          "counts": {
-            "metric_success": 398,
-            "total": 400,
-            "valid": 400
-          },
-          "geometry": 0.6799406499999998,
-          "geometry_metrics": {
-            "chamfer_distance": 0.0015074850000000007,
-            "chamfer_distance_score": 0.8492514999999999,
-            "f_score_001": 0.4275564999999999,
-            "f_score_005": 0.8286019999999997,
-            "iou_csg": 0.5361005000000001,
-            "normal_consistency": 0.7581927499999995
-          },
-          "judge": 0.7758333333333333,
-          "qa_micro": 0.7758333333333334,
-          "qa_p": 0.793125,
-          "qa_s": 0.74125,
-          "topology": 0.9797999699999999,
-          "topology_metrics": {
-            "inverted_normal_error": 0.0050267574999999995,
-            "inverted_normal_score": 0.9949732425,
-            "no_open_edge": 0.95,
-            "non_manifold_edge_error": 0.0055733325,
-            "non_manifold_edge_score": 0.9944266675
-          },
-          "valid": 1.0
-        },
-        "Gemini 3.1 Pro": {
-          "case_evidence": {
-            "case_count": 400,
-            "compact_contributions_sha256": "200544e0329e961a28af6f7b4cb73e2a2439ebe641b85f61f5020cbd921c4a32",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 45,
-                "invalid_fill": 0,
-                "measured": 353,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 398,
-                "unclassified_gap": 0
-              }
-            },
-            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
-            "source_path": "results/raw/evals/text_to_3d/parametric/json/local_eval/gemini/results.json",
-            "source_sha256": "ea70e4479af56bd12552bd0d831e67f871adc63225a40da9b44136d1ab1ab44d",
-            "unclassified_required_gap_count": 0
-          },
-          "counts": {
-            "metric_success": 398,
-            "total": 400,
-            "valid": 400
-          },
-          "geometry": 0.6711833000000003,
-          "geometry_metrics": {
-            "chamfer_distance": 0.0015341624999999995,
-            "chamfer_distance_score": 0.8465837500000001,
-            "f_score_001": 0.4208275000000005,
-            "f_score_005": 0.8225365000000001,
-            "iou_csg": 0.5194327500000001,
-            "normal_consistency": 0.7465360000000003
-          },
-          "judge": 0.7258333333333334,
-          "qa_micro": 0.7258333333333333,
-          "qa_p": 0.7478125,
-          "qa_s": 0.681875,
-          "topology": 0.9837253491666668,
-          "topology_metrics": {
-            "inverted_normal_error": 0.005,
-            "inverted_normal_score": 0.995,
-            "no_open_edge": 0.9625,
-            "non_manifold_edge_error": 0.006323952499999997,
-            "non_manifold_edge_score": 0.9936760475
-          },
-          "valid": 1.0
-        },
-        "Kimi K2.6": {
-          "case_evidence": {
-            "case_count": 400,
-            "compact_contributions_sha256": "ee2e3c472934897a427ea6e92381d599cef4eeb8d96c9567ddbb2dcd12e86bd8",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 9,
-                "measured": 390,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 9,
-                "measured": 390,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 9,
-                "measured": 390,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 43,
-                "invalid_fill": 9,
-                "measured": 347,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 9,
-                "measured": 390,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 9,
-                "measured": 390,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 9,
-                "measured": 390,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 9,
-                "measured": 390,
-                "unclassified_gap": 0
-              }
-            },
-            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
-            "source_path": "results/raw/evals/text_to_3d/parametric/json/local_eval/kimi_k26/results.json",
-            "source_sha256": "2575d78d78da5e4fd3c24382504fe7700eb45cde3739a37c332fb335b1666448",
-            "unclassified_required_gap_count": 0
-          },
-          "counts": {
-            "metric_success": 390,
-            "total": 400,
-            "valid": 391
-          },
-          "geometry": 0.6514716999999999,
-          "geometry_metrics": {
-            "chamfer_distance": 0.0018189675000000003,
-            "chamfer_distance_score": 0.81810325,
-            "f_score_001": 0.4006477499999997,
-            "f_score_005": 0.7998807499999993,
-            "iou_csg": 0.5116675000000005,
-            "normal_consistency": 0.72705925
-          },
-          "judge": 0.7258333333333334,
-          "qa_micro": 0.7258333333333333,
-          "qa_p": 0.75,
-          "qa_s": 0.6775,
-          "topology": 0.9650403508333333,
-          "topology_metrics": {
-            "inverted_normal_error": 0.025,
-            "inverted_normal_score": 0.975,
-            "no_open_edge": 0.9475,
-            "non_manifold_edge_error": 0.027378947499999997,
-            "non_manifold_edge_score": 0.9726210525
-          },
-          "valid": 0.9775
-        },
-        "MiMo v2.5 Pro": {
-          "case_evidence": {
-            "case_count": 400,
-            "compact_contributions_sha256": "8c76d10f7b0f741ae816422bbccb6cddabefdc45f98350ac5321893bb017b6e1",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 8,
-                "measured": 390,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 8,
-                "measured": 390,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 8,
-                "measured": 390,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 45,
-                "invalid_fill": 8,
-                "measured": 345,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 8,
-                "measured": 390,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 8,
-                "measured": 390,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 8,
-                "measured": 390,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 8,
-                "measured": 390,
-                "unclassified_gap": 0
-              }
-            },
-            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
-            "source_path": "results/raw/evals/text_to_3d/parametric/json/local_eval/mimo_v25/results.json",
-            "source_sha256": "b35c179696f1027bb80b81a94411c8e67b010fb3795d800d51c0668a5f6f23e8",
-            "unclassified_required_gap_count": 0
-          },
-          "counts": {
-            "metric_success": 390,
-            "total": 400,
-            "valid": 392
-          },
-          "geometry": 0.6150778999999998,
-          "geometry_metrics": {
-            "chamfer_distance": 0.0021616625,
-            "chamfer_distance_score": 0.78383375,
-            "f_score_001": 0.35631749999999995,
-            "f_score_005": 0.7631202499999999,
-            "iou_csg": 0.4701532499999997,
-            "normal_consistency": 0.7019647499999995
-          },
-          "judge": 0.6445833333333333,
-          "qa_micro": 0.6445833333333333,
-          "qa_p": 0.6746875,
-          "qa_s": 0.584375,
-          "topology": 0.9617489066666667,
-          "topology_metrics": {
-            "inverted_normal_error": 0.0250042025,
-            "inverted_normal_score": 0.9749957975,
-            "no_open_edge": 0.94,
-            "non_manifold_edge_error": 0.029749077500000002,
-            "non_manifold_edge_score": 0.9702509225
-          },
-          "valid": 0.98
-        },
-        "Qwen3.6-Plus": {
-          "case_evidence": {
-            "case_count": 400,
-            "compact_contributions_sha256": "f5d7be0f657e9e9195bfb2cc07562de3607d9c1cd82fe9663c32867c90917ca5",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 41,
-                "invalid_fill": 3,
-                "measured": 354,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 395,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 2,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 395,
-                "unclassified_gap": 0
-              }
-            },
-            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
-            "source_path": "results/raw/evals/text_to_3d/parametric/json/local_eval/qwen/results.json",
-            "source_sha256": "131ea846d65dda61bef78458f1bf17a8fa0178148a2fbd874e94d937bb2bc5f7",
-            "unclassified_required_gap_count": 0
-          },
-          "counts": {
-            "metric_success": 395,
-            "total": 400,
-            "valid": 397
-          },
-          "geometry": 0.6256597999999999,
-          "geometry_metrics": {
-            "chamfer_distance": 0.0019555325000000017,
-            "chamfer_distance_score": 0.8044467499999999,
-            "f_score_001": 0.35365724999999965,
-            "f_score_005": 0.7835769999999997,
-            "iou_csg": 0.4769012500000002,
-            "normal_consistency": 0.7097167499999999
-          },
-          "judge": 0.5897916666666666,
-          "qa_micro": 0.5897916666666667,
-          "qa_p": 0.62125,
-          "qa_s": 0.526875,
-          "topology": 0.9813988475000001,
-          "topology_metrics": {
-            "inverted_normal_error": 0.0125,
-            "inverted_normal_score": 0.9875,
-            "no_open_edge": 0.97,
-            "non_manifold_edge_error": 0.0133034575,
-            "non_manifold_edge_score": 0.9866965425
-          },
-          "valid": 0.9925
-        }
-      },
-      "openscad": {
-        "Claude Opus 4.6": {
-          "case_evidence": {
-            "case_count": 400,
-            "compact_contributions_sha256": "6b655ffa3916614ddc113ef012e9ff0d10fb4ddb70d3441d15e4d2e15aef5a4a",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 399,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 399,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 399,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 38,
-                "invalid_fill": 0,
-                "measured": 361,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 399,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 399,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 399,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 399,
-                "unclassified_gap": 0
-              }
-            },
-            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
-            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/claude/results.json",
-            "source_sha256": "4276581f8b749b33fdaa5de6e0552029e01e1a0ef524fb3b81455518a9c3bf38",
-            "unclassified_required_gap_count": 0
-          },
-          "counts": {
-            "metric_success": 399,
-            "total": 400,
-            "valid": 400
-          },
-          "geometry": 0.6889926000000002,
-          "geometry_metrics": {
-            "chamfer_distance": 0.001299829999999999,
-            "chamfer_distance_score": 0.870017,
-            "f_score_001": 0.4148977500000003,
-            "f_score_005": 0.8497495,
-            "iou_csg": 0.5510892500000003,
-            "normal_consistency": 0.7592095000000003
-          },
-          "judge": 0.823125,
-          "qa_micro": 0.823125,
-          "qa_p": 0.8228125,
-          "qa_s": 0.82375,
-          "topology": 0.9973939775000001,
-          "topology_metrics": {
-            "inverted_normal_error": 0.0025011250000000003,
-            "inverted_normal_score": 0.997498875,
-            "no_open_edge": 0.9975,
-            "non_manifold_edge_error": 0.0028169425000000004,
-            "non_manifold_edge_score": 0.9971830575
-          },
-          "valid": 1.0
-        },
-        "DeepSeek V4 Pro": {
-          "case_evidence": {
-            "case_count": 400,
-            "compact_contributions_sha256": "189cb3f7a3455c881ce14dc170c2e8688bbc912000ed49804a8c186e85d09a4e",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 10,
-                "measured": 389,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 10,
-                "measured": 389,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 10,
-                "measured": 389,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 37,
-                "invalid_fill": 10,
-                "measured": 352,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 10,
-                "measured": 389,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 10,
-                "measured": 389,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 10,
-                "measured": 389,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 10,
-                "measured": 389,
-                "unclassified_gap": 0
-              }
-            },
-            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
-            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/deepseek_v4pro/results.json",
-            "source_sha256": "e2bcac3ed527a3286d230bff6a1770a79cccb45c65c7aaff74de88f1571a749b",
-            "unclassified_required_gap_count": 0
-          },
-          "counts": {
-            "metric_success": 389,
-            "total": 400,
-            "valid": 390
-          },
-          "geometry": 0.6427311,
-          "geometry_metrics": {
-            "chamfer_distance": 0.0017781074999999999,
-            "chamfer_distance_score": 0.82218925,
-            "f_score_001": 0.36731499999999995,
-            "f_score_005": 0.7992999999999998,
-            "iou_csg": 0.50933575,
-            "normal_consistency": 0.7155155000000001
-          },
-          "judge": 0.7752083333333334,
-          "qa_micro": 0.7752083333333334,
-          "qa_p": 0.785625,
-          "qa_s": 0.754375,
-          "topology": 0.9723044525,
-          "topology_metrics": {
-            "inverted_normal_error": 0.0275,
-            "inverted_normal_score": 0.9725,
-            "no_open_edge": 0.9725,
-            "non_manifold_edge_error": 0.028086642500000005,
-            "non_manifold_edge_score": 0.9719133575
-          },
-          "valid": 0.975
-        },
-        "Doubao Seed 2.0 Pro": {
-          "case_evidence": {
-            "case_count": 400,
-            "compact_contributions_sha256": "3aebe78793e369d6ce7412e1f7ba1ae9465d85057b7ad508dc311c34726970cb",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 6,
-                "measured": 393,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 6,
-                "measured": 393,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 6,
-                "measured": 393,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 38,
-                "invalid_fill": 6,
-                "measured": 355,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 6,
-                "measured": 393,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 6,
-                "measured": 393,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 6,
-                "measured": 393,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 6,
-                "measured": 393,
-                "unclassified_gap": 0
-              }
-            },
-            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
-            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/doubao/results.json",
-            "source_sha256": "669733ca6857ac181afc7cca820aaa105a60975ab9c016d1e7197f26c3e95995",
-            "unclassified_required_gap_count": 0
-          },
-          "counts": {
-            "metric_success": 393,
-            "total": 400,
-            "valid": 394
-          },
-          "geometry": 0.62843915,
-          "geometry_metrics": {
-            "chamfer_distance": 0.0019254550000000013,
-            "chamfer_distance_score": 0.8074544999999999,
-            "f_score_001": 0.3564125000000002,
-            "f_score_005": 0.7805285000000005,
-            "iou_csg": 0.4905152499999996,
-            "normal_consistency": 0.7072849999999995
-          },
-          "judge": 0.739375,
-          "qa_micro": 0.739375,
-          "qa_p": 0.754375,
-          "qa_s": 0.709375,
-          "topology": 0.9822892091666667,
-          "topology_metrics": {
-            "inverted_normal_error": 0.0175,
-            "inverted_normal_score": 0.9825,
-            "no_open_edge": 0.9825,
-            "non_manifold_edge_error": 0.018132372499999997,
-            "non_manifold_edge_score": 0.9818676275
-          },
-          "valid": 0.985
-        },
-        "GLM-5.1": {
-          "case_evidence": {
-            "case_count": 400,
-            "compact_contributions_sha256": "b701bf90b4c72eadff39c92682b97fcbe0b7239523a32fd5636c94fa1961fb0c",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 24,
-                "measured": 375,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 24,
-                "measured": 375,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 24,
-                "measured": 375,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 34,
-                "invalid_fill": 24,
-                "measured": 341,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 24,
-                "measured": 375,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 24,
-                "measured": 375,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 24,
-                "measured": 375,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 24,
-                "measured": 375,
-                "unclassified_gap": 0
-              }
-            },
-            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
-            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/glm/results.json",
-            "source_sha256": "7ce81574f0407bc0fc491163771b4ea5f6bb957bdca23b07beb0487bf8b828fd",
-            "unclassified_required_gap_count": 0
-          },
-          "counts": {
-            "metric_success": 375,
-            "total": 400,
-            "valid": 376
-          },
-          "geometry": 0.6414845999999998,
-          "geometry_metrics": {
-            "chamfer_distance": 0.0018813700000000005,
-            "chamfer_distance_score": 0.811863,
-            "f_score_001": 0.37992549999999986,
-            "f_score_005": 0.7915394999999994,
-            "iou_csg": 0.5195844999999998,
-            "normal_consistency": 0.7045105
-          },
-          "judge": 0.7797916666666667,
-          "qa_micro": 0.7797916666666667,
-          "qa_p": 0.784375,
-          "qa_s": 0.770625,
-          "topology": 0.9372811416666668,
-          "topology_metrics": {
-            "inverted_normal_error": 0.0625,
-            "inverted_normal_score": 0.9375,
-            "no_open_edge": 0.9375,
-            "non_manifold_edge_error": 0.063156575,
-            "non_manifold_edge_score": 0.936843425
-          },
-          "valid": 0.94
-        },
-        "GPT-5.5": {
-          "case_evidence": {
-            "case_count": 400,
-            "compact_contributions_sha256": "30cc2913884ba3d792556afeb16f59ab805f29bc34f6b0ea39a5fe638ebcc096",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 1,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 1,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 1,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 38,
-                "invalid_fill": 1,
-                "measured": 360,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 1,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 1,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 1,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 1,
-                "measured": 398,
-                "unclassified_gap": 0
-              }
-            },
-            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
-            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/gpt55/results.json",
-            "source_sha256": "35c393e380b01a20eb131c30153f157d9138d38b4cbf6a306467102a34547cf7",
-            "unclassified_required_gap_count": 0
-          },
-          "counts": {
-            "metric_success": 398,
-            "total": 400,
-            "valid": 399
-          },
-          "geometry": 0.7007398500000003,
-          "geometry_metrics": {
-            "chamfer_distance": 0.0012136174999999993,
-            "chamfer_distance_score": 0.8786382500000001,
-            "f_score_001": 0.4290712500000001,
-            "f_score_005": 0.8562295000000002,
-            "iou_csg": 0.5748602500000001,
-            "normal_consistency": 0.7649000000000009
-          },
-          "judge": 0.8497916666666666,
-          "qa_micro": 0.8497916666666666,
-          "qa_p": 0.844375,
-          "qa_s": 0.860625,
-          "topology": 0.9949516716666666,
-          "topology_metrics": {
-            "inverted_normal_error": 0.005,
-            "inverted_normal_score": 0.995,
-            "no_open_edge": 0.995,
-            "non_manifold_edge_error": 0.0051449849999999995,
-            "non_manifold_edge_score": 0.994855015
-          },
-          "valid": 0.9975
-        },
-        "Gemini 3.1 Pro": {
-          "case_evidence": {
-            "case_count": 400,
-            "compact_contributions_sha256": "598bf44fe978663a5324eb745a6d552a43bcce43f449f0b843f483dca551ac39",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 399,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 399,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 399,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 38,
-                "invalid_fill": 0,
-                "measured": 361,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 399,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 399,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 399,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 0,
-                "measured": 399,
-                "unclassified_gap": 0
-              }
-            },
-            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
-            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/gemini/results.json",
-            "source_sha256": "696eded0ccb8385ad388058d405bb05ac24289fff7d6772e474f39e31126ee96",
-            "unclassified_required_gap_count": 0
-          },
-          "counts": {
-            "metric_success": 399,
-            "total": 400,
-            "valid": 400
-          },
-          "geometry": 0.6974452000000001,
-          "geometry_metrics": {
-            "chamfer_distance": 0.0012336275000000001,
-            "chamfer_distance_score": 0.87663725,
-            "f_score_001": 0.4254942500000001,
-            "f_score_005": 0.8543627499999994,
-            "iou_csg": 0.5678395000000002,
-            "normal_consistency": 0.7628922500000007
-          },
-          "judge": 0.8304166666666667,
-          "qa_micro": 0.8304166666666667,
-          "qa_p": 0.8303125,
-          "qa_s": 0.830625,
-          "topology": 0.9973763775000001,
-          "topology_metrics": {
-            "inverted_normal_error": 0.0025,
-            "inverted_normal_score": 0.9975,
-            "no_open_edge": 0.9975,
-            "non_manifold_edge_error": 0.0028708674999999985,
-            "non_manifold_edge_score": 0.9971291325
-          },
-          "valid": 1.0
-        },
-        "Kimi K2.6": {
-          "case_evidence": {
-            "case_count": 400,
-            "compact_contributions_sha256": "057c6a3a537935f223d115ca68122182762638af58f9a81f19ff5faf40c80b74",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 1,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 1,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 1,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 38,
-                "invalid_fill": 1,
-                "measured": 360,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 1,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 1,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 1,
-                "measured": 398,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 1,
-                "measured": 398,
-                "unclassified_gap": 0
-              }
-            },
-            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
-            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/kimi_k26/results.json",
-            "source_sha256": "b433c7a6f6db8fc8b64fe4ae68379b0ad0abc0da092c3c860f4dc09cad62f52e",
-            "unclassified_required_gap_count": 0
-          },
-          "counts": {
-            "metric_success": 398,
-            "total": 400,
-            "valid": 399
-          },
-          "geometry": 0.6780460500000002,
-          "geometry_metrics": {
-            "chamfer_distance": 0.0014005725000000005,
-            "chamfer_distance_score": 0.85994275,
-            "f_score_001": 0.3987815000000002,
-            "f_score_005": 0.8376930000000001,
-            "iou_csg": 0.5430532500000003,
-            "normal_consistency": 0.7507597500000006
-          },
-          "judge": 0.8058333333333333,
-          "qa_micro": 0.8058333333333333,
-          "qa_p": 0.808125,
-          "qa_s": 0.80125,
-          "topology": 0.9947911775000001,
-          "topology_metrics": {
-            "inverted_normal_error": 0.005,
-            "inverted_normal_score": 0.995,
-            "no_open_edge": 0.995,
-            "non_manifold_edge_error": 0.0056264674999999984,
-            "non_manifold_edge_score": 0.9943735325
-          },
-          "valid": 0.9975
-        },
-        "MiMo v2.5 Pro": {
-          "case_evidence": {
-            "case_count": 400,
-            "compact_contributions_sha256": "e5a00e2712573c9c1e5fe9d78a93df0f406f43e1c947cfdf9b383dc7a6b2b47e",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 396,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 396,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 396,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 38,
-                "invalid_fill": 3,
-                "measured": 358,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 396,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 396,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 396,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 3,
-                "measured": 396,
-                "unclassified_gap": 0
-              }
-            },
-            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
-            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/mimo_v25/results.json",
-            "source_sha256": "3e098457dfc946cc59e1777b28a0aa096776a5edc03b479e6d8f689e422ef038",
             "unclassified_required_gap_count": 0
           },
           "counts": {
@@ -5163,121 +3289,560 @@
             "total": 400,
             "valid": 397
           },
-          "geometry": 0.6214006999999998,
+          "geometry": 0.6735315267302601,
           "geometry_metrics": {
-            "chamfer_distance": 0.0020512275,
-            "chamfer_distance_score": 0.7948772500000001,
-            "f_score_001": 0.34388124999999986,
-            "f_score_005": 0.7799342499999998,
-            "iou_csg": 0.48289674999999954,
-            "normal_consistency": 0.7054139999999995
+            "chamfer_distance": 0.001785205569620253,
+            "chamfer_distance_score": 0.8214794430379747,
+            "f_score_001": 0.40598521518987346,
+            "f_score_005": 0.8150161215189873,
+            "iou_csg": 0.5857847020057306,
+            "normal_consistency": 0.7393921518987341
+          },
+          "judge": 0.74125,
+          "qa_micro": 0.74125,
+          "qa_p": 0.7640625,
+          "qa_s": 0.695625,
+          "topology": 0.9890715253670885,
+          "topology_metrics": {
+            "inverted_normal_error": 0.01,
+            "inverted_normal_score": 0.99,
+            "no_open_edge": 0.988518431164557,
+            "non_manifold_edge_error": 0.01130385506329114,
+            "non_manifold_edge_score": 0.9886961449367089
+          },
+          "valid": 0.9925
+        },
+        "GPT-5.5": {
+          "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/json/tables/model_summary.csv",
+            "case_count": 400,
+            "compact_contributions_sha256": "4337056215bd2f8dcc6ef18139d54218207162355566c8ac97bf3df4ddd297af",
+            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
+            "source_path": "results/raw/evals/text_to_3d/parametric/json/local_eval/gpt55/results.json",
+            "source_sha256": "8bacbdd71770bbda9214130b96387ef2ce1aff684031c6c1085744092e7b89de",
+            "unclassified_required_gap_count": 0
+          },
+          "counts": {
+            "metric_success": 399,
+            "total": 400,
+            "valid": 400
+          },
+          "geometry": 0.6908386961608041,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0017637352324120603,
+            "chamfer_distance_score": 0.823626476758794,
+            "f_score_001": 0.42863076256281407,
+            "f_score_005": 0.8306839145728644,
+            "iou_csg": 0.61115457,
+            "normal_consistency": 0.7600977569095477
+          },
+          "judge": 0.7758333333333333,
+          "qa_micro": 0.7758333333333334,
+          "qa_p": 0.793125,
+          "qa_s": 0.74125,
+          "topology": 0.9968266641080402,
+          "topology_metrics": {
+            "inverted_normal_error": 0.002526824729899497,
+            "inverted_normal_score": 0.9974731752701005,
+            "no_open_edge": 0.9960815900879397,
+            "non_manifold_edge_error": 0.003074773033919598,
+            "non_manifold_edge_score": 0.9969252269660804
+          },
+          "valid": 1.0
+        },
+        "Gemini 3.1 Pro": {
+          "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/json/tables/model_summary.csv",
+            "case_count": 400,
+            "compact_contributions_sha256": "4337056215bd2f8dcc6ef18139d54218207162355566c8ac97bf3df4ddd297af",
+            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
+            "source_path": "results/raw/evals/text_to_3d/parametric/json/local_eval/gemini/results.json",
+            "source_sha256": "ea70e4479af56bd12552bd0d831e67f871adc63225a40da9b44136d1ab1ab44d",
+            "unclassified_required_gap_count": 0
+          },
+          "counts": {
+            "metric_success": 399,
+            "total": 400,
+            "valid": 400
+          },
+          "geometry": 0.6854630804863552,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0015470521670854272,
+            "chamfer_distance_score": 0.8452947832914572,
+            "f_score_001": 0.42188485552763816,
+            "f_score_005": 0.8246031746231155,
+            "iou_csg": 0.5871208703966004,
+            "normal_consistency": 0.7484117185929648
+          },
+          "judge": 0.7258333333333334,
+          "qa_micro": 0.7258333333333333,
+          "qa_p": 0.7478125,
+          "qa_s": 0.681875,
+          "topology": 0.99660325919598,
+          "topology_metrics": {
+            "inverted_normal_error": 0.0025,
+            "inverted_normal_score": 0.9975,
+            "no_open_edge": 0.9961370566017588,
+            "non_manifold_edge_error": 0.0038272790138190954,
+            "non_manifold_edge_score": 0.9961727209861809
+          },
+          "valid": 1.0
+        },
+        "Kimi K2.6": {
+          "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/json/tables/model_summary.csv",
+            "case_count": 400,
+            "compact_contributions_sha256": "09b56db9aefa6e0902aaefba666a0585e264c504cf778fafa99ff38032969f4a",
+            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
+            "source_path": "results/raw/evals/text_to_3d/parametric/json/local_eval/kimi_k26/results.json",
+            "source_sha256": "2575d78d78da5e4fd3c24382504fe7700eb45cde3739a37c332fb335b1666448",
+            "unclassified_required_gap_count": 0
+          },
+          "counts": {
+            "metric_success": 391,
+            "total": 400,
+            "valid": 391
+          },
+          "geometry": 0.6646007426867657,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0018607409807692304,
+            "chamfer_distance_score": 0.8139259019230769,
+            "f_score_001": 0.40167505192307684,
+            "f_score_005": 0.8019317262820512,
+            "iou_csg": 0.5765475288184438,
+            "normal_consistency": 0.7289235044871794
+          },
+          "judge": 0.7258333333333334,
+          "qa_micro": 0.7258333333333333,
+          "qa_p": 0.75,
+          "qa_s": 0.6775,
+          "topology": 0.9763103557649573,
+          "topology_metrics": {
+            "inverted_normal_error": 0.0225,
+            "inverted_normal_score": 0.9775,
+            "no_open_edge": 0.9763161146602564,
+            "non_manifold_edge_error": 0.024885047365384615,
+            "non_manifold_edge_score": 0.9751149526346153
+          },
+          "valid": 0.9775
+        },
+        "MiMo v2.5 Pro": {
+          "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/json/tables/model_summary.csv",
+            "case_count": 400,
+            "compact_contributions_sha256": "f1c324c2d9f9555c352b714424da22fbe0a9b34833333271bc63002dfb48ab04",
+            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
+            "source_path": "results/raw/evals/text_to_3d/parametric/json/local_eval/mimo_v25/results.json",
+            "source_sha256": "b35c179696f1027bb80b81a94411c8e67b010fb3795d800d51c0668a5f6f23e8",
+            "unclassified_required_gap_count": 0
+          },
+          "counts": {
+            "metric_success": 391,
+            "total": 400,
+            "valid": 392
+          },
+          "geometry": 0.6246112385897437,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0023585691987179484,
+            "chamfer_distance_score": 0.7641430801282052,
+            "f_score_001": 0.3572311346153846,
+            "f_score_005": 0.7650769685897437,
+            "iou_csg": 0.5328403500000001,
+            "normal_consistency": 0.7037646596153847
+          },
+          "judge": 0.6445833333333333,
+          "qa_micro": 0.6445833333333333,
+          "qa_p": 0.6746875,
+          "qa_s": 0.584375,
+          "topology": 0.9754441211645299,
+          "topology_metrics": {
+            "inverted_normal_error": 0.022504213275641026,
+            "inverted_normal_score": 0.977495786724359,
+            "no_open_edge": 0.9760978313910258,
+            "non_manifold_edge_error": 0.02726125462179487,
+            "non_manifold_edge_score": 0.9727387453782051
+          },
+          "valid": 0.98
+        },
+        "Qwen3.6-Plus": {
+          "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/json/tables/model_summary.csv",
+            "case_count": 400,
+            "compact_contributions_sha256": "4af193b494e37e383a6fc7e85a355b905193f0c224b555ad3981176cdcaffe27",
+            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
+            "source_path": "results/raw/evals/text_to_3d/parametric/json/local_eval/qwen/results.json",
+            "source_sha256": "131ea846d65dda61bef78458f1bf17a8fa0178148a2fbd874e94d937bb2bc5f7",
+            "unclassified_required_gap_count": 0
+          },
+          "counts": {
+            "metric_success": 396,
+            "total": 400,
+            "valid": 397
+          },
+          "geometry": 0.6354371543917614,
+          "geometry_metrics": {
+            "chamfer_distance": 0.002079238075949367,
+            "chamfer_distance_score": 0.7920761924050632,
+            "f_score_001": 0.3545525848101266,
+            "f_score_005": 0.7855607392405062,
+            "iou_csg": 0.5334827542372882,
+            "normal_consistency": 0.7115135012658229
+          },
+          "judge": 0.5897916666666666,
+          "qa_micro": 0.5897916666666667,
+          "qa_p": 0.62125,
+          "qa_s": 0.526875,
+          "topology": 0.9895946154683544,
+          "topology_metrics": {
+            "inverted_normal_error": 0.01,
+            "inverted_normal_score": 0.99,
+            "no_open_edge": 0.9895893379746835,
+            "non_manifold_edge_error": 0.010805491569620254,
+            "non_manifold_edge_score": 0.9891945084303797
+          },
+          "valid": 0.9925
+        }
+      },
+      "openscad": {
+        "Claude Opus 4.6": {
+          "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/openscad/tables/model_summary.csv",
+            "case_count": 400,
+            "compact_contributions_sha256": "4337056215bd2f8dcc6ef18139d54218207162355566c8ac97bf3df4ddd297af",
+            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
+            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/claude/results.json",
+            "source_sha256": "4276581f8b749b33fdaa5de6e0552029e01e1a0ef524fb3b81455518a9c3bf38",
+            "unclassified_required_gap_count": 0
+          },
+          "counts": {
+            "metric_success": 400,
+            "total": 400,
+            "valid": 400
+          },
+          "geometry": 0.7023503548344545,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0012780250626566415,
+            "chamfer_distance_score": 0.8721974937343359,
+            "f_score_001": 0.4159375939849624,
+            "f_score_005": 0.8518791979949875,
+            "iou_csg": 0.6106252077562326,
+            "normal_consistency": 0.7611122807017544
+          },
+          "judge": 0.823125,
+          "qa_micro": 0.823125,
+          "qa_p": 0.8228125,
+          "qa_s": 0.82375,
+          "topology": 0.9998937117794485,
+          "topology_metrics": {
+            "inverted_normal_error": 1.1278195488721805e-06,
+            "inverted_normal_score": 0.9999988721804511,
+            "no_open_edge": 1.0,
+            "non_manifold_edge_error": 0.0003177368421052632,
+            "non_manifold_edge_score": 0.9996822631578948
+          },
+          "valid": 1.0
+        },
+        "DeepSeek V4 Pro": {
+          "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/openscad/tables/model_summary.csv",
+            "case_count": 400,
+            "compact_contributions_sha256": "02763a901a395f1aa8d3a80658137887ee59d3749817b5c2f1dd157afa2de824",
+            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
+            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/deepseek_v4pro/results.json",
+            "source_sha256": "e2bcac3ed527a3286d230bff6a1770a79cccb45c65c7aaff74de88f1571a749b",
+            "unclassified_required_gap_count": 0
+          },
+          "counts": {
+            "metric_success": 390,
+            "total": 400,
+            "valid": 390
+          },
+          "geometry": 0.6551185176333547,
+          "geometry_metrics": {
+            "chamfer_distance": 0.001756971529562982,
+            "chamfer_distance_score": 0.8243028470437018,
+            "f_score_001": 0.3682592544987146,
+            "f_score_005": 0.8013547557840617,
+            "iou_csg": 0.564320859375,
+            "normal_consistency": 0.7173548714652956
+          },
+          "judge": 0.7752083333333334,
+          "qa_micro": 0.7752083333333334,
+          "qa_p": 0.785625,
+          "qa_s": 0.754375,
+          "topology": 0.9748039498071979,
+          "topology_metrics": {
+            "inverted_normal_error": 0.025,
+            "inverted_normal_score": 0.975,
+            "no_open_edge": 0.975,
+            "non_manifold_edge_error": 0.025588150578406167,
+            "non_manifold_edge_score": 0.9744118494215939
+          },
+          "valid": 0.975
+        },
+        "Doubao Seed 2.0 Pro": {
+          "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/openscad/tables/model_summary.csv",
+            "case_count": 400,
+            "compact_contributions_sha256": "8f59ab180557f9c88edbbc71340421050fee5e23aafc521d8d264592609c6d3c",
+            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
+            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/doubao/results.json",
+            "source_sha256": "669733ca6857ac181afc7cca820aaa105a60975ab9c016d1e7197f26c3e95995",
+            "unclassified_required_gap_count": 0
+          },
+          "counts": {
+            "metric_success": 394,
+            "total": 400,
+            "valid": 394
+          },
+          "geometry": 0.6401614999999999,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0019254549999999997,
+            "chamfer_distance_score": 0.8074545,
+            "f_score_001": 0.35735799999999995,
+            "f_score_005": 0.7824840000000001,
+            "iou_csg": 0.5444095,
+            "normal_consistency": 0.7091015
+          },
+          "judge": 0.739375,
+          "qa_micro": 0.739375,
+          "qa_p": 0.754375,
+          "qa_s": 0.709375,
+          "topology": 0.9847885533333334,
+          "topology_metrics": {
+            "inverted_normal_error": 0.015,
+            "inverted_normal_score": 0.985,
+            "no_open_edge": 0.985,
+            "non_manifold_edge_error": 0.01563434,
+            "non_manifold_edge_score": 0.98436566
+          },
+          "valid": 0.985
+        },
+        "GLM-5.1": {
+          "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/openscad/tables/model_summary.csv",
+            "case_count": 400,
+            "compact_contributions_sha256": "70405504551ce50f66573d297be659880c3b589503409453bbb2c4dea9ee6059",
+            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
+            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/glm/results.json",
+            "source_sha256": "7ce81574f0407bc0fc491163771b4ea5f6bb957bdca23b07beb0487bf8b828fd",
+            "unclassified_required_gap_count": 0
+          },
+          "counts": {
+            "metric_success": 376,
+            "total": 400,
+            "valid": 376
+          },
+          "geometry": 0.6535840713446726,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0018597203199999998,
+            "chamfer_distance_score": 0.814027968,
+            "f_score_001": 0.38093863466666666,
+            "f_score_005": 0.793650272,
+            "iou_csg": 0.5729142873900294,
+            "normal_consistency": 0.7063891946666668
+          },
+          "judge": 0.7797916666666667,
+          "qa_micro": 0.7797916666666667,
+          "qa_p": 0.784375,
+          "qa_s": 0.770625,
+          "topology": 0.9397805580444444,
+          "topology_metrics": {
+            "inverted_normal_error": 0.06,
+            "inverted_normal_score": 0.94,
+            "no_open_edge": 0.94,
+            "non_manifold_edge_error": 0.06065832586666667,
+            "non_manifold_edge_score": 0.9393416741333334
+          },
+          "valid": 0.94
+        },
+        "GPT-5.5": {
+          "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/openscad/tables/model_summary.csv",
+            "case_count": 400,
+            "compact_contributions_sha256": "765ad9768a2c3b12e016ca21ec5e6993a5fd3870bbb165cbf4ce2ad7efbd7154",
+            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
+            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/gpt55/results.json",
+            "source_sha256": "35c393e380b01a20eb131c30153f157d9138d38b4cbf6a306467102a34547cf7",
+            "unclassified_required_gap_count": 0
+          },
+          "counts": {
+            "metric_success": 399,
+            "total": 400,
+            "valid": 399
+          },
+          "geometry": 0.7146669338086264,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0011915411620603015,
+            "chamfer_distance_score": 0.8808458837939699,
+            "f_score_001": 0.43014931846733667,
+            "f_score_005": 0.85838083040201,
+            "iou_csg": 0.6371367770833334,
+            "normal_consistency": 0.7668218592964824
+          },
+          "judge": 0.8497916666666666,
+          "qa_micro": 0.8497916666666666,
+          "qa_p": 0.844375,
+          "qa_s": 0.860625,
+          "topology": 0.9974515502386936,
+          "topology_metrics": {
+            "inverted_normal_error": 0.0025,
+            "inverted_normal_score": 0.9975,
+            "no_open_edge": 0.9975,
+            "non_manifold_edge_error": 0.002645349283919598,
+            "non_manifold_edge_score": 0.9973546507160804
+          },
+          "valid": 0.9975
+        },
+        "Gemini 3.1 Pro": {
+          "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/openscad/tables/model_summary.csv",
+            "case_count": 400,
+            "compact_contributions_sha256": "4337056215bd2f8dcc6ef18139d54218207162355566c8ac97bf3df4ddd297af",
+            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
+            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/gemini/results.json",
+            "source_sha256": "696eded0ccb8385ad388058d405bb05ac24289fff7d6772e474f39e31126ee96",
+            "unclassified_required_gap_count": 0
+          },
+          "counts": {
+            "metric_success": 400,
+            "total": 400,
+            "valid": 400
+          },
+          "geometry": 0.711177659939322,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0012116566416040101,
+            "chamfer_distance_score": 0.878834335839599,
+            "f_score_001": 0.4265606516290727,
+            "f_score_005": 0.8565040100250626,
+            "iou_csg": 0.6291850415512465,
+            "normal_consistency": 0.7648042606516292
+          },
+          "judge": 0.8304166666666667,
+          "qa_micro": 0.8304166666666667,
+          "qa_p": 0.8303125,
+          "qa_s": 0.830625,
+          "topology": 0.9998760676691729,
+          "topology_metrics": {
+            "inverted_normal_error": 0.0,
+            "inverted_normal_score": 1.0,
+            "no_open_edge": 1.0,
+            "non_manifold_edge_error": 0.000371796992481203,
+            "non_manifold_edge_score": 0.9996282030075188
+          },
+          "valid": 1.0
+        },
+        "Kimi K2.6": {
+          "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/openscad/tables/model_summary.csv",
+            "case_count": 400,
+            "compact_contributions_sha256": "6a15ee26c95c8d1e3ed3d0c627b2c00c5c8a51618b76616b5838333bd229c049",
+            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
+            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/kimi_k26/results.json",
+            "source_sha256": "b433c7a6f6db8fc8b64fe4ae68379b0ad0abc0da092c3c860f4dc09cad62f52e",
+            "unclassified_required_gap_count": 0
+          },
+          "counts": {
+            "metric_success": 399,
+            "total": 400,
+            "valid": 399
+          },
+          "geometry": 0.6912429459610553,
+          "geometry_metrics": {
+            "chamfer_distance": 0.0013789658982412058,
+            "chamfer_distance_score": 0.8621034101758794,
+            "f_score_001": 0.39978346356783917,
+            "f_score_005": 0.8397977562814072,
+            "iou_csg": 0.60188401875,
+            "normal_consistency": 0.7526460810301507
+          },
+          "judge": 0.8058333333333333,
+          "qa_micro": 0.8058333333333333,
+          "qa_p": 0.808125,
+          "qa_s": 0.80125,
+          "topology": 0.9972906528203517,
+          "topology_metrics": {
+            "inverted_normal_error": 0.0025,
+            "inverted_normal_score": 0.9975,
+            "no_open_edge": 0.9975,
+            "non_manifold_edge_error": 0.0031280415389447237,
+            "non_manifold_edge_score": 0.9968719584610553
+          },
+          "valid": 0.9975
+        },
+        "MiMo v2.5 Pro": {
+          "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/openscad/tables/model_summary.csv",
+            "case_count": 400,
+            "compact_contributions_sha256": "06a5b43950485a2b2395b561a507a976af92337406f50bdb7ca3b2a10e7fba17",
+            "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
+            "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/mimo_v25/results.json",
+            "source_sha256": "3e098457dfc946cc59e1777b28a0aa096776a5edc03b479e6d8f689e422ef038",
+            "unclassified_required_gap_count": 0
+          },
+          "counts": {
+            "metric_success": 397,
+            "total": 400,
+            "valid": 397
+          },
+          "geometry": 0.6332472205455392,
+          "geometry_metrics": {
+            "chamfer_distance": 0.002031154842171717,
+            "chamfer_distance_score": 0.7968845157828283,
+            "f_score_001": 0.3447496369949495,
+            "f_score_005": 0.7819037809343434,
+            "iou_csg": 0.5355028205307262,
+            "normal_consistency": 0.7071953484848484
           },
           "judge": 0.730625,
           "qa_micro": 0.730625,
           "qa_p": 0.7515625,
           "qa_s": 0.68875,
-          "topology": 0.9898891833333333,
+          "topology": 0.992388903493266,
           "topology_metrics": {
-            "inverted_normal_error": 0.01,
-            "inverted_normal_score": 0.99,
-            "no_open_edge": 0.99,
-            "non_manifold_edge_error": 0.010332449999999998,
-            "non_manifold_edge_score": 0.98966755
+            "inverted_normal_error": 0.0075,
+            "inverted_normal_score": 0.9925,
+            "no_open_edge": 0.9925,
+            "non_manifold_edge_error": 0.00783328952020202,
+            "non_manifold_edge_score": 0.992166710479798
           },
           "valid": 0.9925
         },
         "Qwen3.6-Plus": {
           "case_evidence": {
+            "aggregation_source": "results/final/paper_current/text_to_3d/parametric/openscad/tables/model_summary.csv",
             "case_count": 400,
-            "compact_contributions_sha256": "55ba616ec63fe105981c88aaa124060057baefec145fa90955807b6d90535332",
-            "metric_coverage": {
-              "chamfer_distance": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 2,
-                "measured": 397,
-                "unclassified_gap": 0
-              },
-              "f_score_001": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 2,
-                "measured": 397,
-                "unclassified_gap": 0
-              },
-              "f_score_005": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 2,
-                "measured": 397,
-                "unclassified_gap": 0
-              },
-              "iou_csg": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 38,
-                "invalid_fill": 2,
-                "measured": 359,
-                "unclassified_gap": 0
-              },
-              "normal_consistency": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 2,
-                "measured": 397,
-                "unclassified_gap": 0
-              },
-              "pred_inverted_normal_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 2,
-                "measured": 397,
-                "unclassified_gap": 0
-              },
-              "pred_non_manifold_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 2,
-                "measured": 397,
-                "unclassified_gap": 0
-              },
-              "pred_open_edge_ratio": {
-                "evaluator_gap_fill": 1,
-                "inapplicable_fill": 0,
-                "invalid_fill": 2,
-                "measured": 397,
-                "unclassified_gap": 0
-              }
-            },
+            "compact_contributions_sha256": "9bdf4b3610656a3983be44c2e35539882606e80449a325ea10c0988e32f1a775",
             "ordered_uid_sha256": "5f348baf31dbc08888b1cb2c828374414d41f0ad1b5858e32bf27139e4fae936",
             "source_path": "results/raw/evals/text_to_3d/parametric/openscad/local_eval/qwen/results.json",
             "source_sha256": "dc4a422c63810ca740535e047fa25cf6db55e3df74abf3e6c900bfc01c2a1ae8",
             "unclassified_required_gap_count": 0
           },
           "counts": {
-            "metric_success": 397,
+            "metric_success": 398,
             "total": 400,
             "valid": 398
           },
-          "geometry": 0.6495206,
+          "geometry": 0.6620317897714754,
           "geometry_metrics": {
-            "chamfer_distance": 0.0016622400000000002,
-            "chamfer_distance_score": 0.833776,
-            "f_score_001": 0.36917975000000025,
-            "f_score_005": 0.806655749999999,
-            "iou_csg": 0.5124155000000004,
-            "normal_consistency": 0.7255760000000003
+            "chamfer_distance": 0.0016412380856423172,
+            "chamfer_distance_score": 0.8358761914357683,
+            "f_score_001": 0.3701096738035264,
+            "f_score_005": 0.8086876284634761,
+            "iou_csg": 0.5680818077994428,
+            "normal_consistency": 0.7274036473551636
           },
           "judge": 0.7716666666666666,
           "qa_micro": 0.7716666666666666,
           "qa_p": 0.77875,
           "qa_s": 0.7575,
-          "topology": 0.9923228033333333,
+          "topology": 0.9948223569941227,
           "topology_metrics": {
-            "inverted_normal_error": 0.0075,
-            "inverted_normal_score": 0.9925,
-            "no_open_edge": 0.9925,
-            "non_manifold_edge_error": 0.008031589999999998,
-            "non_manifold_edge_score": 0.99196841
+            "inverted_normal_error": 0.005,
+            "inverted_normal_score": 0.995,
+            "no_open_edge": 0.995,
+            "non_manifold_edge_error": 0.005532929017632242,
+            "non_manifold_edge_score": 0.9944670709823678
           },
           "valid": 0.995
         }
@@ -5323,8 +3888,8 @@
           "source_id": "p3d-paper-result-tables-image-assembly-v1:image"
         },
         "text": {
-          "artifact_sha256": "93ff766c7fc4118ba5c7117b8910cd28260163c0c07a7918c9a8ac413d7fcc89",
-          "git_sha": "9beb25c2cb94fae515e800d1416fb2c78cb17333",
+          "artifact_sha256": "bf7e95a242784577a088664016fcdd1700e1bbbe885b7e0c5205b972838a5f38",
+          "git_sha": "079cfb85111a10811750e7d1b6b9a37a4e9c1a14",
           "pinned": true,
           "profile": "paper_current",
           "source_id": "workbench-paper-current-text-v1"
@@ -6346,9 +4911,9 @@
   "provenance": {
     "dataset_revision": "f2032df7f8ec45e8e5c2f0035f6dddc87d051703",
     "evaluator_git_sha": "60641bfc09efd61859aa70593ee44ee0926a0707",
-    "paper_consumer_base_git_sha": "6b76e3c47b0cfd6edfe82ce79187e0e8489f7998",
+    "paper_consumer_base_git_sha": "983b65dee58a6ee0b407aa01df6aa6c9ac122f00",
     "project_page_consumer_base_git_sha": "912b91129579fa03f682dacf41114a805ce417fc",
-    "workbench_git_sha": "9beb25c2cb94fae515e800d1416fb2c78cb17333"
+    "workbench_git_sha": "079cfb85111a10811750e7d1b6b9a37a4e9c1a14"
   },
   "release_id": "p3d-aaai27-paper-current-v1",
   "result_tables": [
@@ -6356,7 +4921,7 @@
       "accent": "var(--blue)",
       "domainRows": [
         {
-          "cells": "0.052 0.945 - - 0.052 0.945 0.309 0.963 0.055 0.965 - - - - 0.309 0.963 0.055 0.965",
+          "cells": "0.055 0.945 - - 0.055 0.945 0.268 0.963 0.057 0.965 - - - - 0.268 0.963 0.057 0.965",
           "model": "Text2CAD"
         }
       ],
@@ -6409,55 +4974,55 @@
       ],
       "rows": [
         {
-          "cells": "0.860! 1.000! 0.949^ 0.995^ 0.905! 0.998^ 0.680! 0.980 0.776! 1.000! 0.701! 0.995 0.850! 0.998^ 0.690! 0.987^ 0.813! 0.999^",
+          "cells": "0.860! 1.000! 0.949^ 0.995^ 0.905! 0.998^ 0.691! 0.997! 0.776! 1.000! 0.715! 0.997 0.850! 0.998^ 0.703! 0.997^ 0.813! 0.999^",
           "family": "openai",
           "model": "GPT-5.5",
           "model_id": "gpt55-reason"
         },
         {
-          "cells": "0.843 1.000! 0.950! 0.998! 0.897^ 0.999! 0.671^ 0.984! 0.726 1.000! 0.697^ 0.997^ 0.830^ 1.000! 0.684^ 0.991! 0.778 1.000!",
+          "cells": "0.843 1.000! 0.950! 0.998! 0.897^ 0.999! 0.685^ 0.997^ 0.726 1.000! 0.711^ 1.000^ 0.830^ 1.000! 0.698^ 0.998! 0.778 1.000!",
           "family": "gemini",
           "model": "Gemini 3.1 Pro",
           "model_id": "gemini-reason"
         },
         {
-          "cells": "0.854^ 0.998^ 0.924 0.993 0.889 0.995 0.666 0.969 0.753^ 0.990 0.689 0.997! 0.823 1.000! 0.678 0.983 0.788^ 0.995",
+          "cells": "0.854^ 0.998^ 0.924 0.993 0.889 0.995 0.681 0.987 0.753^ 0.990 0.702 1.000! 0.823 1.000! 0.691 0.993 0.788^ 0.995",
           "family": "claude",
           "model": "Claude Opus 4.6",
           "model_id": "claude-reason"
         },
         {
-          "cells": "0.749 0.912 0.909 0.985 0.829 0.949 0.651 0.965 0.726 0.978 0.678 0.995 0.806 0.998^ 0.665 0.980 0.766 0.988",
+          "cells": "0.749 0.912 0.909 0.985 0.829 0.949 0.665 0.976 0.726 0.978 0.691 0.997 0.806 0.998^ 0.678 0.987 0.766 0.988",
           "family": "kimi",
           "model": "Kimi K2.6",
           "model_id": "kimi_k26-reason"
         },
         {
-          "cells": "0.804 0.970 0.825 0.912 0.815 0.941 0.662 0.976 0.741 0.993^ 0.641 0.937 0.780 0.940 0.652 0.957 0.761 0.966",
+          "cells": "0.804 0.970 0.825 0.912 0.815 0.941 0.674 0.989 0.741 0.993^ 0.654 0.940 0.780 0.940 0.664 0.964 0.761 0.966",
           "family": "zai",
           "model": "GLM-5.1",
           "model_id": "glm-reason"
         },
         {
-          "cells": "0.706 0.988 0.743 0.960 0.724 0.974 0.613 0.980 0.681 0.990 0.628 0.982 0.739 0.985 0.621 0.981 0.710 0.988",
+          "cells": "0.706 0.988 0.743 0.960 0.724 0.974 0.606 0.989 0.681 0.990 0.640 0.985 0.739 0.985 0.623 0.987 0.710 0.988",
           "family": "doubao",
           "model": "Doubao Seed 2.0 Pro",
           "model_id": "doubao-reason"
         },
         {
-          "cells": "0.746 0.970 0.771 0.927 0.758 0.949 0.628 0.951 0.701 0.960 0.643 0.972 0.775 0.975 0.635 0.962 0.738 0.968",
+          "cells": "0.746 0.970 0.771 0.927 0.758 0.949 0.634 0.957 0.701 0.960 0.655 0.975 0.775 0.975 0.645 0.966 0.738 0.968",
           "family": "deepseek",
           "model": "DeepSeek V4 Pro",
           "model_id": "deepseek_v4pro-reason"
         },
         {
-          "cells": "0.589 0.985 0.811 0.990 0.700 0.988 0.626 0.981^ 0.590 0.993^ 0.650 0.992 0.772 0.995 0.638 0.987 0.681 0.994",
+          "cells": "0.589 0.985 0.811 0.990 0.700 0.988 0.635 0.990 0.590 0.993^ 0.662 0.995 0.772 0.995 0.649 0.992 0.681 0.994",
           "family": "qwen",
           "model": "Qwen3.6-Plus",
           "model_id": "qwen-reason"
         },
         {
-          "cells": "0.673 0.993 0.746 0.978 0.709 0.985 0.615 0.962 0.645 0.980 0.621 0.990 0.731 0.993 0.618 0.976 0.688 0.986",
+          "cells": "0.673 0.993 0.746 0.978 0.709 0.985 0.625 0.975 0.645 0.980 0.633 0.992 0.731 0.993 0.629 0.984 0.688 0.986",
           "family": "mimo",
           "model": "MiMo v2.5 Pro",
           "model_id": "mimo_v25-reason"
@@ -6667,7 +5232,7 @@
   "schema_version": 1,
   "source_commit_roles": {
     "paper": {
-      "input_base_git_sha": "6b76e3c47b0cfd6edfe82ce79187e0e8489f7998",
+      "input_base_git_sha": "983b65dee58a6ee0b407aa01df6aa6c9ac122f00",
       "release_validation": "current_head_equal_or_descendant",
       "roles": [
         "consumer_base"
@@ -6682,8 +5247,8 @@
       ]
     },
     "workbench": {
-      "canonical_source_manifest_sha256": "a46759a3bd9ad5a270f1f38c89988b1eea344fefde0c0d75fd71a5cbde0be852",
-      "input_base_git_sha": "9beb25c2cb94fae515e800d1416fb2c78cb17333",
+      "canonical_source_manifest_sha256": "953a38ae6116756d4842084732294221eb9c9711e0270276dac17c3e90dc6b83",
+      "input_base_git_sha": "079cfb85111a10811750e7d1b6b9a37a4e9c1a14",
       "release_validation": "current_head_equal_or_descendant_and_source_hashes_match",
       "roles": [
         "canonical_source",
@@ -6697,14 +5262,14 @@
     "p3d_bench_dataset": "f2032df7f8ec45e8e5c2f0035f6dddc87d051703",
     "p3d_bench_fresh": "f2faf9258c0dd2022b939a380169c7bd8136dd70",
     "paper": {
-      "input_base_git_sha": "6b76e3c47b0cfd6edfe82ce79187e0e8489f7998",
+      "input_base_git_sha": "983b65dee58a6ee0b407aa01df6aa6c9ac122f00",
       "role": "consumer_base"
     },
     "project_page": {
       "input_base_git_sha": "912b91129579fa03f682dacf41114a805ce417fc",
       "role": "consumer_base"
     },
-    "workbench": "9beb25c2cb94fae515e800d1416fb2c78cb17333"
+    "workbench": "079cfb85111a10811750e7d1b6b9a37a4e9c1a14"
   },
   "source_files": [
     {
@@ -6713,14 +5278,14 @@
       "sha256": "73c73a92d50ca5d75b36eda933a7251543d15954ae0253c33a14659dc67a65af"
     },
     {
-      "bytes": 98778,
+      "bytes": 66002,
       "path": "text_to_3d/shared/metrics/final_penalized_metrics.json",
-      "sha256": "b9bd67dfdec9e28ea2a3485344fd7d50fe0f6d03db8659086bde110e9f42a229"
+      "sha256": "96d5161ecdc5dca9bcd997ac58acfa55fbc4317d9fda6fb90c66598e49e9c9a9"
     },
     {
-      "bytes": 98778,
+      "bytes": 66002,
       "path": "paper_assets/charts/final_penalized_metrics.json",
-      "sha256": "b9bd67dfdec9e28ea2a3485344fd7d50fe0f6d03db8659086bde110e9f42a229"
+      "sha256": "96d5161ecdc5dca9bcd997ac58acfa55fbc4317d9fda6fb90c66598e49e9c9a9"
     },
     {
       "bytes": 951,
@@ -6753,9 +5318,9 @@
       "sha256": "9b1738505aac89e5de65e699460f81d9b31157d5da860abf5787e97d0f8da399"
     },
     {
-      "bytes": 4052,
+      "bytes": 4041,
       "path": "baselines/third_party_native/model_summary.csv",
-      "sha256": "666fc1c43f907470559ec8c083e03d77caace2f3eff3216b044bd3df87892404"
+      "sha256": "7f1a2ac59dc77ea4bbbbfd8f69bfa16ce4976235310f99a25a178b78257c1bc5"
     }
   ],
   "source_model_ids": {
